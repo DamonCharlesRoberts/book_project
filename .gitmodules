@@ -1,9 +1,0 @@
-[submodule "chapter2"]
-	path = chapter2
-	url = https://github.com/DamonCharlesRoberts/color_as_political_information
-[submodule "chapter_2"]
-	path = chapter_2
-	url = https://github.com/DamonCharlesRoberts/color_as_political_information
-[submodule "chapter_3"]
-	path = chapter_3
-	url = https://github.com/DamonCharlesRoberts/visual_information_and_political_participation
