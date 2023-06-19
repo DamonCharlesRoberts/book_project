@@ -1,0 +1,522 @@
+---
+title: |
+  How does visual information influence social interactions?
+code-repo: |
+  For replication, go to: <https://github.com/DamonCharlesRoberts/visual_information_and_political_participation>.
+author:
+  - name: Damon C. Roberts
+    email: damon.roberts-1@colorado.edu
+    orcid: 0000-0002-4360-3675
+    title: PhD Candidate
+    affiliations:
+      - id: CU
+        name: University of Colorado Boulder
+        department: Political Science
+        address: 333 UCB
+        city: Boulder
+        region: CO 
+        postal-code: 80309-0333
+abstract: |
+  If colors have associations with partisan groups, do they shape our willingness to converse with others? This chapter argues that colors are not only relevant to politics and act as a reliable heuristic for people to determine the partisanship of another person, but it additionally makes the argument that this has downstream consequences for our attitudes and behaviors. The existing literature on political deliberation is currently grappling with the capacity of conversations to persuade others about politics. There is mixed evidence suggesting that it can get people to change their minds under the right conditions.  However, these "right" conditions are often challenging to develop organically. This chapter presents a theory that I refer to as the snap-judgment model of political visual information processing that explains one potential source of this limitation. Here, I present a pre-registered report that elaborates on this literature, how the theory helps with this puzzle, and presents two research designs test my claims. I conclude the pre-registered report with a simulation exploring the sensitivity of conclusions I can draw from such a research design and resulting modeling strategies.
+
+bibliography: "../../../assets/references.bib"
+format:
+  hikmah-pdf:
+    # Spit out in drafts directory
+    latex-output-dir: "../../out/prr"
+    # Use biblatex-chicago
+    biblatex-chicago: true
+    biblio-style: authordate
+    biblatexoptions: 
+      - backend=biber
+      - autolang=hyphen
+      - isbn=false
+      - uniquename=false
+    geometry:
+      - top=1in
+      - bottom=1in
+      - left=1in
+      - right=1in
+      - heightrounded
+    linestretch: 2
+    fontsize: 12pt
+nocite: |
+  @quarto
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: false
+params:
+  replicate: false
+---
+{{< pagebreak >}}
+
+# Introduction
+
+The project argues that colors are essential to politics. It argues that, as a pre-conscious form of information, they have downstream consequences on our attitude, expression, and behavior. This chapter addresses the question, "Well do they influence our attitude expression, and do they influence our behavior?" Demonstrating that people recognize color in politics is not sufficient to say that they matter in politics.
+
+There is an expansive landscape that captures both formal and informal forms of political behaviors and a vast net to cast when trying to capture attitudes. To not turn this chapter into an impossibly long read, I will focus on what attitudes and behaviors I explore.
+
+Conversations about politics are an essential part of participatory democracy [@huckfeldt_2007_ohpb]. They encourage many different forms of more formal political engagement [@verba_et-al_1995_hup;@klofstad_2007_prq;@eveland_hively_2009_joc;@matthes_et-al_2019_pc], and are a helpful resource that people can tap into for information about candidates and current events [@mcclurg_2003_prq;@eveland_hively_2009_joc], is argued to be capable of buffering animosity towards those in "the other party" [@levendusky_stecula_2021_cup], and even a source of persuasion [@beck_et-al_2002;@sokhey_stapleton_2020_ohep].
+
+Though having conversations are important for the Aristotlean conception of a democratic citizen, some evidence suggests that we are relatively reluctant to have conversations where there is disagreement [@mutz_2006_cup;@carlson_settle_2022_cup]. Though we often experience emotions associated with discomfort when about to talk politics, there is significant support for the idea that these conversations are still helpful as a source of information [see @shapiro_et-al_2020_oh] and as a source of meaningful persuasion [@levendusky_stecula_2021_cup;see @sokhey_stapleton_2020_ohep].
+
+As others have demonstrated that there are more considerations than just partisan congruency deterimining whether you engage in a conversation before it starts [@wolak_sokhey_2022_apr], color can be one example. Fitting with my larger argument, color activates particular pathways in one's cognitive schema, which activate positive or negative feelings (a valanced affective state), which can drive behavior and result in information processing for attitude expression and encoding. Specifically, I explore whether the color of someone's clothes can affect the propensity by which someone is willing to have a conversation with them and whether these evaluations can be changed.
+
+This argument has several implications for the current ways we think about politics. First, we should consider how *all* forms of information influence attitude expression and the motivations guiding politically-relevant behaviors. Second, as I hope it will become apparent, my argument in this chapter provides an example of how conversations about politics can persuade people and how they are limited in doing so.
+
+Before I elaborate on how this process occurs and on my expectations, I first want to elaborate on some fundamentals of the social neuroscience and social psychology literature that I am borrowing concepts from to build my model and, therefore, the expectations I derive from it.
+
+# The cognitive architecture of attitudes
+
+Neuroscientists and psychologists often conceptualize attitudes as an evaluation some external object [@fazio_2007_sc]. While this is a much more broad conceptualization than the one we often have when we think of political attitudes [see @zaller_1992_cup;@zaller_feldman_1992_ajps], at their core attitudes about politics are much the same -- they are some positive or negative reaction to taxes; to let a woman choose what is best for her physical health, to make it harder for someone to buy a gun. Conceptualizing attitudes as an object-evaluation simplifies, but, more important, it aids in helping us get a sense of how they work.
+
+The first foundation I rely upon is that our brain operates through a vast and complex network of connected bits of information. Despite popular scientific interpretations of it, the brain is not a compartmentalized file system of memories [@ralph_anderson_2018_pup] -- what I will use as a short-hand to refer to pre-existing information that we have stored in our brain and access to evaluate new information. Instead, our brain is a series of interconnected information. Some connections are stronger than others. Several things determine the strength of these connections [@kahana_et-al_2022_ohhum]; however, we encode sensory information with strong ties to affective responses [see @winkielman_et-al_2011_ohsn].
+
+The second foundation I rely upon is making a conceptual distinction between emotion and affect to explain the connection between them and attitudes. Emotion is an incredibly complex concept and has been a critical debate in the affective neuroscience literature since the $18^th$ century, with Hume, Smith, and later taken up by Darwin. Modern conceptualizations of emotion by affective neuroscientists see it as a set of distinct and conscious classifications meant to describe one's appraisal of their reaction to some object. On the other hand, experts in this field conceptualize affect as a more simplistic, but pre-conscious, valanced appraisal of an object. That is, experts in this field conceptualize affect as you feeling positive or negative toward something. This appraisal happens quickly and is often considered unconscious [@sander_2013_chhan;@ralph_anderson_2018_pup]. When exposed to new information, we often have a physiological reaction and a valanced appraisal of it [@dror_2017_er]. This is where attitudes and affective responses to information collide. To evaluate some new information to form an attitude about it, we often rely on valanced appraisals of it [@fazio_2007_sc]. As a result, this information is central to our encoding of this information when forming a memory [@cunningham_et-al_2012_ohsn].
+
+The third foundation I rely upon is that we can rely on sensory receptors to collect information and to use it to form an attitude toward an object while also using that information when encoding it. Visual information, in particular, is a decisive biological advantage for survival. For example, pokeberries look a lot like grapes. However, they grow on a red stem instead of a green one. If we eat too many pokeberries, it can cause significant digestive problems for us. Being able to rely on vision and remember that visual information is quite valuable. Not only does vision aid in helping us remember what visual characteristics of some plant made us sick and which one did not, but we also store visual information from social interactions. Visual forms of information are among the fastest to be processed [see @ames_et-al_2012_ohsn].
+
+The fourth foundation, which is related to the third: information about social hierarchies, is part of our cognitive schemas. As social psychologists have spent more than the past five decades laying out a case for the importance of social groups on how we see our world [see @tajfel_turner_1979_ejsp], social neuroscientists have also been opening up the drywall to explore how we keep that information straight in our heads. Another central characteristic of the strength characterizing a connection in our head is how it fits with relevant social groups [@zink_barter_2012_ohsn]. This explains how social groups lend themselves to such *strong* affective responses to threats [@zahn_et-al_2011_ohsn;@huddy_2001_pp].
+
+To tie things together, the fifth foundation is to conceptualize these connections as multi-dimensional. An encoded memory depends on more than just the valanced, sensory, and social group information connected to it. These components can extend beyond a memory to connect memories of positive things, red objects, and Liverpool F.C. fans. The relevance by which a particular memory matters to evaluate an object depends on more than just these similarities but on factors like the recency by which we engage with the information [@kahana_et-al_2022_ohhum;@zaller_feldman_1992_ajps]. 
+
+These five foundations are glossing over complex debates in various subfields of neuroscience and psychology. However, they are helpful starting points for political scientists to borrow from to engage in interdisciplinary conceptualizations of related and common theories we use in political psychology and behavior. These five foundations paint a brain that acts as an interconnected structure. This structure relies on different pieces, each with its purpose. Each piece of information, however, connects a memory to other memories. Relying upon these structures allows us to access existing information and evaluate new information quickly. We can take relevant features of our existing memories and use those to construct a valanced reaction to the information coming in. Though this complicates our ability to construct a genealogy of an attitude's associated memories [@kahana_et-al_2022_ohhum], it enables us to have a coherent imagining of how the brain functions and its tendencies.
+
+# The cognitive architecture and color in politics
+
+You are out and about running errands on a Sunday morning. While doing so, you see someone wearing a red hat. They are approaching us. Now, all you have seen so far is that they have a red hat and look like they want to start a conversation with you. There are a couple of things that are occurring inside of our heads based on our cognitive architecture. The first is that the hat is red. Nevertheless, you have seen *lots* of red things. You need to narrow this down. 
+
+You know that a political event is happening down the street later today, and you know that it involves the Republican party. Suddenly, you know pretty quickly that this person is a Republican. You have one of two feelings: "cool" or "shoot" (perhaps with more colorful language). How did you make this leap?
+
+You captured some visual information, identified it, and went through your index of red things. However, knowing that it could very well be related to politics, you went through your index of red things in politics. You connected that the Republican party uses a lot of the color red, particularly more recently [see @elving_2014_npr]. You have strong affective reactions to the Republican party. Not because the Republican party is an organism that is a predator of humans, but because you know that you are either opposed to them as a group of people or you like them because you are also Republican. This is how many political scientists conceptualize our valanced responses to the political parties [@iyengar_westwood_2015_ajps;@mason_2018_cup].
+
+Now say that instead of a political rally down the street, it was a basketball game, and the Miami Heat are playing. Instead of assuming they were a Republican, you may assume they are a Miami Heat fan. Instead of thinking, "They are a Republican; I want to talk to them because I like Republicans," you may now think, "They are a Miami Heat fan; I want to talk to them because I like the Miami Heat!"
+
+This process communicates some important features of how color may be relevant in shaping one's tendency to engage in a conversation about politics. The first is that the saliency of that color in politics and whether politics is relevant in the first place is an important feature. Second, it argues that we can connect information as simple as color, connect it to a social group and then have our feelings toward that social group come to the forefront of our thought process. Beyond politics, evidence suggests that color can be a strong visual cue to identify social group membership [@pietraszewski_et-al_2015_c]. In politics, the colors red and blue have been used consistently since the 2000 election on electoral maps [@elving_2014_npr], and as previous work has demonstrated, including the previous chapter, the connection between Republicans with the color red and Democrats with the color blue. Specifically red with the republican party and blue with the Democratic party [see @williams_et-al_2022_jomp].
+
+Once you have had this reaction, you are motivated to avoid or participate in this conversation. This is because we tend to avoid things we evaluate as unfavorable or to approach them [@valentino_et-al_2011_jop]. Many take evidence of intense affective polarization among the public on the grounds of partisanship as an intractable societal issue due to these features. When we fall into this track of negative or positive thinking and are now motivated to engage with new information in a particular way, depending on whether we are motivated to engage or disengage with the information, many reasonably assume that we cannot learn anything new. We either support our pre-existing beliefs, or shut down and limit exposure to countervailing information [@taber_lodge_2006_ajps]. Partisanship is a social group [@mason_2018_cup] that motivates this behavior for many people [@lodge_taber_2013_cup]. While some hope that other social groups may provide cross-cutting forces to reduce these impacts, some evidence suggests that partisan identification has become the central politically-relevant social group that guides the rest of them [@mason_2018_cup].
+
+In the context of conversing about politics, many have taken these features as a condemnation of conversations about politics. As we seek to avoid disagreeable conversations, particularly with those we are close to [@mutz_2006_cup], evidence of increasing homogeneity in our networks, in terms of partisan identification [@butters_hare_2022_pb], may make it easy to assume that we are always going to avoid conversations with those we disagree with and that we do not change our minds on that.
+
+There are some reasons why we may push back on such a pessimistic perspective, however. From the cognitive architecture standpoint, these tracks are not bowling alleys where you can only go down one way and cannot change course. Classic theories on motivated reasoning suggest that we are biased to seek information that fits with our prior beliefs but also seek out accuracy motivations [@kunda_1990_pb]. Evidence in political science suggests that exposure to a lot of new information that runs counter to our preferred pre-existing beliefs can persuade us [@redlawsk_et-al_2010_pp]. We can also persuade people under the right emotional conditions [@albertson_et-al_2020_ohep]. However, a handful of studies may mean something other than this is occurring. So, a recent Herculean effort to perform a meta-analysis on existing experiments on persuasion and attitude change in political science demonstrates that persuasion is possible and that these effects are not some coincidence; in fact, they seem to be about the same strength across several contexts [@coppock_2022_ucp]. One such context is motivating people to collect accurate information [@bayes_et-al_2020_pp]. Coincidentally, conversations about politics are often motivated by a desire to collect information [@beck_et-al_2002;@huckfeldt_2007_ohpb; see also @gastil_et-al_2002_jop;@shapiro_et-al_2020_oh]. 
+
+Further evidence suggests that the deleterious effects on democratic behavior of political conversation often occur in the context where someone is in the political minority beyond just that conversation as well [@mcclurg_2006_pb]. While we are not particularly motivated to seek out conversations with those we disagree with, it does not necessarily mean that it leads to this motivated backlash where political conversations only act as echo-chambers. This seems especially true given that we can only sometimes pick when and where we have conversations about politics.
+
+So where does this leave us? Coming to some conclusion about someone based on the color their clothing does not necessarily mean that we are not willing to have a conversation with them if new information comes about. It also does not mean that the content of the conversation cannot impact us. As many scholars who push back against the claims that persuasion can occur readily admit, there are limitations to new information's effects. I am no different in that regard. From the perspective of the fundamentals of cognitive architecture, new information can put us on branching paths in the network, but it does not necessarily reverse course. The memories we accessed initially are a select set of memories and have limited connections. We are not forgetting all that information and starting from a naive position. We are accessing memories that are associated with those memories we initially accessed. This means we can adjust our evaluation of the object but do not necessarily forget where we have been. From the perspective of existing in political science, which aligns with my more interdisciplinary perspective, we still have strong motivations to protect our pre-existing beliefs and do not necessarily "weigh" or equally consider this new information relative to each other [@zaller_1992_cup]. The benefits of this new information often have a timestamp on it. The persuasive benefits of this new information are not necessarily gone after a predetermined amount of time, but it has diminishing returns. A meta-analysis reveals that after about ten days, the positive effects of new information on persuasion are about one-third the size it was initially [@coppock_2022_ucp]. This fits with evidence suggesting that evaluations often rely upon relatively recently encoded attitudes [@kahana_et-al_2022_ohhum].^[See also @zaller_1992_cup for the political science perspective.] If the new information fits with pre-existing beliefs, we continue down the same path. It perhaps gets even more robust because we now have more information to tap into that fits with our prior beliefs. @fig-theory provides a visual representation of this process.
+
+{{< include ../../../assets/_theory.qmd >}}
+
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Hypotheses   | Expectation                                                                                                                                                                                                                                                               |
++==============+:=========================================================================================================================================================================================================================================================================:+
+| $H_1$        | People notice the color of clothing a potential conversation partner is wearing.                                                                                                                                                                                          |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $H_2$        | When primed to think about politics, people are less likely to want to have a conversation with someone wearing a blue shirt if they are a Republican and a red shirt if they are a Democrat.                                                                             |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $H_3$        | When learning more information about someone that fits with our initial impression, our motivation of engagement or disengagement is stronger than if the information were incongruent with our initial impressions.                                                      |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $H_4$        | When learning more information about someone that does not fit with our initial impression, the new information can shift our motivations to have the conversation or to disengage. However, this difference is smaller than if both forms of information were congruent. |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: Summary of hypotheses {#tbl-hypotheses}
+
+<!--
+  NOTE: ADD SOMETHING ABOUT ASYMMETRIC POLARIZATION
+-->
+
+# Study 1 {#sec-study-1}
+
+## Study design
+
+[Study 1](#study-1) seeks to address $H_1$ and $H_2$. In [Study 1](#study-1), I recruit participants from ***[YouGov/Qualtrics/Whatever online panels are in vogue that week]***. First, I ask participants several questions about their demographic background (i.e., age, gender identity, education, and income). I additionally present them with a battery to measure conflict avoidance as potential confounds. 
+
+After getting some background information on my participants, I randomly split the sample into two conditions. The first condition is a "political prime" condition, and the second is a "no political prime" condition. For the participants in the political prime condition, I ask them several questions about their political attitudes. This includes questions about their partisan identification and their attention to politics. While I do not make a significant effort to prime politics, I design these questions to make politics salient for them. Those assigned to the second condition, no political prime, participants are asked these questions after the primary treatment, but not before. I designed this to test the scope conditions of the relevance of clothing color in conversation when politics is not salient. The additional benefit is that it counterbalances the party identification variable, so I am not systematically introducing priming and post-treatment bias.
+
+In the primary treatment of the study, I randomly assign participants to one of two conditions. In both conditions, participants are instructed, "You will have a conversation with this person." In these instructions, I do not state this is will be a "political conversation" or a "conversation about politics." I see these instructions as substantively different from the latter phrasings prime politics. The goal is that the priming (or no priming) done before this treatment will be what is making politics salient or not.
+
+Below those instructions, I show participants an image of a person with either a blue or a red shirt. The first hypothesis would suggest that there should be differences in how willing someone would be to have a conversation between the priming conditions. For those not primed with politics beforehand, we should expect that the color of the shirt should not matter and for there to not be any substantively different levels of willingness to have that conversation between the red shirt, blue shirt conditions; the color of the shirt is not particularly relevant information.
+
+The second hypothesis would suggest that those given the political prime would be more willing to have a conversation with someone who is wearing the color affiliated with their partisanship (e.g., Democrats are more willing to have conversations with a discussion partner with a blue shirt than a red shirt) and less so with those who is not. Those in the non-political priming conditions, we should expect that there would be no real substantive difference between conditions as politics is not salient, and the color of the shirt should have no significant meaning to them.
+
+## Modeling strategy
+
+To address $H_1$, the outcome variable of interest is whether or not people notice the color of the shirt (0 or 1,) as explained by whether they received the political prime or not (0 or 1). I will fit a logistic regression to examine whether there are differences in the outcome depending on this prime.
+
+To address $H_2$, the outcome variable of interest is a five-item Likert response to the statement, "I am willing to have a conversation with this person." Therefore, I elect to use an ordered logistic regression as my estimator. In terms of the particular model, there are some considerations I need to make.
+
+In the context of my experiment, I hypothesize that the participants' responses are primarily explained by whether that person is wearing a red or blue shirt. This effect, however, is likely moderated by a couple of things. First, if $H_1$ holds, the polarity in outcome responses will be partly explained by whether politics is at the top of the mind. Second, I expect that the strength of the relationship of the shirt color and the priming will depend on the party identification of the study participant. More specifically, if they are Republican, I would expect that those with the political prime who see a red shirt will be much more favorable of conversing with the fictional discussion partner than those without the political prime and those who saw a fictional discussion partner with a blue shirt. I expect the opposite for self-identifying Democrats -- Democrats who receive the political prime will report being more willing to have a conversation with the discussion partner when the partner is wearing a blue shirt relative to Democrats who did not receive a prime *and* Democrats who saw a discussion partner with a red shirt.
+
+The setup for the study is a 2x2x2 factorial design. Often the standard practice is to use a triple interaction. I believe that is reasonable enough. The triple interaction would allow me to test whether the partisan identification of the participant moderates the relationship between the shirt color and the prime. However, the interaction term would test whether Democrats and Republicans differ in how they respond to these conditions instead of testing what those differences are. What seems more appropriate to me is a test of whether Republicans primed with politics are more willing to talk to people wearing red shirts relative to those who do not recieve the political prime and those wearing blue shirts; as a second question to look at whether Democrats who receive the political prime are more willing to talk to people wearing Blue shirts more than those who do not receive the political prime and those wearing red shirts. I am not claiming whether strength of these relationships operates differently among Republicans and Democrats but rather that it is two separate questions. Therefore, I also consider a split sample approach whereby I split my sample into Democrats and Republicans and run a regression on each sub-sample. For each of these regressions, I include an interaction term to study the moderating effect of the prime on the effect that shirt color has on willingness to talk to them. Since party identification is not randomly assigned, I include potential confounders impact people's propensity to discuss politics and their party identification (i.e., age, gender, education, income, and conflict avoidance). 
+
+In the [Simulation section](#simulation) below, I provide further details discussing some practical considerations I must weigh in my decisions. In particular, both model choices to examine $H_2$ are rather complicated models. As my models will rely on the Bayesian implementation of regression, the inferences I can draw are dependent on the data from the sample, much more so as it does not rely on assumptions about long-run tendencies. Therefore, I want to examine my models' ability to converge on the correct answer given various sample sizes. In that section, I provide more details about the model, sample sizes, and prior distribution specifications.
+
+# Study 2
+
+## Study design
+
+The setup for [Study 2](#study-2) is largely the same. Like in [Study 1](#study-1), I ask participants several questions about their demographic background and ask them about conflict avoidance. As well as [Study 1](#study-1), I initially split the sample randomly into two conditions: a political prime and a no political prime condition. The purpose of doing this is not necessarily to prime politics anymore. However, it is done more so for counterbalancing so that I am not systematically introducing post-treatment bias, nor am I strengthening the effects of the treatment through systematically priming politics. Like in [Study 1](#study-1), I instruct participants that they will be having a conversation with someone and will show them someone wearing either a red or a blue t-shirt.
+
+[Study 2](#study-2) is different in that I now include that person's policy preferences below the image. Below the image is a "profile" for this person that describes their political positions by listing their party identification, whether they support universal basic income, abortion, and gun control. What varies in the four conditions is, first, whether the person is wearing a blue or a red shirt. The second dimension the conditions vary on is whether that profile of political attitudes matches the presumed partisanship affiliated with their shirt color. For example, a participant seeing a discussion partner with a red t-shirt that identifies as a Democrat, is supportive of universal basic income (UBI), is pro-choice and is supportive of gun control would be considered an incongruent condition as opposed to the same discussion partner with the red t-shirt that identifies as a Republican that is not supportive of UBI, is pro-life, and is not supportive of gun control.
+
+I chose these particular policies for a number of reasons. The first reason being that these policies are hot-button issues. While some skeptics of my research design may be concerned with me activating strong valenced responses, I argue that these choices increase the external validity of my study in that it is realistic that most people have *some* opinion (support or do not support) on these issues. These are the things the Jane Q. Public may bring up in a conversation as opposed to something like local zoning laws. In addition to external validity, I argue that these are the sorts of policies my participants would have some opinion on. As these are polarized issues, these are the sorts of policy issues people are concerned about discussing with others. They are less concerned about talking politics when discussing something like a local zoning law that limits the number of unrelated people that can not live with each other (save for perhaps Boulder, Colorado).
+
+After seeing this profile, I ask participants whether they are willing to have a conversation with this person. I still should expect $H_2$ to hold in that Democrats will be more willing to talk with those wearing blue shirts, and Republicans will be more willing to talk to those in red shirts. However, I should expect that the degree to which this occurs will be limited based on whether their stated partisan identification and policy preferences are congruent. I suspect those that have political attitudes that are incongruent with the respondents' will receive less support than those that have congruent policy attitudes. However, I suspect that those wearing shirts that are incongruent but with congruent policy preferences will be less popular as a potential discussion partner than one with both a congruent shirt and policy preferences. The snap-judgment model suggests that we are capable of overwriting our initial impressions. However, we are limited in our ability to do so.
+
+## Modeling strategy
+
+The design of this study is a 2x2 factorial design, as opposed to a 2x2x2 like [Study 1](#study-1). $H_3$ and $H_4$ are questions on different sides of the same coin. For [Study 2](#study-2), I seek to answer whether color does modifies people's perceptions of another person's politics by the color of their shirt. The study design makes the stated policy positions consistent and evident as to their stances. What varies in the design, and where I get my leverage to answer this question, is by varying both the shirt color and the congruency by which that shirt color, and assumed partisanship from it, fits with the stated policy positions of the fictional discussion partner.
+
+As the outcome of interest is still the five-item Likert response to their willingness to engage in the conversation, I intend to fit two ordered logistic regressions. In terms of the model, I intend to include an interactive term. I seek to see whether the effect of shirt color on willingness to talk to someone is conditional on whether the color on that shirt is congruent with the familiar blue association with Democrats and red association with Republicans. Like my modeling strategy in [Study 1]{#study-1}, I am not necessarily interested in drawing inferences about the difference in the slopes between Democrats and Republicans on this conditional effect. Rather, I just want to identify what those slopes are for Republicans and Democrats. As I did with [Study 1](#study-1), I am still curious about what insights we may glean from a model that addresses that question, but it is not a primary motivation of this chapter. Therefore, I intend to relegate such a model to the chapter's appendix.
+
+# Simulation {#sec-simulation}
+
+The stated models above have theoretical motivations. Unfortunately for the social scientist, our theoretical motivations do not necessarily mean that our inferential ones also follow. The purpose of these simulations is not to convince myself or the reader that my stated modeling strategy is appropriate and "good" in some objective sense. Rather, its purpose is to give me a sense of the sensitivity of my ability to draw correct conclusions despite the reasonable amounts of uncertainty that quantitative work generates.
+
+I intend to fit these models through the Bayesian regression framework. There are a number of benefits to Bayesian approaches to regression and hypothesis testing that scholars have debated for centuries. I am not going to hash out those debates here. However, from the perspective of pre-registering my expectations of a model, a Bayesian approach to regression seems particularly appropriate. The primary reason for this is that the Bayesian approach to regression requires that you report your prior beliefs about the explanatory effect of your predictor variables on an outcome. You incorporate these prior beliefs into your model as a distribution that indicates what you think is the most likely size of the effect and the probability of other less-likely effect sizes. This allows you to reflect uncertainty about the size of the effect but still makes explicit what you believe. You multiply your prior distribution with your likelihood distribution constructed with the data. This approach enables me to report my beliefs and my associated uncertainty about those effect sizes. They do not dictate the model, however. The more data you have, the less weight your prior beliefs have -- even ones that indicate you have little uncertainty about your beliefs. As the size of the data removes the "subjectivity" that many believe to be a problem introduced in Bayesian approaches to regression, one particularly important part of this pre-registered report is to demonstrate the sensitivity of my ability to draw inferences based on the size of my sample Additionally, some of my stated models are more complex than others. Therefore, the amount of information my model needs to be sure that my hypotheses are correct increases.
+
+I first start by using the `fabricatr` package [@fabricatr] to simulate population data for both studies. I generate these simulated data from data generating processes that I define.^[I include the particulars of these data generating processes in the supplementary materials. I do not include them here because the primary goal of this exercise is to see whether or not I can draw correct inferences about reasonably similar data generating processes rather than on me defining these data generating processes as correct themselves.] I randomly draw from this population dataset at four different sample sizes: 200, 400, 600, and 800. For each of these sample sizes, I draw 100 samples. I do not perform these simulations for [Study 2](#study-2) as the design is largely the same, as well as the modeling strategies.
+
+```{r}
+#| label: setup
+#setwd("./src/prr")
+# modularly load packages
+box::use(
+  ./R/sample[
+    study_simulator
+  ]
+  , ./R/model[
+    fit_sims
+  ]
+  , ./R/plot[...]
+  , data.table[...]
+  , parallel[...]
+  , brms[
+    make_stancode
+    , brmsformula
+    , set_prior
+    , bernoulli
+    , cumulative
+  ]
+  , rstan[
+    stan_model
+  ]
+)
+# Set up cores
+cores <- detectCores() - 1
+# List sample size
+list_sample_size <- c(200, 400, 600, 800)
+# Number of samples
+int_n_samples <- 1000
+```
+
+```{r}
+#| label: simulate
+if (params$replicate == TRUE) {
+  # sample the data at different sample sizes
+  list_simulated <- mclapply(
+    list_sample_size
+    , function(x) {
+      df_sample <- study_simulator(
+        study = 1
+        , n = x
+        , n_samples = int_n_samples
+        , seed = 121022
+      )
+      # Return df_sample
+      return(df_sample)
+    }
+    , mc.cores = cores
+  )
+  # store in a rdata file
+  save(
+    list_simulated
+    , file = "../../data/temp/prr/simulated_samples.RData"
+  )
+} else {
+  load(
+    file = "../../data/temp/prr/simulated_samples.RData"
+  )
+}
+```
+
+On each of these samples, I fit the stated models using the `rstan` package [@rstan]. For all models, I define my prior distribution as a normal distribution with a mean of 0 and a standard deviation of 1. While this is not truly my prior beliefs of the effect sizes, I am using the prior distribution as an informed prior that states that I largely believe the effects to be zero, or at least to be very small. This acts as a quite conservative test of my models' ability to lead me to the correct inferences. Once fitted, I find the minimum and maximum value on the posterior distribution for each of my coefficients and identify whether that posterior distribution overlaps with zero. My hypotheses are directional in that I not only believe that the effect of my predictor terms should not be zero, but I also believe that these effects are either positive or negative. 
+
+I calculate a true positive rate by first ensuring that the minimum and maximum values of my posterior distribution for each $\hat{\beta_i}$ coefficient do not overlap with zero. If I would come to the wrong conclusion about my hypothesis by examining my posterior distribution, I record a value of 0; if it is correct, I code it as a 1. I then average over the 100 samples for each sample size. This gives me a true positive rate for each sample size for each $\hat{\beta_i}$ coefficient. 
+
+```{r}
+#| label: make-stan-code
+if (params$replicate == TRUE) {
+  df_example <- list_simulated[[1]][
+    sample == 1,
+  ]
+  df_example_split_rep <- df_example[
+    party_id == "Strong Republican" | party_id == "Republican" | party_id == "Lean Republican"
+  ]
+  df_example_split_dem <- df_example[
+    party_id == "Strong Democrat" | party_id == "Democrat" | party_id == "Lean Democrat"
+  ]
+  # Model 1: Predict whether they notice
+  formula_study_1_model_1 <- brmsformula(
+    notice ~ prime
+  )
+  prior_study_1_model_1 <- set_prior(
+    "normal(0,1)"
+    , class = "b"
+  )
+  stancode_study_1_model_1 <- make_stancode(
+    formula = formula_study_1_model_1
+    , data = df_example
+    , family = bernoulli(link = "logit")
+    , prior = prior_study_1_model_1
+    , save_model = "./STAN/study_1_model_1.stan"
+  )
+
+  # Model 2: Predict willingness
+    #* Full interaction
+  formula_study_1_model_2 <- brmsformula(
+    willing ~ blue_shirt + prime + party_id + blue_shirt * prime * party_id + gender + education + income + conflict + attention
+  )
+  prior_study_1_model_2 <- set_prior(
+    "normal(0,1)"
+    , class = "b"
+  )
+  stancode_study_1_model_2 <- make_stancode(
+    formula = formula_study_1_model_2
+    , data = df_example
+    , family = cumulative(link = "logit")
+    , prior = prior_study_1_model_2
+    , save_model = "./STAN/study_1_model_2.stan"
+  )
+    #* Split sample
+  formula_study_1_model_2_alt <- brmsformula(
+    willing ~ blue_shirt + prime + blue_shirt * prime + gender + education + income + conflict + attention
+  )
+  prior_study_1_model_2_alt <- set_prior(
+    "normal(0, 1)"
+    , class = "b"
+  )
+  stancode_study_1_model_2_alt <- make_stancode(
+    formula = formula_study_1_model_2_alt
+    , data = df_example_split_rep
+    , data2 = df_example_split_dem
+    , family = cumulative(link = "logit")
+    , prior = prior_study_1_model_2_alt
+    , save_model = "./STAN/study_1_model_2_alt.stan"
+  )
+}
+```
+
+```{r}
+#| label: fit-simulated-models
+if (params$replicate == TRUE) {
+  # Model 1
+    #* Compile the stan model
+  compiled_study_1_model_1 <- stan_model(
+    file = "./STAN/study_1_model_1.stan"
+    , model_name = "study_1_model_1"
+  )
+    #* Define model formula
+  formula_study_1_model_1 <- brmsformula(
+    notice ~ prime
+  )
+    #* Define the family
+  family_study_1_model_1 <- bernoulli(link = "logit")
+    #* Define priors
+  prior_study_1_model_1 <- set_prior(
+    "normal(0,1)"
+    , class = "b"
+  )
+    #* Fit model at different sample sizes
+  list_fitted_samples <- mclapply(
+    list_simulated
+    , function(x) {
+      fit_sims(
+        data_frame = x
+        , compiled_stan_model = compiled_study_1_model_1
+        , formula = formula_study_1_model_1
+        , family = family_study_1_model_1
+        , prior = prior_study_1_model_1
+      )
+    }
+    , mc.cores = cores
+  )
+    #* collapse into a single data.table object
+  names(list_fitted_samples) <- list_sample_size
+  df_fitted_samples_model_1 <- rbindlist(
+    list_fitted_samples
+    , idcol = "sample_size"
+  )[
+    , sample_size := factor(sample_size)
+  ]
+  # Model 2
+    #* Compile the stan model
+  compiled_study_1_model_2 <- stan_model(
+    file = "./STAN/study_1_model_2.stan"
+    , model_name = "study_1_model_2"
+  )
+    #* Define model formula
+  formula_study_1_model_2 <- brmsformula(
+    willing ~ blue_shirt + prime + party_id + blue_shirt * prime * party_id + gender + education + income + conflict + attention
+  )
+    #* Define the family
+  family_study_1_model_2 <- cumulative(link = "logit")
+    #* Define priors
+  prior_study_1_model_2 <- set_prior(
+    "normal(0, 1)"
+    , class = "b"
+  )
+    #* Fit model at different sample sizes
+  list_fitted_samples_model_2 <- mclapply(
+    list_simulated
+    , function(x) {
+      fit_sims(
+        data_frame = x
+        , compiled_stan_model = compiled_study_1_model_2,
+        , parameters = c("b[1]", "b[2]", "b[3]", "b[4]")
+        , formula = formula_study_1_model_2
+        , priors = prior_study_1_model_2
+        , family = family_study_1_model_2
+      )
+    }
+    , mc.cores = cores
+  )
+    #* collapse into a single data.table object
+  names(list_fitted_samples_model_2) <- list_sample_size
+  df_fitted_samples_model_2 <- rbindlist(
+    list_fitted_samples_model_2
+    , idcol = "sample_size"
+  )[
+    , sample_size := factor(sample_size)
+  ]
+    #* alternative model
+      #** compile model
+  compiled_study_1_model_2_alt <- stan_model(
+    file = "./STAN/study_1_model_2_alt.stan"
+    , model_name = "study_1_model_2_alt"
+  )
+      #** formula
+  formula_study_1_model_2_alt <- brmsformula(
+    willing ~ blue_shirt + prime + blue_shirt * prime
+  )
+      #** clean data
+  list_sim_rep_data <- lapply(
+    list_simulated
+    , function(x) {
+      x[
+        party_id == "Strong Republican" | party_id == "Republican" | party_id == "Lean Republican"
+      ]
+    }
+  )
+  list_sim_dem_data <- lapply(
+    list_simulated
+    , function(x) {
+      x[
+        party_id == "Strong Democrat" | party_id == "Democrat" | party_id == "Lean Democrat"
+      ]
+    }
+  )
+      #** fit model
+  list_fitted_samples_model_2_alt <- mclapply(
+    list_simulated
+    , function(x) {
+        fit_sims(
+          data_frame = x
+          , compiled_stan_model = compiled_study_1_model_2_alt
+          , parameters = c("b[1]", "b[2]", "b[3]")
+          , formula = formula_study_1_model_2_alt
+          , priors = prior_study_1_model_2_alt
+          , family = family_study_1_model_2
+        )
+    }
+    , mc.cores = cores
+  )
+  names(list_fitted_samples_model_2_alt) <- list_sample_size
+  df_fitted_samples_model_2_alt <- rbindlist(
+    list_fitted_samples_model_2_alt
+    , idcol= "sample_size"
+  )
+
+  # Save results
+    #* study 1, model 1
+  save(
+    df_fitted_samples_model_1
+    , file = "../../data/temp/prr/fitted_model_1.RData"
+  )
+    #* study 1, model 2
+  save(
+    df_fitted_samples_model_2
+    , file = "../../data/temp/prr/fitted_model_2.RData"
+  )
+    #* study 1, model 2 alternate
+  save(
+    df_fitted_samples_model_2_alt
+    , file = "../../data/temp/prr/fitted_model_2_alt.RData"
+  )
+} else {
+  load(
+    file = "../../data/temp/prr/fitted_model_1.RData"
+  )
+  load(
+    file = "../../data/temp/prr/fitted_model_2.RData"
+  )
+  load(
+    file = "../../data/temp/prr/fitted_model_2_alt.RData"
+  )
+}
+```
+
+
+The following histograms report the true positive rate for each $\hat{\beta_i}$ coefficient at different sample sizes for [Study 1](#study-1). Across models and across the two studies, I see that most models perform pretty well at any of the sample sizes. It is important to note that these sample sizes reflect the number of observations included in the models, not the total sample size. As many online convenience samples struggle with inattentive respondents, insincere responses, bots, etcetera [see @kennedy_et-al_2021_poq], I am going to be quite conservative and try to recruit at least 800 respondents for these two studies. 
+
+```{r}
+#| label: fig-true-positive-study-1-model-1
+#| fig-cap: True positive rate from simulations - Model 1
+#| fig-width: 8
+#| layout-nrow: 1
+plot_study_1_model_1 <- true_positive_plot(data_frame = df_fitted_samples_model_1)
+plot_study_1_model_1[[1]]
+
+```
+
+```{r}
+#| label: fig-true-positive-study-1-model-2
+#| fig-cap: True positive rate from simulations - Model 2
+#| fig-width: 8
+#| layout-nrow: 2
+#| fig-subcap:
+#|   - $\hat{\beta}_1$
+#|   - $\hat{\beta}_2$
+#|   - $\hat{\beta}_3$
+#|   - $\hat{\beta}_4$
+plot_study_1_model_2 <- true_positive_plot(data_frame = df_fitted_samples_model_2)
+plot_study_1_model_2[[1]]
+plot_study_1_model_2[[2]]
+plot_study_1_model_2[[3]]
+plot_study_1_model_2[[4]]
+```
+
+```{r}
+#| label: fig-true-positive-study-1-model-2-alt
+#| fig-cap: True positive rate from simulations - Model 2, Split sample
+#| fig-width: 8
+#| layout-nrow: 2
+#| fig-subcap:
+#|   - $\hat{\beta}_1$
+#|   - $\hat{\beta}_2$
+#|   - $\hat{\beta}_3$
+
+plot_study_1_model_2_alt <- true_positive_plot(data_frame = df_fitted_samples_model_2_alt)
+plot_study_1_model_2_alt[[1]]
+plot_study_1_model_2_alt[[2]]
+plot_study_1_model_2_alt[[3]]
+```
+
+# Discussion
+
+Previous chapters provide (as of right now) preliminary evidence supporting my claim that color matters and convey group-based partisan information to average citizens. This chapter pushes the envelope in a few ways. First, this chapter seeks to move past the argument that "people notice color, and it is relevant in politics." Specifically, this chapter seeks to examine whether it has the capacity to shape attitudes and behavior by elaborating on the mechanisms by which it does so. Second, it examines the limitations or the scope conditions of this claim. It argues that this works so long as politics is salient. Third, this chapter argues that color does not simply act as an alternative form of political information influencing political attitudes and their resulting behaviors but that it shapes the way we consider more traditionally considered forms of political information, such as stated policy positions. Fourth, this chapter explores the way in which that color influences our tendencies to avoid conversations about politics with out-partisans and to be more amenable to conversations with those we already agree with.
+
+This pre-registered report documents my expectations before collecting or seeing any data that I can leverage to explore these claims. It also provides documentation of my concrete hypotheses, modeling strategies, and expectations about the sensitivity by which my research design and modeling strategies allow me to draw correct inferences from the data. 
+
+{{< pagebreak >}}

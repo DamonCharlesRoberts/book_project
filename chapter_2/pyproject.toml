@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "color-as-visual-information"
+version = "0.1.0"
+description = "Academic project examining how color acts as political information"
+authors = ["Damon C. Roberts <damon.charles.roberts@gmail.com>"]
+readme = "README.md"
+packages = [{include = "color_as_visual_information"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.24.3"
+opencv-python = "^4.7.0.72"
+
+[tool.poetry.group.dev.dependencies]
+opencv-python = "^4.7.0.72"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

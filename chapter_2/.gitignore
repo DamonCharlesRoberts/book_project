@@ -1,0 +1,7 @@
+src/prr/color_influence_pre-reg_anon_files/
+src/prr/PY/__pycache__/
+src/prr/si_color_influence_pre-reg_anon_files/
+src/prr/si_color_influence_pre-reg_anon_cache/
+*/.DS_Store
+.DS_Store
+data/

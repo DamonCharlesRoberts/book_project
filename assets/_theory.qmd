@@ -1,0 +1,29 @@
+---
+format: html
+---
+```{mermaid}
+%%| label: fig-theory
+%%| fig-cap: Snap-judgment model of political visual information
+%%| fig-width: 6.5
+%%{init: {'theme':'base', 'themeVariables':{'primaryColor':'#ffffff', 'primaryBorderColor': '#000000'}}}%%
+graph TD
+    A[Detection of politically-relevant visual information] --> B(Activation of retrieval mechanism)
+    B --> C[Memory and contiguous paths hot]
+    C --> D[Appraisal of hot autonomous nervous system]
+    D --> E1[Negative Valence]
+    D --> E2[Positive Valence]
+    E1 --> F1[Disengagement motivation]
+    E2 --> F2[Attention activated]
+    F1 --> |Neg. new information| G1[Encoded as negative]
+    F1 --> |Pos. new information| G2[Encoded as positive]
+    F2 --> |Neg. new information| G3[Encoded as negative]
+    F2 --> |Pos. new information| G4[Encoded as positive]
+    G1 --> H1[Strengthens negative path]
+    G2 --> H2[Weakens negative path]
+    G3 --> H3[Weakens positive path]
+    G4 --> H4[Strengthens positive path]
+    G2 --> |forgotten| H1
+    H2 --> |reinforced| G2
+    H3 --> |reinforced| G3
+    G3 --> |forgotten| H4
+```

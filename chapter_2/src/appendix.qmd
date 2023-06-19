@@ -1,0 +1,367 @@
+# Chapter 2 Appendix {#sec-2-a}
+
+```{r}
+#| label: setup
+
+# Load helpful functions
+box::use(
+  modelsummary[
+    modelsummary
+  ]
+)
+
+# Load fitted models and ppc checks
+load(
+  file = "../data/temp/models/study_1_fitted.RData"
+)
+```
+
+## Measures
+
+{{< pagebreak >}}
+
+## Hypothesis 1
+
+### Models
+
+{{< pagebreak >}}
+
+### Posterior Predictive Checks
+
+{{< pagebreak >}}
+
+## Hypothesis 2
+
+### Models
+
+```{r}
+#| label: tbl-hypothesis-2-main
+#| tbl-cap: Full results for reported models in $H_2$
+# Redefine names
+list_fitted_split_1 <- list(
+  "Red treatment" = list_fitted[["h_2"]][["red"]]
+  , "Blue treatment" = list_fitted[["h_2"]][["blue"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , "of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+```{r}
+#| label: tbl-interacted-models-h-2
+#| tbl-cap: $H_2$ models moderated by age
+# Redefine names
+list_fitted_split_2 <- list(
+  "Red treatment - Age moderating" = list_fitted[["h_2"]][["red_interact"]]
+  , "Blue treatment - Age moderating" = list_fitted[["h_2"]][["blue_interact"]]
+)
+
+# Make table
+modelsummary(
+  list_fitted_split_2
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_age" = "Age"
+    , "b_trial_1_red_stimuli:age" = "Red yard sign $\\times$ Age"
+    , "b_trial_1_blue_stimuli:age" = "Blue yard sign $\\times$ Age"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+```{r}
+#| label: tbl-robustness-alt-specification-h-2
+#| tbl-cap: $H_2$ models with alternative specification
+# Redefine names
+list_fitted_split_3 <- list(
+  "Single model" = list_fitted[["h_2"]][["single_model"]]
+)
+
+# Make table
+modelsummary(
+  list_fitted_split_3
+  , coef_map = c(
+    "b_trial_1_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_1_blue_stimuli_alt" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+  )
+  , statistic = "conf.int"
+  , gof_map = gm
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brakcets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+```{r}
+#| label: tbl-colorblindness
+#| tbl-cap: $H_2$ moderated by colorblindness
+
+# Redefine names
+list_fitted_split_4 <- list(
+  "Red - Color blindness moderating" = list_fitted[["h_2"]][["red_colorblind"]]
+  , "Blue - Color blindness moderating" = list_fitted[["h_2"]][["blue_colorblind"]]
+)
+# Make table
+modelsummary(
+  list_fitted_split_4
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_trial_1_red_stimuli:color_blind_dummy" = "Red yard sign $\\times$ Color blind"
+    , "b_trial_1_blue_stimuli:color_blind_dummy" = "Blue yard sign $\\times$ Color blind"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+  )
+  , statistic = "conf.int"
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+### Posterior Predictive Checks
+```{r}
+#| label: fig-h-2-ppc
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+#|   - Red treatment (Moderated by age)
+#|   - Blue treatment (Moderated by age)
+#|   - Single model
+#|   - Red treatment (Moderated by colorblindness)
+#|   - Blue treatment (Moderated by colorblindness)
+
+list_ppc[["h_2"]][["red"]]
+list_ppc[["h_2"]][["blue"]]
+list_ppc[["h_2"]][["red_interact"]]
+list_ppc[["h_2"]][["blue_interact"]]
+list_ppc[["h_2"]][["single_model"]]
+list_ppc[["h_2"]][["red_colorblind"]]
+list_ppc[["h_2"]][["blue_colorblind"]]
+```
+
+{{< pagebreak >}}
+\blandscape
+
+```{r}
+#| label: tbl-hypothesis-2a
+#| tbl-cap: Full results for models testing bounds of $H_2$
+# Redefine names
+model_names <- list(
+  "Trial 2 - Red treatment" = list_fitted[["h_2a"]][["trial_2_red"]]
+  , "Trial 2 - Blue treatment" = list_fitted[["h_2a"]][["trial_2_blue"]]
+  , "Trial 2 - Single model" = list_fitted[["h_2a"]][["trial_2_single_model"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_2_red_stimuli" = "Red yard sign"
+    , "b_trial_2_blue_stimuli" = "Blue yard sign"
+    , "b_trial_2_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_2_blue_stimuli_alt" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+```{r}
+#| label: tbl-hypothesis-2a-cont
+#| tbl-cap: Full results for models testing bounds of $H_2$ (cont.)
+# Redefine names
+model_names <- list(
+  "Trial 3 - Red treatment" = list_fitted[["h_2a"]][["trial_3_red"]]
+  , "Trial 3 - Blue treatment" = list_fitted[["h_2a"]][["trial_3_blue"]]
+  , "Trial 3 - Single model" = list_fitted[["h_2a"]][["trial_3_single_model"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_3_red_stimuli" = "Red yard sign"
+    , "b_trial_3_blue_stimuli" = "Blue yard sign"
+    , "b_trial_3_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_3_blue_stimuli_alt" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+\elandscape
+{{< pagebreak >}}
+
+### Posterior Predictive Checks
+```{r}
+#| label: fig-h-2a-ppc
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$
+#| fig-subcap:
+#|   - Red treatment (Trial 2)
+#|   - Blue treatment (Trial 2)
+#|   - Combined model (Trial 2)
+#|   - Red treatment (Trial 3)
+#|   - Blue treatment (Trial 3)
+#|   - Combined model (Trial 3)
+
+list_ppc[["h_2a"]][["trial_2_red"]]
+list_ppc[["h_2a"]][["trial_2_blue"]]
+list_ppc[["h_2a"]][["trial_2_single_model"]]
+list_ppc[["h_2a"]][["trial_3_red"]]
+list_ppc[["h_2a"]][["trial_3_blue"]]
+list_ppc[["h_2a"]][["trial_3_single_model"]]
+```
+
+{{< pagebreak >}}
+
+## Hypothesis 3
+
+### Models
+
+```{r}
+#| label: tbl-h-3-main
+#| tbl-cap: Support of candidate based on partisanship
+
+# Redefine names
+model_names <- list(
+  "Red stimuli" = list_fitted[["h_3"]][["red"]]
+  , "Blue stimuli" = list_fitted[["h_3"]][["blue"]]
+)
+
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_pid_7" = "Party ID"
+    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign $\\times$ Party ID"
+    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign $\\times$ Party ID"
+    , "b_age" = "Age"
+    , "b_gender_idMale" = "Gender - Male"
+    , "b_gender_idNonMbinary" = "Gender - Non-binary"
+    , "b_gender_idPrefernottochoose" = "Gender - Prefer not to choose"
+    , "b_race_idBlacknonMhispanic" = "Black"
+    , "b_race_idHispanice" = "Hispanic"
+    , "b_race_idMultipleraces" = "Multiple races"
+    , "b_race_idNativeAmericanDAlaskaNativeOrOtherRace" = "Other race"
+    , "b_race_idWhitenonMhispanic" = "White"
+  )  
+  , statistic = "conf.int"
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+{{< pagebreak >}}
+
+### Posterior predictive Checks
+
+{{< pagebreak >}}
+
+## Hypothesis 4
+
+### Models
+
+{{< pagebreak >}}
+
+### Posterior Predictive Checks

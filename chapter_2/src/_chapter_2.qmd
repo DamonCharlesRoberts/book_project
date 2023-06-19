@@ -1,0 +1,673 @@
+# How do colors convey political information and effect individual attitudes? {#sec-2}
+<!--
+    - Description: QMD script for chapter 1
+    - Updated: 2022-12-28
+    - Updated by: dcr
+    - Notes:
+        * Code:
+            ** pre-test:
+                *** 00_pre-test.py
+                *** table called pre-test
+            ** Scraping:
+                *** CAPD
+                    **** Execute 01_capd_text_scraping.ipynb interactively
+                        ***** table called ch_1_capd_yard_signs
+                    **** Execute 02_capd_img_scraping.ipynb interactively
+                        ***** table called ch_1_capd_yard_signs
+                    **** Execute 03_capd_downloading_images.py
+                        ***** does so at end of 02_capd_img_scraping.ipynb
+                    **** Execute 04_mit_election_lab_merge.py
+                        ***** does so in the some-script-execution block below
+        * Writing:
+            ** First should write an annotated bibliography for this chapter
+            ** Once annotated bibliography is complete, should have enough to start working on a pre-registered report for this chapter
+            
+-->
+
+# Introduction
+
+::: {#fig-pre-2000-logos layout-nrow="2"}
+![Republicans pre-2000](../../assets/rnc_logo_pre-2000.png){#fig-republican}
+
+![Democrats pre-2000](../../assets/dnc_logo_1960.png){#fig-democrat}
+
+![Republicans 2023](../../assets/rnc_logo_2023.png){#fig-republican-post}
+
+![Democrats 2023](../../assets/dnc_logo_2023.png){#fig-democrat-post}
+
+Party logos
+:::
+
+Are colors important to politics? I argue that they convey information that matters to campaigns and voters. People rely on more than purely political information to understand politics [@pietraszewski_et-al_2015_c]. To reduce cognitive load, the affiliation detection system allows for efficient social behavior prediction by associating various cues with a group. In politics, associating Black voters with the Democratic party and White voters with the Republican party is one example [@pietraszewski_et-al_2015_c]. As Americans consistently link the colors red and blue with the Republican and Democratic parties [@elving_2014_npr;@williams_et-al_2022_jomp], as well as their connection to ideology [see @maestre_medero_2022_pr for example], we should explore whether color acts as an affiliative cue for individuals in American politics.
+
+Existing theories of political information processing have yet to examine visual information more broadly. As a simple yet ubiquitous piece of visual information, color may have more influence over shaping political views than we give it credit. As visual information is processed automatically and faster than other forms of information [see @ames_et-al_2012_ohsn], I argue that it triggers associated neurological pathways that shape the subsequent information processing of the more traditionally considered types of political information. Such a process implies that the presence of politically-relevant colors has the potential to, directly and indirectly shape political attitudes.
+
+I propose two studies to test these claims. Yard signs are a simple yet effective source of campaign branding for political candidates. They shape the attitudes of those who view them [@makse_et-al_2019_oup], and they can even aggregatively shape electoral outcomes [@green_et-al_2016_es]. As yard signs are a simple and static form of campaign advertising, they cannot rely heavily on more complicated forms of information. However, one form of information they rely on and vary in is their color. With these characteristics, yard signs are an ideal candidate both from a statistical standpoint and also substantive. From a statistical standpoint, as they are static forms of party branding they have fewer moving parts, reducing the statistical confounds that may increase Type I errors. From a substantive standpoint, while we understand that yard signs matter to campaigns, we have yet to systematically explore more simple design choices such as color.
+
+In [Study 1](#sec-study-1), I propose an experiment that examines whether the public notice and whether their attitudes are shaped by "Republican Red" and "Democratic Blue" on the yard signs of a fictional candidate. In [Study 2](#sec-study-2), I examine whether campaigns react to the partisan composition of an electorate in recognition of color's importance to voter decision-making and attitude formation. First, I have informal interviews with campaign staff to determine what shapes the decisions about what colors to include on a campaign's yard sign.Second, I do this by examining how electoral context shapes variation in using these partisan colors.
+
+I then present a pre-test that experimentally tests whether yard signs using "Republican Red," "Democrat Blue," and White lead to different perceptions of the candidate's political views. I find that a fictional candidate with a background of "Republican Red" is perceived to be more Republican, and a fictional candidate with a background of "Democrat Blue" are perceived to be more Democratic. I also find that Republican voters are more likely to report a willingness to vote for the candidate with "Republican Red" on the yard sign, and Democratic voters are more likely to vote for the candidate with "Democrat Blue" on the yard sign.
+
+# The role of visual information in politics
+
+A central theme of an edited issue of *The International Journal of Press/Politics* is that visual politics is important and understudied [@lilleker_2019_pm]. Those who are engaged in these questions attribute these challenges to methodological sophistication and the difficult task of interdisciplinary theorizing [@gerodimos_2019_pm; @bucy_joo_2021_ijpp].
+
+The rise of television consumption changed the focus of the medium in the research for political communication scholars [@hall-jamieson_2014_ohpc]. In a similar way, so does the rise of image-based social media and has set new agendas. For several methodological and disciplinary reasons, the visual aspects of television were of little focus in the literature [@bucy_joo_2021_ijpp]. However, the news organizations and politicians are responding to the ubiquitous use of the public to use image-dominant social media platforms like TikTok and Instagram, by joining such platforms. They are relatively active on these platforms as well. Scholars need to make this transition to integrate the role of simple visual information into our theories of political information processing (abbreviated as *pip*) and attitude formation.
+
+How does politically-relevant visual information matter to politics? From an evolutionary-biological perspective, visual information has been a common source of information for millions of years that a variety of single-and-multi-cell organisms rely upon to evaluate their environment [see @grabe_bucy_2009_oup, Chapter 1 for a useful discussion]. Visual information processing, as an ancient biological invention, the human brain is organized around the processing of it. Reflecting on this, many neuroscience scholars argue that visual information is the fastest form of information processing for humans. For example, even complex visual information, such as the warmth expressed in someone's facial features, is automatically and subconsciously processed in only about 33 milliseconds (abbreviated as ms) [@ames_et-al_2012_ohsn].
+
+Approached from a different perspective, as humans are cognitive misers \index{cognitive misers}, visual information in the realm of politics provides efficient information to voters about politically-relevant actors and events [@lilleker_2019_pm]. Evidence suggests that voters rely on simple visual information in the background of an image to infer ideological positions [@dan_arendt_2021_ijpp] and that coverage reflects electability perceptions [@stewart_et-al_2021_ijpp] -- these influence reported desire to vote for the candidate. Images posted on social media by politicians provide more personalized information about them, and they take on their own styles [@lindholm_et-al_2021_ijpp; @peng_2021_ijpp], reflecting that it is an alternative source of information curated to attract support. Evidence suggests that even simple party branding on yard signs has an emotional appeal and encourages a shift in attitudes toward the person who owns the yard sign [@makse_et-al_2019_oup]. That is, even branding as simple as yard signs appears to influence the attitudes of those who view them. However, like all types of party branding, there remain questions about the individual visual components' contribution.
+
+While visual politics is enjoying more attention from social scientists, there still needs to be more focus on the simplest visual information: color. In the context of the United States, the "Republican red" and "Democratic blue" is a relatively recent invention that likely has significant import in an era of significant effort by the parties to distinguish themselves from each other [@clifford_2020_pb] and where voters toe the party line [@utych_2020_es]. Since the 2000 presidential election, the media have consistently used red on their electoral maps in "horserace" journalism to represent Republicans and blue to represent Democrats [@elving_2014_npr]. The supposed consequence is that Democrats now report a preference for the color blue over the color red, and Republicans report a preference for the color red over the color blue [@schloss_palmer_2014_pbr]. Others have demonstrated the strategic choices that candidates make on branding choices -- including color -- based on the types of information they want to convey to voters to distinguish them from their rivals [see @williams_et-al_2022_jomp]. Beyond this, however, we have yet to develop and test theories about color's broader impacts on political information processing and attitude formation.
+
+As the broader field of study of visual politics is under-theorized, theorizing about the use of color as a form of information is also quite limited -- perhaps even more so. The literature that does exist argues that colors are a source of visual information to classify more abstract concepts for voters. For example, in western Europe, voters are better at connecting the ideological positioning of a party with the color they use in their branding [@casiraghi_et-al_2022_pp]. The ability to do so is strengthened when the party is longer-surviving and is more prominent [@casiraghi_et-al_2022_pp]. The use of politically-relevant colors activates biases toward pre-existing ideological and partisan preferences among voters in a Spanish sample [@maestre_medero_2022_pr]. And male and female candidates in the United States use different colors -- among other things such as fonts -- in their campaign branding to convey distinguishing information about themselves [@williams_et-al_2022_jomp]. Despite the existing evidence, the particular psychological mechanisms driving this remain unclear. For example, it is unclear how colors may be organized into a cognitive schema that enables voters to quickly access and connect these colors to more complex political attitudes. Furthermore, it is unclear from existing evidence how colors may not just be associated with complex attitudes, but how they may enable political attitude formation and may strengthen existing connections between different political objects. As a jumping-off point, we can use the literature of political information processing (abbreviated as *pip*)\index{political information processing} to establish a common understanding of how political information is processed and how attitudes are formed by the processing of political information.
+
+The first prominent model of *pip* derives from rational choice perspectives. The memory-based model of *pip* views attitudes as a weighted collection of prior information [see @zaller_1992_cup]. As individuals receive new information, they organize it into a schema that is relative to prior objects they already have encoded. By encoding this new information, the model predicts that individuals incorporate this new object with similar objects to form an attitude. This schema then may be more accessible in similar contexts and may then sample from its elements when prompted to express a political attitude. While the Receive-Accept-Sample (RAS) model accepts the view that expressed attitudes are a weighting of information most accessible at the time of attitude expression [@zaller_feldman_1992_ajps], it still presupposes that the weighting is an average of prior information.
+
+The second prominent model challenges this latter point. The online model of *pip* contends that individuals do not evenly weigh information, but that whether they even store it in their long-term memory to access later is biased in the direction of supporting pre-existing attitudes [@lodge_taber_2013_cup]; this phenomenon is referred to as motivated reasoning by the psychology literature [@kunda_1990_pb]. This model suggests that people ignore new information that goes against their prior beliefs and that information confirmatory of their preferences is quicker to access -- referred to as hot cognition [@lodge_taber_2013_cup].
+
+The online model conceptualizes this underlying information encoding and attitude retrieval mechanism as automatic [@lodge_taber_2013_cup]. This occurs due to the information's strong associations with valanced appraisals of the information guiding the attitude [@lodge_taber_2013_cup]. This brings political scientists closer to the dominant conceptualizations among neuroscientists and psychologists concerned with memory retrieval, encoding, and attitude formation [see @fazio_2007_sc]. Namely, that memories are encoded and retrieved quickly based on associations due to their association with valanced appraisals [@kensinger_fields_2022_ohhum]. What remains unexplored is how visual information such as color may prime individuals to engage in motivated reasoning pre-consciously. If they keep their attention on the object, what paths are activated by such information?
+
+# Integrating color into a model of political information processing
+
+Existing models of *pip* primarily focus on complex forms of political information such as text. As individuals process visual information before other sorts of information, we might expect that they may form a snap judgment or the initial appraisal of an object. This has several important implications, from suggesting that we broaden our theories of *pip* to reconsider what constitutes politically-relevant information to what it means for our substantive understanding of how people process political information and the calculus involved in political attitude formation.
+
+Though the online information processing model goes a long way to inform us about how our physiology engages attitude formation and retrieval, the types of information it considers necessarily limits the theory's applicability to other forms of political information. Color and other simple visual information are processed much quicker and occur more frequently than text-based information [@mehta_zhu_2009_s]. As the color and other visual information are processed differently, we should also consider its use as political information. As visual information is affectively encoded [@cimbalo_et-al_1978_jgp], it can affect the affective state and processing of more complex information, such as text. The visual information provides a snap judgment or an impression of the object through faster processing and activates particular neurological processes that influence subsequent information appraisals [@ames_et-al_2012_ohsn]. This implies that the conclusions drawn from such *pip* models may be systematically biased without considering the upstream effects of non-text information; such as simple visual information like color.
+
+Before expanding upon the role of colors in shaping political attitudes, let me first define an attitude as a concept. An attitude represents an accessible, valanced evaluation of associated prior information and experiences. This conceptualization fits with that of the Object-Evaluation Associations Model [@fazio_2007_sc]. As opposed to viewing attitudes as a latent collection of memories, as is done in the memory-based model of *pip* [@zaller_feldman_1992_ajps], it views attitudes as measurable evaluations of memories. As memories are at the core of an attitude, the association of memories with its evaluative component [see @kensinger_fields_2022_ohhum] contributes to the perspective that attitudes are affective. This implies that we should be able to measure attitudes but that such an operationalization requires careful consideration of the context's role in any given measure of an attitude as they result from memories [@fazio_2007_sc].
+
+In line with the existing models of *pip*, I conceptualize attitudes as associative. This means that attitudes may be unstable - not stochastically, in any case. As attitudes are associative, they manifest slightly differently depending on the associative paths activated [@fazio_2007_sc]. The retrieval of relevant memories to the attitude depends on many factors, such as the recency of the event, the similarity of the context, and the importance or salience of the memory [@kahana_et-al_2022_ohhum]. This means that the memories retrieved to contribute to an attitude are quite variable. However, to understand where that variability comes from, we must understand the deeper processes influencing how information is encoded and later retrieved. This illustrates my need to build upon the reigning models of *pip*. Colors may act as a contextual feature that may lead to this variability in how a given set of political information may shape attitudes.
+
+Colors are associative and are affectively encoded [@cimbalo_et-al_1978_jgp]. When individuals access a memory, they do not just recall an object, but they may recall visual information such as the color of an object [@mehta_zhu_2009_s]. Due to these features, colors can be processed unconsciously and very quickly [@mehta_zhu_2009_s]. As they are affectively encoded, their associations with particular memory contribute to the evaluative component of the memory. For example, individuals associate colors like red with anger and arousal [@valdez_mehrabian_1994], whereas individuals associate blue with things like happiness and pleasure [@dandrade_egan_1974_ae]. This means that colors are compelling as contextual information shaping the subsequent processing and integration of "traditional" forms of political information to construct an attitude. As the preference for a particular color correlates with political attitudes [@schloss_palmer_2014_pbr], they may have some causal influence upon political attitudes; rather than just a correlation with them.
+
+According to the literature in affective neuroscience, visual information is processed in parts of the brain, such as the visual cortex [@goldstein_brockmole_2017_cl]. This will activate other areas of the brain and will make associated paths "hot." One such area is the amygdala. Neuroscientists believe that as visual information is quickly and subconsciously processed, the amygdala takes and appraises it based on the paths it activated; this generates a simple affective response to such information [@winkielman_et-al_2011_ohsn]. More complex, categorical emotion occurs later in conscious processing [@winkielman_et-al_2011_ohsn]. Once politically-relevant visual information is detected, the retina passes it to the brain. Once there, the brain attempts to classify the visual information by activating networks of neurons associated with the current information. With these activated pathways, the brain also attempts to appraise such information based on quick classification. For attitude formation, this implies that, as memories are affectively encoded [@kensinger_fields_2022_ohhum], these memories help areas such as the amygdala to appraise the current information.
+
+These fast affective classifications are valanced rather than the more laborious categorization of specific emotions (e.g., anger, anxiety, fear, happy). What this means is that rather than conceptualizing the affective component of this process in line with the popular conceptualizations in political science, such as affective intelligence theory [@marcus_2000_arps], I conceptualize affect as a more extensive system that considers emotion only as a conscious classification process that occurs later than initial valanced appraisals of an object [@sander_2013_chhan; @ralph_anderson_2018_pup]. That is, emotion -- the complex classification of appraisals -- is a conscious component of affect. The pre-conscious process of affect occurs first with the simple and automatic valanced classification of an object [@winkielman_et-al_2011_ohsn; @dror_2017_er].
+
+The pre-conscious appraisals of the visual information one encounters encourages particular behavioral and attitudinal motivations [@valentino_et-al_2011_jop; @ralph_anderson_2018_pup]. This has evolutionary roots for survival [@ralph_anderson_2018_pup; @parker_2003_p]. While affective appraisals can lead to complex motivations, such as anxiety leading to motivations for information seeking [@marcus_2000_arps], affective appraisals are valanced and are more automatic [@winkielman_et-al_2011_ohsn]. These affective appraisals lead to a desire to either retract or engage more with the object [@valentino_et-al_2011_jop]. The snap judgment resulting from the automatic processing of politically relevant visual information should likely lead to an affective response that motivates either a desire to engage more with the object or disengage.
+
+While the visual information may encourage a particular immediate reaction to engage or disengage from the information, subsequent information processing and more conscious processing adjusts this initial appraisal generated by the snap judgment [@kensinger_fields_2022_ohhum]. While subsequent information may amend one's snap-judgment, the snap-judgment nevertheless influences the processing of subsequent information by activating particular paths, which is later encoded as associated with the object as it converts to a memory [@lodge_taber_2013_cup; @kensinger_fields_2022_ohhum].
+
+@fig-snap-judgement-model presents an illustration of the snap-judgment model.
+
+```{mermaid}
+%%| label: fig-snap-judgement-model
+%%| fig-cap: Snap judgement model
+%%| fig-width: 6
+%%{init: {'theme':'base', 'themeVariables':{'primaryColor':'#ffffff', 'primaryBorderColor': '#000000'}}}%%
+graph TD;
+    A[Detection of politically-relevant visual information] --> B(Activation of retrieval mechanism);
+    B --> C[Memory and contiguous paths hot];
+    C --> D[Appraisal of hot autonomous nervous system];
+    D --> E1[Negative Valence];
+    D --> E2[Positive Valence];
+    E1 --> F1[Disengagement motivation];
+    E2 --> F2[Attention activated];
+    F1 --> |Neg. new information| G1[Encoded as negative];
+    F1 --> |Pos. new information| G2[Encoded as positive];
+    F2 --> |Neg. new information| G3[Encoded as negative];
+    F2 --> |Pos. new information| G4[Encoded as positive];
+    G1 --> H1[Strengthens negative path];
+    G2 --> H2[Weakens negative path];
+    G3 --> H3[Weakens positive path];
+    G4 --> H4[Strengthens positive path];
+    G2 --> |forgotten| H1;
+    H2 --> |reinforced| G2;
+    H3 --> |reinforced| G3;
+    G3 --> |forgotten| H4;
+```
+
+All of this means for *pip* is that when we view political events or consume political information with a visual component, we are going to encode visual information along with it. Taking expectations formed from theories of motivated reasoning [see @kunda_1990_pb], I expect that the visual information that we encode with it is likely congruent with the evaluation of the object; we are likely to be unwilling to encode the visual information that is not congruent with the visual information as we do with text-based political information [see @lodge_taber_2013_cup]. That is because unconsciously, we will experience a motivation to disengage from such information as soon as we appraise the visual aspects of an object as incongruent with existing attitudes and, therefore, be uncomfortable. It should also influence how we retrieve memories when we encounter new information, which will affect the attitudes we express. Additionally, this predicts that we will spend less time processing, accessing, and encoding congruent information [@lodge_taber_2013_cup].
+
+Let me illustrate the snap-judgment model with a common experience for residents of the United States. Say you are driving down a highway. At 65 miles an hour, you are traveling at about 95 feet per second at this speed. You split your attention. You focus your eyes on the conditions of the road in front of you, the cars in front of you, and the rear-view mirror where your kids are either dropping food in the crevice between the seats or trying to grab your attention. Out of the corner of your eye, you see a sign. It is not a road sign because it is not on the familiar white or yellow background with black lettering. It is election season. You correctly infer that it is a political yard sign. In this split second, you notice the sign's color and may see a name: Mitch McConnell. You now are racking your brain to think about who that is. If you are politically engaged, you might come to that recognition of the name quickly or it may take you significantly longer if you are less politically engaged [see @kahana_et-al_2022_ohhum]. You figure out that they are a Republican politician. You may have come to this with the help of the fact that every year you have seen yard signs on this stretch of highway. You know that when you see those electoral maps pop up on your news app on your phone that the electoral forecasts always represent Republican support with red and blue for Democrats. Once you have figured out who this person is, with the help of this other information, you react: "ugh, that guy is too loyal to Trump" or "yeah! He's loyal to Trump". You've expressed a political attitude.
+
+What the snap-judgment model predicts is happening in your head is that as soon as the light that bounces off the sign to produce a particular wavelength hits your eyes, your brain is already trying to make sense of this information. This is a valuable tool for survival that biology has optimized for millions of years [@parker_2003_p]. Rather than slowly processing the visual information and finding yourself in the jaws of a predator or processing it quickly but forming the wrong impression and running away from a friend, the brain processes the information quickly and subconsciously [@newell_1990_hup]. To make sense of such information, it accesses familiar information similar to what it is currently attempting to process for efficiency [@kahana_et-al_2022_ohhum]. This is accessing memories and contains valanced information [@kensinger_fields_2022_ohhum]: should I avoid this, or is it pleasant? Once the brain has finished such processing, it can pass its prediction to your conscious memory. Once you form a reflex of avoid or approach, this opens up space for your brain to process the more complex information: to take the patterns of the light as shapes that construct symbols and letters. This comes later because this information not only requires access to information about what it *is* but also what it *means*; once you understand what it means, you have the information necessary to evaluate it.
+
+The snap-judgment model predicts that you first process the colors of the yard sign. You access associative memory to figure out what those particular wavelengths represent: red, white, blue? As these colors are associated with different emotional states [see @cimbalo_et-al_1978_jgp] and the resulting behavioral consequences, your brain starts sending signals to the rest of your body to prepare it to react [see @sander_2013_chhan; @dror_2017_er]. You now need to figure out what the rest of that information was. What were the patterns of that light? It appears that there were some white letters on the sign. There was an "E," a "L," an "E," a "C," and a "T." That creates the word "ELECT." Meaning to vote for. There were some more letters on the sign: an "M," an "I," a "T," a "C," and an "H." A name. The full name is "Mitch McConnell". Since it is about politics, it must be a politician named Mitch McConnell. Now imagine the information was the same, except the color was blue. You may take more time to figure out how that Mitch McConnell person is and come to your reaction to seeing their yard sign. This is because, without the color red, you first are thinking about Democrats who are named Mitch McConnell. Only when you come up empty on your mental Rolodex do you figure out that it is the Republican Mitch McConnell.
+
+How do you react to the color and then to the name? Social groupings are not simply abstract concepts invented by social psychologists; our neurobiology reflects them. For example, researchers find activation of parts of the brain, such as the anterior insula, when we see someone in our social group outperformed by someone from the out-group [see @zink_barter_2012_ohsn]. The anterior insula activity is associated with physical and emotional pain, not just for ourselves but also for others [@adolphs_janowski_2011_ohsn]. Others have also observed that when seeing someone part of a high-status social group, there is an increase in activity in the sensorimotor cortex and supplementary motor area, indicating more activity in the areas of the brain that encourage movement [@zink_et-al_2008_n]. Visual information about someone in your social group speeds up processing, is more salient, and demands more attention than visual information about an object outside your social group [@zink_barter_2012_ohsn].
+
+There is significant evidence supporting the theory that our partisan identification reflects more than just our attitudes about politics but a social identity [see @campbell_et-al_1960_jws; @mason_2018_cup] that guides our attitudes [see @achen_bartels_2016_pup; @white_et-al_2014_apsr; also @bullock_2011_apsr]. As our political attitudes reflect shared views among co-partisans [@pickup_et-al_2020_pb], the congruence between political information and our partisan identification influences our reactions to such political information. This means that the visual information we glean from politics will likely motivate those neurological features of social groups and explain the resulting behavioral manifestations reacting to such information. That information is also likely to be processed at different rates as well. That is, while visual information carries general affective associations, we should also expect associations between politically-relevant colors with partisan identification.
+
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| Hypotheses   | Expectation                                                                                                                                         |
++==============+:===================================================================================================================================================:+
+| $H_1$        | People notice color                                                                                                                                 |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| $H_2$        | Colors shape perceptions of candidate based on partisan associations                                                                                |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| $H_3$        | Candidates using Red are more supported by Republicans; candidates using Blue are more supported by Democrats                                       |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| $H_4$        | Republicans spend less time evaluating candidates using Red; Democrats spend less time evaluating candidates using Blue                             |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| $H_5$        | Campaigns recognize the importance of color to voters' evaluations of candidates and respond strategically                                          |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: Summary of hypotheses {#tbl-hypotheses}
+
+From this discussion, I expect the following: that the average potential voter pays attention to the colors used in campaign branding ($H_{1}$); that these colors that they notice shape perceptions about the person and ideological symbol represented in the branding -- meaning that they express different levels of preference for receiving more information that is similar to what they saw and their levels of preference for supporting such a campaign ($H_{2}$); that the consistency of information explains more positive perceptions -- simple visual information with more complex "traditional" information ($H_{3}$); this positive and consistent information is processed quicker than negative and inconsistent, negative and consistent, and positive and inconsistent information ($H_{4}$); and finally that campaigns make strategic choices about their branding to attract voters ($H_{5}$) in line with their primary objective of reelection [@fenno_1973_lb; @mayhew_1974_yup]. A summary of these hypotheses are included in @tbl-hypotheses.
+
+# Pre-test {#sec-pre-test}
+
+```{r}
+#| label: setup-pre-test-block
+
+    #* Set seed
+set.seed(12062022)
+# Source cleaning script
+source("01_pre-test_cleaning.R")
+    #* Load functions
+box::use(
+    data.table[...],
+    modelsummary[modelsummary, datasummary_skim],
+    cmdstanr[...],
+    brms[bf, prior, brm, rename_pars, make_stancode, make_standata, pp_check, cumulative, bernoulli],
+    rstan[read_stan_csv],
+    marginaleffects[avg_slopes, posterior_draws, plot_slopes],
+    ggplot2[ggplot, aes, labs, theme_minimal, scale_y_discrete, geom_boxplot],
+    bayesplot[color_scheme_set, bayesplot_theme_set, mcmc_combo, mcmc_areas, pp_check],
+    ggdist[stat_halfeye]
+)
+#cmdstanr::set_cmdstan_path("C:\\cmdstan")
+    #* default theme
+#red_custom <- c("#DCBCBC", "#C79999", "#B97C7C", "#FFFFFF", "#8F2727", "#7C0000")
+color_scheme_set(scheme = "gray")
+bayesplot_theme_set(new = theme_minimal())
+    #* default tails
+options("marginaleffects_posterior_interval" = "hdi")
+
+```
+
+I conducted a pre-test in November 2019 with a sample of over 400 undergraduate students at a large university in the northwestern region of the United States. I recruited students enrolled in a political science course and were offered extra credit for their participation in the study. The study asked participants to participate in 5 survey experiments administered by those affiliated with the university's college-level unit. These other survey experiments focus on capturing local policy issues around urban design and criminal justice and probing participants about political participation in local and national-level elections. Subjects participated in my survey experiment after one that examined their levels of political participation in local, state, and national elections.
+
+```{r}
+#| label: tbl-pre-test-descriptive-stats
+#| tbl-cap: Descriptive statistics of pre-test measures
+
+data[["clean"]][ # select the following columns
+    , .(Female, White, age, PartyId, BlueTreatment, RedTreatment, Vote)
+] |>
+datasummary_skim( # make a table of descriptive statistics
+    notes = c( # add some notes to the table
+        "Data source: Pre-test experiment.",
+        '"Unique" column includes missing values.'
+    )
+)
+```
+
+Using the `modelsummary` [@modelsummary] package implemented in the `R` language [@r_software], I create @tbl-pre-test-descriptive-stats which presents the descriptive characteristics of the sample. The sample is primarily White with over 80% self-reporting that they are White(coded as: 0 = non-White, 1 = White). The sample also skews slightly female on sex, with about 60% reporting that they are female (coded as 0 = Male, 1 = Female). The sample also, unsurprisingly, skews young, with the average respondent reporting an age of about 22 years old. The average respondent also appears to be an independent but leans Republican (coded as -3 = strong Democrat, -2 = Democrat, -1 = leans Democrat, 0 = Independent, 1 = leans Republican, 2 = Republican, 3 = strong Republican).
+
+I randomly assign participants to three conditions. The conditions prompt subjects to "Imagine that \[they\] are driving along a road and see this yard sign" with the same message "Vote for Riley." The conditions vary on the color of the background for the image.[^color_influence_pre-reg_anon-1] In the control condition, the background was white. Then I had a red yard sign and a blue yard sign condition. I asked participants questions operationalized as outcomes of interest on a separate screen.
+
+[^color_influence_pre-reg_anon-1]: The Appendix contains the images used for the treatments and the particular wording for the dependent variables.
+
+To provide a preliminary test of $H_1$ and $H_2$, I ask participants to report whether the candidate was a "Republican, Democrat, or Independent." I test whether participants presumed that the candidate was of a particular partisan persuasion based only on the color choice of the yard sign alone. I created two indicator variables of the treatment the subjects received: whether or not they had the blue or red yard sign treatment. The placebo condition (the white yard sign treatment) is treated as the baseline condition when including both treatment indicator variables in the model.
+
+To examine whether subjects presumed a partisan affiliation of the fictional candidate, I use the `brms` [@brms] implementation of `STAN` to fit an ordinal logistic regression model using the cumulative PDF with a inverse logit link function. My model specification is reflected in @eq-party-specification. I use posterior prediction checks after fitting the model to examine whether the predicted values from the posterior draws resemble my observed values. I calculate the average marginal effects across my posterior draws with High Density Intervals (as opposed to Equal Tail Intervals) and plot the distributions of these. In @fig-party-pre-test-ames, the bars reflect the 90% and 95% credible intervals whereas the dot reflects the median posterior draw.
+
+$$
+\begin{split}
+  \alpha \sim Student-T(3,0,2.5) \\
+  \beta_i \sim Normal(0, 1) \\
+  \hat{Party_i} = Cumulative(logit^{-1}(\alpha_1 + \alpha_2 + \beta_1 \times Red Treatment + \beta_2 \times Blue Treatment))
+\end{split}
+$$ {#eq-party-specification}
+
+```{r}
+#| label: party-pre-test-model
+#| include: false
+
+source("04_pre-test_party_model.R")
+```
+
+```{r}
+#| label: fig-party-pre-test-ames
+#| fig-cap: Effect of treatments on party perceptions
+
+PartyAMES <- avg_slopes(
+  PartyModel,
+  type = "link"
+) |>
+posterior_draws()
+
+ggplot(
+  data = PartyAMES,
+  aes(
+    x = draw,
+    y = term
+  )
+) +
+stat_halfeye(
+  slab_alpha = 0.45
+) +
+theme_minimal() +
+labs(
+  x = "Average Marginal Effect",
+  y = "",
+  caption = "Data source: Pre-test.\n Distribution of AME's for model posterior draws using HDI's.\n Dot reflects median posterior draw where bars reflect 90% and 95% credible intervals."
+) +
+scale_y_discrete(
+  labels = c(
+    "Blue Treatment",
+    "Red Treatment"
+  )
+)
+```
+
+The results suggest that for those in the red yard sign treatment condition perceive the candidate to be a Republican. Whereas, those assigned to the blue yard sign treatment condition perceived the owner of the yard sign to be a Democrat. This is without *any* information about the political candidate. Both of these treatments have a quite large effect on conveying the partisanship of the candidate. This finding fits with the expectation that individuals have internalized the use of color in party branding and are independently capable and willing to make that connection. This preliminary evidence suggests that color likely conveys important information to the public.
+
+Individuals associate Republicans with the color Red and Democrats with the color Blue. Do these associations influence their attitudes? In addition to asking participants about whether they perceived the candidate was Republican or Democratic, prior to that question, I asked participants whether they would be willing to vote for the candidate and whether they would want to avoid engaging with the candidate's campaign materials in the future. I used these two questions to construct a measure of willingness to engage with the fictional candidate. Those who reported that they do not want to vote for the candidate *and* want to avoid the candidate in the future I coded with a value of 1. Those who reported a mix of responses were coded as 2. Finally, those that reported that they were willing to vote for the candidate *and* wanted to receive more information about the candidate were coded as 3. Again, the *only* information they have about the candidate is conveyed on the yard sign. I fit an ordinal logistic regression model again using the `brms` [@brms] implementation of `STAN`. My model specification is conveyed in @eq-vote-specification.
+
+$$
+\begin{split}
+  \alpha \sim Student-T(3,0,2.5) \\
+  \beta_i \sim Normal(0, 1) \\
+  \hat{Party_i} = Cumulative(logit^{-1}(\alpha_1 + \alpha_2 + \beta_1 \times Red Treatment + \beta_2 \times Blue Treatment \\
+    + \beta_3 \times Party Identification (3-item) \\
+    + \beta_4 \times Red Treatment \times Party Identification (3-item) \\
+    + \beta_5 \times Blue Treatment \times Party Identification (3-item)))
+\end{split}
+$$ {#eq-vote-specification}
+
+I expect that the effect of the treatment on willingness to engage more with the candidate, either in terms of learning more [@lodge_taber_2013_cup] and voting [@broockman_kalla_2022_ajps] is dependent on whether that candidate is a co-partisan. I also examined this model with a variety of priors and settled on priors I believe to reflect maximum entropy principles [@mcelreath_2020_crc] and those that produced posterior predictive checks with predicted values from the model resembling those observed in my data. I use the `marginaleffects` package [@marginaleffects] to calculate and plot the conditional marginal effects.
+
+```{r}
+#| label: pre-test-vote-model
+#| include: false
+
+source("05_pre-test_vote_model.R")
+```
+
+```{r}
+#| label: fig-pre-test-vote-cmes
+#| layout-nrow: 2
+#| fig-cap: "Effect of yard sign color on candidate evaluation"
+#| fig-subcap:
+#|  - "Republicans would vote for candidate with Red yard sign"
+#|  - "No difference among partisans in support for candidate with Blue yard sign"
+#| fig-width: 6
+red_cme <- plot_slopes(
+    VotePreTestModel,
+    variables = "RedTreatment",
+    condition = "PartyId",
+    type = "link"
+) +
+theme_minimal() +
+labs(
+    x = "Party Identification",
+    y = "CME of Red Treatment",
+    caption = "Data source: Pre-test.\n Conditional Marginal Effects of Red Treatment upon support for candidate.\n Uncertainty reflected by predicted posterior draws at the 95% level with HDI's."
+)
+
+blue_cme <- plot_slopes(
+    VotePreTestModel,
+    variables = "BlueTreatment",
+    condition = "PartyId",
+    type = "link"
+) +
+theme_minimal() +
+labs(
+    x = "Party Identification",
+    y = "CME of Blue Treatment",
+    caption = "Data source: Pre-test.\n Conditional Marginal Effects of Blue Treatment upon support for candidate.\n Uncertainty reflected by predicted posterior draws at the 95% level with HDI's."
+)
+
+red_cme
+blue_cme
+```
+
+@fig-pre-test-vote-cmes presents results suggesting that among Republicans receiving the red treatment, they are more likely to indicate a positive valence toward the candidate than Democrats, who are more likely to report a negative evaluation of the candidate. While Democrats receiving the blue treatment are more likely to report a positive valence toward the candidate relative to Republicans, the effect is plausibly zero. This may be an artifact of asymmetric political polarization. Some scholars suggest that Republicans are much more group-oriented than Democrats [see @lupton_et-al_2020_bjps]; these results may fit with such a narrative. Republicans are reactive to those they may presume to be co-partisan in a way that Democrats do not appear to be as reactive in a similar magnitude.
+
+The evidence from this pre-test is limited. The experimental design is not testing pre-conscious evaluations. The treatments are explicitly political and rely upon a convenience sample of those enrolled in political science classes. The ability of individuals to associate partisanship with the treatments is likely overstated. The sample is also quite unrepresentative, so the inference is indeed threatened. As I discussed with the third model, I also have omitted variable bias as the result of my outcome is a better measure of approach behaviors for those who are extroverted.
+
+Though there are problems with the design here, it does serve some purpose for this project. It demonstrates that despite its problems, color can betray information at some level when thinking of politics. It also provides a functional first test of a possible research design to examine what this particular design can and cannot tell me about my proposed mechanism.
+
+# Study 1 {#sec-study-1}
+
+The purpose of [Study 1](#sec-study-1) is to examine the average treatment effect [^color_influence_pre-reg_anon-2] of color in a common form of campaign branding -- yard signs -- on the attitudes of the observer. Evidence suggests that yard signs *do* matter in shaping political attitudes [@makse_et-al_2019_oup], vote intentions [@makse_et-al_2019_oup], and even electoral outcomes [@green_et-al_2016_es]. As they are simple, cheap, intrusive, and common forms of campaign branding, they provide a conservative test of the effects of color in campaign branding. Using yard signs in this study, I test the first four hypotheses I derive from the snap-judgment model. First, [Study 1](#sec-study-1) tests the claim that individuals do indeed notice the color of electoral yard signs. Next, it tests the claim that these colors that individuals detect influence the viewer's evaluations of the yard sign and the candidate represented on it. [Study 1](#sec-study-1) then tests the claim that the effects on perception are moderated by how consistent the color is with the more complex information displayed on the yard sign. Furthermore, finally, [Study 1](#sec-study-1) examines whether positive information that contains consistency is processed quicker than negative or inconsistent information. That is, do partisans quickly detect and encode information from a clearly co-partisan political candidate?
+
+[^color_influence_pre-reg_anon-2]: $\frac{1}{n}\sum{}{i}(Y_i(d=1) - Y_i(d=0))$ [see @lundberg_et-al_2021_asr]
+
+## Design
+
+I recruit participants from Prolific.[^color_influence_pre-reg_anon-3] After providing informed consent to participate in the study, Prolific redirects subjects to Pavlovia[^color_influence_pre-reg_anon-4] and are provided with a demographics and political attitudes questionnaire. As I am concerned about priming effects introduced by these questions, while I am simultaneously concerned about bias introduced by post-treatment control [@montgomery_et-al_2018_ajps], I randomly select half of the participants to receive the questionnaire post-treatment and the other half receive it pre-treatment. This questionnaire includes common questions about the participant's ascriptive and descriptive characteristics and about the participant's political ideology, partisan identification, interest in politics, patriotism, and political knowledge.
+
+[^color_influence_pre-reg_anon-3]: I pay subjects a rate of \$12.00 per hour. On top of the price per participant, Prolific charges a 30% servicing fee and an additional fee to guarantee a nationally representative sample.
+
+[^color_influence_pre-reg_anon-4]: Pavolovia allows for researchers to host and run open source experiments for about \$0.20 per participant (to cover their server costs). I use it primarily to integrate the JavaScript components from the jsPsych package [@jspsych] for my experimental design.
+
+I include those questions in the questionnaire due to expectations that they may act as confounds in my hypotheses. As political knowledge intertwines with the strength to which an individual identifies with a political party [@delli-carpini_keeter_1996_yup], I expect that political knowledge is an important confounder in my tests of $H_2$, $H_3$, and $H_4$. Therefore, I include a standard battery (the American National Election Study's battery) for assessing political knowledge.[^color_influence_pre-reg_anon-5] As political knowledge is shaped by levels of interest in politics as well [@delli-carpini_keeter_1996_yup], I include the American National Election Study's question to assess levels of self-reported interest in politics. I include a battery to measure patriotism. For this measure, participants can respond to values between 1 (not proud at all) and 4 (very proud) to the following questions: "When I hear the American national anthem, it makes me feel" and "when I say the American pledge of allegiance, it makes me feel" [@huddy_khatib_2007_ajps; @perez_et-al_2019_jop]. I additionally include some questions collecting information on participants' ascriptive and descriptive characteristics such as age, education, gender identity, and racial identity, as a number of these are correlates with partisan identification [see @campbell_et-al_1960_jws; @mason_2018_cup].
+
+[^color_influence_pre-reg_anon-5]: A table including the wording of this, and all, measures are included in the Supplementary Information.
+
+Additionally, I include a question about the respondent's sex assigned at birth and about whether they have received a diagnosis of any color blindness. As some individuals may possess undiagnosed colorblindness, asking about their sex assists in covariate balance. I additionally include four open-ended questions asking participants to describe (1) their "first memory of a political event," (2) "what occurred in the most recent political event" they encountered, (3) how they "keep up-to-date with current political events," and (4) "what occurred in the most recent non-political event" they encountered. The use of multiple open-ended questions helps provide an attention check and identify duplicated responses for those spoofing IP addresses with a VPN [see @kennedy_et-al_2021_poq]. Given estimates using these exclusion criteria, I would expect that upwards of 40% of my original sample will fail these attention checks [@kennedy_et-al_2021_poq]; thus, the large sample size.
+
+I then present participants with an instruction screen informing them of the task for the experiment. In the first trial of the experiment, participants I randomly presented participants with two of three possible yard signs, one at a time. These yard signs are simple with the text "Vote for Riley" and a solid background color of either "Republican Red," "Democratic Blue," or White.[^color_influence_pre-reg_anon-6] There is an added component to this, however.
+
+[^color_influence_pre-reg_anon-6]: See the supplementary information to view all of the stimuli used in [Study 1](#sec-study-1).
+
+Rather than use eye-tracking devices and software, I instead use Mouseview.js [see @anwyl-irvine_et-al_2022_brm], which either blocks out or blurs a large portion of the participant's screen and encourages them to move their mouse to view different parts of the screen in isolation. As the participants move their cursor around the screen, it tracks the coordinates of the cursor along with the "dwell" time of the cursor in that particular coordinate. One primary benefit of Mouseview.js is that it allows researchers to field their experiments outside of a lab-based setting -- while providing results that robustly correlate with the results from a design employing eye-tracking hardware [@anwyl-irvine_et-al_2022_brm]. This allows researchers to rely less on convenience samples, which are common with eye-tracking studies. For my design, I am particularly concerned about reliance on a convenience sample due to variations in participants' ability to detect and process color in the U.S. population relative to a student sample. This means that Mouseview.js is a handy tool for my study. A published pilot version of the experiment used in [Study 1](#sec-study-1) on [Pavlovia](https://run.pavlovia.org/damoncroberts/diss_ch_1_pre-reg/?__pilotToken=c74d97b01eae257e44aa9d5bade97baf&__oauthToken=9a645f267f9b83c8ebb48e60093bae5a746da56a6c824b8343389a9329fa2365).
+
+When viewing each yard sign in the first trial, there is a blur over a substantial portion of the screen. At any given point in time, participants can view only 8% of the image without an obstruction, which simulates the observation that we typically foveate on about 8% of our available visual field at any given time [@wedel_pieters_2008_rmr].[^color_influence_pre-reg_anon-7] Participants move their cursor to explore the yard sign. I allot 5000 ms to perform the exploration until the image goes away to encourage a consistent and short duration to explore the image.[^color_influence_pre-reg_anon-8] After exploring each image, I asked participants what colors were on the yard sign and whether they felt that the candidate represented on the yard sign was a Democrat, a Republican, or Neither. After viewing both images, I ask subjects to indicate their preference among the two images. To ensure that participants have a standardized initial placement of their cursor, I display a blank page before viewing the yard sign that requires participants to click a "Next" button. Immediately after clicking "Next," participants are shown the yard sign. The goal is to ensure that variation in where participants explore the image is not dependent on a non-standard starting point for their cursor. I additionally utilize a gaussian blur for the overlay of the image rather than a solid overlay obstructing the participant's view. This gaussian blur allows participants to see a blurred visual field beyond the cursor. This allows participants to see enough to take purposeful action to explore blurred parts of the image that attract them [@anwyl-irvine_et-al_2022_brm]. The use of the gaussian blur requires that participants use a web browser other than Safari because of a known issue [@anwyl-irvine_et-al_2022_brm]. This will require participants to either switch browsers or to not participate in the study if they are using Safari at the time they are recruited by Prolific to participate in the study. As this requirement is enforced *before* joining the study, this should not have an effect on the number of excluded participants from my original sample nor on a nationally representative original sample.
+
+[^color_influence_pre-reg_anon-7]: I include a screenshot providing an example of what the participants are able to see with the blur included in the supplementary materials.
+
+[^color_influence_pre-reg_anon-8]: In marketing research, some studies give participants about 6000 milliseconds in eye-tracking studies to examine a brand and to formulate an intention to purchase a product or not [@wedel_pieters_2008_rmr]. With Mouseview.js, a study examining the tool's correlation with optical responses to viewing disgust-and-pleasure-evoking images uses 10000 milliseconds; but is intended to be an extended amount of time [@anwyl-irvine_et-al_2022_brm].
+
+There are three more trials that are much like the first trial. What is different between the two other trials is that I vary the amount of color that is on the yard signs (trials 2 and 3). I provide more textual information that deviates from the association of Republicans with red and Democrats with blue (trial 4). Examples of all of these yard signs are included in the supplementary materials.
+
+## Do individuals notice color in political branding?
+
+To address this first question, I use two measures of a participant's attention toward the colors on the yard sign. I collected the first measure through a question posed to the participant after viewing each yard sign, "what color was the yard sign?". The second measure is more implicit than the first: it accounts for the time someone's mouse hovered over the non-text elements of the yard sign relative to how long their mouse hovered over the text. The self-reported measure allows us to examine the conscious detection of color, while the more implicit measure allows us to examine where individuals' attention goes: toward the color or the text.
+
+This is primarily a descriptive exercise, and I intend to compare the differences in measures between the "non-partisan" (white) yard signs and the partisan (red and blue) yard signs. I will examine the differences in measures between the partisan yard signs among self-identified partisan respondents. I additionally include additional models that interact partisanship with age and political knowledge. As the consistent usage by the parties to use the colors red and blue did not occur until the 2000 presidential election, those that were in their early adult years during that time experienced partisan politics where colors were not a strong cue. I additionally expect that those who are more politically knowledgeable should rely on these partisan cues more as they tend to be stronger partisans [@delli-carpini_keeter_1996_yup].
+
+## Do colors shape perceptions of political objects?
+
+To address the following question of whether the colors affect perceptions of the candidate and the yard sign, I ask participants to report whether they perceived the candidate to be a partisan -- either Republican, Democrat, or as non-partisan immediately after viewing each image. Everything on the yard signs remains constant except for the color. As representations of ideology are associated with more than just political views but things like space [@mills_et-al_2016_bbr] and color [@maestre_medero_2022_pr], differences between respondents on the perceived political affiliations of the candidate should be more than stochastic differences. However, differences occur based on the associations between red and blue with partisanship and the lack of political information that the color white conveys.
+
+I examine differences in respondents' reported perceptions of the candidate's partisan affiliation. As respondents are making the choice between two yard signs, my estimand of interest is of a pairwise comparison of the two yard signs they see in each trial. While these are most common in ranking athletic teams, there is recent academic interest in these estimands as they allow researchers to examine the "popularity" of a particular treatment when experimental participants are asked to choose between two options [see @hopkins_noel_2022_ajps]. As color is the only information that changes between yard signs in a given trial, pairwise comparisons are a more appropriate estimand than those from conjoint analyses which often produce treatments that simultaneously vary a number of dimensions of a profile [@bansak_et-al_2021_cup]. There are a handful of options about how to calculate a pairwise comparison, but I elect to estimate a Bradley-Terry score. Bradley-Terry scores are designed for determining "winners" that account for a variety of predictors [@schnakenberg_penn_2013_pa]. Unlike Elo Scores, a popular alternative, Bradley-Terry scores do not require every pairwise matchup to determine a winner.
+
+## Do these perceptions require consistency between information types?
+
+Another hypothesis derived from the snap-judgment model suggests that inconsistency in the yard sign's visual information will lead to more mixed perceptions of the candidate's political stances. The design of the latter trials in the study presents yard signs with mixtures of non-partisan and out-partisan colors. For example, primarily red and presumably Republican yard signs, but has some blue or white in them.
+
+I take the same analytical strategy to address this question as I did before. I estimate the Bradley-Terry scores among respondents. I should expect that the trials that use less "consistent" visual information demonstrate more ambivalence among respondents in their reported perceptions of the politician's positions. Specifically, I expect that participants will perceive the yard signs that have both red and blue on them as more moderate and that the higher proportion of the color red or blue among the two colors will lead respondents, on average, to be more likely to believe that the candidate leans more Republican or Democratic.
+
+## Do partisans process co-partisan branding faster?
+
+The other analytical tasks do not examine expectations derived from the motivated reasoning portion of the model. That is, do people process in-group information faster than out-group information? There is evidence of these tendencies in political circumstances [@lodge_taber_2013_cup].
+
+To examine whether motivated reasoning is also active with the processing of politically-relevant color, I examine the difference between the amount of time between the start of viewing a stimulus and clicking "Next" to stop viewing the stimulus among those who were viewing a presumed co-partisan yard sign relative to those viewing a presumed out-partisan yard sign. As motivated reasoning tends to be more prevalent among strong partisans and those highly knowledgeable and interested in politics [@lodge_taber_2013_cup], I control for responses to the pre-treatment knowledge, interest, and partisan strength batteries.
+
+## Checking the robustness of my analytical strategy with simulations
+
+The @sec-pre-test provides a lot of useful information that I might use to construct my expectations for what I'll discover in @sec-study-1. Rather than evaluating my design choices based on expected long-run tendencies, I explicitly use the results from @sec-pre-test and adjust that information with assumptions about differences between @sec-pre-test and @sec-study-1's design to construct expectations that directly feed into my analytical choices. That is, rather than evaluating my design in the Frequentist framework, I rely on results from the @sec-pre-test to help with constructing my priors that I will use in a Bayesian model specification. Bayesian models often face criticism for the seemingly subjectivity introduced into a model specification by including one's priors into the calculation of one's estimates. While there has been a lot of ink spilt debating the validity of this claim, a Bayesian model specification seems particularly useful in the context of pre-registering a study. @sec-pre-test provides results which give me a benchmark by which I might refine my expectations about the effect of color on people's perceptions about politics; it gives me a concrete $\beta$ coefficient. I can then use this information to construct my priors for my model. As I admit to a number of problems with my @sec-pre-test, my priors will reflect my uncertainty about whether those particular estimates should hold in @sec-study-1 and allows me to define an interval of effect sizes as opposed to a point estimate. These priors are updated by my likelihood distribution that is constructed by the data I collect in @sec-study-1. What this implies is that the more data I have, even if my priors are incorrect, I will converge upon the effect in the population [@johnson_et-al_2021_crc]. However, since my priors require uncertainty, the weight of my priors on my eventual estimate are weaker the more uncertainty I specify. The lessons this provides for a pre-registered report suggests that I can use the results from my @sec-pre-test to inform choices for @sec-study-1, but that, though I use that information to inform my choices for the pre-registered report, I explicitly define how I expect that the results for @sec-study-1 are different than those in @sec-pre-test and that the data for @sec-study-1 directly update my expectations set by @sec-pre-test.
+
+As my estimation strategy does not assume long-run convergence to the population, many assume that my Bayesian models are agnostic to the sample size and often eschew power analyses. However, as estimates from a Bayesian model are weighted by the observed data and my priors, I want to examine the robustness of my model specification using simulated data that vary on sample size. While I do expect that my priors will shift slightly depending on my pre-registered analyses here and upon exploratory data analysis once I collect my data, using simulated data to examine my analytical pipeline offers the opportunity to demonstrate my model specification's ability to converge upon parameters defined by a hypothetical data generating process.
+
+Using the `fabricatr` [@fabricatr] package, I simulate a population with an N of 1,00,000. The specified data generating processes for each of the variables are included in @lst-sim-dgp and @lst-sim-dgp-2. I then generate 500 random samples for each sample size of 200, 400, 600, and 800 participants. This sample size is not the size of the total sample I intend to recruit but is the total sample that I have data on after excluding those who fail attention checks and those who provide duplicate responses. Some estimate that insincere responses account for about 40% of a researcher's original sample [@kennedy_et-al_2021_poq]. Therefore the total sample that I recruit from prolific should be about 40% larger than the total sample size used in these simulations.
+
+``` {#lst-sim-dgp .r lst-cap="Code to generate simulated population data"}
+
+dgp <- fabricate(
+    N = 100000, # N in the population
+    E = rnorm(N), # epsilon term
+    age = round( # define age variable
+        runif(N, 18, 85)
+    ),
+    gender = draw_binary( # define binary gender identity variable
+        N,
+        prob = 0.5
+    ),
+    white = draw_binary( # define white indicator variable
+        N,
+        prob = 0.6
+    ),
+    PartyId = draw_ordered( # define party identity variable as 3-item ordinal
+        x = rnorm(
+            N,
+            mean = 0.4 * age - 0.6 * gender + 0.7 * white + E
+        ),
+        breaks = c(
+            -Inf, 20.14, 23.01, Inf
+        )
+    ),
+    Attention = draw_ordered( # define Attention variable as 5-item ordinal
+        x = rnorm(
+            N,
+            mean = 0.5 * age - 0.3 * gender + 0.1 * white + E
+        ),
+        breaks = c(
+            -Inf, 16.5, 28.26, 36.54, 43.82, Inf
+        )
+    ),
+    Knowledge = rnorm( # define Knowledge variable
+        N,
+        mean = 0.6 * age - 0.5 * gender + 0.2 * white + 0.8 * Attention + E
+    )/100,
+    ...
+```
+
+``` {#lst-sim-dgp-2 .r lst-cap="Code to generate simulated population data (continued)"}
+  ...
+    RedTreatment = draw_binary( # Simulate treatment assignment with prob 1/3
+        N,
+        prob = 1/3
+    ),
+    BlueTreatment = draw_binary( # Simulate treatment assignment with prob 1/3
+        N,
+        prob = 1/3
+    ),
+    PartyGuess = draw_ordered( # Define PartyGuess outcome variable as 3-item ordinal
+        x = rnorm(
+            N,
+            mean = (
+              2 * RedTreatment + -2 * BlueTreatment - 0.01 * age 
+              - 0.1 * RedTreatment * age + 0.1 * BlueTreatment * age 
+              + 0.1 * Attention + 0.1 * Knowledge + E
+            )
+        ),
+        breaks = c(
+            -Inf, -0.5, 0, Inf
+        )
+    ),
+    PartyGuessTrialTwo = draw_ordered( # Define PartyGuess outcome variable as 3-item categorical
+        x = rnorm(
+            N,
+            mean = (
+              2 * RedTreatment + -2 * BlueTreatment - 0.01 * age 
+              - 0.1 * RedTreatment * age + 0.1 * BlueTreatment * age 
+              + 0.1 * Attention + 0.1 * Knowledge + E
+            )
+        ),
+        breaks = c(
+            -Inf, -0.5, 0, Inf
+        )
+    ),
+    Vote = draw_ordered( # Define Vote outcome variable as indicator variable
+        x = rnorm(
+            N,
+            mean = (
+              1 * RedTreatment + - 1 * BlueTreatment - 0.01 * age 
+              + 0.1 * Attention + 0.1 * Knowledge + E
+            )
+        ),
+        breaks = c(
+            -Inf, 0, Inf
+        )
+    )
+)
+```
+
+To examine my analytic strategy's ability to converge upon the population's data generating process for respondents' perceptions of the fictional candidate's partisanship, I specify a ordinal logistic regression where I set relatively constrained priors upon the beta coefficients, as depicted in @eq-party-guess-priors.
+
+$$
+\begin{split}
+  \alpha \sim Student-T(3,0,2.5) \\
+  \beta_i \sim Normal(0, 1) \\
+  \hat{Party_i} = Cumulative(logit^{-1}(\alpha_1 + \alpha_2 \\ 
+   + \beta_1 \times Red Treatment + \beta_2 \times Blue Treatment \\
+   + \beta_3 \times age + \beta_4 \times Red treatment \times age + \beta_5 \times Blue treatment \times age \\
+   + \beta_7 \times Attention + \beta_7 \times Knowledge))
+\end{split}
+$$ {#eq-party-guess-priors}
+
+These priors suggest that I believe 68% of my beta coefficients, given the data, should be between -1 and 1; with the median of the estimates at 0.
+
+After fitting each model, I construct 95% high density interval credible intervals from the model's posterior draws. I then record a value of 1 if the credible interval does not contain zero (true positive) and a value of 0 if the credible interval does (false negative) for each parameter. Once I have run each of my models for the specified sample size, I calculate the average of true positive and false negatives. This gives me a percentage of the time that I would come to the correct conclusion that there is a non-zero effect on that parameter. @tbl-true-positive-rates documents these calculations for each sample size.
+
+```{r}
+#| label: load-simulation-results
+
+Sample200Results <- readRDS(file ="../../data/prr/sample200SimResults.RDS")
+Sample400Results <- readRDS(file ="../../data/prr/sample400SimResults.RDS")
+Sample600Results <- readRDS(file ="../../data/prr/sample600SimResults.RDS")
+Sample800Results <- readRDS(file ="../../data/prr/sample800SimResults.RDS")
+```
+ 
++-------------+-----------------------------------------------------------------------------+
+| Sample size | True positive rate                                                          |
++=============+=============================================================================+
+| n = 200     | -   Red treatment: `r sprintf('%.3f', Sample200Results[,1])`                
+|             |                                                                             
+|             | -   Blue treatment: `r sprintf('%.3f', Sample200Results[,2])`               
+|             |                                                                             
+|             | -   Age: `r sprintf('%.3f', Sample200Results[,3])`                          
+|             |                                                                             
+|             | -   Red treatment $\times$ Age: `r sprintf('%.3f', Sample200Results[,4])`   
+|             |                                                                             
+|             | -   Blue treatment $\times$ Age: `r sprintf('%.3f', Sample200Results[,5])`  
+|             |                                                                             
+|             | -   Attention: `r sprintf('%.3f', Sample200Results[,6])`                    
+|             |                                                                             
+|             | -   Knowledge: `r sprintf('%.3f', Sample200Results[,7])`                    
++-------------+-----------------------------------------------------------------------------+
+| n = 400     | -   Red treatment: `r sprintf('%.3f', Sample400Results[,1])`                
+|             |                                                                             
+|             | -   Blue treatment: `r sprintf('%.3f', Sample400Results[,2])`               
+|             |                                                                             
+|             | -   Age: `r sprintf('%.3f', Sample400Results[,3])`                          
+|             |                                                                             
+|             | -   Red treatment $\times$ Age: `r sprintf('%.3f', Sample400Results[,4])`   
+|             |                                                                             
+|             | -   Blue treatment $\times$ Age: `r sprintf('%.3f', Sample400Results[,5])`  
+|             |                                                                             
+|             | -   Attention: `r sprintf('%.3f', Sample400Results[,6])`                    
+|             |                                                                             
+|             | -   Knowledge: `r sprintf('%.3f', Sample400Results[,7])`                    
++-------------+-----------------------------------------------------------------------------+
+| n = 600     | -   Red treatment: `r sprintf('%.3f', Sample600Results[,1])`                
+|             |                                                                             
+|             | -   Blue treatment: `r sprintf('%.3f', Sample600Results[,2])`               
+|             |                                                                             
+|             | -   Age: `r sprintf('%.3f', Sample600Results[,3])`                          
+|             |                                                                             
+|             | -   Red treatment $\times$ Age: `r sprintf('%.3f', Sample600Results[,4])`   
+|             |                                                                             
+|             | -   Blue treatment $\times$ Age: `r sprintf('%.3f', Sample600Results[,5])`  
+|             |                                                                             
+|             | -   Attention: `r sprintf('%.3f', Sample600Results[,6])`                    
+|             |                                                                             
+|             | -   Knowledge: `r sprintf('%.3f', Sample600Results[,7])`                    
++-------------+-----------------------------------------------------------------------------+
+| n = 800     | -   Red treatment: `r sprintf('%.3f', Sample800Results[,1])`                
+|             |                                                                             
+|             | -   Blue treatment: `r sprintf('%.3f', Sample800Results[,2])`               
+|             |                                                                             
+|             | -   Age: `r sprintf('%.3f', Sample800Results[,3])`                          
+|             |                                                                             
+|             | -   Red treatment $\times$ Age: `r sprintf('%.3f', Sample800Results[,4])`   
+|             |                                                                             
+|             | -   Blue treatment $\times$ Age: `r sprintf('%.3f', Sample800Results[,5])`  
+|             |                                                                             
+|             | -   Attention: `r sprintf('%.3f', Sample800Results[,6])`                    
+|             |                                                                             
+|             | -   Knowledge: `r sprintf('%.3f', Sample800Results[,7])`                    
++-------------+-----------------------------------------------------------------------------+
+
+: True positive rate {#tbl-true-positive-rates}
+
+The results of my simulation suggest that I should aim for a sample of 600 respondents once I have excluded those that do not meet the inclusion criteria (i.e., fail attention checks, duplicated IP addresses and provide insincere responses to the open-ended prompts). Given estimates of poor responses for about 40% of some samples [@kennedy_et-al_2021_poq], I should aim to recruit a total of 1500 participants for Study 1.
+
+# Study 2 {#sec-study-2}
+
+[Study 1](#sec-study-1) presents evidence in support of the snap-judgment model in a relatively artificial way. The yard signs presented as stimuli are elementary in information content and design. Furthermore, viewing yard signs in real-world scenarios does not occur through a computer screen with an overlay allowing individuals to observe only a fraction of the screen simultaneously.
+
+One way to examine the real-world effects of color on decisions about campaign branding is to go directly to the experts. If the effects of [Study 1](#sec-study-1) hold up in natural conditions, we should expect that campaigns make strategic decisions to nurture this behavior. Descriptive evidence suggests that female candidates in the United States make different branding decisions based on the constituency and whether their opponent is a man or a woman [@williams_et-al_2022_jomp]. If the color of a yard sign does indeed matter and its electoral effects depend on the perceptions of potential voters, we should expect that campaigns are less likely to place yard signs with a large amount of Red or Blue in more moderate districts. However, in districts where there is a strong partisan base, we should expect that the candidate of the popular party will use the party's color more, while the disadvantaged candidate will use their party's color less as a way to either play up or down their loyalty to their party.
+
+## Are colors on yard signs a strategic choice by campaigns?
+
+In this first part of [Study 2](#sec-study-2), I do a number of informal interviews with managers of national, state, and local campaigns. In these interviews, I simply ask the campaign managers: "what goes into your decision for the colors to put on your yard sign?" The goal of this open-ended question is to hear from the practitioners whether they perceive the yard sign color as a strategic decision for the campaign. I then follow-up to ask "do you think that the color choices you make for the yard signs matter to voters?" The goal of this question is to examine whether practitioners intuitively perceive their strategic choices to have efficacy in the election. I then ask them "if colors matter and you choose to use them strategically, do you use certain colors to attract certain groups of voters that may not be reliably in your base of support?" The goal of this question is to get at the argument that the colors that campaigns use are meant as a way to communicate the partisan and ideological alignment of the candidate with the voters. Finally, I get directly to the point "what information about the candidate are you trying to convey to potential voters when you choose the colors on your yard signs?"
+
+While it is useful to hear from practitioners whether they strategically use colors for their yard signs and whether they believe that their strategic choices matter, there are many open questions. Firstly, the selection of whom to interview is dependent on convenience and the accessability of the campaign manager. In other words, some campaign managers may be quite hard to contact due to sparse information about them or they may be hard to contact as a result of their schedules. Second, it is doubtful that campaign managers will openly admit that the choices they make are not strategic or that they think their strategic choices have little effects on the campaign's outcome.
+
+To address these remaining questions, I employ a second part of [Study 2](#sec-study-2) which relies upon observational data and leverages congressional redistricting following the 2020 National Census to examine whether the partisan context of a district is associated with changes to color choices for campaigns in that same district. As this is likely a very endogenous process -- where voters are influenced by the colors used and the voters influence the colors that are used -- the primary goal of this second part of the study is to demonstrate that the parties are *responding* to their intuition that suggests that colors matter to the campaign; it is not to make any directional claim that partisan composition of a district *determines* the colors on a yard sign.
+
+## Do branding choices reflect electoral context?
+
+```{python}
+#| label: some-script-execution
+#| eval: false
+import os
+os.system('../study_2/code/03_capd_downloading_images.py')
+os.system('../study_2/code/04_mit_election_lab_merge.py')
+os.system('../study_2/code/05_color_detection.py')
+```
+
+To examine whether the use of colors on yard signs varies systematically depending on the electoral context, using the `selenium` [@selenium] and `time` [@time] `python` [@python] packages, I collect images from 2018, 2020, and 2022 Congressional elections for the House of Representatives across the United States. These yard signs are pulled together on one website by the Center for American Politics and Design[^color_influence_pre-reg_anon-9]. With these data, I detect the percentage of the "Republican Red" and "Democratic Blue" on the yard signs. I then use redistricting data from the [MIT election lab and Redistricting Data Hub](https://redistrictingdatahub.org/data/about-our-data/) to determine districts that did and did not have changes in the 5-year rolling average partisan vote share but that are also nationally representative. As there are a number of external factors that may effect choice in yard sign color besides perceptions of how it may attract voters, this threatens my ability to make claims about any estimation of an Average Treatment Effect [^color_influence_pre-reg_anon-10]. Instead these data are used to perform a synthetic control design to give me causal leverage over the role that electoral context has on the proportion of partisan colors (i.e., red and blue) on yard signs relative to non-partisan colors by estimating a Local Average Treatment Effect [^color_influence_pre-reg_anon-11] on districts that were redistricted but vary in whether the redistricting leads to a partisan gerrymandered district or not. This analysis aims to bear evidence on the hypothesis that campaigns respond to the preferences of partisan voters and adjust their branding as a result. In this case, the branding is the color of the yard sign. First, I'll explain how I collected data on the proportion of partisan and non-partisan colors on these yard signs from the [Center for American Politics and Design](https://www.politicsanddesign.com).
+
+[^color_influence_pre-reg_anon-9]: See: https://www.politicsanddesign.com/
+
+[^color_influence_pre-reg_anon-10]: $\frac{1}{n}\sum{}{i}(Y_i(d=1) - Y_i(d=0))$ [see @lundberg_et-al_2021_asr]
+
+[^color_influence_pre-reg_anon-11]: $E[(Y^1_i - Y^0_i) | d^1_i - d^0_i = 1]$ \[see @cunningham_2021_yup\]
+
+I collected the GOP logo used on their official Twitter account during the 2022 midterm election cycle to provide an example of how color detection works. With the `opencv` package [@opencv_library], I load this image and convert it to a three-dimensional `numpy` [@numpy] array that contains information about the GBR (reversed RBG) values for the pixels in that image. I resized the images to be a standardized 224 $x$ 224 pixels. I train the computer to detect a range of GBR values that encompass the official "Republican Red" [^color_influence_pre-reg_anon-12]. For the broader exercise, I do it for the color white[^color_influence_pre-reg_anon-13] and "Democratic blue" [^color_influence_pre-reg_anon-14]. Once this range of values is specified, the computer detects the pixels that do not contain values within this pre-specified range and converts those values to represent the color black. @fig-color-detection-example presents this process using the `opencv` [@opencv_library] and `matplotlib` [@matplotlib] packages.
+
+[^color_influence_pre-reg_anon-12]: lower values: (93, 9, 12), higher values: (236, 69, 75)
+
+[^color_influence_pre-reg_anon-13]: upper and lower values: (255, 255, 255)
+
+[^color_influence_pre-reg_anon-14]: lower values: (0, 18, 26), higher values: (102, 212, 255)
+
+```{python}
+#| label: example detection
+#| echo: false
+
+from sys import path # for path management
+from cv2 import imread, imwrite # for color detection
+    #* user-defined
+#path.append("../")
+from helper import colorDetector
+
+# Define colors to detect
+    #* White
+        #** Not defined. Default for colorDetector()
+    #* Red
+republican_red = [232, 27, 35] # target color
+red_lower = [93, 9, 12] # lower end of spectrum for red
+red_higher = [237, 69, 75] # higher end of spectrum for red
+
+# Load gop image to read
+img = imread("../../data/study_2/gop_2022.png")
+
+# Detect colors
+percent, img_transformed, result = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
+
+transformed= imwrite("../../data/study_2/gop_2022_transformed.png", img_transformed) # save transformed image
+
+masked= imwrite("../../data/study_2/gop_2022_detected.png", result) # save masked image
+```
+
+::: {#fig-color-detection-example layout-ncol="2"}
+![Resized original image](../../data/study_2/gop_2022_transformed.png){#fig-resized}
+
+![Masked](../../data/study_2/gop_2022_detected.png){#fig-masked}
+
+Detecting colors in the GOP logo
+:::
+
+I then extract the values in the array that are non-black and calculate the percentage of non-black pixels (as depicted in @eq-img-color-percentage).
+
+$$
+\text{Color} \% = \frac{\text{Non-black}}{\text{Transformed}} \times \frac{\text{Original}_{\text{Height}} + \text{Original}_{\text{Width}}}{2\text{Transformed}_{\text{Height}} + 2\text{Transformed}_{\text{Width}}}
+$$ {#eq-img-color-percentage}
+
+```{python}
+#| output: asis
+# Print calculated percentage of example
+print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
+```
+
+With these data, I estimate a mixed effects model with intercept random effects at the district level and intercept fixed effects at the election year level to examine the district and within election year differences between choices to employ more "partisan" colors on a yard sign based on historical data on the electoral performance of partisan and non-partisan candidates. That is, I examine whether there are differences between how campaigns respond to redistricting that make the electorate for that constituency more partisan or less partisan while controlling for a number of election-year and campaign specific factors. Support for $H_5$ would suggest that campaigns in districts that are more partisan will shift to use more traditionally-partisan colors while campaigns in districts that do not shift to have a more historically partisan constituency will use fewer of those traditionally-partisan colors.
+
+# Discussion
+
+Not only do yard signs matter for electoral strategy, outcomes, and voter attitudes and perceptions, but I suspect that the yard signs' color partially explains these phenomena.
+
+While yard signs are a simple form of party branding, richer theorizing about how diverse types of potentially politically-relevant information allows us to fill some of these gaps. In the case of yard signs, while some may be skeptical of whether yard signs and campaigns, more generally, matter for electoral outcomes, an application of the snap-judgment model on yard signs suggests that they indeed have potential and provide an explanation as to how it occurs.
+
+Outside of color on yard signs, I suspect that color provides valuable information that is processed efficiently by the public. Due to this, voters can connect colors like Red and Blue to make assumptions about a political candidate's partisan affiliation. With this information, voters can then evaluate the candidate. This is a much simpler task than hearing the candidate's positions on immigration, for example, and then making a connection to their partisan affiliation.
+
+{{< pagebreak >}}
