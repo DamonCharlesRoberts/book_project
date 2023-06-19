@@ -1,13 +1,13 @@
 <h4 align="center">Replication code: The color and shape of politics</h4>
 <p align="center">
-    <a href="https://github.com/DamonCharlesRoberts/dissertation/commits/main">
-    <img src="https://img.shields.io/github/last-commit/DamonCharlesRoberts/dissertation.svg?style=flat-square&logo=github&logoColor=white"
+    <a href="https://github.com/DamonCharlesRoberts/book_project/commits/main">
+    <img src="https://img.shields.io/github/last-commit/DamonCharlesRoberts/book_project.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub last commit"></a>
-    <a href="https://github.com/DamonCharlesRoberts/dissertation/issues">
-    <img src="https://img.shields.io/github/issues-raw/DamonCharlesRoberts/dissertation.svg?style=flat-square&logo=github&logoColor=white"
+    <a href="https://github.com/DamonCharlesRoberts/book_project/issues">
+    <img src="https://img.shields.io/github/issues-raw/DamonCharlesRoberts/book_project.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub issues"></a>
-    <a href="https://github.com/DamonCharlesRoberts/dissertation/pulls">
-    <img src="https://img.shields.io/github/issues-pr-raw/DamonCharlesRoberts/dissertation.svg?style=flat-square&logo=github&logoColor=white"
+    <a href="https://github.com/DamonCharlesRoberts/book_project/pulls">
+    <img src="https://img.shields.io/github/issues-pr-raw/DamonCharlesRoberts/book_project.svg?style=flat-square&logo=github&logoColor=white"
          alt="GitHub pull requests"></a>
 </p>
 
@@ -16,7 +16,7 @@
 Repository containing all materials needed to replicate my book project.
 
 
-For details on the file structure, please see the [repository&#39;s wiki](https://github.com/DamonCharlesRoberts/dissertation/wiki).
+For details on the file structure, please see the [repository's wiki](https://github.com/DamonCharlesRoberts/book_project/wiki).
 
 
 ## Maintainers
