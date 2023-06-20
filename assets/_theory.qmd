@@ -3,7 +3,7 @@ format: html
 ---
 ```{mermaid}
 %%| label: fig-theory
-%%| fig-cap: Snap-judgment model of political visual information
+%%| fig-cap: Snap-judgment model of politically-relevant visual information
 %%| fig-width: 6.5
 %%{init: {'theme':'base', 'themeVariables':{'primaryColor':'#ffffff', 'primaryBorderColor': '#000000'}}}%%
 graph TD
