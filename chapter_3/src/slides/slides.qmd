@@ -1,0 +1,191 @@
+---
+title: "How does color influence our political conversations?"
+author:
+  - name: Damon C. Roberts
+    title: PhD Candidate
+    affiliations:
+      - id: CU
+        name: University of Colorado Boulder
+        department: Political Science
+        address: 333 UCB
+        city: Boulder
+        region: CO 
+        postal-code: 80309-0333
+    attributes:
+      corresponding: true
+format:
+  revealjs: 
+    embed-resources: true
+    theme: [dark, ../../assets/slides/custom.scss]
+    transition: slide
+    scrollable: true
+    incremental: true
+    slide-number: true
+    toc: true
+    toc-depth: 1
+    slide-level: 3
+    bibliography: ../../../assets/references.bib
+    footer: |
+        <span class="faux-block">{{< fa brands creative-commons >}} 2021-2023 Damon Charles Roberts</span>
+        <span class="faux-block"><br>All content licensed under {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-sa >}} [Creative Commons CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)</span>
+    self-contained: true
+    output-file: color_and_conversation.html
+execute:
+  echo: false
+---
+
+```{r}
+#| label: setup-block
+
+# Load some nifty functions
+box::use(
+  ../../../chapter_2/src/R/predicted_prob_bar[...]
+)
+# Load fitted models
+load(
+  file = "../../../chapter_2/data/temp/models/study_1_fitted.RData"
+)
+```
+
+# Background
+
+---
+
+- Chapter from a larger book project
+- Book examines
+  - does color convey political information?
+    - particularly partisan affiliation
+
+## Key findings from other chapters
+
+---
+
+```{r}
+#| label: fig-associations
+#| layout-ncol: 2
+#| fig-cap: People associate red yard signs with Republicans and blue yard signs with Democrats
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+)
+red
+blue
+```
+
+---
+
+```{r}
+#| label: fig-associations-weaker
+#| layout-ncol: 2
+#| fig-cap: Mixing red and blue in a yard sign increases uncertainty about partisanship
+#| fig-subcap:
+#|   - Trial 2 Red treatment
+#|   - Trial 2 Blue treatment
+#|   - Trial 3 Red treatment
+#|   - Trial 3 Blue treatment
+plot_trial_2_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_red"]]
+  , x_axis = "trial_2_red_stimuli"
+)
+plot_trial_2_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_blue"]]
+  , x_axis = "trial_2_blue_stimuli"
+  , treatment = "Blue"
+)
+plot_trial_3_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_red"]]
+  , x_axis = "trial_3_red_stimuli"
+)
+plot_trial_3_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_blue"]]
+  , x_axis = "trial_3_blue_stimuli"
+  , treatment = "Blue"
+)
+plot_trial_2_red
+plot_trial_2_blue
+plot_trial_3_red
+plot_trial_3_blue
+```
+
+---
+
+```{r}
+#| label: fig-vote
+#| layout-ncol: 2
+#| fig-cap: Republicans report a higher probability of voting for candidates with red yard signs; Democrats report a higher probability of voting for candidates with blue yard signs
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+red
+blue
+```
+
+
+# Question guiding this chapter
+
+- Does color influence whether we talk about politics?
+
+
+# Building a theory of snap-judgment based on politically-relevant visual information
+
+## A common language
+
+- Valance: a positive or negative response to an object.
+- Affect (or affective state): feeling positive or negative in response to an object.
+  - Pre-conscious response
+- Emotion: Much more complex labels assigned to affective responses.
+  - Often requires some amount of conscious processing to assign an appropriate label.
+  - Slower
+- Attitudes are an expression of valanced responses to some object.
+
+## Learning from our psychology and neuroscience friends 😊
+
+- There are a lot of useful things that we can borrow from social and affective neuroscientists and social psychologists
+
+---
+
+1. Memory reflects stored prior experiences with various objects
+  - These memories are not just factual recollections of things
+    - e.g., the balloon was red.
+  - Memories often encode your affective responses to that object.
+2. Relatedly, memories are multi-dimensional
+3. How we form an attitude with new information (or a combination of it) is by accessing memories that share features in common with the object.
+4. Memories are a complex web of prior experiences that have a whole lot of strands connecting them.
+5. Social groups and social hiearchies are a dimension that we pay attention to and encode along with a memory.
+
+## A snap-judgment model of politically-relevant visual information
+
+---
+
+{{< include ../../../assets/_theory.qmd >}}
+
+# References
+
+:::{#refs}
+:::
