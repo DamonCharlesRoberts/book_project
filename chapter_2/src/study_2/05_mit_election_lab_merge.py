@@ -10,16 +10,16 @@
 
 # Load modules
     #* from env
-import duckdb # for database access
+#import duckdb # for database access
 import polars as pl # for DataFrame management
 import numpy as np # for array management
     #* User-defined
-from PY.helper import names
+from chapter_2.src.PY.helper import names
 
 # Check out the election lab data
 election_lab = pl.read_csv(
     #* lazy load the csv file
-    "data/chapter_1/1976-2020-house.csv",
+    "./chapter_2/data/original/study_2/1976-2020-house.csv",
     null_values=""
     ).select([
     #* select the following columns
@@ -35,102 +35,96 @@ election_lab = pl.read_csv(
         pl.col("state").str.to_lowercase().alias("state"),
     #* create candidate_Name column
         #pl.col("candidate").str.to_lowercase().alias("Candidate_Name")
-    ]).with_column(
-        pl.concat_str(["state", "district"], sep = "-").alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "alaska-0")
+    ]).with_columns(
+        pl.concat_str(["state", "district"], separator = "-").alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "alaska-0")
         .then("alaska-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "vermont-0")
+        .otherwise(pl.col("state_district")).alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "vermont-0")
        .then("vermont-1")
-       .otherwise(pl.col("State_District")).alias("State_District") 
-    ).with_column(
-        pl.when(pl.col("State_District") == "montana-0")
+       .otherwise(pl.col("state_district")).alias("state_district") 
+    ).with_columns(
+        pl.when(pl.col("state_district") == "montana-0")
         .then("montana-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "wyoming-0")
+        .otherwise(pl.col("state_district")).alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "wyoming-0")
         .then("wyoming-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "south dakota-0")
+        .otherwise(pl.col("state_district")).alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "south dakota-0")
         .then("south dakota-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
+        .otherwise(pl.col("state_district")).alias("state_district")
     ).filter(
         pl.col("totalvotes") > 0
-    ).with_column(
-        names(pl.col("candidate")).str.to_lowercase().alias("Last_Name")
-    ).with_column(
-        pl.col("year").cast(pl.Utf8).str.strptime(pl.Date, fmt = "%Y").alias("Year")
-    ).drop(
-        "year"
+    ).with_columns(
+        names(pl.col("candidate")).str.to_lowercase().alias("last_name")
+    ).with_columns(
+        pl.col("year").cast(pl.Utf8).str.strptime(pl.Date, format = "%Y").alias("year")
     )
 
 mapped = election_lab.filter(
     pl.col("party") == "DEMOCRAT"
 ).groupby_dynamic(
-    "Year", every = '2y', period = "6y", by = "State_District"
+    "year", every = '2y', period = "6y", by = "state_district"
 ).agg(
-    pl.apply(exprs = ["candidatevotes", "totalvotes"], f = lambda x: x[0]/x[1]).cast(pl.Float64).alias("Dem_Vote_Share")
-).with_column(
-    pl.col("Dem_Vote_Share").arr.get(0).alias("Dem_Vote_Share")
+    pl.apply(exprs = ["candidatevotes", "totalvotes"], function = lambda x: x[0]/x[1]).cast(pl.Float64).alias("dem_vote_share")
+).with_columns(
+    pl.col("dem_vote_share").list.get(0).alias("dem_vote_share")
 ).sort(
-    ["State_District", "Year"]
+    ["state_district", "year"]
 )
 
 election_lab_merge = election_lab.join(
     mapped,
-    on = ["State_District", "Year"],
+    on = ["state_district", "year"],
     how = "left"
 )
 
 # Load database
 
-db = duckdb.connect("data/dissertation_database") # connect to my database
-
-yard_sign = pl.from_arrow(db.execute(
-    '''SELECT * FROM ch_1_capd_color_detected'''
-    ).fetch_arrow_table(
-    #* grab the ch_1_capd_yard_signs table from the database and store it as a pandas dataframe 
-    )
-    #* store it as polars.DataFrame
-    ).with_column(
-        pl.col("State").str.to_lowercase().alias("State")
-    ).with_column(
-        pl.concat_str(["State", "District"], sep = "-").alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "alaska-0")
+df = pl.read_csv(
+    source = "./chapter_2/data/temp/study_2/04_output.csv"
+).with_columns(
+        pl.col("state").str.to_lowercase().alias("state")
+    ).with_columns(
+        pl.concat_str(["state", "district"], separator = "-").alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "alaska-0")
         .then("alaska-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "vermont-0")
+        .otherwise(pl.col("state_district")).alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "vermont-0")
        .then("vermont-1")
-       .otherwise(pl.col("State_District")).alias("State_District") 
-    ).with_column(
-        pl.when(pl.col("State_District") == "montana-0")
+       .otherwise(pl.col("state_district")).alias("state_district") 
+    ).with_columns(
+        pl.when(pl.col("state_district") == "montana-0")
         .then("montana-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "wyoming-0")
+        .otherwise(pl.col("state_district")).alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "wyoming-0")
         .then("wyoming-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
-    ).with_column(
-        pl.when(pl.col("State_District") == "south dakota-0")
+        .otherwise(pl.col("state_district")).alias("state_district")
+    ).with_columns(
+        pl.when(pl.col("state_district") == "south dakota-0")
         .then("south dakota-1")
-        .otherwise(pl.col("State_District")).alias("State_District")
-    ).with_column(
-        pl.col("Year").cast(pl.Utf8).str.strptime(pl.Date, fmt = "%Y").alias("Year")
-    ).with_column(
-        pl.col("Last_Name").str.decode(pl.Utf8).str.to_lowercase().alias("Last_Name")
-    ).join(
+        .otherwise(pl.col("state_district")).alias("state_district")
+    ).with_columns(
+        pl.col("year").cast(pl.Utf8).str.strptime(pl.Date, format = "%Y").alias("year")
+    ).with_columns(
+        pl.col("last_name").str.to_lowercase().alias("last_name")
+    )
+
+
+yard_sign = df.join(
         election_lab_merge, 
-        on = ["Year", "State_District", "Last_Name"], 
+        on = ["year", "state_district", "last_name"], 
         how = "left"
-    ).to_arrow()
+    )
 
-# Add merged table to database
-
-db.execute("CREATE OR REPLACE TABLE capd_mit_merged AS SELECT * FROM yard_sign") # store merged df in database as capd_mit_merged table
-
-print('SCRIPT COMPLETE')
+# Save stored dataset
+yard_sign.write_csv(
+    file = "./chapter_2/data/clean/study_2.csv"
+)
