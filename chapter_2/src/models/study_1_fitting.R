@@ -10,7 +10,7 @@
 
 # Setup
     #* set working directory
-setwd("./src")
+setwd("./chapter_2/src")
     #* execute cleaning script
 source("./eda/study_1/cleaning.R")
     #* load helpful functions
@@ -177,14 +177,14 @@ list_ppc[["h_2a"]][["trial_3_single_model"]] <- pp_check(
 # Hypothesis 3
   #* Fit the models
 list_fitted[["h_3"]][["red"]] <- brm(
-  formula = trial_1_vote ~ trial_1_red_stimuli + pid_7 + trial_1_red_stimuli * pid_7 + age + gender_id + race_id
+  formula = trial_1_vote ~ trial_1_red_stimuli + pid_7 + trial_1_red_stimuli * pid_7 + attention + age + gender_id + race_id
   , data = list_df[["cleaned"]]
   , family = bernoulli(link = "logit")
   , prior = set_prior("normal(0, 1)", class = "b")
   , backend = "cmdstanr"
 )
 list_fitted[["h_3"]][["blue"]] <- brm(
-  formula = trial_1_vote ~ trial_1_blue_stimuli + pid_7 + trial_1_blue_stimuli * pid_7 + age + gender_id + race_id
+  formula = trial_1_vote ~ trial_1_blue_stimuli + pid_7 + trial_1_blue_stimuli * pid_7 + attention + age + gender_id + race_id
   , data = list_df[["cleaned"]]
   , family = bernoulli(link = "logit")
   , prior = set_prior("normal(0, 1)", class = "b")
@@ -198,7 +198,28 @@ list_ppc[["h_3"]][["blue"]] <- pp_check(
   list_fitted[["h_3"]][["blue"]]
 )
 # Hypothesis 4
-
+  #* Fit models
+list_fitted[["h_4"]][["red"]] <- brm(
+  formula = trial_1_time_elapsed ~ trial_1_red_stimuli + pid_7 + trial_1_red_stimuli * pid_7 + attention + age + gender_id + race_id
+  , data = list_df[["cleaned"]]
+  , family = negbinomial
+  , prior = set_prior("normal(0, 1)", class = "b")
+  , backend = "cmdstanr"
+)
+list_fitted[["h_4"]][["blue"]] <- brm(
+  formula = trial_1_time_elapsed ~ trial_1_blue_stimuli + pid_7 + trial_1_blue_stimuli * pid_7 + attention + age + gender_id + race_id
+  , data = list_df[["cleaned"]]
+  , family = negbinomial
+  , prior = set_prior("normal(0, 1)", class = "b")
+  , backend = "cmdstanr"
+)
+  #* Posterior predictive checks
+list_ppc[["h_4"]][["red"]] <- pp_check(
+  list_fitted[["h_4"]][["red"]]
+)
+list_ppc[["h_4"]][["blue"]] <- pp_check(
+  list_fitted[["h_4"]][["blue"]]
+)
 # Store model results
 save(
     list_fitted

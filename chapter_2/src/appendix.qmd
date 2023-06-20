@@ -7,12 +7,19 @@
 box::use(
   modelsummary[
     modelsummary
+    , datasummary_skim
   ]
+  , data.table[...]
 )
 
 # Load fitted models and ppc checks
 load(
   file = "../data/temp/models/study_1_fitted.RData"
+)
+# Load data
+list_df <- list()
+list_df[["cleaned"]] <- read.csv(
+  file = "../data/clean/cleaned_pavlovia.csv"
 )
 ```
 
@@ -328,6 +335,7 @@ modelsummary(
     , "b_pid_7" = "Party ID"
     , "b_trial_1_red_stimuli:pid_7" = "Red yard sign $\\times$ Party ID"
     , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign $\\times$ Party ID"
+    , "b_attention" = "Attention"
     , "b_age" = "Age"
     , "b_gender_idMale" = "Gender - Male"
     , "b_gender_idNonMbinary" = "Gender - Non-binary"
@@ -356,12 +364,89 @@ modelsummary(
 
 ### Posterior predictive Checks
 
+```{r}
+#| label: fig-h-3
+#| layout-ncol: 2
+#| fig-cap: Posterior Predictive checks for $H_3$ models
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+list_ppc[["h_3"]][["red"]]
+list_ppc[["h_3"]][["blue"]]
+```
+
 {{< pagebreak >}}
 
 ## Hypothesis 4
 
+```{r}
+#| label: tbl-h-4-dispersion
+#| tbl-cap: Checking for over-dispersion of data
+df_over_dispersed <- list_df[["cleaned"]][, c("trial_1_time_elapsed")]
+names(df_over_dispersed)[names(df_over_dispersed) == 'trial_1_time_elapsed'] <- 'Time Elapsed'
+datasummary_skim(
+  df_over_dispersed
+  , notes = "Data source: Prolific sample."
+  , histogram = FALSE
+)
+```
+
 ### Models
+
+```{r}
+#| label: tbl-h-4
+#| tbl-cap: The effect of partisan congruency on time spent looking at a yard sign
+# Redefine names
+model_names <- list(
+  "Red stimuli" = list_fitted[["h_4"]][["red"]]
+  , "Blue stimuli" = list_fitted[["h_4"]][["blue"]]
+)
+
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_pid_7" = "Party ID"
+    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign $\\times$ Party ID"
+    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign $\\times$ Party ID"
+    , "b_attention" = "Attention"
+    , "b_age" = "Age"
+    , "b_gender_idMale" = "Gender - Male"
+    , "b_gender_idNonMbinary" = "Gender - Non-binary"
+    , "b_gender_idPrefernottochoose" = "Gender - Prefer not to choose"
+    , "b_race_idBlacknonMhispanic" = "Black"
+    , "b_race_idHispanice" = "Hispanic"
+    , "b_race_idMultipleraces" = "Multiple races"
+    , "b_race_idNativeAmericanDAlaskaNativeOrOtherRace" = "Other race"
+    , "b_race_idWhitenonMhispanic" = "White"
+  )  
+  , statistic = "conf.int"
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
 
 {{< pagebreak >}}
 
 ### Posterior Predictive Checks
+
+```{r}
+#| label: fig-h-4
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of $H_4$ models
+#| fig-subcap:
+#|   - Red
+#|   - Blue
+list_ppc[["h_4"]][["red"]]
+list_ppc[["h_4"]][["blue"]]
+```

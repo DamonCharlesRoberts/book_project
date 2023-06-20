@@ -132,9 +132,10 @@ datasummary_skim(
     df_demographics_subset
     , histogram = FALSE
     , notes = c(
-      "Data source: Pavlovia."
+      "Data source: Prolific."
       , "Sample characteristics."
     )
+    , output = "latex"
 )
 ```
 
@@ -174,6 +175,7 @@ datasummary_balance(
   , data = df_movement_trial_1
   , notes = "Data source: Prolific sample."
   , escape = FALSE
+  , output = "latex"
 )
 ```
 
@@ -206,6 +208,7 @@ modelsummary::datasummary_balance(
   , data = df_movement_trial_2
   , notes = "Data source: Prolific sample."
   , escape = FALSE
+  , output = "latex"
 )
 ```
 
@@ -239,6 +242,7 @@ modelsummary::datasummary_balance(
   , data = df_movement_trial_3
   , notes = "Data source: Prolific sample."
   , escape = FALSE
+  , output = "latex"
 )
 ```
 
@@ -361,5 +365,35 @@ blue
 The other analytical tasks do not examine expectations derived from the motivated reasoning portion of the model. That is, do people process in-group information faster than out-group information? There is evidence of these tendencies in political circumstances [@lodge_taber_2013_cup].
 
 To examine whether motivated reasoning is also active with the processing of politically-relevant color, I examine the difference between the amount of time between the start of viewing a stimulus and clicking "Next" to stop viewing the stimulus among those who were viewing a presumed co-partisan yard sign relative to those viewing a presumed out-partisan yard sign. As motivated reasoning tends to be more prevalent among strong partisans and those highly knowledgeable and interested in politics [@lodge_taber_2013_cup], I control for responses to the pre-treatment knowledge, interest, and partisan strength batteries.
+
+```{r}
+#| label: fig-h-4
+#| fig-cap: The effect of party congruency on time spent looking at yard sign
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_4"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
+  , hypothesis = "H4"
+  , x_label = "Party ID"
+  , y_label = "Predicted amount of time elapsed"
+  , legend_title = "Treatment"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_4"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+  , hypothesis = "H4"
+  , x_label = "Party ID"
+  , y_label = "Predicted amount of time elapsed"
+  , legend_title = "Treatment"
+)
+red
+blue
+```
 
 ## Study 2
