@@ -1,24 +1,13 @@
 ---
 title: "How does color influence our political conversations?"
 author:
-  - name: Damon C. Roberts
-    title: PhD Candidate
-    affiliations:
-      - id: CU
-        name: University of Colorado Boulder
-        department: Political Science
-        address: 333 UCB
-        city: Boulder
-        region: CO 
-        postal-code: 80309-0333
-    attributes:
-      corresponding: true
+  - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
 format:
   revealjs: 
     embed-resources: true
     theme: [dark, ../../assets/slides/custom.scss]
     transition: slide
-    scrollable: true
+    scrollable: false
     incremental: true
     slide-number: true
     toc: true
@@ -49,15 +38,32 @@ load(
 
 # Background
 
+::: footer
+:::
 ---
 
-- Chapter from a larger book project
-- Book examines
-  - does color convey political information?
-    - particularly partisan affiliation
+::: {.notes}
+- This is a chapter from a larger book project.
+- The book addresses the question: 
+  - does color convey political information? 
+  - does it have pre-conscious effects on information that comes later?
+:::
+
+::: footer
+:::
 
 ## Key findings from other chapters
 
+::: {.notes}
+- Ran a study on prolific
+- Counterbalanced questions of attention, age, gender, race, colorblindness, partisan identity, etc.
+- Ran three trials that used mousetracking software
+- See one of three yard signs in each trial
+  - Red, blue, or white yard sign
+:::
+
+::: footer
+:::
 ---
 
 ```{r}
@@ -80,6 +86,16 @@ red
 blue
 ```
 
+::: {.notes}
+- Average predicted probabilities from two ordered logistic regressions
+- Outcome is the respondent's belief that the candidate was either a Republican, Independent, or a Democrat.
+- Read each figure by comparing the same colored bars. 
+- Candidates using red yard signs are more likely to be seen as Republican
+- Candidates using blue yard signs are more likely to be seen as Democrat
+:::
+
+::: footer
+:::
 ---
 
 ```{r}
@@ -115,6 +131,15 @@ plot_trial_3_red
 plot_trial_3_blue
 ```
 
+::: {.notes}
+- The other two trials used less of the primary color and brought in more red or blue
+- Do this as a test of the strength of these effects
+- See that the results (kind of) weaken.
+  - See that these effects weaken for the blue treatment. Much less change for the red treatment. Likely American flag.
+:::
+
+::: footer
+:::
 ---
 
 ```{r}
@@ -146,13 +171,37 @@ red
 blue
 ```
 
+::: {.notes}
+- After viewing the three trials, participants are asked which of the three yard signs they prefer.
+- Make a dichotomous variable of whether or not they like the first trial's yard sign.
+- run logistic regressions to see whether votes are explained by the stimuli moderated by partisan identification
+- See that there is a low predicted probability of strong Democrats voting for a candidate with a red yard sign.
+  - See that the predicted probability of strong Republicans voting for a candidate with a red yard sign is high.
+- See that there is a low predicted probability of strong republicans voting for a candidate with a blue yard sign.
+  - See that the predicted probability of a strong Democrat voting for a candidate with a blue yard sign is high.
+:::
+
+::: footer
+:::
 
 # Question guiding this chapter
 
 - Does color influence whether we talk about politics?
 
+::: {.notes}
+- Color seems to hold information about partisan affilations
+  - Red = Republican
+  - Blue = Democrat
+- Unclear what sorts of effects this will have on attitudes and behaviors, though.
+:::
+
+::: footer
+:::
 
 # Building a theory of snap-judgment based on politically-relevant visual information
+
+::: footer
+:::
 
 ## A common language
 
@@ -162,30 +211,88 @@ blue
 - Emotion: Much more complex labels assigned to affective responses.
   - Often requires some amount of conscious processing to assign an appropriate label.
   - Slower
-- Attitudes are an expression of valanced responses to some object.
+- Attitudes are an expression of valanced responses to some object [@fazio_2007_sc].
 
-## Learning from our psychology and neuroscience friends 😊
+::: footer
+:::
 
-- There are a lot of useful things that we can borrow from social and affective neuroscientists and social psychologists
+## A cognitive architecture
+
+::: footer
+:::
 
 ---
 
-1. Memory reflects stored prior experiences with various objects
-  - These memories are not just factual recollections of things
-    - e.g., the balloon was red.
-  - Memories often encode your affective responses to that object.
-2. Relatedly, memories are multi-dimensional
-3. How we form an attitude with new information (or a combination of it) is by accessing memories that share features in common with the object.
-4. Memories are a complex web of prior experiences that have a whole lot of strands connecting them.
-5. Social groups and social hiearchies are a dimension that we pay attention to and encode along with a memory.
+1. Memories are stored prior experiences [@cunningham_2021_yup].
+  - often encode affective responses
+2. Memories are multi-dimensional [@kahana_et-al_2022_ohhum].
+3. Sensory and affective information is often encoded in memories [@kensinger_fields_2022_ohhum].
+4. Memories are a complex network [@kahana_et-al_2022_ohhum].
+  - Interconnected by different bits of information
+5. Social groups and hierarchies are reflected in this network  [@santavirta_et-al_2023_n].
+
+::: footer
+:::
 
 ## A snap-judgment model of politically-relevant visual information
+
+::: footer
+:::
 
 ---
 
 {{< include ../../../assets/_theory.qmd >}}
 
+::: {.notes}
+Scenario.
+- At the airport and watching the news
+- Someone sits next to you before boarding
+- They are wearing a red hat
+- You might have one of two reactions
+- A small conversation starts up since they see you watching the news.
+- You see its a MAGA hat but they tell you they are having a hard time squaring some of their other beliefs with the stances of the party on immigration.
+- You may shift your initial impression a bit. Feel more positive or more negative. However, you haven't fully reversed course on that. You have learned something though.
+
+Implications.
+- Color has downstream effects on our attitudes towards an object related to politics.
+- The degree to which color matters in politics is whether or not it is primed.
+:::
+
+::: footer
+:::
+
+# Proposed research design
+
+## Study 1
+
++---------------------:+:-----------------:+
+| 🚫 Prime, Red shirt  | Prime, Red shirt  |
++----------------------+-------------------+
+| 🚫 Prime, Blue shirt | Prime, Blue shirt |
++----------------------+-------------------+
+
+: $2 \times 2$ factorial design {#tbl-study-1}
+
+::: footer
+:::
+
+## Study 2
+
++-------------------------:+:---------------------:+
+| Red shirt, 🚫 congruent  | Red shirt, congruent  |
++--------------------------+-----------------------+
+| Blue shirt, 🚫 congruent | Blue shirt, congruent |
++--------------------------+-----------------------+
+
+: $2 \times 2$ factorial design {#tbl-study-2}
+
+::: footer
+:::
+
 # References
 
-:::{#refs}
+::: {#refs}
+:::
+
+::: footer
 :::
