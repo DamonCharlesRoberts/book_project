@@ -7,7 +7,7 @@ format:
     embed-resources: true
     theme: [dark, ../../assets/slides/custom.scss]
     transition: slide
-    scrollable: false
+    scrollable: true
     incremental: true
     slide-number: true
     toc: true
@@ -25,22 +25,28 @@ execute:
 
 ```{r}
 #| label: setup-block
-
 # Load some nifty functions
 box::use(
   ../../../chapter_2/src/R/predicted_prob_bar[...]
+  , ../prr/R/plot[...]
 )
 # Load fitted models
 load(
   file = "../../../chapter_2/data/temp/models/study_1_fitted.RData"
 )
+# Load simulation results
+load(
+  file = "../../data/temp/prr/fitted_model_1.RData"
+)
+load(
+  file = "../../data/temp/prr/fitted_model_2.RData"
+)
+load(
+  file = "../../data/temp/prr/fitted_model_2_alt.RData"
+)
 ```
 
 # Background
-
-::: footer
-:::
----
 
 ::: {.notes}
 - This is a chapter from a larger book project.
@@ -76,6 +82,7 @@ load(
 red <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["red"]]
   , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
 )
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["blue"]]
@@ -96,6 +103,7 @@ blue
 
 ::: footer
 :::
+
 ---
 
 ```{r}
@@ -140,6 +148,7 @@ plot_trial_3_blue
 
 ::: footer
 :::
+
 ---
 
 ```{r}
@@ -227,6 +236,12 @@ blue
   - often encode affective responses
 2. Memories are multi-dimensional [@kahana_et-al_2022_ohhum].
 3. Sensory and affective information is often encoded in memories [@kensinger_fields_2022_ohhum].
+
+::: footer
+:::
+
+---
+
 4. Memories are a complex network [@kahana_et-al_2022_ohhum].
   - Interconnected by different bits of information
 5. Social groups and hierarchies are reflected in this network  [@santavirta_et-al_2023_n].
@@ -261,7 +276,26 @@ Implications.
 ::: footer
 :::
 
+# Hypotheses
+
+1. People notice the color of clothing a potential conversation partner is wearing.
+2. When primed to think about politics, people are less likely to want to have a conversation with someone wearing a blue shirt if they are a Republican and a red shirt if they are a Democrat.
+
+::: footer
+:::
+
+---
+
+3. When learning more information about someone that fits with our initial impression, our motivation of engagement or disengagement is stronger than if the information were incongruent with our initial impressions.
+4. When learning more information about someone that does not fit with our initial impression, the new information can shift our motivations to have the conversation or to disengage. However, this difference is smaller than if both forms of information were congruent.
+
+::: footer
+:::
+
 # Proposed research design
+
+::: footer
+:::
 
 ## Study 1
 
@@ -272,6 +306,13 @@ Implications.
 +----------------------+-------------------+
 
 : $2 \times 2$ factorial design {#tbl-study-1}
+
+::: {.notes}
+- Here I want to test a couple of things.
+  - does color factor into whether people are willing to have a conversation with someone?
+  - does this matter under different circumstances?
+  - and do Republicans want to talk to those wearing red more than Democrats; while Democrats want to talk to those wearing blue more than Republicans?
+:::
 
 ::: footer
 :::
@@ -285,6 +326,209 @@ Implications.
 +--------------------------+-----------------------+
 
 : $2 \times 2$ factorial design {#tbl-study-2}
+
+::: {.notes}
+- Want to check out a couple other things here:
+  - does the snap-judgment someone makes have downstream effects, even when given more traditionally considered forms of political information?
+  - does new information shift our views? Do we double down? under what circumstances?
+:::
+
+::: footer
+:::
+
+# Sensitivity of conclusions to sample size, research design, and modeling strategies
+
+::: {.notes}
+- the results of a bayesian model are kind of like an average of your prior beliefs and your data that you have on hand
+  - what this means is that I start off with a belief about how things are, then add data to see if that distribution changes
+- for hypothesis testing, I'll start off by saying that the most likely outcome is that my hypotheses are wrong and that the effect is likely 0.
+  - though, I'll allow for some uncertainty to be expressed by saying that there is some amount of probability that the effect could be positive or negative, but most effects are going to be pretty small substantively speaking.
+- This is reflected with a normally distributed prior and a standard deviation of 1
+- Now my task is to see whether, given a DGP that I know how it looks in the population, my particular research design and modeling strategies can produce a posterior destribution that help me  conclude that the effects are not zero when my DGP says that they aren't zero. That is, can my research design and modeling strategies bring me to the correct conclusions and provide evidence in support of my hypotheses as opposed to the null hypothesis?
+:::
+
+::: footer
+:::
+
+---
+
+$$
+\begin{align}
+\text{Age} = uniform(18, 85) \\
+\text{Gender} = bernoulli(0.5) \\
+\text{Education} = normal(-0.1 * Age + 0.1 * gender + 
+  \\ 14 + normal(0, 1), 0.5) \\
+\end{align}
+$$
+
+$$
+\begin{align}
+\text{Income} = normal(2 * age + 0.7 * gender + \\ 
+40000 + normal(0, 1), 200000) \\
+\text{Conflict Avoidant (latent)} = normal(0.3 * gender + \\ 
+2.4 + normal(0, 1)) \\
+\end{align}
+$$
+
+$$
+\begin{align}
+\text{Party identification (latent)} = normal(0.4 * age - \\ 
+0.6 * gender + 0.5 * income + normal(0, 1)) \\
+\text{attention (latent)} = normal(0.5 * age - \\ 
+0.3 * gender + 0.1 * income + normal(0, 1))
+\end{align}
+$$
+
+$$
+\begin{align}
+\text{treatment}_{prime} = bernoulli(0.5) \\
+\text{treatment}_{blue} = bernoulli(0.5) \\
+\end{align}
+$$
+$$
+\begin{align}
+\text{notice} = bernoulli(1 * prime) \\
+\text{willing (latent)} = normal(0.1 * treatment_{prime} + 
+\\ 0.1 * treatment_{blue} + 0.1 * \text{party identification} + 
+\\ 0.5 * treatment_{prime} * treatment_{blue} * \text{party identification} + 
+\\ normal(0, 1))
+\end{align}
+$$
+
+::: {.notes}
+- I start by defining a population that is one-hundred-thousand strong
+- I randomly sample from this population produced by the data generating process here
+  - I do it at different sample sizes: 200, 400, 600, 800
+  - For each of these sample sizes, I get 100 samples each
+:::
+
+::: footer
+:::
+
+## Fitting the models on the simulated data
+
+::: footer
+:::
+
+### Model 1
+
+$$
+\begin{align}
+Pr(notice_i = 1) \sim logistic(\phi_i + \alpha) \\
+\phi_i = \beta_1 * treatment_{prime_i} \\
+\beta_1 \sim Normal(0, 1) \\
+\alpha_i \sim student(0,3,2.5)
+\end{align}
+$$
+
+::: {.notes}
+- This model is fitted on each sample for each sample size.
+- So 400 times
+:::
+::: footer
+:::
+
+### Model 2
+
+$$
+\begin{align}
+Willing_i \sim CDF(logistic(\phi_i + \alpha)) \\
+\phi_i = \beta_1 * treatment_{blue_i} + \beta_2 * treatment_{prime_i} + \\ \beta_3 * treatment_{blue_i} * treatment_{prime_i} + \\
+\beta_4 * gender_i + \beta_5 * education_i + \\ \beta_6 * income_i + \beta_7 * conflict_i + \beta_8 * attention_i \\
+\beta_j \sim Normal(0, 1) \\
+\alpha_j \sim student(0, 3, 2.5)
+\end{align}
+$$
+
+::: {.notes}
+- Here, I do a split sample version of the model. 
+- One of these for Republicans and one of these for Democrats.
+- I fit these models for each sub sample for each sample size.
+- 800 times
+:::
+::: footer
+:::
+
+### Model 2 (alternate)
+
+$$
+\begin{align}
+Willing_i \sim CDF(logistic(\phi_i + \alpha)) \\
+\phi_i = \beta_1 * treatment_{blue_i} + \\ \beta_2 * treatment_{prime_i} + \beta_3 * \text{Party ID}_i + \\
+\beta_4 * treatment_{blue_i} * treatment_{prime_i} * \text{Party ID}_i + \\
+\beta_4 * gender_i + \beta_5 * education_i + \\ \beta_6 * income_i + \beta_7 * conflict_i + \beta_8 * attention_i \\
+\beta_j \sim Normal(0, 1) \\
+\alpha_j \sim student(0, 3, 2.5)
+\end{align}
+$$
+
+::: {.notes}
+- Here's an alternative specification. Instead of doing a split sample, I just do the triple interaction.
+- I fit one of these on each sample for each sample size.
+- 400 times
+:::
+::: footer
+:::
+
+## Performance
+
+::: {.notes}
+- Know that none of the parameters are zero.
+- Though they are super small, so this is a pretty conservative test.
+- Look at the 95% credible intervals
+  - If the credible overlaps with zero, record a value of 0. If not, record value of 1.
+:::
+::: footer
+:::
+
+### Model 1
+```{r}
+#| label: fig-true-positive-study-1-model-1
+#| fig-cap: True positive rate from simulations - Model 1
+#| layout-nrow: 1
+plot_study_1_model_1 <- true_positive_plot(data_frame = df_fitted_samples_model_1)
+plot_study_1_model_1[[1]]
+```
+
+::: footer
+:::
+
+### Model 2
+
+```{r}
+#| label: fig-true-positive-study-1-model-2-alt
+#| fig-cap: True positive rate from simulations - Model 2, Split sample
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - $\hat{\beta}_1$
+#|   - $\hat{\beta}_2$
+#|   - $\hat{\beta}_3$
+
+plot_study_1_model_2_alt <- true_positive_plot(data_frame = df_fitted_samples_model_2_alt)
+plot_study_1_model_2_alt[[1]]
+plot_study_1_model_2_alt[[2]]
+plot_study_1_model_2_alt[[3]]
+```
+::: footer
+:::
+
+---
+
+```{r}
+#| label: fig-true-positive-study-1-model-2
+#| fig-cap: True positive rate from simulations - Model 2
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - $\hat{\beta}_1$
+#|   - $\hat{\beta}_2$
+#|   - $\hat{\beta}_3$
+#|   - $\hat{\beta}_4$
+plot_study_1_model_2 <- true_positive_plot(data_frame = df_fitted_samples_model_2)
+plot_study_1_model_2[[1]]
+plot_study_1_model_2[[2]]
+plot_study_1_model_2[[3]]
+plot_study_1_model_2[[4]]
+```
 
 ::: footer
 :::
