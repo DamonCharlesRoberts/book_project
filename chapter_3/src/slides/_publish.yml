@@ -1,0 +1,4 @@
+- source: slides.qmd
+  netlify:
+    - id: 6dc6095f-7c04-4632-85fb-d0015b249663
+      url: 'https://glowing-sherbet-63261a.netlify.app'

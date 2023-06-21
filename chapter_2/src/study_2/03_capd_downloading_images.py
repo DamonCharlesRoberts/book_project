@@ -10,26 +10,25 @@
 
 # Importing modules 
     #* From environment
-import duckdb # for database management
+#import duckdb # for database management
 import polars as pl # for dataFrame management
 import urllib.request # to access site
 import sys # to deal with paths
 
     #* User-defined
-sys.path.append("code/") # set path for imported modules
-from fun import names
+from chapter_2.src.PY.helper import names
 
 # Loading database
 
-db = duckdb.connect("data/dissertation_database")
+df = pl.read_csv(
+    source = "./chapter_2/data/temp/study_2/02_output.csv"
+)
 
-links_df = pl.from_arrow(
-    db.execute("SELECT * FROM ch_1_capd_yard_signs").fetch_arrow_table()
-).with_column(
-    names(pl.col("Candidate_Name")).alias("Last_Name")
+links_df = df.with_columns(
+    names(pl.col("candidate_name")).alias("last_name")
 ).to_pandas()
 
 # Downloading the images
 
 for index, row in links_df.iterrows():
-    urllib.request.urlretrieve(row["Img_URL"], "data/chapter_1/capd_yard_signs/" + row["Last_Name"] + "_" + str(row["Year"]) + ".png")
+    urllib.request.urlretrieve(row["Img_URL"], "./chapter_2/data/original/study_2/capd_yard_signs/" + row["last_name"] + "_" + str(row["year"]) + ".png")

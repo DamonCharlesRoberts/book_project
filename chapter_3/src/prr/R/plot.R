@@ -19,9 +19,9 @@ true_positive_plot <- function(
   , var = "Parameter"
 ) {
   # split the datatable by variable
-  list_true_positive <- split(
+  list_true_positive <- base::split(
     data_frame
-    , by = var
+    , f = data_frame[[var]]
   )
   # Plot each list element
   list_plots <- base::lapply(

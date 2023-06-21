@@ -25,21 +25,60 @@ list_df[["cleaned"]] <- read.csv(
 
 ## Measures
 
-{{< pagebreak >}}
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Measure                     | Question                                                                                                                                                                                                                                                                                                  | Coded as                                                                                                                                                           |
++=============================+:=========================================================================================================================================================================================================================================================================================================:+:==================================================================================================================================================================:+
+| Age                         | Confirm your age                                                                                                                                                                                                                                                                                          | Text entry                                                                                                                                                         |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Gender                      | What is your gender identity?                                                                                                                                                                                                                                                                             | Non-binary, Female, Male, Prefer not to choose, Other                                                                                                              |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Sex                         | What is your sex assigned at birth?                                                                                                                                                                                                                                                                       | Female, Male, Other                                                                                                                                                |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Race                        | Which ethnic or racial category best describes you?                                                                                                                                                                                                                                                       | White, non-Hispanic; Black, non-Hispanic; Hispanic; Asian or Native Hawaiian/other Pacific Islander; Native American/Alaska Native or other race; Multiple races   |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Color blind                 | Have you been diagnosed with any of the following visual impairments that are not treated with corrective lenses?                                                                                                                                                                                         | Color blindness (any form); Blurred vision (not treatable by corrective lenses); Macular degeneration; Glaucoma; Cataract; Diabetic retinopathy; None of the above |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Attention                   | How often do you pay attention to what is going on in government and politics?                                                                                                                                                                                                                            | Always; Most of the time; About half the time; Some of the time; Never                                                                                             |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Party ID                    | Generally speaking, do you usually think of yourself as a Democrat, a Republican, an Independent, or what?; Would you say that you are a strong [Republican/Democrat] or not a very strong [Republican/Democrat]?; Do you think of yourself as closer to the Republican party or to the Democratic party? | Republican, Democrat, Independent, Other; Strong, Not very strong; Closer to the Republican party, Neither, Closer to Democratic                                   |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Attn. Check                 | In a few words describe what is your first memory of a political event.                                                                                                                                                                                                                                   | Text entry                                                                                                                                                         |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Trial stimuli               | Yard sign assigned                                                                                                                                                                                                                                                                                        | 0 = White, 1 = Red/Blue                                                                                                                                            |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Trial stimuli alt           | Yard sign assigned                                                                                                                                                                                                                                                                                        | 0 = Not red/blue, 1 = Red/Blue                                                                                                                                     |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Time elapsed                | NA                                                                                                                                                                                                                                                                                                        | Difference between time at start of trial and stop                                                                                                                 |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $\Delta_{t}$ (milliseconds) | NA                                                                                                                                                                                                                                                                                                        | Time elapsed between cursor movements                                                                                                                              |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $\Delta_{x}$ (pixels)       | NA                                                                                                                                                                                                                                                                                                        | Number of pixels moved along x-axis                                                                                                                                |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $\Delta_{y}$ (pixels)       | NA                                                                                                                                                                                                                                                                                                        | Number of pixels moved along y-axis                                                                                                                                |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Candidate party             | Is this candidate a Republican, a Democrat, or Neither?                                                                                                                                                                                                                                                   | Republican, Democrat, Neither                                                                                                                                      |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Candidate vote              | Of the three candidates who would you most likely vote for?                                                                                                                                                                                                                                               | The first yard sign, The second yard sign, The third yard sign                                                                                                     |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Candidate vote indicator    | NA                                                                                                                                                                                                                                                                                                        | 0 = Would not vote for first yard sign, 1 = Would vote for first yard sign                                                                                         |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-## Hypothesis 1
-
-### Models
-
-{{< pagebreak >}}
-
-### Posterior Predictive Checks
+: Study 1 Measures {#tbl-study-1-measures}
 
 {{< pagebreak >}}
 
 ## Hypothesis 2
 
+To test whether people associate the color red on a political yard sign with Republicans and the color blue on a political yard sign with Democrats. 
+
+
 ### Models
+
+These first two models are ordered logistic regressions. The outcome of interest is a 3-item response of whether they perceived the owner of the yard sign to be a Republican, a Democrat, or neither. This variable was recoded to be 1 = Democrat, 2 = Independent, and 3 = Republican. In the first ordered logistic regression, I predict this outcome with a indicator variable of whether the participant saw a white yard sign (value of 0) or saw a red yard sign (value of 1). 
+
+My defined priors for the beta coefficient are $Normal(0, 1)$. This means that I think that 68% of the non-transformed beta coefficients I think will be between -1 and 1, with the remaining 32% being larger than that. I fit the models on 4 chains with 2000 chains each (1000 warmup, and 1000 sampled).
+
+@tbl-hypothesis-2-main reports the logged-odds of a subject reporting that a subject was either a Democrat, Independent, or Republican. Positive logged-odds indicate that the logged-odds of a subject reporting a candidate is a Republican increase, whereas a negative value indicate that the logged-odds of reporting the candidate is a Democrat.
 
 ```{r}
 #| label: tbl-hypothesis-2-main
@@ -79,6 +118,8 @@ modelsummary(
 )
 ```
 
+I also suspected that these effects could be moderated or sensitive to other things. First @tbl-interacted-models-h-2 reports how these effects in @tbl-hypothesis-2-main may be moderated by age.
+
 ```{r}
 #| label: tbl-interacted-models-h-2
 #| tbl-cap: $H_2$ models moderated by age
@@ -113,6 +154,9 @@ modelsummary(
   , output = "latex"
 )
 ```
+
+Additionally, I seek to test whether these effects reported in @tbl-hypothesis-2-main are sensitive to the way I chose to test these effects. Specifically, I code the predictor variables as 0 = not red/blue, 1 = red/blue. This gives me two variables that I include in a single ordered logistic regression. This means that the intercept term is the logged-odds of defining the participants as either Democrat, Independent, or Republican if the subject received a white yard sign. The two beta coefficients, in that model reflect the difference in the logged-odds of reporting that the candidate was either a Democrat, Independent, or Republican when they received the red or blue yard sign relative to the white yard sign. The results remain robust to this alternative specification. 
+
 ```{r}
 #| label: tbl-robustness-alt-specification-h-2
 #| tbl-cap: $H_2$ models with alternative specification
@@ -143,6 +187,8 @@ modelsummary(
   , output = "latex"
 )
 ```
+
+Finally, I check to see if the results reported in @tbl-hypothesis-2-main are moderated by subjects that are colorblind. Though, I have reasons to beleive they are, the sample does not really lend itself to a robust test of this. The sample does not have a large number of respondents who indicated that they were diagnosed with some type of colorblindness. Therefore, I likely do not have enough data points for colorblind respondents in these different groups. 
 
 ```{r}
 #| label: tbl-colorblindness
@@ -179,6 +225,9 @@ modelsummary(
 ```
 
 ### Posterior Predictive Checks
+
+To check whether my model specification (the variables that I included and the priors I define) are robust, I plot the posterior predictive checks for the model. These posterior predictive checks take the predicted values given my posterior distribution for each of these models, and plots the distribution of these predicted values relative to the distribution of actual values tha I have in my dataset. A well-specified model would show that there are not large nor systematic differences between the distributions of the predicted and actual values. Here, it appears that all of the models do a pretty good job.
+
 ```{r}
 #| label: fig-h-2-ppc
 #| layout-ncol: 2
@@ -200,6 +249,14 @@ list_ppc[["h_2"]][["single_model"]]
 list_ppc[["h_2"]][["red_colorblind"]]
 list_ppc[["h_2"]][["blue_colorblind"]]
 ```
+
+## $H_{2a}$
+
+An aditional analysis I include is to examine the bounds by which these effects hold if we vary the amount of partisan colors are on a yard sign. The second and third trials introduce variations of the yard signs in the first trial that include more white and even more color for the opposing political party (if red or blue condition). The goal here is to see whether these results that are reported in @tbl-hypothesis-2-main are weaker for these other two trials.
+
+I specify the exact same models as I did for @tbl-hypothesis-2-main. The only difference is that these variables record responses and treatment assignment for trials two and three. The results that are reported in @tbl-hypothesis-2a and @tbl-hypothesis-2a-cont suggest that my initial suspicions have *some* validity to them. That is, we see that the effects reported in @tbl-hypothesis-2-main are much weaker for blue yard signs -- participants are not as decisive in reporting that the candidate with the blue yard signs are Democrats. The effects reported in @tbl-hypothesis-2-main seem to hold for the red yard signs, however. Like before, I examine whether these results are robust to an alternative model specification (a single model with two treatment indicator variables). Like with tests of $H_2$, it appears that they are.
+
+### Models
 
 {{< pagebreak >}}
 \blandscape
@@ -290,6 +347,9 @@ modelsummary(
 {{< pagebreak >}}
 
 ### Posterior Predictive Checks
+
+To confirm that my models return predicted values from the posterior distribution that reflect my actual data, I plot the posterior predictive checks for each model. All six models appear to do a pretty good job.
+
 ```{r}
 #| label: fig-h-2a-ppc
 #| layout-ncol: 2
@@ -315,6 +375,10 @@ list_ppc[["h_2a"]][["trial_3_single_model"]]
 ## Hypothesis 3
 
 ### Models
+
+Here, I am testing whether candidates with red yard signs are supported more by Republican subjects and whether candidates with blue yard signs are supported more by Democratic subjects. In my original study, I ask participants after all three trials to report which of the three yard signs they would vote for. Here, I recode this response to be a binary outcome -- would they vote for the first yard sign they saw (value of 1) or not. Like I have done in previous tests, I run two models -- each where the predictor is a indicator of whether they received the red/blue treatment (value of 1) or the white treatment. Since the outcome is dichotomous, instead of an ordered logistic regression, I instead run a logistic regression. Since partisan identification is a primary part of the inferential task here and since it cannot be experimentally treated, I need to control for some confounds such as attention to politics, age, gender identification, and racial identity.
+
+@tbl-h-3-main reports the results of these models. The results suggest that Republicans are indeed more supportive of candidates using the color red, not supportive of candidates using the color blue, and are not supportive of candidates using the color white. The results also suggest that Democrats are more supportive of candidates of using the color blue, and are much less supportive of candidates using the colors red or white. 
 
 ```{r}
 #| label: tbl-h-3-main
@@ -364,8 +428,10 @@ modelsummary(
 
 ### Posterior predictive Checks
 
+To confirm that these models return sensical predictions, I again plot the posterior predictions. @fig-h-3-ppc seems to suggest that both models do a pretty good job at returning a distribution fo predicted outcomes in terms of differences between those values and outcomes measured in my sample.
+
 ```{r}
-#| label: fig-h-3
+#| label: fig-h-3-ppc
 #| layout-ncol: 2
 #| fig-cap: Posterior Predictive checks for $H_3$ models
 #| fig-subcap:
@@ -379,6 +445,10 @@ list_ppc[["h_3"]][["blue"]]
 
 ## Hypothesis 4
 
+$H_4$ seeks to test whether partisan subjects spend more time looking at the yard sign of political opponents than those they share a partisan identity with. Specifically, it seeks to see whether the elapsed time for the trials are longer for participants assigned to a red or blue yard sign condition if the subject is a Democrat or Republican (respectively) relative to Republicans or Democrats (respectively).
+
+The outcome variable is a count of how many milliseconds a respondent was in a given trial. As this is count data, I have high suspicion of over-dispersion (meaning that the mean value and the median value are unequal). To make sure that I am correct in this, I generate a table reporting the summary statistics of the time elapsed in @tbl-h-4-dispersion.
+
 ```{r}
 #| label: tbl-h-4-dispersion
 #| tbl-cap: Checking for over-dispersion of data
@@ -391,7 +461,13 @@ datasummary_skim(
 )
 ```
 
+It appears that there is some over-dispersion here. Therefore, my choices for which type of count model to use leans away from the poisson regression and onto something like a poisson-gamma model. 
+
 ### Models
+
+As mentioned above, the outcome here is the time elapsed for a trial (in milliseconds). Since this is a count outcome, I should be using a type of model that uses a link function in the poisson family as opposed to the exponential family. As @tbl-h-4-dispersion demonstrated, the data are over-dispersed. Therefore, I use a poisson-gamma model as my link function which is often referred to as a negative binomial regression. I still have priors suggesting that my beta coefficients are $Normal(0, 1)$. 
+
+Like I have done before, I run two models. One for each partisan stimuli with the baseline category as the White yard sign condition. As the hypothesis goes beyond saying that I think subjects in the red/blue treatment will spend more time looking at the yard sign than in the white, but instead say that I think this will be moderated by partisanship, I include a interaction term in each of these models. Additionally, as partisan identification is a key explantory variable here and is not experimentally treated, I control for a numbe of potential confounds such as attention to politics, age, gender identity, and racial identity. The results of these models are recorded in @tbl-h-4.
 
 ```{r}
 #| label: tbl-h-4
@@ -440,8 +516,10 @@ modelsummary(
 
 ### Posterior Predictive Checks
 
+As I made a modeling choice based on the overdispersion of the outcome variable, I want to confirm that these models did an adequate job at returning predicted values based on my posterior distribution relative to the actual data in the sample. The posterior predictive checks suggest that it did indeed do a pretty good job. It looks like I may be slightly underestimating some lower values for the elapsed time, but the distribution on the whole looks pretty good -- including on the tails.
+
 ```{r}
-#| label: fig-h-4
+#| label: fig-h-4-ppc
 #| layout-ncol: 2
 #| fig-cap: Posterior predictive checks of $H_4$ models
 #| fig-subcap:

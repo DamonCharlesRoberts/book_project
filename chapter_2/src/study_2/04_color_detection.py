@@ -7,18 +7,14 @@
 
 # Load modules
     #* From visual_env 
-import duckdb # to access the database
+#import duckdb # to access the database
 import numpy as np # to wrangle arrays
 import polars as pl # to wrangle dataFrames
 import re # to wrangle strings
 import cv2 # to do color detection
 import os # to wrangle local files
     #* User defined
-from PY.helper import names, colorDetector
-
-# Connect to database
-
-db = duckdb.connect('data/dissertation_database')
+from chapter_2.src.PY.helper import names, colorDetector
 
 # Define colors to detect
     #* White
@@ -35,18 +31,18 @@ blue_higher = [102, 212, 255] # higher end of spectrum for blue
 # Detect colors
     #* Create an empty dataframe to store them in
 df = pl.DataFrame({
-                    "Last_Name": ["Test"],
-                    "Year": ["2022"],
-                    "White_Percent": [1.2],
-                    "Blue_Percent": [1.2],
-                    "Red_Percent": [1.2]
+                    "last_name": ["Test"],
+                    "year": ["2023"],
+                    "white_percent": [1.2],
+                    "blue_percent": [1.2],
+                    "red_percent": [1.2]
 })
 
-for filename in os.listdir("data/chapter_1/capd_yard_signs"):
+for filename in os.listdir("./chapter_2/data/original/study_2/capd_yard_signs"):
     #* check to make sure the file is a png file
     if filename.endswith('.png'):
     #* join the directory to the file name
-            f = os.path.join("data/chapter_1/capd_yard_signs", filename)
+            f = os.path.join("./chapter_2/data/original/study_2/capd_yard_signs", filename)
             print("read file")
     #* split the file name and store the information
             lastName, year, file = re.split(r'[_.]', filename)
@@ -58,43 +54,50 @@ for filename in os.listdir("data/chapter_1/capd_yard_signs"):
             img = cv2.imdecode(np.fromfile(f, dtype=np.uint8), cv2.IMREAD_COLOR)
             print("load file")
     #* calculate the percent of the image that is white
-            whitePercent = colorDetector(img = img, color_lower = [255,255,255], color_upper = [255,255,255])
+            whitePercent, _, _ = colorDetector(img = img, color_lower = [255,255,255], color_upper = [255,255,255])
             print("calculated whitePercent")
     #* calculate the percent of the image that is blue
-            bluePercent = colorDetector(img = img, color_upper = blue_higher, color_lower = blue_lower)
+            bluePercent, _, _ = colorDetector(img = img, color_upper = blue_higher, color_lower = blue_lower)
             print("calculated bluePercent")
     #* calculate the percent of the image that is red
-            redPercent = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
+            redPercent, _, _ = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
             print("calculated redPercent")
     #* store these things in a temporary dataframe
             tempDf = pl.DataFrame({
-                                    "Last_Name":[lastName], 
-                                    "Year":[year], 
-                                    "White_Percent":[whitePercent],
-                                    "Blue_Percent":[bluePercent],
-                                    "Red_Percent":[redPercent]
+                                    "last_name":[lastName], 
+                                    "year":[year], 
+                                    "white_percent":[whitePercent],
+                                    "blue_percent":[bluePercent],
+                                    "red_percent":[redPercent]
                                     })
             print("stored in tempDf")
     #* append the temporary dataframe to the main dataframe
             df = pl.concat(
                 [df,tempDf], rechunk = True
                 ).filter(
-                    pl.col("Last_Name") != "Test"
+                    pl.col("last_name") != "Test"
                 )
-
+            
+df = df.with_columns(
+      pl.col("year")
+      .cast(pl.Int64)
+      .alias("year")
+)
 # Merge this information to the yard_signs table
 
-yard_signs = pl.from_arrow(
-    #* grab the ch_1_capd_yard_signs table
-    db.execute("SELECT * FROM ch_1_capd_yard_signs").fetch_arrow_table()
-    ).with_column(
+df_cont = pl.read_csv(
+      source = "./chapter_2/data/temp/study_2/02_output.csv"
+)
+
+yard_signs = df_cont.with_columns(
     #* Create Last_Name column from Candidate_Name
-        names(pl.col("Candidate_Name")).alias("Last_Name")
+        names(pl.col("candidate_name")).alias("last_name")
     ).join(
     #* Left-join the yard_signs table to the df table by Last_Name and Year value
-        df, on = ["Last_Name", "Year"], how = "left"
-    ).to_arrow()
+        df, on = ["last_name", "year"], how = "left"
+    )
 
-# Store data as new table
-
-db.execute("CREATE OR REPLACE TABLE ch_1_capd_color_detected AS SELECT * FROM yard_signs")
+# Store dataframe
+yard_signs.write_csv(
+      file = "./chapter_2/data/temp/study_2/04_output.csv"
+)

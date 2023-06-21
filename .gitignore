@@ -19,3 +19,4 @@ drafts/main_draft/*.otf
 pre-reg_reports/color_influence_pre-reg_anon_files/
 code/pre-reg_reports/color_influence_pre-reg_anon_cache/
 /.quarto/
+.DS_Store
