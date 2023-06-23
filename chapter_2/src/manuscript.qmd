@@ -490,3 +490,96 @@ blue
 @fig-h-4 presents the average predicted elapsed time for participants in different contexts. Overall, these results communicate that I do not find conclusive support for my expectations on $H_4$ in either regression model. Strong Democrats do appear to spend more time looking at red yard signs than white ones, once I account for the variation in the data, I cannot be sure that these differences are not due to random chance. I also see that there are not really any differences (substantive or statistical) between partisans looking at blue versus white yard signs.
 
 ## Study 2
+
+[Study 1](#sec-study-1) presents evidence in support of the idea that the colors red and blue matter to politics -- they convey information to people. Second, the evidence from [Study 1](#sec-study-1) suggests that the information can shape the attitudes of voters. What remains unclear is whether or not these patterns have large enough impacts that it shapes how campaigns market themselves. In informal conversations with a campaign marketing firm which specializes in campaign marketing, I was told:
+
+> There obviously is a strong association with blue and the Democratic Party and red and the Republican Party.  We've seen in some of our testing that specifically MAGA red tends to elicit a slightly stronger association with Republicans/conservatives/Trump than other shades. 
+> The rest of color spectrum doesn't seem to have as strong an association, though greens and purples tend to read a little more left, the combination of red, white and blue tends to read a little more right, black and white tends to read a little left, black and red tend to read a little more right etc. 
+
+While this was good information to hear that seemed to align with what I found in [Study 1](#sec-study-1), I wasn't sure how much this actually influenced strategy. It appears it does, however. 
+
+> Beyond that,  I generally suggest that considering associations with party is generally a good place to start.  For example, if you're running in a Democratic primary and that's the race that's going to most likely decide who ultimately gets elected, then blues are a good place to start.   
+
+While there is some qualification in that there are other colors that can be useful beyond red and blue. The value of colors associated with a particular place can be a way for candidates to communicate attachment to the district and to the constituents. Though, there is a preference for campaigns to use as few colors as possible to save on costs - simpler is better. What particularly stood out to me was when I was told
+
+> You want voters to be able to look at whatever collateral you have, including lawn signs, and be able to identify that it's your material without ever having to read it. If you do one thing long enough, voters tend to start to associate specific color schemes with specific candidates.
+
+So, unsurprisingly, campaigns care about how they market themselves. And it seems as though campaigns want to tap into quick and efficient information processing for voters and potential voters. However, as noted during the conversation
+
+> A lot of decisions are still made on purely gut feelings as opposed to taking a more multi-disciplinary evidence-based approach. 
+
+The goal for the second peice of empirical evidence in the chapter is to explore whether there is any evidence not from the "lab" suggesting that campaigns use the colors red and blue systematically. If the color of a yard sign does indeed matter and its electoral effects depend on the perceptions of potential voters, we should expect that campaigns are less likely to place yard signs with a large amount of Red or Blue in more moderate districts. However, in districts where there is a strong partisan base, we should expect that the candidate of the popular party will use the party's color more, while the disadvantaged candidate will use their party's color less as a way to either play up or down their loyalty to their party.
+
+First, I collect data from the MIT Election Lab that reports the electoral results of House of Representative elections from the years 1970-2020. The data here tell me which candidate got how many votes in each House election across the United States. With this data, I calculate the rolling 5-year average of the Democratic party's vote share for each district. 
+
+Next, I download around 900 yard signs from House elections from the years 2016 to 2024 from the website provided by the Center for American Politics and Design. I use the `OpenCV` library from python to examine the proportion of the colors near the "Republican Red"^[lower values: 93, 9, 12; upper values 236, 69, 75] and "Democratic Blue"^[lower values: 0, 18, 26; upper values: 102, 212, 255] in each of these yard signs.
+
+For example, I downloaded the GOP logo used on their official Twitter account during the 2022 midterm election cycle. What `OpenCV` does is it loads the image and converts it to a three-dimensional `numpy` array that contains the GBR (reverse of RBG) values for the pixels in the image. I standardize the image to be 224 $\times$ 224 pixels. The color is trained to detect the range of Republican Red and Democrat Blue colors. Once trained, the computer detects the pixels that do not contain values within the pre-specified range and converts those pixels to be black. 
+
+```{python}
+#| label: example detection
+#| echo: false
+
+from sys import path # for path management
+from cv2 import imread, imwrite # for color detection
+    #* user-defined
+#path.append("../")
+from PY.helper import colorDetector
+
+# Define colors to detect
+    #* White
+        #** Not defined. Default for colorDetector()
+    #* Red
+republican_red = [232, 27, 35] # target color
+red_lower = [93, 9, 12] # lower end of spectrum for red
+red_higher = [237, 69, 75] # higher end of spectrum for red
+
+# Load gop image to read
+img = imread("./assets/img/gop_2022.png")
+
+# Detect colors
+percent, img_transformed, result = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
+
+transformed= imwrite("../data/temp/study_2/gop_2022_transformed.png", img_transformed) # save transformed image
+
+masked= imwrite("../data/temp/study_2/gop_2022_detected.png", result) # save masked image
+```
+
+::: {#fig-color-detection-example layout-ncol="2"}
+![Resized original image](../data/temp/study_2/gop_2022_transformed.png){#fig-resized}
+
+![Masked](../data/temp/study_2/gop_2022_detected.png){#fig-masked}
+
+Detecting colors in the GOP logo
+:::
+
+I then extract the non-black pixels in the array and calculate the percentage of pixels in the image that are not black.^[$\text{Color} \% = \frac{\text{Non-black}}{\text{Transformed}} \times \frac{\text{Original}_{\text{Height}} + \text{Original}_{\text{Width}}}{2\text{Transformed}_{\text{Height}} + 2\text{Transformed}_{\text{Width}}}$]
+
+```{python}
+#| output: asis
+# Print calculated percentage of example
+print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
+```
+
+With the data on the proportion of each of the yard signs using the red and blue colors, I merge this data with the MIT Election Lab Data. This leaves me with data from the House elections between 2016 and 2020. While the data are limited in the number of elections it reflects, it allows me to hold the district composition constant as redistricting occurs after the Census every 10 years. However, each election cycle is different and are often different depending on current events. With these data, I estimate a mixed effect model with partial pooling of the intercepts at the district level and no pooling of the intercepts for the election year level. For less technical readers, this allows me to explore whether the district and within election year differences between choices in yard sign color use. What I am trying to do with this analysis is explore whether or not campaigns in districts that are more partisan will use more red or blue while campaigns in districts that are more moderate will use fewer of those traditionally partisan colors.
+
+```{r}
+#| label: fig-study-2-pred
+#| layout-ncol: 1
+#| fig-cap: More blue on the yard signs in Democratic strongholds
+#| fig-subcap:
+#|   - Proportion of red
+#|   - Proportion of blue
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["red"]]
+  , treatment = "Red"
+  , hypothesis = "H5"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["blue"]]
+  , treatment = "Blue"
+  , hypothesis = "H5"
+)
+red
+blue
+```

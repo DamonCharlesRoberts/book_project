@@ -528,3 +528,33 @@ As I made a modeling choice based on the overdispersion of the outcome variable,
 list_ppc[["h_4"]][["red"]]
 list_ppc[["h_4"]][["blue"]]
 ```
+
+## Hypothesis 5
+
+For $H_5$, I am interested in examining whether or not districts that lean towards one party more than the other have candidates use more of the color in line with the party that has a historical advantage and less of the color for the party that tends to suffer electorally speaking.
+
+### Models
+
+As I mention in the main text of the book, I note that I regress the 5-year rolling average of the democratic vote share in a state upon the proportion of the color red and blue on the yard signs downloaded from the Center for American Political Design. The outcome is a continous and bounded variable between the value of 0 and 1. I note in the main text that I use a ordered beta regression, but here I provide more specifics. As the outcome is continuous but bounded between 0 and 1, treating the outcome variable as a continous variable with no finite bounding as I would with a OLS would be inappropriate. To ensure that I am using the most appropriate estimator to explain the outcome of interest, I elect to use an ordered beta regression. Beta regression models are a type of distributional model that essentially tries to model the distribution of the outcome variable. The standard beta regression model can fit models where the outcome is (0, 1). However, my outcome is [0, 1). I could elect to use a zero-inflated beta regression which would allow me to appropriately model this outcome. However, @kubinec_2022_pa demonstrates that the ordered beta regression is a much more efficient and accurate (in terms of a number of various metrics) approach to dealing with outcomes that can equal either 0 or 1. 
+
+The default priors for $\beta_i$ is $N(0, 5)$ in the $ordbetareg$ [@kubinec_2022_pa] package that I use to fit the model. However, I receive warnings indicating that there are divergent transitions. For HMC, divergent transitions indicate that the sampler is having problems with the curvature of your posterior distribution. As I note in the main text of the book, I am using a multilevel model that includes a partially pooled parameter for the districts and use two non-pooled parameters for the state and the election year. This is a pretty complex problem. Especially givent the estimator that I am using here. More troubling still is that my $\hat{R}$ values are not equal to 1 for either model. These two things together suggest that there is a pretty serious problem and that my posterior distributions are quite unstable.
+
+To try to fix this issue, I adjust the prior for $\beta_1$ to $N(0, 2)$. While I still receive a warning about divergences in both models, the number of them drops down to about 30 out of 4000. Additionally the $\hat{R}$ values are at 1. Together, these tell me that these priors likely helped the models quite a bit and feel more confident in the stability of my model. @tbl-hypothesis-5 presents the results of this second specification of the model.
+
+```{r}
+#| label: tbl-hypothesis-5
+#| tbl-cap: The effect of democratic vote share on color choices for yard sign
+
+names(list_fitted[["h_5"]]) <- c("Prop. yard sign Red", "Prop. yard sign Blue")
+modelsummary(
+  list_fitted[["h_5"]]
+  , stat = "conf.int"
+  , conf_level = 0.9
+  , metrics = c("n.obs", "RMSE")
+  , coef_map = c(
+    "b_intercept" = "Intercept"
+    , "b_dem_vote_share" = "Democratic vote share (%)"
+  )
+)
+
+```
