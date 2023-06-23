@@ -572,8 +572,12 @@ modelsummary(
 
 ```{r}
 #| label: fig-hypothesis-5-ppc
-#| tbl-cap: Posterior Predictive checks for $H_5$
+#| layout-ncol: 2
+#| fig-cap: Posterior Predictive checks for $H_5$
+#| fig-subcap:
+#|   - Proportion of yard signs red
+#|   - Proprotion of yard signs blue
 
-list_ppc[["h_5"]][["red"]]
-list_ppc[["h_5"]][["blue"]]
+list_ppc[["h_5"]][["red"]]$continuous
+list_ppc[["h_5"]][["blue"]]$continuous
 ```
