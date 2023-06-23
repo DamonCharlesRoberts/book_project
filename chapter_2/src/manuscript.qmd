@@ -561,6 +561,12 @@ I then extract the non-black pixels in the array and calculate the percentage of
 print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
 ```
 
+<!--
+NOTE TO SELF
+
+NEED TO ADJUST SOME OF THIS TO ACCOUNT FOR CHANGES WITH FXS
+-->
+
 With the data on the proportion of each of the yard signs using the red and blue colors, I merge this data with the MIT Election Lab Data. This leaves me with data from the House elections between 2016 and 2020. While the data are limited in the number of elections it reflects, it allows me to hold the district composition constant as redistricting occurs after the Census every 10 years. However, each election cycle is different and are often different depending on current events. With these data, I estimate a mixed effect model with partial pooling of the intercepts at the district level and no pooling of the intercepts for the election year level. For less technical readers, this allows me to explore whether the district and within election year differences between choices in yard sign color use. What I am trying to do with this analysis is explore whether or not campaigns in districts that are more partisan will use more red or blue while campaigns in districts that are more moderate will use fewer of those traditionally partisan colors.
 
 ```{r}

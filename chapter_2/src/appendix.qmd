@@ -535,6 +535,16 @@ For $H_5$, I am interested in examining whether or not districts that lean towar
 
 ### Models
 
+<!-- 
+NOTE TO SELF
+
+
+
+
+
+NEED TO REWRITE SOME OF THIS TO ACCOUNT FOR BETTER PERFORMANCE AFTER LOCATION-FXS
+-->
+
 As I mention in the main text of the book, I note that I regress the 5-year rolling average of the democratic vote share in a state upon the proportion of the color red and blue on the yard signs downloaded from the Center for American Political Design. The outcome is a continous and bounded variable between the value of 0 and 1. I note in the main text that I use a ordered beta regression, but here I provide more specifics. As the outcome is continuous but bounded between 0 and 1, treating the outcome variable as a continous variable with no finite bounding as I would with a OLS would be inappropriate. To ensure that I am using the most appropriate estimator to explain the outcome of interest, I elect to use an ordered beta regression. Beta regression models are a type of distributional model that essentially tries to model the distribution of the outcome variable. The standard beta regression model can fit models where the outcome is (0, 1). However, my outcome is [0, 1). I could elect to use a zero-inflated beta regression which would allow me to appropriately model this outcome. However, @kubinec_2022_pa demonstrates that the ordered beta regression is a much more efficient and accurate (in terms of a number of various metrics) approach to dealing with outcomes that can equal either 0 or 1. 
 
 The default priors for $\beta_i$ is $N(0, 5)$ in the $ordbetareg$ [@kubinec_2022_pa] package that I use to fit the model. However, I receive warnings indicating that there are divergent transitions. For HMC, divergent transitions indicate that the sampler is having problems with the curvature of your posterior distribution. As I note in the main text of the book, I am using a multilevel model that includes a partially pooled parameter for the districts and use two non-pooled parameters for the state and the election year. This is a pretty complex problem. Especially givent the estimator that I am using here. More troubling still is that my $\hat{R}$ values are not equal to 1 for either model. These two things together suggest that there is a pretty serious problem and that my posterior distributions are quite unstable.
@@ -556,5 +566,14 @@ modelsummary(
     , "b_dem_vote_share" = "Democratic vote share (%)"
   )
 )
+```
 
+### Posterior predictive checks
+
+```{r}
+#| label: fig-hypothesis-5-ppc
+#| tbl-cap: Posterior Predictive checks for $H_5$
+
+list_ppc[["h_5"]][["red"]]
+list_ppc[["h_5"]][["blue"]]
 ```
