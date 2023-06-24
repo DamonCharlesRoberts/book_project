@@ -242,7 +242,7 @@ list_ppc[["h_4"]][["blue"]] <- pp_check(
 # Hypothesis 5
   #* Fit models
 list_fitted[["h_5"]][["red"]] <- ordbetareg(
-  formula = red_prop ~ dem_vote_share + (1 | state + district)
+  formula = red_prop ~ dem_vote_share + (1 | state_district)
   , data = df_study_2
   , threads = 4
   , backend = "cmdstanr"
@@ -252,7 +252,7 @@ list_fitted[["h_5"]][["red"]] <- ordbetareg(
   , coef_prior_SD = 2
 )
 list_fitted[["h_5"]][["blue"]] <- ordbetareg(
-  formula = blue_prop ~ dem_vote_share + (1 | state + district)
+  formula = blue_prop ~ dem_vote_share + (1 | state_district)
   , data = df_study_2
   , threads = 4
   , backend = "cmdstanr"

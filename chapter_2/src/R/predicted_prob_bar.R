@@ -141,9 +141,6 @@ predicted_prob_bar <- function(
         , dem_vote_share = c(
           0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
         )
-        , year = c(
-          2018, 2020, 2022
-        )
       )
       , re_formula = NA
     ) |>
@@ -161,11 +158,6 @@ predicted_prob_bar <- function(
     tidybayes::stat_lineribbon(
       .width = level
       , alpha = 0.6
-    ) +
-      #** split this up by year
-    ggplot2::facet_wrap(
-      ~ year
-      , ncol = 2
     ) +
       #** use the minimal theme
     ggplot2::theme_minimal() +
