@@ -23,6 +23,16 @@ list_df[["cleaned"]] <- read.csv(
 )
 ```
 
+## A note about discrepancies between the main text and the pre-registered report
+
+I posted a pre-registration of my hypotheses [on OSF.](https://osf.io/e9gk8/) The pre-registration allows me to offer transparency about what I expect to find before I analyze any data. This reduces the amount of post-hoc rationalization of any findings pulled from the data. The pre-registered hypotheses are the same as those that are tested here. Despite the similarities between my pre-registered hypotheses and research design, there are a few subtle differences between what I pre-registered and what I ended up doing. In the spirit of complete transparancy, I wanted to make a note of these differences.
+
+Again, the hypotheses that I pre-registered remain the same as what is presented in the main text. The research design also remained the same. During the IRB process, I had to make some decisions about space considerations as I was concerned about participants taking longer than the advertised time (6 minutes). Due to these concerns, I removed some questions. Namely, I no longer asked participants about the color of the yard sign after viewing it nor did I include a battery for political knowledge. These were changes that I made during the IRB process, but did not change in my pre-registered report. In full transparency, mostly because I forgot to make the update as well as having some issues with Dropbox at the time. Removing these questions also had principled reasons. First, I did not want to inflate the treatment effect by asking participants to reflect and tell me the color they saw and then report the partisanship of the candidate. I wanted to get as close to a snap-judgment as I could get and I wanted to immediately ask participants about the partisanship of the candidate after viewing the yard sign to accomplish this goal. For the political knowledge battery, I discuss why I elected to use attention over knowledge in the main text of the chapter. But further, the prevailing questions on political knowledge are suspect as they provide factual information that can be googled participants during the study. Given the length of time it would take for participants to respond to these additional questions and concerns about what value they provide, I did not include them. Those who would like to confirm, I have the IRB materials posted on [my github](https://github.com/DamonCharlesRoberts/color_as_political_information/tree/30508e8f4100c7e19382611fe046ed936c1fdb42/src/assets/irb) which you can see the history of these files.
+
+Another set of discrepancies is some of my modeling strategies. As I note in the main text, some of the data from the mouseview exercise are not exactly what I had expected initially. I do not have much information about the size of the screen participants had nor do I have precise data for when participants were able to view the yard sign during those 5 seconds that it was up. The data for each trial began recording on an instruction screen that I used to standardize cursor starting position and when they finished the trial. As there is a lot of variation between when participants stopped viewing the instructions, I can't be sure which cursor movements were during the display of the yard sign. Because of the noisiness of the mouseview data, I simplified some of my analyses for $H_1$ and $H_4$.
+
+For $H_5$, I had mentioned that I would include an analysis with a synthetic control. However, the district-level data available at the time of writing is not yet available. Because of this, I cannot leverage redistricting patterns for better causal identification of the question of whether campaigns respond to district characteristics or if they anticipate them. Therefore, I stick with the more descriptive task. Relatedly, I had indicated I would use a multilevel model by using intercepts that partially pool at the district level and intercepts that are not pooled at the state level. Upon further reflection on this strategy, this seemed inappropriate for the question at hand as I did not have clear expectations about variation within states but rather more generally was asking a question about districts at large. Further, I did not specify that I would be using a beta regression for these models so many may read my pre-registration as me implying that I would use ordinary least squares. This is totally reasonable. However, out of concern with reporting results that are extremely unstable because of poor choice in estimator as I discuss in the main text and later in the appendix, the ordered beta regression provides more stable results that I am comfortable making inferences with.
+
 ## Measures
 
 +-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -105,6 +115,7 @@ modelsummary(
     , "b_Intercept[2]" = "Intercept 2"
     )
   , statistic = "conf.int"
+  , conf_level = 0.9
   , gof_map = gm 
   , notes = c(
     "Data source: Pavlovia"
@@ -142,6 +153,7 @@ modelsummary(
     , "b_Intercept[2]" = "Intercept 2"
     )
   , statistic = "conf.int"
+  , conf_level = 0.9
   , gof_map = gm 
   , notes = c(
     "Data source: Pavlovia"
@@ -175,6 +187,7 @@ modelsummary(
     , "b_Intercept[2]" = "Intercept 2"
   )
   , statistic = "conf.int"
+  , conf_level = 0.9
   , gof_map = gm
   , notes = c(
     "Data source: Pavlovia"
@@ -211,6 +224,7 @@ modelsummary(
     , "b_Intercept[2]" = "Intercept 2"
   )
   , statistic = "conf.int"
+  , conf_level = 0.9
   , gof_map = gm 
   , notes = c(
     "Data source: Pavlovia"
@@ -289,7 +303,8 @@ modelsummary(
     , "b_Intercept[2]" = "Intercept 2"
     )
   , statistic = "conf.int"
-  , gof_map = gm 
+  , conf_level = 0.9
+  , gof_map = gm
   , notes = c(
     "Data source: Pavlovia"
     , "Positive coefficients reflect the logged-odds"
@@ -330,6 +345,7 @@ modelsummary(
     , "b_Intercept[2]" = "Intercept 2"
     )
   , statistic = "conf.int"
+  , conf_level = 0.9
   , gof_map = gm 
   , notes = c(
     "Data source: Pavlovia"
@@ -411,6 +427,7 @@ modelsummary(
     , "b_race_idWhitenonMhispanic" = "White"
   )  
   , statistic = "conf.int"
+  , conf_level = 0.9
   , gof_map = gm 
   , notes = c(
     "Data source: Pavlovia"
@@ -499,6 +516,7 @@ modelsummary(
     , "b_race_idWhitenonMhispanic" = "White"
   )  
   , statistic = "conf.int"
+  , conf_level = 0.9
   , gof_map = gm 
   , notes = c(
     "Data source: Pavlovia"
@@ -527,4 +545,66 @@ As I made a modeling choice based on the overdispersion of the outcome variable,
 #|   - Blue
 list_ppc[["h_4"]][["red"]]
 list_ppc[["h_4"]][["blue"]]
+```
+
+## Hypothesis 5
+
+For $H_5$, I am interested in examining whether or not districts that lean towards one party more than the other have candidates use more of the color in line with the party that has a historical advantage and less of the color for the party that tends to suffer electorally speaking.
+
+### Models
+
+<!-- 
+NOTE TO SELF
+
+
+
+
+
+NEED TO REWRITE SOME OF THIS TO ACCOUNT FOR BETTER PERFORMANCE AFTER LOCATION-FXS
+-->
+
+As I mention in the main text of the book, I note that I regress the 5-year rolling average of the democratic vote share in a state upon the proportion of the color red and blue on the yard signs downloaded from the Center for American Political Design. The outcome is a continous and bounded variable between the value of 0 and 1. I note in the main text that I use a ordered beta regression, but here I provide more specifics. As the outcome is continuous but bounded between 0 and 1, treating the outcome variable as a continous variable with no finite bounding as I would with a OLS would be inappropriate. To ensure that I am using the most appropriate estimator to explain the outcome of interest, I elect to use an ordered beta regression. Beta regression models are a type of distributional model that essentially tries to model the distribution of the outcome variable. The standard beta regression model can fit models where the outcome is (0, 1). However, my outcome is [0, 1). I could elect to use a zero-inflated beta regression which would allow me to appropriately model this outcome. However, @kubinec_2022_pa demonstrates that the ordered beta regression is a much more efficient and accurate (in terms of a number of various metrics) approach to dealing with outcomes that can equal either 0 or 1. 
+
+The default priors for $\beta_i$ is $N(0, 5)$ in the $ordbetareg$ [@kubinec_2022_pa] package that I use to fit the model. However, I receive warnings indicating that there are divergent transitions. For HMC, divergent transitions indicate that the sampler is having problems with the curvature of your posterior distribution. As I note in the main text of the book, I am using a multilevel model that includes a partially pooled parameter for the districts and use two non-pooled parameters for the state and the election year. This is a pretty complex problem. Especially givent the estimator that I am using here. More troubling still is that my $\hat{R}$ values are not equal to 1 for either model. These two things together suggest that there is a pretty serious problem and that my posterior distributions are quite unstable.
+
+To try to fix this issue, I adjust the prior for $\beta_1$ to $N(0, 2)$. While I still receive a warning about divergences in both models, the number of them drops down to about 30 out of 4000. Additionally the $\hat{R}$ values are at 1. Together, these tell me that these priors likely helped the models quite a bit and feel more confident in the stability of my model. @tbl-hypothesis-5 presents the results of this second specification of the model.
+
+```{r}
+#| label: tbl-hypothesis-5
+#| tbl-cap: The effect of democratic vote share on color choices for yard sign
+
+names(list_fitted[["h_5"]]) <- c("Prop. yard sign Red", "Prop. yard sign Blue")
+modelsummary(
+  list_fitted[["h_5"]]
+  , stat = "conf.int"
+  , conf_level = 0.9
+  , metrics = c("n.obs", "RMSE")
+  , coef_map = c(
+    "b_intercept" = "Intercept"
+    , "b_dem_vote_share" = "Democratic vote share (%)"
+  )
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , "of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+### Posterior predictive checks
+
+```{r}
+#| label: fig-hypothesis-5-ppc
+#| layout-ncol: 2
+#| fig-cap: Posterior Predictive checks for $H_5$
+#| fig-subcap:
+#|   - Proportion of yard signs red
+#|   - Proprotion of yard signs blue
+
+list_ppc[["h_5"]][["red"]]$continuous
+list_ppc[["h_5"]][["blue"]]$continuous
 ```

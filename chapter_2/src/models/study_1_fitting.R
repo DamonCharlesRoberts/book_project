@@ -9,31 +9,50 @@
         #** dcr
 
 # Setup
-    #* set working directory
+  #* set seed
+set.seed(12102022)
+  #* set working directory
 setwd("./chapter_2/src")
-    #* execute cleaning script
+  #* execute cleaning script
 source("./eda/study_1/cleaning.R")
-    #* load helpful functions
+  #* load in cleaned study-2 data 
+  #* (need to run each python script individually)
+df_study_2 <- read.csv("../data/clean/study_2.csv") |>
+  as.data.table()
+  #* convert state_district and year variables  to factors
+df_study_2 <- df_study_2[
+  , year := tstrsplit(year, "-", keep = 1)
+][
+  , year := as.numeric(year)
+][
+  , state_district := factor(state_district)
+][
+  , blue_prop := blue_percent/100
+][
+  , red_prop := red_percent/100
+]
+  #* load helpful functions
 box::use(
-    data.table[...]
-    , brms[...]
+  data.table[...]
+  , brms[...]
+  , ordbetareg[...]
 )
     #* make an empty model list object
 list_fitted <- list(
-    h_1 = list()
-    , h_2 = list()
-    , h_2a = list()
-    , h_3 = list()
-    , h_4 = list()
-    , h_5 = list()
+  h_1 = list()
+  , h_2 = list()
+  , h_2a = list()
+  , h_3 = list()
+  , h_4 = list()
+  , h_5 = list()
 )
 list_ppc <- list(
-    h_1 = list()
-    , h_2 = list()
-    , h_2a = list()
-    , h_3 = list()
-    , h_4 = list()
-    , h_5 = list()
+  h_1 = list()
+  , h_2 = list()
+  , h_2a = list()
+  , h_3 = list()
+  , h_4 = list()
+  , h_5 = list()
 )
 
 # Hypothesis 1
@@ -219,6 +238,35 @@ list_ppc[["h_4"]][["red"]] <- pp_check(
 )
 list_ppc[["h_4"]][["blue"]] <- pp_check(
   list_fitted[["h_4"]][["blue"]]
+)
+# Hypothesis 5
+  #* Fit models
+list_fitted[["h_5"]][["red"]] <- ordbetareg(
+  formula = red_prop ~ dem_vote_share + (1 | state_district)
+  , data = df_study_2
+  , threads = 4
+  , backend = "cmdstanr"
+  , control = list(
+    adapt_delta = 0.95
+  )
+  , coef_prior_SD = 2
+)
+list_fitted[["h_5"]][["blue"]] <- ordbetareg(
+  formula = blue_prop ~ dem_vote_share + (1 | state_district)
+  , data = df_study_2
+  , threads = 4
+  , backend = "cmdstanr"
+  , control = list(
+    adapt_delta = 0.95
+  )
+  , coef_prior_SD = 2
+)
+  #* Posterior predictive checks
+list_ppc[["h_5"]][["red"]] <- pp_check_ordbeta(
+  list_fitted[["h_5"]][["red"]]
+)
+list_ppc[["h_5"]][["blue"]] <- pp_check_ordbeta(
+  list_fitted[["h_5"]][["blue"]]
 )
 # Store model results
 save(
