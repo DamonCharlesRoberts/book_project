@@ -53,6 +53,7 @@ load(
 - The book addresses the question: 
   - does color convey political information? 
   - does it have pre-conscious effects on information that comes later?
+- The goal here is to start off by building up some exepectations in simple cases with a psychological model. Other complications are certainly interesting and will be saved for future projects. For now, want to start simple.
 :::
 
 ::: footer
@@ -336,7 +337,16 @@ Implications.
 ::: footer
 :::
 
-# Sensitivity of conclusions to sample size, research design, and modeling strategies
+# References
+
+::: {#refs}
+:::
+
+::: footer
+:::
+
+
+# Sensitivity of conclusions to sample size, research design, and modeling strategies {.appendix}
 
 ::: {.notes}
 - the results of a bayesian model are kind of like an average of your prior beliefs and your data that you have on hand
@@ -529,14 +539,6 @@ plot_study_1_model_2[[2]]
 plot_study_1_model_2[[3]]
 plot_study_1_model_2[[4]]
 ```
-
-::: footer
-:::
-
-# References
-
-::: {#refs}
-:::
 
 ::: footer
 :::
