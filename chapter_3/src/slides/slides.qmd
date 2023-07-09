@@ -318,6 +318,16 @@ Implications.
 ::: footer
 :::
 
+---
+
+- Prime condition: political attitudes questionnaire before treatment vs. after
+- Person wearing shirt might be White Female (but would like some feedback on this)
+
+::: footer
+:::
+
+---
+
 ## Study 2
 
 +-------------------------:+:---------------------:+
@@ -337,6 +347,24 @@ Implications.
 ::: footer
 :::
 
+---
+
+- Congruency is whether or not policy attitudes after image matches with presumed partisanship from color of shirt
+  - Policy positions will be on: Support for Gun Control, whether pro-choice or pro-life, support for Universal Basic Income
+
+::: footer
+:::
+
+---
+
+## Outcomes
+
+- $H_1$: What color shirt was your political discussion partner wearing?
+- $H_2$ \& $H_3$: To what extent are you willing to have a conversation with this person? (5-item response)
+
+::: footer
+:::
+
 # References
 
 ::: {#refs}
@@ -346,7 +374,9 @@ Implications.
 :::
 
 
-# Sensitivity of conclusions to sample size, research design, and modeling strategies {.appendix}
+# Appendix {.appendix}
+
+## Sensitivity of conclusions to sample size, research design, and modeling strategies {.appendix}
 
 ::: {.notes}
 - the results of a bayesian model are kind of like an average of your prior beliefs and your data that you have on hand
@@ -415,12 +445,12 @@ $$
 ::: footer
 :::
 
-## Fitting the models on the simulated data
+### Fitting the models on the simulated data
 
 ::: footer
 :::
 
-### Model 1
+#### Model 1
 
 $$
 \begin{align}
@@ -438,7 +468,7 @@ $$
 ::: footer
 :::
 
-### Model 2
+#### Model 2
 
 $$
 \begin{align}
@@ -459,7 +489,7 @@ $$
 ::: footer
 :::
 
-### Model 2 (alternate)
+#### Model 2 (alternate)
 
 $$
 \begin{align}
@@ -480,7 +510,7 @@ $$
 ::: footer
 :::
 
-## Performance
+### Performance
 
 ::: {.notes}
 - Know that none of the parameters are zero.
@@ -491,7 +521,7 @@ $$
 ::: footer
 :::
 
-### Model 1
+#### Model 1
 ```{r}
 #| label: fig-true-positive-study-1-model-1
 #| fig-cap: True positive rate from simulations - Model 1
@@ -503,7 +533,7 @@ plot_study_1_model_1[[1]]
 ::: footer
 :::
 
-### Model 2
+#### Model 2
 
 ```{r}
 #| label: fig-true-positive-study-1-model-2-alt
