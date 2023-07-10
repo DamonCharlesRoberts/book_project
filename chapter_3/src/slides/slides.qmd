@@ -233,7 +233,7 @@ blue
 
 ---
 
-1. Memories are stored prior experiences [@cunningham_2021_yup].
+1. Memories are stored prior experiences [@cunningham_et-al_2012_ohsn].
   - often encode affective responses
 2. Memories are multi-dimensional [@kahana_et-al_2022_ohhum].
 3. Sensory and affective information is often encoded in memories [@kensinger_fields_2022_ohhum].
@@ -326,8 +326,6 @@ Implications.
 ::: footer
 :::
 
----
-
 ## Study 2
 
 +-------------------------:+:---------------------:+
@@ -355,8 +353,6 @@ Implications.
 ::: footer
 :::
 
----
-
 ## Outcomes
 
 - $H_1$: What color shirt was your political discussion partner wearing?
@@ -375,6 +371,9 @@ Implications.
 
 
 # Appendix {.appendix}
+
+::: footer
+:::
 
 ## Sensitivity of conclusions to sample size, research design, and modeling strategies {.appendix}
 
