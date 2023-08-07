@@ -581,10 +581,10 @@ modelsummary(
   , metrics = c("n.obs", "RMSE")
   , coef_map = c(
     "b_intercept" = "Intercept"
-    , "b_dem_vote_share" = "Democratic vote share (%)"
+    , "b_dem_vote_share" = "Democratic vote share (percent)"
   )
   , notes = c(
-    "Data source: Pavlovia"
+    "Data source: Center for Political Design and MIT Election Lab"
     , "Positive coefficients reflect the logged-odds"
     , "of claiming candidate is Republican."
     , "Numbers inside brackets reflect the 5th and 95th percentile"

@@ -8,7 +8,7 @@
     #** duplicated rows based on session_id, then converts
     #** columns to correct data types.
   #* Updated:
-    #** 2023-06-16
+    #** 2023-08-07
     #** dcr
 
 # Setup
@@ -17,7 +17,6 @@ box::use(
   data.table[...]
   , ./R/clean_data[clean_data]
 )
-
 # Cleaning
   #* Do basic cleaning to return a minimally usable data.frame
 list_df <- list() # create an empty list for my data_frames
@@ -197,7 +196,7 @@ list_df[["cleaned"]] <- list_df[["cleaned"]][
   , trial_1_vote := factor(trial_1_vote, ordered = TRUE)
 ]
 
-# Store the cleaned data in a RData temp file
+# Store the cleaned data in a csv temp file
 write.csv(
   list_df[["cleaned"]]
   , file = "../data/clean/cleaned_pavlovia.csv"

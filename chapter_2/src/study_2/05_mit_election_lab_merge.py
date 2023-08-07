@@ -121,7 +121,7 @@ df = pl.read_csv(
 yard_sign = df.join(
         election_lab_merge, 
         on = ["year", "state_district", "last_name"], 
-        how = "left"
+        how = "inner"
     )
 
 # Save stored dataset
