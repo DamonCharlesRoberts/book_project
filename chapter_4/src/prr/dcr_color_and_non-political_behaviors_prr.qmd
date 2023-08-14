@@ -1,0 +1,72 @@
+---
+title: |
+  How does visual information influence attitudes and behaviors about groups of people?
+code-repo: |
+  For replication, go to: <https://github.com/DamonCharlesRoberts/book_project/chapter_4>.
+author:
+  - name: Damon C. Roberts
+    email: damon.roberts-1@colorado.edu
+    orcid: 0000-0002-4360-3675
+    title: PhD Candidate
+    affiliations:
+      - id: CU
+        name: University of Colorado Boulder
+        department: Political Science
+        address: 333 UCB
+        city: Boulder
+        region: CO 
+        postal-code: 80309-0333
+abstract: |
+  Previous chapters of this project demonstrate that the colors red and blue convey information about the partisan affiliation of another individual, and that this information influences a number of attitudes and behaviors. This chapter's goal is to add to these findings in a couple of directions: (1) do these findings generalize to shaping the attitudes and behaviors directed towards groups of people and (2) do these results contribute to the growing literature about the effects of polarization on seemingly non-political attitudes and behaviors?
+
+bibliography: ["../../../assets/neighborhood-chapter-references.bib"]
+format:
+  hikmah-pdf:
+    # Spit out in drafts directory
+    latex-output-dir: "../../out/prr"
+    # Use biblatex-chicago
+    biblatex-chicago: true
+    biblio-style: authordate
+    biblatexoptions: 
+      - backend=biber
+      - autolang=hyphen
+      - isbn=false
+      - uniquename=false
+    geometry:
+      - top=1in
+      - bottom=1in
+      - left=1in
+      - right=1in
+      - heightrounded
+    linestretch: 2
+    fontsize: 12pt
+date: today
+nocite: |
+  @allaire_quarto_2022
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: false
+params:
+  replicate: false
+---
+{{< pagebreak >}}
+
+# Introduction
+
+The previous chapters demonstrated that the colors red and blue conveyed information about the partisanship of politicians and about potential discussion partners. The previous chapters also demonstrated that these effects on attitudes also influenced behaviors such as a willingness to vote for the candidate as well as willingness to have a conversation with another about politics. The previous chapter also demonstrated two other pieces to the story: (1) that the group-based information conveyed the colors red and blue are dependent on the context, and (2) that the snap-judgments people form based on this simple visual information can shape attitudes and behaviors even when provided with more clear and explicit information about the partisan affiliation of another person.
+
+This chapter builds on these findings to examine whether these associations between the colors red and blue with the partisanship of another can convey information about groups of people and can guide attitudes and resulting behaviors towards interactions with these groups of people. Specifically, the chapter builds upon a growing set of work suggesting that the politicultural differences between Democrats and Republicans are shaping seemingly non-political attitudes and behaviors such as one's choice in which neighborhood to live in. I argue in this chapter that the prevalence of red and blue cars in the driveways of houses in a neighborhood shift people's perceptions of the partisan composition of the neighborhood and as a result will make people less willing to move to that neighborhood when they perceive they'd be in the political minority of that neighborhood.
+
+The implications of such findings corroborate existing work that suggests that there are an increasing number of cultural signals that people use to guess the partisanship of not just other individuals but groups of people, and that as a result partisanship and polarization are bleeding into our non-political decision-making. The implications of the argument advanced in the chapter build upon these existing findings by providing one causal mechanism as to the connection between cultural cues conveyed visually and the cognitive processing of such information. The chapter not only generalizes findings from the previous chapters to groups of people and to non-political attitudes and behaviors, but it contributes to a literature suggesting that political polarization is pervasive and is approaching universal.
+
+# Politicultural differences and their effects
+
+While political polarization certainly reflects a growing gap and consolidation of two camps of policy preferences and attitudes [@dellaposta_pluralistic_2020;@luders_attitude_2023], it manifests as something more consequential for our every-day experiences. Political polarization has come to reflect social groups that distinguish "us" versus "them" with increasingly fewer and fewer non-political social groups that are not wrapped up in our partisan group [@mason_uncivil_2018]. That is, we are not only holding fewer and fewer cross-cutting attitudes that moderate our political viewpoints [@luders_attitude_2023], but we also have fewer and fewer cross-cutting social groups that encourage interaction and experiences with perspectives of out-partisans [@mason_uncivil_2018]. The consequence of such phenomena is that we are becoming more and more willing to have strong negative reactions to those of the other political party and strong positive reactions to members of our political party [@iyengar_affect_2012;@iyengar_fear_2015].
+
+The consequences of this affective polarization encourages discomfort being around those who identify with the other political party and finding comfort around those that share the same partisanship. In fact, some evidence suggests that it is even more sinister than comfort but rather predicts lower empathy for outpartisans [@allamong_screw_2021], but also a willingness to describe outpartisans as subhuman [@martherus_party_2021]. To communicate the magnitude of this dislike for out-partisans, dehumanizing language is often used by those that hold deeply racially resentful views [@utych_how_2018].
+
+Evidence of this discomfort with out-partisans is piling up. For example, @carlson_what_2022 demonstrates that individuals perceive that they may incur social costs by engaging in a conversation with those they disagree with and expressing that disagreement. Other work corroborate this finding by suggesting that on social media individuals will be less likely to share the posts of political viewpoints they agree with if they perceive that they are in the political minority of those that would see that sharing of the post [@van_der_does_strategic_2022]. As a result, individuals have fewer outpartisans in their group of folks they regularly discuss politics with [@butters_polarized_2022].
+
+One interesting finding of @butters_polarized_2022 is that one cause of the increasing homogeneity of people's discussion partners' partisanship is that individuals often live in counties  that are politically-homogenous. This finding reflects a growing area of research examining the geographical sorting occurring as a result of polarization among the mass public.
