@@ -95,3 +95,5 @@ To most of us, we likely do not trust this as a basis to infer partisanship as o
 # Experiments
 
 - Make real estate flyers that are like a conjoint providing information about the neighborhood. Do something with a "favorite car in the neighborhood" and vary whether it is a red or a blue car.
+
+{{< pagebreak >}}
