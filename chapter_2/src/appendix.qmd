@@ -236,7 +236,7 @@ modelsummary(
     "Data source: Pavlovia"
     , "Positive coefficients reflect the logged-odds"
     , " of claiming candidate is Republican."
-    , "Numbers inside brakcets reflect the 5th and 95th percentile"
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
@@ -244,7 +244,7 @@ modelsummary(
 )
 ```
 
-Finally, I check to see if the results reported in @tbl-hypothesis-2-main are moderated by subjects that are colorblind. Though, I have reasons to beleive they are, the sample does not really lend itself to a robust test of this. The sample does not have a large number of respondents who indicated that they were diagnosed with some type of colorblindness. Therefore, I likely do not have enough data points for colorblind respondents in these different groups. 
+Finally, I check to see if the results reported in @tbl-hypothesis-2-main are moderated by subjects that are colorblind. Though, I have reasons to believe they are, the sample does not really lend itself to a robust test of this. The sample does not have a large number of respondents who indicated that they were diagnosed with some type of colorblindness. Therefore, I likely do not have enough data points for colorblind respondents in these different groups. 
 
 ```{r}
 #| label: tbl-colorblindness
@@ -654,7 +654,7 @@ It appears that there is some over-dispersion here. Therefore, my choices for wh
 
 As mentioned above, the outcome here is the time elapsed for a trial (in milliseconds). Since this is a count outcome, I should be using a type of model that uses a link function in the poisson family as opposed to the exponential family. As @tbl-h-4-dispersion demonstrated, the data are over-dispersed. Therefore, I use a poisson-gamma model as my link function which is often referred to as a negative binomial regression. I still have priors suggesting that my beta coefficients are $Normal(0, 1)$. 
 
-Like I have done before, I run two models. One for each partisan stimuli with the baseline category as the White yard sign condition. As the hypothesis goes beyond saying that I think subjects in the red/blue treatment will spend more time looking at the yard sign than in the white, but instead say that I think this will be moderated by partisanship, I include a interaction term in each of these models. Additionally, as partisan identification is a key explantory variable here and is not experimentally treated, I control for a numbe of potential confounds such as attention to politics, age, gender identity, and racial identity. The results of these models are recorded in @tbl-h-4.
+Like I have done before, I run two models. One for each partisan stimuli with the baseline category as the White yard sign condition. As the hypothesis goes beyond saying that I think subjects in the red/blue treatment will spend more time looking at the yard sign than in the white, but instead say that I think this will be moderated by partisanship, I include a interaction term in each of these models. Additionally, as partisan identification is a key explanatory variable here and is not experimentally treated, I control for a number of potential confounds such as attention to politics, age, gender identity, and racial identity. The results of these models are recorded in @tbl-h-4.
 
 ```{r}
 #| label: tbl-h-4
@@ -704,7 +704,7 @@ modelsummary(
 
 #### Posterior Predictive Checks
 
-As I made a modeling choice based on the overdispersion of the outcome variable, I want to confirm that these models did an adequate job at returning predicted values based on my posterior distribution relative to the actual data in the sample. The posterior predictive checks suggest that it did indeed do a pretty good job. It looks like I may be slightly underestimating some lower values for the elapsed time, but the distribution on the whole looks pretty good -- including on the tails.
+As I made a modeling choice based on the over-dispersion of the outcome variable, I want to confirm that these models did an adequate job at returning predicted values based on my posterior distribution relative to the actual data in the sample. The posterior predictive checks suggest that it did indeed do a pretty good job. It looks like I may be slightly underestimating some lower values for the elapsed time, but the distribution on the whole looks pretty good -- including on the tails.
 
 ```{r}
 #| label: fig-h-4-ppc
@@ -725,7 +725,7 @@ For $H_5$, I am interested in examining whether or not districts that lean towar
 
 As I mention in the main text of the book, I note that I regress the 5-year rolling average of the democratic vote share in a state upon the proportion of the color red and blue on the yard signs downloaded from the Center for American Political Design. The outcome is a continuous and bounded variable between the value of 0 and 1. I note in the main text that I use a ordered beta regression, but here I provide more specifics. As the outcome is continuous but bounded between 0 and 1, treating the outcome variable as a continuous variable with no finite bounding as I would with a OLS would be inappropriate. To ensure that I am using the most appropriate estimator to explain the outcome of interest, I elect to use an ordered beta regression. Beta regression models are a type of distributional model that essentially tries to model the distribution of the outcome variable. The standard beta regression model can fit models where the outcome is (0, 1). However, my outcome is [0, 1). I could elect to use a zero-inflated beta regression which would allow me to appropriately model this outcome. However, @kubinec_ordered_2022 demonstrates that the ordered beta regression is a much more efficient and accurate (in terms of a number of various metrics) approach to dealing with outcomes that can equal either 0 or 1. 
 
-The default priors for $\beta_i$ is $N(0, 5)$ in the $ordbetareg$ [@kubinec_ordered_2022] package that I use to fit the model. However, I receive warnings indicating that there are divergent transitions. For HMC, divergent transitions indicate that the sampler is having problems with the curvature of your posterior distribution. As I note in the main text of the book, I am using a multilevel model that includes a partially pooled parameter for the districts and use two non-pooled parameters for the state and the election year. This is a pretty complex problem. Especially givent the estimator that I am using here. More troubling still is that my $\hat{R}$ values are not equal to 1 for either model. These two things together suggest that there is a pretty serious problem and that my posterior distributions are quite unstable.
+The default priors for $\beta_i$ is $N(0, 5)$ in the $ordbetareg$ [@kubinec_ordered_2022] package that I use to fit the model. However, I receive warnings indicating that there are divergent transitions. For HMC, divergent transitions indicate that the sampler is having problems with the curvature of your posterior distribution. As I note in the main text of the book, I am using a multilevel model that includes a partially pooled parameter for the districts and use two non-pooled parameters for the state and the election year. This is a pretty complex problem. Especially given the estimator that I am using here. More troubling still is that my $\hat{R}$ values are not equal to 1 for either model. These two things together suggest that there is a pretty serious problem and that my posterior distributions are quite unstable.
 
 To try to fix this issue, I adjust the prior for $\beta_1$ to $N(0, 2)$. While I still receive a warning about divergences in both models, the number of them drops down to about 30 out of 4000. Additionally the $\hat{R}$ values are at 1. Together, these tell me that these priors likely helped the models quite a bit and feel more confident in the stability of my model. @tbl-hypothesis-5 presents the results of this second specification of the model.
 
@@ -763,7 +763,7 @@ modelsummary(
 #| fig-cap: Posterior Predictive checks for $H_5$
 #| fig-subcap:
 #|   - Proportion of yard signs red
-#|   - Proprotion of yard signs blue
+#|   - Proportion of yard signs blue
 
 list_ppc[["h_5"]][["red"]]$continuous
 list_ppc[["h_5"]][["blue"]]$continuous
