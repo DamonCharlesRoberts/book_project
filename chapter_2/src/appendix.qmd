@@ -106,6 +106,8 @@ Trial 3 Treatments
 
 ![Treatment example](./assets/img/example_of_treatment.png)
 
+{{< pagebreak >}}
+
 ### Hypothesis 2
 
 To test whether people associate the color red on a political yard sign with Republicans and the color blue on a political yard sign with Democrats. 
@@ -113,7 +115,7 @@ To test whether people associate the color red on a political yard sign with Rep
 
 #### Models
 
-These first two models are nominal logistic regressions. The outcome of interest is a 3-item response of whether they perceived the owner of the yard sign to be a Republican, a Democrat, or neither. This variable was recoded to be 1 = Democrat, 2 = Independent, and 3 = Republican. In the first nominal logistic regression, I predict this outcome with a indicator variable of whether the participant saw a white yard sign (value of 0) or saw a red yard sign (value of 1). 
+These first two models are multinomial logistic regressions. The outcome of interest is a 3-item response of whether they perceived the owner of the yard sign to be a Republican, a Democrat, or neither. This variable was recoded to be 1 = Democrat, 2 = Independent, and 3 = Republican. In the first multinomial logistic regression, I predict this outcome with a indicator variable of whether the participant saw a white yard sign (value of 0) or saw a red yard sign (value of 1). 
 
 My defined priors for the beta coefficient are $Normal(0, 1)$. This means that I think that 68% of the non-transformed beta coefficients I think will be between -1 and 1, with the remaining 32% being larger than that. I fit the models on 4 chains with 2000 chains each (1000 warmup, and 1000 sampled).
 
@@ -355,6 +357,8 @@ list_ppc[["h_2"]][["blue_colorblind"]]
 list_ppc[["h_2"]][["blue_colorblind"]]
 ```
 
+{{< pagebreak >}}
+
 ### $H_{2a}$
 
 An additional analysis I include is to examine the bounds by which these effects hold if we vary the amount of partisan colors are on a yard sign. The second and third trials introduce variations of the yard signs in the first trial that include more white and even more color for the opposing political party (if red or blue condition). The goal here is to see whether these results that are reported in @tbl-hypothesis-2-main are weaker for these other two trials.
@@ -587,7 +591,7 @@ list_ppc[["h_2a"]][["trial_3_single_model"]]
 
 {{< pagebreak >}}
 
-### Hypothesis 3
+### $H_3$
 
 #### Models
 
@@ -659,7 +663,7 @@ list_ppc[["h_3"]][["blue"]]
 
 {{< pagebreak >}}
 
-### Hypothesis 4
+### $H_4$
 
 $H_4$ seeks to test whether partisan subjects spend more time looking at the yard sign of political opponents than those they share a partisan identity with. Specifically, it seeks to see whether the elapsed time for the trials are longer for participants assigned to a red or blue yard sign condition if the subject is a Democrat or Republican (respectively) relative to Republicans or Democrats (respectively).
 
@@ -746,7 +750,7 @@ list_ppc[["h_4"]][["red"]]
 list_ppc[["h_4"]][["blue"]]
 ```
 
-### Hypothesis 5
+### $H_5$
 
 For $H_5$, I am interested in examining whether or not districts that lean towards one party more than the other have candidates use more of the color in line with the party that has a historical advantage and less of the color for the party that tends to suffer electorally speaking.
 
@@ -754,7 +758,7 @@ For $H_5$, I am interested in examining whether or not districts that lean towar
 
 As I mention in the main text of the book, I note that I regress the 5-year rolling average of the democratic vote share in a state upon the proportion of the color red and blue on the yard signs downloaded from the Center for American Political Design. The outcome is a continuous and bounded variable between the value of 0 and 1. I note in the main text that I use a ordered beta regression, but here I provide more specifics. As the outcome is continuous but bounded between 0 and 1, treating the outcome variable as a continuous variable with no finite bounding as I would with a OLS would be inappropriate. To ensure that I am using the most appropriate estimator to explain the outcome of interest, I elect to use an ordered beta regression. Beta regression models are a type of distributional model that essentially tries to model the distribution of the outcome variable. The standard beta regression model can fit models where the outcome is (0, 1). However, my outcome is [0, 1). I could elect to use a zero-inflated beta regression which would allow me to appropriately model this outcome. However, @kubinec_ordered_2022 demonstrates that the ordered beta regression is a much more efficient and accurate (in terms of a number of various metrics) approach to dealing with outcomes that can equal either 0 or 1. 
 
-The default priors for $\beta_i$ is $N(0, 5)$ in the $ordbetareg$ [@kubinec_ordered_2022] package that I use to fit the model. However, I receive warnings indicating that there are divergent transitions. For HMC, divergent transitions indicate that the sampler is having problems with the curvature of your posterior distribution. As I note in the main text of the book, I am using a multilevel model that includes a partially pooled parameter for the districts and use two non-pooled parameters for the state and the election year. This is a pretty complex problem. Especially given the estimator that I am using here. More troubling still is that my $\hat{R}$ values are not equal to 1 for either model. These two things together suggest that there is a pretty serious problem and that my posterior distributions are quite unstable.
+The default priors for $\beta_i$ is $N(0, 5)$ in the $ordbetareg$ [@kubinec_ordered_2022] package that I use to fit the model. However, I receive warnings indicating that there are divergent transitions. For Hamiltonian Monte Carlo, divergent transitions indicate that the sampler is having problems with the curvature of your posterior distribution. As I note in the main text of the book, I am using a multilevel model that includes a partially pooled parameter for the districts and use two non-pooled parameters for the state and the election year. This is a pretty complex problem. Especially given the estimator that I am using here. More troubling still is that my $\hat{R}$ values are not equal to 1 for either model. These two things together suggest that there is a pretty serious problem and that my posterior distributions are quite unstable.
 
 To try to fix this issue, I adjust the prior for $\beta_1$ to $N(0, 2)$. While I still receive a warning about divergences in both models, the number of them drops down to about 30 out of 4000. Additionally the $\hat{R}$ values are at 1. Together, these tell me that these priors likely helped the models quite a bit and feel more confident in the stability of my model. @tbl-hypothesis-5 presents the results of this second specification of the model.
 
