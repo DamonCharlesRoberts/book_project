@@ -1,4 +1,4 @@
-# Chapter 2 Appendix {#sec-2-a}
+## Chapter 2 Appendix {#sec-2-a}
 
 ```{r}
 #| label: setup
@@ -23,7 +23,7 @@ list_df[["cleaned"]] <- read.csv(
 )
 ```
 
-## A note about discrepancies between the main text and the pre-registered report
+### A note about discrepancies between the main text and the pre-registered report
 
 I posted a pre-registration of my hypotheses [on OSF.](https://osf.io/e9gk8/) The pre-registration allows me to offer transparency about what I expect to find before I analyze any data. This reduces the amount of post-hoc rationalization of any findings pulled from the data. The pre-registered hypotheses are the same as those that are tested here. Despite the similarities between my pre-registered hypotheses and research design, there are a few subtle differences between what I pre-registered and what I ended up doing. In the spirit of complete transparency, I wanted to make a note of these differences.
 
@@ -33,7 +33,7 @@ Another set of discrepancies is some of my modeling strategies. As I note in the
 
 For $H_5$, I had mentioned that I would include an analysis with a synthetic control. However, the district-level data available at the time of writing is not yet available. Because of this, I cannot leverage redistricting patterns for better causal identification of the question of whether campaigns respond to district characteristics or if they anticipate them. Therefore, I stick with the more descriptive task. Relatedly, I had indicated I would use a multilevel model by using intercepts that partially pool at the district level and intercepts that are not pooled at the state level. Upon further reflection on this strategy, this seemed inappropriate for the question at hand as I did not have clear expectations about variation within states but rather more generally was asking a question about districts at large. Further, I did not specify that I would be using a beta regression for these models so many may read my pre-registration as me implying that I would use ordinary least squares. This is totally reasonable. However, out of concern with reporting results that are extremely unstable because of poor choice in estimator as I discuss in the main text and later in the appendix, the ordered beta regression provides more stable results that I am comfortable making inferences with.
 
-## Measures
+### Measures
 
 +-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Measure                     | Question                                                                                                                                                                                                                                                                                                  | Coded as                                                                                                                                                           |
@@ -77,14 +77,14 @@ For $H_5$, I had mentioned that I would include an analysis with a synthetic con
 
 {{< pagebreak >}}
 
-## Hypothesis 2
+### Hypothesis 2
 
 To test whether people associate the color red on a political yard sign with Republicans and the color blue on a political yard sign with Democrats. 
 
 
-### Models
+#### Models
 
-These first two models are ordered logistic regressions. The outcome of interest is a 3-item response of whether they perceived the owner of the yard sign to be a Republican, a Democrat, or neither. This variable was recoded to be 1 = Democrat, 2 = Independent, and 3 = Republican. In the first ordered logistic regression, I predict this outcome with a indicator variable of whether the participant saw a white yard sign (value of 0) or saw a red yard sign (value of 1). 
+These first two models are nominal logistic regressions. The outcome of interest is a 3-item response of whether they perceived the owner of the yard sign to be a Republican, a Democrat, or neither. This variable was recoded to be 1 = Democrat, 2 = Independent, and 3 = Republican. In the first nominal logistic regression, I predict this outcome with a indicator variable of whether the participant saw a white yard sign (value of 0) or saw a red yard sign (value of 1). 
 
 My defined priors for the beta coefficient are $Normal(0, 1)$. This means that I think that 68% of the non-transformed beta coefficients I think will be between -1 and 1, with the remaining 32% being larger than that. I fit the models on 4 chains with 2000 chains each (1000 warmup, and 1000 sampled).
 
@@ -95,8 +95,8 @@ My defined priors for the beta coefficient are $Normal(0, 1)$. This means that I
 #| tbl-cap: Full results for reported models in $H_2$
 # Redefine names
 list_fitted_split_1 <- list(
-  "Red treatment" = list_fitted[["h_2"]][["red"]]
-  , "Blue treatment" = list_fitted[["h_2"]][["blue"]]
+  "Red treatment" = list_fitted[["h_2"]][["red_multinomial"]]
+  , "Blue treatment" = list_fitted[["h_2"]][["blue_multinomial"]]
 )
 
 # Change goodness of fit stuff
@@ -108,6 +108,49 @@ gm <- list(
 # Make table
 modelsummary(
   list_fitted_split_1
+  , coef_map = c(
+    "b_mu2_trial_1_red_stimuli" = "Red yard sign (Independent)"
+    , "b_mu3_trial_1_red_stimuli" = "Red yard sign (Republican)"
+    , "b_mu2_trial_1_blue_stimuli" = "Blue yard sign (Independent)"
+    , "b_mu3_trial_1_blue_stimuli" = "Blue yard sign (Republican)"
+    , "b_mu2_Intercept" = "Intercept - Independent"
+    , "b_mu3_Intercept" = "Intercept - Republican"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , "of claiming candidate is not a Democrat."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+There is also a case to be made about using ordered logistic regressions instead of multinomial logistic regressions if you think of partisanship identification fitting across a continuum and my measure crudely adding break points. @tbl-hypothesis-2-ordered demonstrates that my substantive conclusions do not change when interpreting a fitted ordered logistic regression instead of a fitted multinomial logistic regression like in @tbl-hypothesis-2-main.
+
+```{r}
+#| label: tbl-hypothesis-2-ordered
+#| tbl-cap: Full results for reported ordered logistic regression models for $H_2$
+# Redefine names
+list_fitted_split_1_alt <- list(
+  "Red treatment" = list_fitted[["h_2"]][["red_ordinal"]]
+  , "Blue treatment" = list_fitted[["h_2"]][["blue_ordinal"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1_alt
   , coef_map = c(
     "b_trial_1_red_stimuli" = "Red yard sign"
     , "b_trial_1_blue_stimuli" = "Blue yard sign"
@@ -238,7 +281,7 @@ modelsummary(
 )
 ```
 
-### Posterior Predictive Checks
+#### Posterior Predictive Checks
 
 To check whether my model specification (the variables that I included and the priors I define) are robust, I plot the posterior predictive checks for the model. These posterior predictive checks take the predicted values given my posterior distribution for each of these models, and plots the distribution of these predicted values relative to the distribution of actual values tha I have in my dataset. A well-specified model would show that there are not large nor systematic differences between the distributions of the predicted and actual values. Here, it appears that all of the models do a pretty good job.
 
@@ -247,16 +290,26 @@ To check whether my model specification (the variables that I included and the p
 #| layout-ncol: 2
 #| fig-cap: Posterior predictive checks of models in $H_2$
 #| fig-subcap:
-#|   - Red treatment
-#|   - Blue treatment
+#|   - Red treatment (multinomial)
+#|   - Blue treatment (multinomial)
+#|   - Red treatment (ordered)
+#|   - Blue treatment (ordered)
+list_ppc[["h_2"]][["red_multinomial"]]
+list_ppc[["h_2"]][["blue_multinomial"]]
+list_ppc[["h_2"]][["red_ordinal"]]
+list_ppc[["h_2"]][["blue_ordinal"]]
+```
+
+```{r}
+#| label: fig-h-2-ppc-cont
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
+#| fig-subcap:
 #|   - Red treatment (Moderated by age)
 #|   - Blue treatment (Moderated by age)
 #|   - Single model
 #|   - Red treatment (Moderated by colorblindness)
 #|   - Blue treatment (Moderated by colorblindness)
-
-list_ppc[["h_2"]][["red"]]
-list_ppc[["h_2"]][["blue"]]
 list_ppc[["h_2"]][["red_interact"]]
 list_ppc[["h_2"]][["blue_interact"]]
 list_ppc[["h_2"]][["single_model"]]
@@ -264,13 +317,22 @@ list_ppc[["h_2"]][["red_colorblind"]]
 list_ppc[["h_2"]][["blue_colorblind"]]
 ```
 
-## $H_{2a}$
+```{r}
+#| label: fig-h-2-ppc-cont-cont
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
+#| fig-subcap:
+#|   - Blue treatment (Moderated by colorblindness)
+list_ppc[["h_2"]][["blue_colorblind"]]
+```
 
-An aditional analysis I include is to examine the bounds by which these effects hold if we vary the amount of partisan colors are on a yard sign. The second and third trials introduce variations of the yard signs in the first trial that include more white and even more color for the opposing political party (if red or blue condition). The goal here is to see whether these results that are reported in @tbl-hypothesis-2-main are weaker for these other two trials.
+### $H_{2a}$
+
+An additional analysis I include is to examine the bounds by which these effects hold if we vary the amount of partisan colors are on a yard sign. The second and third trials introduce variations of the yard signs in the first trial that include more white and even more color for the opposing political party (if red or blue condition). The goal here is to see whether these results that are reported in @tbl-hypothesis-2-main are weaker for these other two trials.
 
 I specify the exact same models as I did for @tbl-hypothesis-2-main. The only difference is that these variables record responses and treatment assignment for trials two and three. The results that are reported in @tbl-hypothesis-2a and @tbl-hypothesis-2a-cont suggest that my initial suspicions have *some* validity to them. That is, we see that the effects reported in @tbl-hypothesis-2-main are much weaker for blue yard signs -- participants are not as decisive in reporting that the candidate with the blue yard signs are Democrats. The effects reported in @tbl-hypothesis-2-main seem to hold for the red yard signs, however. Like before, I examine whether these results are robust to an alternative model specification (a single model with two treatment indicator variables). Like with tests of $H_2$, it appears that they are.
 
-### Models
+#### Models
 
 {{< pagebreak >}}
 \blandscape
@@ -280,9 +342,101 @@ I specify the exact same models as I did for @tbl-hypothesis-2-main. The only di
 #| tbl-cap: Full results for models testing bounds of $H_2$
 # Redefine names
 model_names <- list(
-  "Trial 2 - Red treatment" = list_fitted[["h_2a"]][["trial_2_red"]]
-  , "Trial 2 - Blue treatment" = list_fitted[["h_2a"]][["trial_2_blue"]]
+  "Trial 2 - Red treatment" = list_fitted[["h_2a"]][["trial_2_red_multinomial"]]
+  , "Trial 2 - Blue treatment" = list_fitted[["h_2a"]][["trial_2_blue_multinomial"]]
   , "Trial 2 - Single model" = list_fitted[["h_2a"]][["trial_2_single_model"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_mu2_trial_2_red_stimuli" = "Red yard sign (Independent)"
+    , "b_mu3_trial_2_red_stimuli" = "Red yard sign (Republican)"
+    , "b_mu2_trial_2_blue_stimuli" = "Blue yard sign (Independent)"
+    , "b_mu3_trial_2_blue_stimuli" = "Blue yard sign (Republican)"
+    , "b_trial_2_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_2_blue_stimuli_alt" = "Blue yard sign"
+    , "b_mu2_Intercept" = "Intercept - Independent"
+    , "b_mu3_Intercept" = "Intercept - Republican"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is not a Democrat (Columns 1 and 2) or is a Republican (Column 3)."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+```{r}
+#| label: tbl-hypothesis-2a-cont
+#| tbl-cap: Full results for models testing bounds of $H_2$ (cont.)
+# Redefine names
+model_names <- list(
+  "Trial 3 - Red treatment" = list_fitted[["h_2a"]][["trial_3_red_multinomial"]]
+  , "Trial 3 - Blue treatment" = list_fitted[["h_2a"]][["trial_3_blue_multinomial"]]
+  , "Trial 3 - Single model" = list_fitted[["h_2a"]][["trial_3_single_model"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_mu2_trial_3_red_stimuli" = "Red yard sign (Independent)"
+    , "b_mu3_trial_3_red_stimuli" = "Red yard sign (Republican)"
+    , "b_mu2_trial_3_blue_stimuli" = "Blue yard sign (Independent)"
+    , "b_mu3_trial_3_blue_stimuli" = "Blue yard sign (Republican)"
+    , "b_trial_3_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_3_blue_stimuli_alt" = "Blue yard sign"
+    , "b_mu2_Intercept" = "Intercept - Independent"
+    , "b_mu3_Intercept" = "Intercept - Republican"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+
+```{r}
+#| label: tbl-hypothesis-2a-ordered
+#| tbl-cap: Full results for ordered logistic regressions testing bounds of $H_2$
+# Redefine names
+model_names <- list(
+  "Trial 2 - Red treatment" = list_fitted[["h_2a"]][["trial_2_red_ordinal"]]
+  , "Trial 2 - Blue treatment" = list_fitted[["h_2a"]][["trial_2_blue_ordinal"]]
 )
 
 # Change goodness of fit stuff
@@ -297,8 +451,6 @@ modelsummary(
   , coef_map = c(
     "b_trial_2_red_stimuli" = "Red yard sign"
     , "b_trial_2_blue_stimuli" = "Blue yard sign"
-    , "b_trial_2_red_stimuli_alt" = "Red yard sign"
-    , "b_trial_2_blue_stimuli_alt" = "Blue yard sign"
     , "b_Intercept[1]" = "Intercept 1"
     , "b_Intercept[2]" = "Intercept 2"
     )
@@ -318,13 +470,12 @@ modelsummary(
 ```
 
 ```{r}
-#| label: tbl-hypothesis-2a-cont
+#| label: tbl-hypothesis-2a-cont-ordered
 #| tbl-cap: Full results for models testing bounds of $H_2$ (cont.)
 # Redefine names
 model_names <- list(
-  "Trial 3 - Red treatment" = list_fitted[["h_2a"]][["trial_3_red"]]
-  , "Trial 3 - Blue treatment" = list_fitted[["h_2a"]][["trial_3_blue"]]
-  , "Trial 3 - Single model" = list_fitted[["h_2a"]][["trial_3_single_model"]]
+  "Trial 3 - Red treatment" = list_fitted[["h_2a"]][["trial_3_red_ordinal"]]
+  , "Trial 3 - Blue treatment" = list_fitted[["h_2a"]][["trial_3_blue_ordinal"]]
 )
 
 # Change goodness of fit stuff
@@ -339,8 +490,6 @@ modelsummary(
   , coef_map = c(
     "b_trial_3_red_stimuli" = "Red yard sign"
     , "b_trial_3_blue_stimuli" = "Blue yard sign"
-    , "b_trial_3_red_stimuli_alt" = "Red yard sign"
-    , "b_trial_3_blue_stimuli_alt" = "Blue yard sign"
     , "b_Intercept[1]" = "Intercept 1"
     , "b_Intercept[2]" = "Intercept 2"
     )
@@ -362,7 +511,7 @@ modelsummary(
 \elandscape
 {{< pagebreak >}}
 
-### Posterior Predictive Checks
+#### Posterior Predictive Checks
 
 To confirm that my models return predicted values from the posterior distribution that reflect my actual data, I plot the posterior predictive checks for each model. All six models appear to do a pretty good job.
 
@@ -371,26 +520,47 @@ To confirm that my models return predicted values from the posterior distributio
 #| layout-ncol: 2
 #| fig-cap: Posterior predictive checks of models in $H_2$
 #| fig-subcap:
-#|   - Red treatment (Trial 2)
-#|   - Blue treatment (Trial 2)
-#|   - Combined model (Trial 2)
-#|   - Red treatment (Trial 3)
-#|   - Blue treatment (Trial 3)
-#|   - Combined model (Trial 3)
+#|   - Red treatment (Trial 2 - Multinomial)
+#|   - Blue treatment (Trial 2 - Multinomial)
+#|   - Red treatment (Trial 2 - Ordered)
+#|   - Blue treatment (Trial 2 - Ordered)
+list_ppc[["h_2a"]][["trial_2_red_multinomial"]]
+list_ppc[["h_2a"]][["trial_2_blue_multinomial"]]
+list_ppc[["h_2a"]][["trial_2_red_ordinal"]]
+list_ppc[["h_2a"]][["trial_2_blue_ordinal"]]
+```
 
-list_ppc[["h_2a"]][["trial_2_red"]]
-list_ppc[["h_2a"]][["trial_2_blue"]]
+```{r}
+#| label: fig-h-2a-ppc-cont
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
+#| fig-subcap:
+#|   - Combined model (Trial 2)
+#|   - Red treatment (Trial 3 - Multinomial)
+#|   - Blue treatment (Trial 3 - Multinomial)
+#|   - Red treatment (Trial 3 - Ordered)
 list_ppc[["h_2a"]][["trial_2_single_model"]]
-list_ppc[["h_2a"]][["trial_3_red"]]
-list_ppc[["h_2a"]][["trial_3_blue"]]
+list_ppc[["h_2a"]][["trial_3_red_multinomial"]]
+list_ppc[["h_2a"]][["trial_3_blue_multinomial"]]
+list_ppc[["h_2a"]][["trial_3_red_ordinal"]]
+```
+
+```{r}
+#| label: fig-h-2a-ppc-cont-cont
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
+#| fig-subcap:
+#|   - Blue treatment (Trial 3 - Ordered)
+#|   - Combined model (Trial 3)
+list_ppc[["h_2a"]][["trial_3_blue_ordinal"]]
 list_ppc[["h_2a"]][["trial_3_single_model"]]
 ```
 
 {{< pagebreak >}}
 
-## Hypothesis 3
+### Hypothesis 3
 
-### Models
+#### Models
 
 Here, I am testing whether candidates with red yard signs are supported more by Republican subjects and whether candidates with blue yard signs are supported more by Democratic subjects. In my original study, I ask participants after all three trials to report which of the three yard signs they would vote for. Here, I recode this response to be a binary outcome -- would they vote for the first yard sign they saw (value of 1) or not. Like I have done in previous tests, I run two models -- each where the predictor is a indicator of whether they received the red/blue treatment (value of 1) or the white treatment. Since the outcome is dichotomous, instead of an ordered logistic regression, I instead run a logistic regression. Since partisan identification is a primary part of the inferential task here and since it cannot be experimentally treated, I need to control for some confounds such as attention to politics, age, gender identification, and racial identity.
 
@@ -443,7 +613,7 @@ modelsummary(
 
 {{< pagebreak >}}
 
-### Posterior predictive Checks
+#### Posterior predictive Checks
 
 To confirm that these models return logical predictions, I again plot the posterior predictions. @fig-h-3-ppc seems to suggest that both models do a pretty good job at returning a distribution fo predicted outcomes in terms of differences between those values and outcomes measured in my sample.
 
@@ -460,7 +630,7 @@ list_ppc[["h_3"]][["blue"]]
 
 {{< pagebreak >}}
 
-## Hypothesis 4
+### Hypothesis 4
 
 $H_4$ seeks to test whether partisan subjects spend more time looking at the yard sign of political opponents than those they share a partisan identity with. Specifically, it seeks to see whether the elapsed time for the trials are longer for participants assigned to a red or blue yard sign condition if the subject is a Democrat or Republican (respectively) relative to Republicans or Democrats (respectively).
 
@@ -480,7 +650,7 @@ datasummary_skim(
 
 It appears that there is some over-dispersion here. Therefore, my choices for which type of count model to use leans away from the poisson regression and onto something like a poisson-gamma model. 
 
-### Models
+#### Models
 
 As mentioned above, the outcome here is the time elapsed for a trial (in milliseconds). Since this is a count outcome, I should be using a type of model that uses a link function in the poisson family as opposed to the exponential family. As @tbl-h-4-dispersion demonstrated, the data are over-dispersed. Therefore, I use a poisson-gamma model as my link function which is often referred to as a negative binomial regression. I still have priors suggesting that my beta coefficients are $Normal(0, 1)$. 
 
@@ -532,7 +702,7 @@ modelsummary(
 
 {{< pagebreak >}}
 
-### Posterior Predictive Checks
+#### Posterior Predictive Checks
 
 As I made a modeling choice based on the overdispersion of the outcome variable, I want to confirm that these models did an adequate job at returning predicted values based on my posterior distribution relative to the actual data in the sample. The posterior predictive checks suggest that it did indeed do a pretty good job. It looks like I may be slightly underestimating some lower values for the elapsed time, but the distribution on the whole looks pretty good -- including on the tails.
 
@@ -547,21 +717,11 @@ list_ppc[["h_4"]][["red"]]
 list_ppc[["h_4"]][["blue"]]
 ```
 
-## Hypothesis 5
+### Hypothesis 5
 
 For $H_5$, I am interested in examining whether or not districts that lean towards one party more than the other have candidates use more of the color in line with the party that has a historical advantage and less of the color for the party that tends to suffer electorally speaking.
 
-### Models
-
-<!-- 
-NOTE TO SELF
-
-
-
-
-
-NEED TO REWRITE SOME OF THIS TO ACCOUNT FOR BETTER PERFORMANCE AFTER LOCATION-FXS
--->
+#### Models
 
 As I mention in the main text of the book, I note that I regress the 5-year rolling average of the democratic vote share in a state upon the proportion of the color red and blue on the yard signs downloaded from the Center for American Political Design. The outcome is a continuous and bounded variable between the value of 0 and 1. I note in the main text that I use a ordered beta regression, but here I provide more specifics. As the outcome is continuous but bounded between 0 and 1, treating the outcome variable as a continuous variable with no finite bounding as I would with a OLS would be inappropriate. To ensure that I am using the most appropriate estimator to explain the outcome of interest, I elect to use an ordered beta regression. Beta regression models are a type of distributional model that essentially tries to model the distribution of the outcome variable. The standard beta regression model can fit models where the outcome is (0, 1). However, my outcome is [0, 1). I could elect to use a zero-inflated beta regression which would allow me to appropriately model this outcome. However, @kubinec_ordered_2022 demonstrates that the ordered beta regression is a much more efficient and accurate (in terms of a number of various metrics) approach to dealing with outcomes that can equal either 0 or 1. 
 
@@ -595,7 +755,7 @@ modelsummary(
 )
 ```
 
-### Posterior predictive checks
+#### Posterior predictive checks
 
 ```{r}
 #| label: fig-hypothesis-5-ppc
