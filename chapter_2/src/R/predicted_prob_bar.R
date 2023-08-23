@@ -1,21 +1,21 @@
 #' @title make barplots for predicted probabilities from ordered logit
-#' 
+#'
 #' @description
 #' This is a function that makes ggplot2 barplots by taking a fitted
 #' ordered logit model, calculating the predicted probabilities,
 #' and then plotting it with barplots and including error bars.
-#' 
+#'
 #' @details
 #' This function takes a brmsfit object. It uses the marginalefffects
 #' package to calculate the predicted probabilities.
-#' 
+#'
 #' @param
-#' 
+#'
 #' @return plot A ggplot2 object.
-#' 
+#'
 #' @example
-#' 
-predicted_prob_bar <- function(
+#'
+predicted_prob_bar <- function( # nolint: object_usage_linter.
   fitted_model
   , x_axis
   , treatment = "Red"
@@ -37,10 +37,10 @@ predicted_prob_bar <- function(
     df_pred_prob_cleaned <- df_pred_prob[
       #** aggregate the estimate, conf.low, and conf.high columns with
       #** a mean to calculate the average conditional predicted probabilities
-      , .(
-        estimate = mean(estimate)
-        , conf.low = mean(conf.low)
-        , conf.high = mean(conf.high)
+      , .( # nolint: object_usage_linter.
+        estimate = mean(estimate) # nolint: object_usage_linter.
+        , conf.low = mean(conf.low) # nolint: object_usage_linter.
+        , conf.high = mean(conf.high) # nolint: object_usage_linter.
       )
       #** this needs to be done by the group column and the
       #** independent variable
@@ -50,10 +50,10 @@ predicted_prob_bar <- function(
       )
     ][
       #** convert the x-axis to a factor
-      , x_axis_temp := factor(get(x_axis))
+      , x_axis_temp := factor(get(x_axis)) # nolint: object_usage_linter.
     ][
       #** convert the group column to a factor
-      , group := factor(group)
+      , group := factor(group) # nolint: object_usage_linter.
     ]
     # Make plot
       #* take the cleaned pred_prob dataframe
@@ -67,9 +67,9 @@ predicted_prob_bar <- function(
           #** and change the fill color based on group
           #** column which reflects the value of the outcome
           #** variable
-          x = x_axis_temp
-          , y = estimate
-          , fill = group
+          x = x_axis_temp # nolint: object_usage_linter.
+          , y = estimate # nolint: object_usage_linter.
+          , fill = group # nolint: object_usage_linter.
         )
           #** take the raw y value
         , stat = "identity"
@@ -85,8 +85,8 @@ predicted_prob_bar <- function(
           x = x_axis_temp
           #** the height of the bars should be based on the average
           #** high and low of the credible interval
-          , ymin = conf.low
-          , ymax = conf.high
+          , ymin = conf.low # nolint: object_usage_linter.
+          , ymax = conf.high # nolint: object_usage_linter.
           , linetype = group
         )
         , position = "dodge"
@@ -97,7 +97,7 @@ predicted_prob_bar <- function(
           "White"
           , treatment
         )
-      #* Change the fill colors to blue, white, and red whle labeling it
+      #* Change the fill colors to blue, white, and red while labeling it
       ) +
       ggplot2::scale_fill_manual(
         labels = c(
@@ -150,8 +150,8 @@ predicted_prob_bar <- function(
     plot <- ggplot2::ggplot(
       data = df_pred_prob
       , ggplot2::aes(
-        x = dem_vote_share
-        , y = draw
+        x = dem_vote_share # nolint: object_usage_linter.
+        , y = draw # nolint: object_usage_linter.
       )
     ) +
       #** plot the change in predicted values
@@ -226,7 +226,7 @@ predicted_prob_bar <- function(
       #** Add some custom plot stuff depending on treatment
     if (treatment == "Red") {
         #*** if red treatment, make the ribbon red
-      plot <- df_pred_prob + 
+      plot <- df_pred_prob +
         ggplot2::scale_fill_manual(
           labels = c(
             "White"

@@ -773,8 +773,8 @@ modelsummary(
   , conf_level = 0.9
   , metrics = c("n.obs", "RMSE")
   , coef_map = c(
-    "b_intercept" = "Intercept"
-    , "b_dem_vote_share" = "Democratic vote share (percent)"
+    "b_dem_vote_share" = "Democratic vote share (percent)"
+    , "b_Intercept" = "Intercept"
   )
   , notes = c(
     "Data source: Center for Political Design and MIT Election Lab"
@@ -784,7 +784,7 @@ modelsummary(
     , "of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  #, output = "latex"
 )
 ```
 
