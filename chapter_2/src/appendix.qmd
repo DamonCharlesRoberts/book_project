@@ -77,6 +77,35 @@ For $H_5$, I had mentioned that I would include an analysis with a synthetic con
 
 {{< pagebreak >}}
 
+### Treatments
+
+::: {#fig-treatments-trial1 layout-ncol=2}
+
+![Red treatment](./study_1/assets/rep_yard_sign_round_1.png)
+![Blue treatment](./study_1/assets/dem_yard_sign_round_1.png)
+![White treatment](./study_1/assets/cont_yard_sign_round_1.png)
+
+Trial 1 Treatments
+:::
+
+::: {#fig-treatments-trial2 layout-ncol=2}
+![Red treatment](./study_1/assets//rep_yard_sign_round_2.png)
+![Blue treatment](./study_1/assets/dem_yard_sign_round_2.png)
+![White treatment](./study_1/assets/cont_yard_sign_round_2_3.png)
+
+Trial 2 Treatments
+:::
+
+::: {#fig-treatments-trial3 layout-ncol=2}
+![Red treatment](./study_1/assets/rep_yard_sign_round_3.png)
+![Blue treatment](./study_1/assets/dem_yard_sign_round_3.png)
+![White treatment](./study_1/assets/cont_yard_sign_round_2_3.png)
+
+Trial 3 Treatments
+:::
+
+![Treatment example](./assets/img/example_of_treatment.png)
+
 ### Hypothesis 2
 
 To test whether people associate the color red on a political yard sign with Republicans and the color blue on a political yard sign with Democrats. 
