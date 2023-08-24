@@ -108,7 +108,7 @@ Trial 3 Treatments
 
 {{< pagebreak >}}
 
-### Hypothesis 2
+### $H_2$
 
 To test whether people associate the color red on a political yard sign with Republicans and the color blue on a political yard sign with Democrats. 
 
