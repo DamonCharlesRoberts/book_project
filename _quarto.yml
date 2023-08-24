@@ -3,7 +3,7 @@ project:
 
 book:
   title: "The Shape and Color of Politics"
-  subtitle: "How citizens process political information and its consequences"
+  subtitle: "How Citizens Process Political Information and Its Consequences"
   author: 
     - name: Damon C. Roberts
       affiliations: 
@@ -17,9 +17,9 @@ book:
   chapters:
     - index.qmd
     - chapter_2/src/manuscript.qmd
-    - chapter_3/src/chapter_3.qmd
-    - chapter_4/src/chapter_4.qmd
-    - chapter_5/src/conclusion.qmd
+    #- chapter_3/src/chapter_3.qmd
+    #- chapter_4/src/chapter_4.qmd
+    #- chapter_5/src/conclusion.qmd
     - references.qmd
   appendices:
     - chapter_2/src/appendix.qmd
