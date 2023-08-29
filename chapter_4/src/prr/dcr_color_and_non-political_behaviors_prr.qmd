@@ -102,6 +102,15 @@ Applying the snap-judgment model to an individual's choice to move to a neighbor
 
 To test these hypotheses, I conduct an experiment involving a fictional real estate posting. The treatment involves randomly assigning participants to view one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite car" in the neighborhood. In the first condition the "favorite car" is a red SUV. In the second condition, the "favorite car" is the same make and model of SUV as in the first condition, but blue. Participants are then given a scale from 0-10 to rate the neighborhood and are presented with a Likert scale to indicate, "How much would [they] like to live in this neighborhood?" 
 
+::: {#fig-treatments layout-ncol=2}
+
+![Blue treatment](./assets/treatments/blue_mockup.png){#fig-blue-treatment}
+
+![Red treatment](./assets/treatments/red_mockup.png){#fig-red-treatment}
+
+Treatments
+:::
+
 Once the participants have responded to these questions, they are then given a "second page" describing the neighborhood. The information subjects sees depends on which of two conditions they are randomly assigned into. In one condition, the information indicates that the neighborhood is "40 minutes from the nearest metro area" and "60% voted for the Republican candidate in the latest congressional election." The second condition presents the same information but instead describes the neighborhood as "10 minutes from the nearest metro area" and "60% voted for the Democratic candidate in the latest congressional election." With this new information, I ask participants "With this new information, please update your rating of the neighborhood" on the 0-10 scale and are again presented with a Likert scale to indicate, "How much would [they] like to live in this neighborhood?"
 
 {{< pagebreak >}}
