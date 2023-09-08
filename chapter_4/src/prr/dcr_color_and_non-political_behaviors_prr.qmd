@@ -100,7 +100,7 @@ There are many characteristics of a neighborhood besides car color that can bett
 
 Applying the snap-judgment model to an individual's choice to move to a neighborhood yields the following hypotheses: with all else equal, Republicans that see that the modal color of car is red are more likely to report wanting to move to the neighborhood than if the modal car color were blue ($H_1$); with all else equal, Democrats that see the modal color of blue are more likely to report wanting to move to the neighborhood than if the modal car color were red ($H_2$); once we include more information about a neighborhood's partisan composition, then the strength of their desire to live in a neighborhood will increase if congruent with their partisan affiliation ($H_3$) and will weaken if incongruent with their partisan affiliation ($H_4$).
 
-To test these hypotheses, I conduct an experiment involving a fictional real estate posting. The treatment involves randomly assigning participants to view one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite color of car" in the neighborhood. In the first condition the "favorite color of car" is reported by displaying a red swatch. In the second condition, the "favorite color of car" reported by displaying a blue swatch. Participants are then given a scale from 0-10 to rate the neighborhood and are presented with a Likert scale to indicate, "How much would [they] like to live in this neighborhood?" 
+To test these hypotheses, I conduct an experiment involving a fictional real estate posting. The treatment involves randomly assigning participants to view one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite color of car" in the neighborhood. In the first condition the "favorite color of car" is reported by displaying a red swatch. In the second condition, the "favorite color of car" reported by displaying a blue swatch. Participants are presented with a Likert scale to indicate, "How much would [they] like to live in this neighborhood?" 
 
 ::: {#fig-treatments layout-ncol=2}
 
@@ -111,9 +111,12 @@ To test these hypotheses, I conduct an experiment involving a fictional real est
 Treatments
 :::
 
-Once the participants have responded to these questions, they are then given a "second page" describing the neighborhood. The information subjects sees depends on which of two conditions they are randomly assigned into. In one condition, the information indicates that the neighborhood is "40 minutes from the nearest metro area" and "60% voted for the Republican candidate in the latest congressional election." The second condition presents the same information but instead describes the neighborhood as "10 minutes from the nearest metro area" and "60% voted for the Democratic candidate in the latest congressional election." With this new information, I ask participants "With this new information, please update your rating of the neighborhood" on the 0-10 scale and are again presented with a Likert scale to indicate, "How much would [they] like to live in this neighborhood?"
+Once the participants have responded to these questions, they are then given a "second page" describing the neighborhood. The information subjects sees depends on which of two conditions they are randomly assigned into. In one condition, the information indicates that the neighborhood is "40 minutes from the nearest metro area" and "60% voted for the Republican candidate in the latest congressional election." The second condition presents the same information but instead describes the neighborhood as "10 minutes from the nearest metro area" and "60% voted for the Democratic candidate in the latest congressional election." With this new information, I ask participants "How much would [they] like to live in this neighborhood?" and are given a 5-item Likert scale to record their response.
 
 ## Modeling strategy
+
+The outcome of interest is a 5-item Likert scale. So the following models will be ordered logistic regressions. $H_1$ and $H_2$ would expect that when viewing the first page of the real estate flyer that Democratic participants would report a higher desire to move to a neighborhood with a blue swatch as opposed to a red swatch; the inverse would be true for Republican participants. 
+
 
 ## Simulations
 
