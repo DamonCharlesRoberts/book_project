@@ -592,6 +592,8 @@ red
 blue
 ```
 
+## Questions and Comments
+
 ## References
 
 ::: {#refs}
@@ -760,7 +762,7 @@ modelsummary(
     , "Numbers inside brackets reflect the 5th and 95th percentile"
     , "of the draws from the posterior distribution."
   )
-  , escape = TRUE
+  , escape = FALSE
   
 )
 ```
@@ -814,7 +816,7 @@ modelsummary(
     , "Numbers inside brackets reflect the 5th and 95th percentile"
     , "of the draws from the posterior distribution."
   )
-  , escape = TRUE
+  , escape = FALSE
   
 )
 ```
@@ -861,7 +863,7 @@ modelsummary(
     , "Numbers inside brackets reflect the 5th and 95th percentile"
     , " of the draws from the posterior distribution."
   )
-  , escape = TRUE
+  , escape = FALSE
   
 )
 ```
@@ -875,6 +877,8 @@ modelsummary(
 list_ppc[["h_2"]][["single_model"]]
 
 ```
+
+---
 
 ##### Moderated by age
 
@@ -909,7 +913,7 @@ modelsummary(
     , "Numbers inside brackets reflect the 5th and 95th percentile"
     , " of the draws from the posterior distribution."
   )
-  , escape = TRUE
+  , escape = FALSE
   
 )
 ```
@@ -926,6 +930,8 @@ modelsummary(
 list_ppc[["h_2"]][["red_interact"]]
 list_ppc[["h_2"]][["blue_interact"]]
 ```
+
+---
 
 ##### Moderated by colorblindness
 
@@ -959,7 +965,7 @@ modelsummary(
     , "Numbers inside brackets reflect the 5th and 95th percentile"
     , " of the draws from the posterior distribution."
   )
-  , escape = TRUE
+  , escape = FALSE
   
 )
 ```
@@ -977,7 +983,11 @@ list_ppc[["h_2"]][["red_colorblind"]]
 list_ppc[["h_2"]][["blue_colorblind"]]
 ```
 
+---
+
 #### $H_{2a}$
+
+---
 
 ##### Multinomial
 
@@ -994,7 +1004,7 @@ model_names <- list(
 # Change goodness of fit stuff
 gm <- list(
   list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
-  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "r.squared", "clean" = "R<sup>2</sup>", "fmt" = 2)
   , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
 )
 # Make table
@@ -1023,8 +1033,24 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  
 )
+```
+
+---
+
+```{r}
+#| label: fig-h-2a-multinomial-trial-2-ppc
+#| fig-cap: Posterior Predictive Checks for Multinomial models testing $H_{2a}$, Trial 2
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+#|   - Single model
+
+
+list_ppc[["h_2a"]][["trial_2_red_multinomial"]]
+list_ppc[["h_2a"]][["trial_2_blue_multinomial"]]
+list_ppc[["h_2a"]][["trial_2_single_model"]]
 ```
 
 ---
@@ -1042,7 +1068,7 @@ model_names <- list(
 # Change goodness of fit stuff
 gm <- list(
   list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
-  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "r.squared", "clean" = "R<sup>2</sup>", "fmt" = 2)
   , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
 )
 # Make table
@@ -1071,11 +1097,28 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  
 )
 ```
 
 ---
+
+```{r}
+#| label: fig-h-2a-multinomial-trial-3-ppc
+#| fig-cap: Posterior Predictive Checks for Multinomial models testing $H_{2a}$, Trial 3
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+#|   - Single model
+
+list_ppc[["h_2a"]][["trial_3_red_multinomial"]]
+list_ppc[["h_2a"]][["trial_3_blue_multinomial"]]
+list_ppc[["h_2a"]][["trial_3_single_model"]]
+```
+
+---
+
+##### Ordinal model
 
 ```{r}
 #| label: tbl-hypothesis-2a-ordered
@@ -1089,7 +1132,7 @@ model_names <- list(
 # Change goodness of fit stuff
 gm <- list(
   list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
-  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "r.squared", "clean" = "R<sup>2</sup>", "fmt" = 2)
   , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
 )
 # Make table
@@ -1112,9 +1155,23 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  
 )
 ```
+
+---
+
+```{r}
+#| label: fig-h-2a-ordinal-trial-2-ppc
+#| fig-cap: Posterior Predictive Checks for Ordinal models testing $H_{2a}$, Trial 2
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+
+list_ppc[["h_2a"]][["trial_2_red_ordinal"]]
+list_ppc[["h_2a"]][["trial_2_blue_ordinal"]]
+```
+---
 
 ```{r}
 #| label: tbl-hypothesis-2a-cont-ordered
@@ -1128,7 +1185,7 @@ model_names <- list(
 # Change goodness of fit stuff
 gm <- list(
   list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
-  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "r.squared", "clean" = "R<sup>2</sup>", "fmt" = 2)
   , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
 )
 # Make table
@@ -1151,53 +1208,23 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  
 )
 ```
 
-##### Posterior predictive checks
-
+---
 ```{r}
-#| label: fig-h-2a-ppc
-#| layout-ncol: 2
-#| fig-cap: Posterior predictive checks of models in $H_2$
+#| label: fig-h-2a-ordinal-trial-3-ppc
+#| fig-cap: Posterior Predictive Checks for Ordinal models testing $H_{2a}$, Trial 3
 #| fig-subcap:
-#|   - Red treatment (Trial 2 - Multinomial)
-#|   - Blue treatment (Trial 2 - Multinomial)
-#|   - Red treatment (Trial 2 - Ordered)
-#|   - Blue treatment (Trial 2 - Ordered)
-list_ppc[["h_2a"]][["trial_2_red_multinomial"]]
-list_ppc[["h_2a"]][["trial_2_blue_multinomial"]]
-list_ppc[["h_2a"]][["trial_2_red_ordinal"]]
-list_ppc[["h_2a"]][["trial_2_blue_ordinal"]]
-```
+#|   - Red treatment
+#|   - Blue treatment
 
-```{r}
-#| label: fig-h-2a-ppc-cont
-#| layout-ncol: 2
-#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
-#| fig-subcap:
-#|   - Combined model (Trial 2)
-#|   - Red treatment (Trial 3 - Multinomial)
-#|   - Blue treatment (Trial 3 - Multinomial)
-#|   - Red treatment (Trial 3 - Ordered)
-list_ppc[["h_2a"]][["trial_2_single_model"]]
-list_ppc[["h_2a"]][["trial_3_red_multinomial"]]
-list_ppc[["h_2a"]][["trial_3_blue_multinomial"]]
 list_ppc[["h_2a"]][["trial_3_red_ordinal"]]
-```
-
-```{r}
-#| label: fig-h-2a-ppc-cont-cont
-#| layout-ncol: 2
-#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
-#| fig-subcap:
-#|   - Blue treatment (Trial 3 - Ordered)
-#|   - Combined model (Trial 3)
 list_ppc[["h_2a"]][["trial_3_blue_ordinal"]]
-list_ppc[["h_2a"]][["trial_3_single_model"]]
 ```
 
+---
 
 #### $H_3$
 
@@ -1220,8 +1247,8 @@ modelsummary(
     "b_trial_1_red_stimuli" = "Red yard sign"
     , "b_trial_1_blue_stimuli" = "Blue yard sign"
     , "b_pid_7" = "Party ID"
-    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign $\\times$ Party ID"
-    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign $\\times$ Party ID"
+    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign × Party ID"
+    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign × Party ID"
     , "b_attention" = "Attention"
     , "b_age" = "Age"
     , "b_gender_idMale" = "Gender - Male"
@@ -1244,15 +1271,14 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  
 )
 ```
 
-##### Posterior Predictive Checks
+---
 
 ```{r}
 #| label: fig-h-3-ppc
-#| layout-ncol: 2
 #| fig-cap: Posterior Predictive checks for $H_3$ models
 #| fig-subcap:
 #|   - Red treatment
@@ -1261,7 +1287,11 @@ list_ppc[["h_3"]][["red"]]
 list_ppc[["h_3"]][["blue"]]
 ```
 
+---
+
 #### $H_4$
+
+---
 
 ##### ✅ for over-dispersion
 
@@ -1295,8 +1325,8 @@ modelsummary(
     "b_trial_1_red_stimuli" = "Red yard sign"
     , "b_trial_1_blue_stimuli" = "Blue yard sign"
     , "b_pid_7" = "Party ID"
-    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign $\\times$ Party ID"
-    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign $\\times$ Party ID"
+    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign × Party ID"
+    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign × Party ID"
     , "b_attention" = "Attention"
     , "b_age" = "Age"
     , "b_gender_idMale" = "Gender - Male"
@@ -1319,15 +1349,14 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  
 )
 ```
 
-##### Posterior Predictive Checks
+---
 
 ```{r}
 #| label: fig-h-4-ppc
-#| layout-ncol: 2
 #| fig-cap: Posterior predictive checks of $H_4$ models
 #| fig-subcap:
 #|   - Red
@@ -1362,11 +1391,11 @@ modelsummary(
     , "of the draws from the posterior distribution."
   )
   , escape = FALSE
-  #, output = "latex"
+
 )
 ```
 
-##### Posterior Predictive Checks
+---
 
 ```{r}
 #| label: fig-hypothesis-5-ppc
