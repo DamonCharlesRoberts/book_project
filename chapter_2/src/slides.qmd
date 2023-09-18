@@ -12,7 +12,7 @@ format:
     slide-number: true
     toc: true
     toc-depth: 2
-    slide-level: 3
+    slide-level: 5
     bibliography: ../../assets/references.bib   
     self-contained: true
     output-file: color_and_conversation.html
@@ -33,15 +33,22 @@ box::use(
     , theme_minimal
     , geom_vline
   ]
-  , data.table[...]
   , modelsummary[
     datasummary_skim
     , datasummary_balance
+    , modelsummary
   ]
   , ./R/predicted_prob_bar[...]
+  , data.table[...]
 )
+
 # Execute the cleaning script
 source("./eda/study_1/cleaning.R")
+# Load cleaned data
+list_df <- list()
+list_df[["cleaned"]] <- read.csv(
+  file = "../data/clean/cleaned_pavlovia.csv"
+)
 # Load fitted models
 load("../data/temp/models/study_1_fitted.RData")
 ```
@@ -494,6 +501,8 @@ blue
 
 ### Outcome variable - How much red and blue do campaigns use?
 
+---
+
 - Collect around 1,000 yard signs from House elections
   - 2016-2024
 - Measuring the colors used on a yard sign:
@@ -549,6 +558,9 @@ print("For the example in @fig-color-detection-example, about {:.2f}".format(per
 ```
 
 ### Predictor variable - What is the partisan composition of the district?
+
+---
+
 - MIT Election Lab data
   - House election results
   - 1970-2020
@@ -595,17 +607,91 @@ blue
 
 ---
 
+```{r}
+#| label: tbl-study-1-descriptives
+#| tbl-cap: Descriptive statistics of Prolific sample
+
+df_demographics_subset <- list_df[["cleaned"]][
+    , c(
+        "Age" = "age"
+        , `Color blind` = "color_blind_dummy"
+        , "Female" = "female_sex"
+        , "White" = "white"
+        , "Hispanic" = "hispanic"
+        , "Black" = "black"
+        , `Party ID` = "pid_7"
+    )
+] |> 
+as.data.frame()
+
+datasummary_skim(
+    df_demographics_subset
+    , histogram = FALSE
+    , notes = c(
+      "Data source: Prolific."
+      , "Sample characteristics."
+    )
+    
+)
+```
+
+---
+
+#### Measures
+
+---
+
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Measure                     | Question                                                                                                                                                                                                                                                                                                  | Coded as                                                                                                                                                           |
++=============================+:=========================================================================================================================================================================================================================================================================================================:+:==================================================================================================================================================================:+
+| Age                         | Confirm your age                                                                                                                                                                                                                                                                                          | Text entry                                                                                                                                                         |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Gender                      | What is your gender identity?                                                                                                                                                                                                                                                                             | Non-binary, Female, Male, Prefer not to choose, Other                                                                                                              |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Sex                         | What is your sex assigned at birth?                                                                                                                                                                                                                                                                       | Female, Male, Other                                                                                                                                                |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Race                        | Which ethnic or racial category best describes you?                                                                                                                                                                                                                                                       | White, non-Hispanic; Black, non-Hispanic; Hispanic; Asian or Native Hawaiian/other Pacific Islander; Native American/Alaska Native or other race; Multiple races   |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Color blind                 | Have you been diagnosed with any of the following visual impairments that are not treated with corrective lenses?                                                                                                                                                                                         | Color blindness (any form); Blurred vision (not treatable by corrective lenses); Macular degeneration; Glaucoma; Cataract; Diabetic retinopathy; None of the above |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Attention                   | How often do you pay attention to what is going on in government and politics?                                                                                                                                                                                                                            | Always; Most of the time; About half the time; Some of the time; Never                                                                                             |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Party ID                    | Generally speaking, do you usually think of yourself as a Democrat, a Republican, an Independent, or what?; Would you say that you are a strong [Republican/Democrat] or not a very strong [Republican/Democrat]?; Do you think of yourself as closer to the Republican party or to the Democratic party? | Republican, Democrat, Independent, Other; Strong, Not very strong; Closer to the Republican party, Neither, Closer to Democratic                                   |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Attn. Check                 | In a few words describe what is your first memory of a political event.                                                                                                                                                                                                                                   | Text entry                                                                                                                                                         |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Trial stimuli               | Yard sign assigned                                                                                                                                                                                                                                                                                        | 0 = White, 1 = Red/Blue                                                                                                                                            |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Trial stimuli alt           | Yard sign assigned                                                                                                                                                                                                                                                                                        | 0 = Not red/blue, 1 = Red/Blue                                                                                                                                     |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Time elapsed                | NA                                                                                                                                                                                                                                                                                                        | Difference between time at start of trial and stop                                                                                                                 |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $\Delta_{t}$ (milliseconds) | NA                                                                                                                                                                                                                                                                                                        | Time elapsed between cursor movements                                                                                                                              |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $\Delta_{x}$ (pixels)       | NA                                                                                                                                                                                                                                                                                                        | Number of pixels moved along x-axis                                                                                                                                |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| $\Delta_{y}$ (pixels)       | NA                                                                                                                                                                                                                                                                                                        | Number of pixels moved along y-axis                                                                                                                                |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Candidate party             | Is this candidate a Republican, a Democrat, or Neither?                                                                                                                                                                                                                                                   | Republican, Democrat, Neither                                                                                                                                      |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Candidate vote              | Of the three candidates who would you most likely vote for?                                                                                                                                                                                                                                               | The first yard sign, The second yard sign, The third yard sign                                                                                                     |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Candidate vote indicator    | NA                                                                                                                                                                                                                                                                                                        | 0 = Would not vote for first yard sign, 1 = Would vote for first yard sign                                                                                         |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: Study 1 Measures {#tbl-study-1-measures}
+
 #### $H_1$
 
 ```{r}
 #| label: tbl-h1-trial-1
 #| tbl-cap: Average time between cursor movements (Trial 1)
 df_movement_trial_1 <- list_df[["cleaned"]][
-  , .(
-    trial_1_difference_Time
-    , trial_1_stimulus
-    , trial_1_difference_X
-    , trial_1_difference_Y
+  , c(
+    "trial_1_difference_Time"
+    , "trial_1_stimulus"
+    , "trial_1_difference_X"
+    , "trial_1_difference_Y"
   )
 ]
 setnames(
@@ -616,9 +702,9 @@ setnames(
     , "trial_1_difference_Y"
   )
   , new = c(
-    "$\\Delta_{t}$ (milliseconds)"
-    , "$\\Delta_{x}$ (pixels)"
-    , "$\\Delta_{y}$ (pixels)"
+    "Δ<sub>t</sub> (milliseconds)"
+    , "Δ<sub>x</sub> (pixels)"
+    , "Δ<sub>y</sub> (pixels)"
   )
 )
 
@@ -627,42 +713,671 @@ datasummary_balance(
   , data = df_movement_trial_1
   , notes = "Data source: Prolific sample."
   , escape = FALSE
+)
+```
+
+---
+
+#### $H_2$
+
+---
+
+##### Multinomial Logit
+
+```{r}
+#| label: tbl-hypothesis-2-main
+#| tbl-cap: Full results for reported models in $H_2$
+# Redefine names
+list_fitted_split_1 <- list(
+  "Red treatment" = list_fitted[["h_2"]][["red_multinomial"]]
+  , "Blue treatment" = list_fitted[["h_2"]][["blue_multinomial"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "R<sup>2</sup>", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1
+  , coef_map = c(
+    "b_mu2_trial_1_red_stimuli" = "Red yard sign (Independent)"
+    , "b_mu3_trial_1_red_stimuli" = "Red yard sign (Republican)"
+    , "b_mu2_trial_1_blue_stimuli" = "Blue yard sign (Independent)"
+    , "b_mu3_trial_1_blue_stimuli" = "Blue yard sign (Republican)"
+    , "b_mu2_Intercept" = "Intercept - Independent"
+    , "b_mu3_Intercept" = "Intercept - Republican"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , "of claiming candidate is not a Democrat."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = TRUE
+  
+)
+```
+
+---
+
+```{r}
+#| label: fig-h-2-ppc-multinomial
+#| fig-cap: Posterior predictive check of Multinomial models for $H_2$
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+
+list_ppc[["h_2"]][["red_multinomial"]]
+list_ppc[["h_2"]][["blue_multinomial"]]
+```
+
+##### Ordered Logit
+
+```{r}
+#| label: tbl-hypothesis-2-ordered
+#| tbl-cap: Full results for reported ordered logistic regression models for $H_2$
+# Redefine names
+list_fitted_split_1_alt <- list(
+  "Red treatment" = list_fitted[["h_2"]][["red_ordinal"]]
+  , "Blue treatment" = list_fitted[["h_2"]][["blue_ordinal"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "R<sup>2</sup>", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1_alt
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , "of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = TRUE
+  
+)
+```
+
+---
+
+```{r}
+#| label: fig-h-2-ppc-ordered
+#| fig-cap: Posterior predictive checks of Ordered Logit models in $H_2$
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+
+list_ppc[["h_2"]][["red_ordinal"]]
+list_ppc[["h_2"]][["blue_ordinal"]]
+```
+
+##### Single model
+
+```{r}
+#| label: tbl-robustness-alt-specification-h-2
+#| tbl-cap: $H_2$ models with alternative specification
+# Redefine names
+list_fitted_split_3 <- list(
+  "Single model" = list_fitted[["h_2"]][["single_model"]]
+)
+
+# Make table
+modelsummary(
+  list_fitted_split_3
+  , coef_map = c(
+    "b_trial_1_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_1_blue_stimuli_alt" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+  )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = TRUE
+  
+)
+```
+
+---
+
+```{r}
+#| label: fig-h-2-ppc-single
+#| fig-cap: Posterior predictive checks of single model specification for $H_2$
+
+list_ppc[["h_2"]][["single_model"]]
+
+```
+
+##### Moderated by age
+
+```{r}
+#| label: tbl-interacted-models-h-2
+#| tbl-cap: $H_2$ models moderated by age
+# Redefine names
+list_fitted_split_2 <- list(
+  "Red treatment - Age moderating" = list_fitted[["h_2"]][["red_interact"]]
+  , "Blue treatment - Age moderating" = list_fitted[["h_2"]][["blue_interact"]]
+)
+
+# Make table
+modelsummary(
+  list_fitted_split_2
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_age" = "Age"
+    , "b_trial_1_red_stimuli:age" = "Red yard sign × Age"
+    , "b_trial_1_blue_stimuli:age" = "Blue yard sign × Age"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = TRUE
+  
+)
+```
+
+---
+
+```{r}
+#| label: fig-h-2-ppc-age
+#| fig-cap: Posterior predictive checks of models in $H_2$ moderated by age
+#| fig-subcap:
+#|   - Red treatment moderated by age
+#|   - Blue treatment moderated by age
+
+list_ppc[["h_2"]][["red_interact"]]
+list_ppc[["h_2"]][["blue_interact"]]
+```
+
+##### Moderated by colorblindness
+
+```{r}
+#| label: tbl-colorblindness
+#| tbl-cap: $H_2$ moderated by colorblindness
+
+# Redefine names
+list_fitted_split_4 <- list(
+  "Red - Color blindness moderating" = list_fitted[["h_2"]][["red_colorblind"]]
+  , "Blue - Color blindness moderating" = list_fitted[["h_2"]][["blue_colorblind"]]
+)
+# Make table
+modelsummary(
+  list_fitted_split_4
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_trial_1_red_stimuli:color_blind_dummy" = "Red yard sign × Color blind"
+    , "b_trial_1_blue_stimuli:color_blind_dummy" = "Blue yard sign × Color blind"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+  )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = TRUE
+  
+)
+```
+
+---
+
+```{r}
+#| label: fig-h-2-ppc-colorblind
+#| fig-cap: Posterior predictive checks of models in $H_2$ moderated by colorblindness
+#| fig-subcap:
+#|   - Red treatment moderated by colorblindness
+#|   - Blue treatment moderated by colorblindness
+
+list_ppc[["h_2"]][["red_colorblind"]]
+list_ppc[["h_2"]][["blue_colorblind"]]
+```
+
+#### $H_{2a}$
+
+##### Multinomial
+
+```{r}
+#| label: tbl-hypothesis-2a
+#| tbl-cap: Full results for models testing bounds of $H_2$
+# Redefine names
+model_names <- list(
+  "Trial 2 - Red treatment" = list_fitted[["h_2a"]][["trial_2_red_multinomial"]]
+  , "Trial 2 - Blue treatment" = list_fitted[["h_2a"]][["trial_2_blue_multinomial"]]
+  , "Trial 2 - Single model" = list_fitted[["h_2a"]][["trial_2_single_model"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_mu2_trial_2_red_stimuli" = "Red yard sign (Independent)"
+    , "b_mu3_trial_2_red_stimuli" = "Red yard sign (Republican)"
+    , "b_mu2_trial_2_blue_stimuli" = "Blue yard sign (Independent)"
+    , "b_mu3_trial_2_blue_stimuli" = "Blue yard sign (Republican)"
+    , "b_trial_2_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_2_blue_stimuli_alt" = "Blue yard sign"
+    , "b_mu2_Intercept" = "Intercept - Independent"
+    , "b_mu3_Intercept" = "Intercept - Republican"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is not a Democrat (Columns 1 and 2) or is a Republican (Column 3)."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
   , output = "latex"
 )
 ```
 
 ---
 
-#### $H_5$
+```{r}
+#| label: tbl-hypothesis-2a-cont
+#| tbl-cap: Full results for models testing bounds of $H_2$ (cont.)
+# Redefine names
+model_names <- list(
+  "Trial 3 - Red treatment" = list_fitted[["h_2a"]][["trial_3_red_multinomial"]]
+  , "Trial 3 - Blue treatment" = list_fitted[["h_2a"]][["trial_3_blue_multinomial"]]
+  , "Trial 3 - Single model" = list_fitted[["h_2a"]][["trial_3_single_model"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_mu2_trial_3_red_stimuli" = "Red yard sign (Independent)"
+    , "b_mu3_trial_3_red_stimuli" = "Red yard sign (Republican)"
+    , "b_mu2_trial_3_blue_stimuli" = "Blue yard sign (Independent)"
+    , "b_mu3_trial_3_blue_stimuli" = "Blue yard sign (Republican)"
+    , "b_trial_3_red_stimuli_alt" = "Red yard sign"
+    , "b_trial_3_blue_stimuli_alt" = "Blue yard sign"
+    , "b_mu2_Intercept" = "Intercept - Independent"
+    , "b_mu3_Intercept" = "Intercept - Republican"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+---
 
 ```{r}
-#| label: fig-h-4
-#| fig-cap: The effect of party congruency on time spent looking at yard sign
+#| label: tbl-hypothesis-2a-ordered
+#| tbl-cap: Full results for ordered logistic regressions testing bounds of $H_2$
+# Redefine names
+model_names <- list(
+  "Trial 2 - Red treatment" = list_fitted[["h_2a"]][["trial_2_red_ordinal"]]
+  , "Trial 2 - Blue treatment" = list_fitted[["h_2a"]][["trial_2_blue_ordinal"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_2_red_stimuli" = "Red yard sign"
+    , "b_trial_2_blue_stimuli" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+```{r}
+#| label: tbl-hypothesis-2a-cont-ordered
+#| tbl-cap: Full results for models testing bounds of $H_2$ (cont.)
+# Redefine names
+model_names <- list(
+  "Trial 3 - Red treatment" = list_fitted[["h_2a"]][["trial_3_red_ordinal"]]
+  , "Trial 3 - Blue treatment" = list_fitted[["h_2a"]][["trial_3_blue_ordinal"]]
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_3_red_stimuli" = "Red yard sign"
+    , "b_trial_3_blue_stimuli" = "Blue yard sign"
+    , "b_Intercept[1]" = "Intercept 1"
+    , "b_Intercept[2]" = "Intercept 2"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+##### Posterior predictive checks
+
+```{r}
+#| label: fig-h-2a-ppc
 #| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$
+#| fig-subcap:
+#|   - Red treatment (Trial 2 - Multinomial)
+#|   - Blue treatment (Trial 2 - Multinomial)
+#|   - Red treatment (Trial 2 - Ordered)
+#|   - Blue treatment (Trial 2 - Ordered)
+list_ppc[["h_2a"]][["trial_2_red_multinomial"]]
+list_ppc[["h_2a"]][["trial_2_blue_multinomial"]]
+list_ppc[["h_2a"]][["trial_2_red_ordinal"]]
+list_ppc[["h_2a"]][["trial_2_blue_ordinal"]]
+```
+
+```{r}
+#| label: fig-h-2a-ppc-cont
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
+#| fig-subcap:
+#|   - Combined model (Trial 2)
+#|   - Red treatment (Trial 3 - Multinomial)
+#|   - Blue treatment (Trial 3 - Multinomial)
+#|   - Red treatment (Trial 3 - Ordered)
+list_ppc[["h_2a"]][["trial_2_single_model"]]
+list_ppc[["h_2a"]][["trial_3_red_multinomial"]]
+list_ppc[["h_2a"]][["trial_3_blue_multinomial"]]
+list_ppc[["h_2a"]][["trial_3_red_ordinal"]]
+```
+
+```{r}
+#| label: fig-h-2a-ppc-cont-cont
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of models in $H_2$ (cont.)
+#| fig-subcap:
+#|   - Blue treatment (Trial 3 - Ordered)
+#|   - Combined model (Trial 3)
+list_ppc[["h_2a"]][["trial_3_blue_ordinal"]]
+list_ppc[["h_2a"]][["trial_3_single_model"]]
+```
+
+
+#### $H_3$
+
+##### Main results
+
+```{r}
+#| label: tbl-h-3-main
+#| tbl-cap: Support of candidate based on partisanship
+
+# Redefine names
+model_names <- list(
+  "Red stimuli" = list_fitted[["h_3"]][["red"]]
+  , "Blue stimuli" = list_fitted[["h_3"]][["blue"]]
+)
+
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_pid_7" = "Party ID"
+    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign $\\times$ Party ID"
+    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign $\\times$ Party ID"
+    , "b_attention" = "Attention"
+    , "b_age" = "Age"
+    , "b_gender_idMale" = "Gender - Male"
+    , "b_gender_idNonMbinary" = "Gender - Non-binary"
+    , "b_gender_idPrefernottochoose" = "Gender - Prefer not to choose"
+    , "b_race_idBlacknonMhispanic" = "Black"
+    , "b_race_idHispanice" = "Hispanic"
+    , "b_race_idMultipleraces" = "Multiple races"
+    , "b_race_idNativeAmericanDAlaskaNativeOrOtherRace" = "Other race"
+    , "b_race_idWhitenonMhispanic" = "White"
+  )  
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+##### Posterior Predictive Checks
+
+```{r}
+#| label: fig-h-3-ppc
+#| layout-ncol: 2
+#| fig-cap: Posterior Predictive checks for $H_3$ models
 #| fig-subcap:
 #|   - Red treatment
 #|   - Blue treatment
+list_ppc[["h_3"]][["red"]]
+list_ppc[["h_3"]][["blue"]]
+```
 
-red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_4"]][["red"]]
-  , x_axis = "trial_1_red_stimuli"
-  , treatment = "Red"
-  , hypothesis = "H4"
-  , x_label = "Party ID"
-  , y_label = "Predicted amount of time elapsed"
-  , legend_title = "Treatment"
+#### $H_4$
+
+##### ✅ for over-dispersion
+
+```{r}
+#| label: tbl-h-4-dispersion
+#| tbl-cap: Checking for over-dispersion of data
+df_over_dispersed <- list_df[["cleaned"]][, c("trial_1_time_elapsed")]
+names(df_over_dispersed)[names(df_over_dispersed) == 'trial_1_time_elapsed'] <- 'Time Elapsed'
+datasummary_skim(
+  df_over_dispersed
+  , notes = "Data source: Prolific sample."
+  , histogram = FALSE
 )
-blue <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_4"]][["blue"]]
-  , x_axis = "trial_1_blue_stimuli"
-  , treatment = "Blue"
-  , hypothesis = "H4"
-  , x_label = "Party ID"
-  , y_label = "Predicted amount of time elapsed"
-  , legend_title = "Treatment"
+```
+
+##### Main results
+
+```{r}
+#| label: tbl-h-4
+#| tbl-cap: The effect of partisan congruency on time spent looking at a yard sign
+# Redefine names
+model_names <- list(
+  "Red stimuli" = list_fitted[["h_4"]][["red"]]
+  , "Blue stimuli" = list_fitted[["h_4"]][["blue"]]
 )
-red
-blue
+
+# Make table
+modelsummary(
+  model_names
+  , coef_map = c(
+    "b_trial_1_red_stimuli" = "Red yard sign"
+    , "b_trial_1_blue_stimuli" = "Blue yard sign"
+    , "b_pid_7" = "Party ID"
+    , "b_trial_1_red_stimuli:pid_7" = "Red yard sign $\\times$ Party ID"
+    , "b_trial_1_blue_stimuli:pid_7" = "Blue yard sign $\\times$ Party ID"
+    , "b_attention" = "Attention"
+    , "b_age" = "Age"
+    , "b_gender_idMale" = "Gender - Male"
+    , "b_gender_idNonMbinary" = "Gender - Non-binary"
+    , "b_gender_idPrefernottochoose" = "Gender - Prefer not to choose"
+    , "b_race_idBlacknonMhispanic" = "Black"
+    , "b_race_idHispanice" = "Hispanic"
+    , "b_race_idMultipleraces" = "Multiple races"
+    , "b_race_idNativeAmericanDAlaskaNativeOrOtherRace" = "Other race"
+    , "b_race_idWhitenonMhispanic" = "White"
+  )  
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: Pavlovia"
+    , "Positive coefficients reflect the logged-odds"
+    , " of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , " of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+##### Posterior Predictive Checks
+
+```{r}
+#| label: fig-h-4-ppc
+#| layout-ncol: 2
+#| fig-cap: Posterior predictive checks of $H_4$ models
+#| fig-subcap:
+#|   - Red
+#|   - Blue
+list_ppc[["h_4"]][["red"]]
+list_ppc[["h_4"]][["blue"]]
+```
+
+#### $H_5$
+
+##### Main results
+
+```{r}
+#| label: tbl-hypothesis-5
+#| tbl-cap: The effect of democratic vote share on color choices for yard sign
+
+names(list_fitted[["h_5"]]) <- c("Prop. yard sign Red", "Prop. yard sign Blue")
+modelsummary(
+  list_fitted[["h_5"]]
+  , stat = "conf.int"
+  , conf_level = 0.9
+  , metrics = c("n.obs", "RMSE")
+  , coef_map = c(
+    "b_dem_vote_share" = "Democratic vote share (percent)"
+    , "b_Intercept" = "Intercept"
+  )
+  , notes = c(
+    "Data source: Center for Political Design and MIT Election Lab"
+    , "Positive coefficients reflect the logged-odds"
+    , "of claiming candidate is Republican."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  #, output = "latex"
+)
+```
+
+##### Posterior Predictive Checks
+
+```{r}
+#| label: fig-hypothesis-5-ppc
+#| layout-ncol: 2
+#| fig-cap: Posterior Predictive checks for $H_5$
+#| fig-subcap:
+#|   - Proportion of yard signs red
+#|   - Proportion of yard signs blue
+
+list_ppc[["h_5"]][["red"]]$continuous
+list_ppc[["h_5"]][["blue"]]$continuous
 ```
 
 ## Copyright Information
