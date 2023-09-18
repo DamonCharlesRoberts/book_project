@@ -1,0 +1,671 @@
+---
+title: "The Shape and Color of Politics"
+author:
+  - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
+format:
+  revealjs: 
+    embed-resources: true
+    theme: [dark, ../assets/slides/custom.scss]
+    transition: slide
+    scrollable: true
+    incremental: true
+    slide-number: true
+    toc: true
+    toc-depth: 2
+    slide-level: 3
+    bibliography: ../../assets/references.bib   
+    self-contained: true
+    output-file: color_and_conversation.html
+execute:
+  echo: false
+---
+
+```{r}
+#| label: setup-block
+# Set seed
+set.seed(12102023)
+# Load libraries
+box::use(
+  ggplot2[
+    ggplot
+    , aes
+    , geom_density
+    , theme_minimal
+    , geom_vline
+  ]
+  , data.table[...]
+  , modelsummary[
+    datasummary_skim
+    , datasummary_balance
+  ]
+  , ./R/predicted_prob_bar[...]
+)
+# Execute the cleaning script
+source("./eda/study_1/cleaning.R")
+# Load fitted models
+load("../data/temp/models/study_1_fitted.RData")
+```
+
+## Visual politics is not new politics, but "hot" politics
+
+---
+
+[![1860s Ballots](../assets/slides/imgs/ballots.avif){#fig-ballots}](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)
+
+---
+
+
+::: {#fig-1980-convention layout-ncol=2}
+
+[![Democratic National Convention](../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem height=100}](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)
+
+[![Republican National Convention](../assets/slides/imgs/1980_rep_convention.jpg){#fig-1980-rep height=100}](https://reuther.wayne.edu/node/9207)
+
+1980 Presidential Party National Conventions
+:::
+
+
+---
+
+[![2000 Presidential Election map](../assets/slides/imgs/2000_election_map.webp){#fig-2000-election-map width=200}](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smithsonianmag.com%2Fhistory%2Fwhen-republicans-were-blue-and-democrats-were-red-104176297%2F&psig=AOvVaw3mlqWWKalyCl0gzVJDCIV5&ust=1694829600914000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJCNg7bCq4EDFQAAAAAdAAAAABAT)
+
+---
+
+::: {#fig-party-brand layout-ncol=2}
+
+![Republicans pre-2000](./assets/img/rnc_logo_pre-2000.png){#fig-republican}
+
+![Democrats pre-2000](./assets/img/dnc_logo_1960.png){#fig-democrat}
+
+![Republicans 2023](./assets/img/rnc_logo_2023.png){#fig-republican-post}
+
+![Democrats 2023](./assets/img/dnc_logo_2023.png){#fig-democrat-post}
+
+Party logos
+:::
+
+---
+
+[![The public](../assets/slides/imgs/division.webp){#fig-public}](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)
+
+## Question guiding the project
+
+Is color a source of political information that shapes the public's behaviors and attitudes?
+
+## De-mystifying some of the jargon I might use
+
+- Object
+  - refers to anything out in the world that we are interacting with
+  - here, these objects are political
+- Affect $\neq$ emotion
+  - refers to the larger state of being
+  - emotion refers to consciously labeled reactions
+  - valance refers to pre-consciously 
+- "Hot Cognition"
+  - refers to the idea that some memories and experiences are more accessible or come to the top of the mind quicker.
+  - this coincides with memories and experiences that are affect-laden
+
+## Dominant models of information processing
+
+### Zaller's [-@zaller_1992_cup] Memory model
+
+```{mermaid}
+%%| label: fig-zaller
+%%| fig-cap: Memory model of info processing
+graph TD;
+A[Sampled pre-existing info] -->|Stronger impacts when less pre-existing knowledge| C[Updated attitudes]
+B[New info] --> C
+```
+
+---
+
+```{r}
+#| label: sim-visualization
+
+df <- fabricatr::fabricate(
+  N = 10000,
+  pop = rnorm(n = N, mean = 2, sd = 1),
+  sample_strong = rnorm(n = N, mean = 2, sd = 0.5),
+  updated_strong = rnorm(n = N, mean = 1.9, sd = 1),
+  sample_weak = rnorm(n = N, mean = 2, sd = 2),
+  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
+)
+```
+
+```{r}
+#| label: fig-pre-existing-info
+#| fig-cap: Set of pre-existing attitudes
+ggplot(data = df) +
+  geom_density(aes(x = pop)) +
+  geom_vline(aes(xintercept = 2), linetype = 1) +
+  theme_minimal()
+```
+
+---
+
+```{r}
+#| label: fig-sample-pre-existing-info
+#| fig-cap: Pre-existing attitudes used
+#| fig-subcap:
+#|   - Unknowledgeable person
+#|   - Knowledgeable person
+ggplot(data = df) +
+  geom_density(aes(x = sample_weak)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  theme_minimal()
+ggplot(data = df) +
+  geom_density(aes(x = sample_strong)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  theme_minimal()
+```
+
+---
+
+```{r}
+#| label: fig-new-attitude
+#| fig-cap: Updated set of attitudes
+#| fig-subcap:
+#|   - Unknowledgeable person
+#|   - Knowledgeable person
+ggplot(data = df) +
+  geom_density(aes(x = updated_weak)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  geom_vline(aes(xintercept =  1.5), linetype = 2) +
+  theme_minimal()
+ggplot(data = df) +
+  geom_density(aes(x = updated_strong)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  geom_vline(aes(xintercept =  1.9), linetype = 2) +
+  theme_minimal()
+```
+
+### Lodge and Taber's [-@lodge_taber_2013_cup] Online model
+
+```{mermaid}
+%%| label: fig-online-model
+%%| fig-cap: Online model of info processing
+graph TD;
+A[Pre-existing beliefs] --> C[Updated beliefs]
+B[New information] -->|If it aligns with current beliefs| C
+```
+
+---
+
+```{r}
+#| label: sim-visualization-online
+
+df <- fabricatr::fabricate(
+  N = 10000,
+  pop = rnorm(n = N, mean = 2, sd = 1),
+  sample_strong = rnorm(n = N, mean = 2, sd = 0.5),
+  updated_strong = rnorm(n = N, mean = 2, sd = 1),
+  sample_weak = rnorm(n = N, mean = 2, sd = 2),
+  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
+)
+```
+
+---
+
+```{r}
+#| label: fig-pre-existing
+#| fig-cap: Pre-existing beliefs
+#| fig-subcap:
+#|   - Weak accuracy, strong pre-existing
+#|   - Strong accuracy, weak pre-existing
+
+ggplot(data = df) +
+  geom_density(aes(x = sample_strong)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  theme_minimal()
+
+ggplot(data = df) +
+  geom_density(aes(x = sample_weak)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  theme_minimal()
+```
+
+---
+
+```{r}
+#| label: fig-updated
+#| fig-cap: Updated beliefs
+#| fig-subcap:
+#|   - Weak accuracy, strong pre-existing
+#|   - Strong accuracy, weak pre-existing
+
+ggplot(data = df) +
+  geom_density(aes(x = updated_strong)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  geom_vline(aes(xintercept =  2), linetype = 2) +
+  theme_minimal()
+
+ggplot(data = df) +
+  geom_density(aes(x = updated_weak)) +
+  geom_vline(aes(xintercept =  2), linetype = 1) +
+  geom_vline(aes(xintercept =  1.5), linetype = 2) +
+  theme_minimal()
+```
+
+## Amending those models with the Snap-judgment model
+
+---
+
+{{< include ../../assets/_theory.qmd >}}
+
+---
+
+```{r}
+#| label: sim-snap-judgment
+
+df <- fabricatr::fabricate(
+  N = 10000,
+  pop = rnorm(n = N, mean = 2, sd = 1),
+  sample_strong = rnorm(n = N, mean = 2.5, sd = 0.5),
+  updated_strong = rnorm(n = N, mean = 2.5, sd = 1),
+  sample_weak = rnorm(n = N, mean = 2.5, sd = 2),
+  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
+)
+```
+
+```{r}
+#| label: fig-snap-sample
+#| fig-cap: Pre-existing beliefs based on visual information
+#| fig-subcap:
+#|   - Weak accuracy, strong pre-existing
+#|   - Strong accuracy, weak pre-existing
+
+ggplot(data = df) +
+  geom_density(aes(x = sample_strong)) +
+  geom_vline(aes(xintercept = 2.5), linetype = 1) +
+  theme_minimal()
+ggplot(data = df) +
+  geom_density(aes(x = sample_weak)) +
+  geom_vline(aes(xintercept = 2.5), linetype = 1) +
+  theme_minimal()
+```
+
+---
+
+```{r}
+#| label: fig-snap-updated
+#| fig-cap: Updated beliefs with visual information
+#| fig-subcap:
+#|   - Weak accuracy, strong pre-existing
+#|   - Strong accuracy, weak pre-existing
+
+ggplot(data = df) +
+  geom_density(aes(x = updated_strong)) +
+  geom_vline(aes(xintercept = 2.5), linetype = 1) +
+  geom_vline(aes(xintercept = 2.5), linetype = 2) +
+  theme_minimal()
+ggplot(data = df) +
+  geom_density(aes(x = updated_weak)) +
+  geom_vline(aes(xintercept = 2.5), linetype = 1) +
+  geom_vline(aes(xintercept = 1.5), linetype = 2) +
+  theme_minimal()
+```
+
+---
+
+- Implications
+  - Refines existing info. processing models to consider pre-conscious influences.
+  - Outlines the cognitive processes undergirding how we:
+    - have made associations between the colors red and blue with the two parties.
+    - form attitudes and behaviors based on less substantive information (e.g., policy stances).
+
+## Study 1
+
+### Motivation of the experiment
+
+- Do we associate the color red with Republicans and the color blue with Democrats?
+- Do these associations provide information that the public act on in politics?
+
+### Setup of the experiment
+
+---
+
+#### Background information
+
+- Age
+- Education
+- Gender Identity
+- Sex
+- Visual impairments
+  - Including colorblindness
+- Party Identification
+
+---
+
+#### Treatment
+
+- Three trials
+
+---
+
+::: {#fig-trial-1}
+
+![Red condition](./study_1/assets/rep_yard_sign_round_1.png)
+![Blue condition](./study_1/assets/dem_yard_sign_round_1.png)
+![White condition](./study_1/assets/cont_yard_sign_round_1.png)
+
+Trial 1
+:::
+
+---
+
+::: {#fig-trial-2}
+
+![Red condition](./study_1/assets/rep_yard_sign_round_2.png)
+![Blue condition](./study_1/assets/dem_yard_sign_round_2.png)
+![White condition](./study_1/assets/cont_yard_sign_round_2_3.png)
+
+Trial 2
+:::
+
+---
+
+::: {#fig-trial-3}
+
+![Red condition](./study_1/assets/rep_yard_sign_round_3.png)
+![Blue condition](./study_1/assets/dem_yard_sign_round_3.png)
+![White condition](./study_1/assets/cont_yard_sign_round_2_3.png)
+
+Trial 3
+:::
+
+#### Design
+
+- Recruited 1,000 participants from Prolific
+- Counterbalance treatment and background information ($\frac{1}{2}$ see treatment first; other $\frac{1}{2}$ see background questions first)
+- Within each trial, participants have $\frac{1}{3}$ chance of seeing any given yard sign.
+- MouseView.js
+
+---
+
+![Example of treatment](../assets/slides/imgs/treatment.gif){#fig-treatment-example}
+
+### Do people make these associations?
+
+---
+
+```{r}
+#| label: fig-h-2-predictions
+#| layout-nrow: 1
+#| fig-cap: The partisanship of candidates change depending on the color of the yard sign
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2"]][["red_multinomial"]]
+  , x_axis = "trial_1_red_stimuli"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2"]][["blue_multinomial"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+)
+red
+blue
+```
+
+### What does conflicting colors do to these associations?
+
+---
+
+```{r}
+#| label: fig-h-2a-predictions
+#| layout-nrow: 2
+#| fig-cap: Mixing red and blue in a yard sign increases uncertainty about partisanship
+#| fig-subcap:
+#|   - Trial 2 Red treatment
+#|   - Trial 2 Blue treatment
+#|   - Trial 3 Red treatment
+#|   - Trial 3 Blue treatment
+plot_trial_2_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_red_multinomial"]]
+  , x_axis = "trial_2_red_stimuli"
+)
+plot_trial_2_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_blue_multinomial"]]
+  , x_axis = "trial_2_blue_stimuli"
+  , treatment = "Blue"
+)
+plot_trial_3_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_red_multinomial"]]
+  , x_axis = "trial_3_red_stimuli"
+)
+plot_trial_3_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_blue_multinomial"]]
+  , x_axis = "trial_3_blue_stimuli"
+  , treatment = "Blue"
+)
+plot_trial_2_red
+plot_trial_2_blue
+plot_trial_3_red
+plot_trial_3_blue
+```
+
+### Do these associations inform important political behavior?
+
+```{r}
+#| label: fig-h-3-predictions
+#| layout-nrow: 1
+#| fig-cap: Probability of voting for candidate with yard sign
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+red
+blue
+```
+
+## Study 2
+
+### Motivation of Study
+
+--- 
+
+> There obviously is a strong association with blue and the Democratic Party and red and the Republican Party. We've seen in some of our testing that specifically MAGA red tends to elicit a slightly stronger association with Republicans/conservatives/Trump than other shades. The rest of color spectrum doesn't seem to have as strong an association, though greens and purples tend to read a little more left, the combination of red, white and blue tends to read a little more right, black and white tends to read a little left, black and red tend to read a little more right, etc.
+
+---
+
+> A lot of decisions are still made on purely gut feelings as opposed to taking a more multi-disciplinary evidence-based approach.
+
+---
+
+- Do these associations have systematic influences on campaign strategy?
+
+### Outcome variable - How much red and blue do campaigns use?
+
+- Collect around 1,000 yard signs from House elections
+  - 2016-2024
+- Measuring the colors used on a yard sign:
+  - Use a machine learning Python Library, `OpenCV`, that reads images and classifies their components.
+    - Trained to classify each pixel in the image
+    - Classifies it based on BGR value (reverse of RGB)
+    - Looks for a range of values around the "Republican red" and "Democratic blue"
+
+---
+
+```{python}
+#| label: example detection
+#| echo: false
+
+from sys import path # for path management
+from cv2 import imread, imwrite # for color detection
+    #* user-defined
+#path.append("../")
+from PY.helper import colorDetector
+
+# Define colors to detect
+    #* White
+        #** Not defined. Default for colorDetector()
+    #* Red
+republican_red = [232, 27, 35] # target color
+red_lower = [93, 9, 12] # lower end of spectrum for red
+red_higher = [237, 69, 75] # higher end of spectrum for red
+
+# Load gop image to read
+img = imread("./assets/img/gop_2022.png")
+
+# Detect colors
+percent, img_transformed, result = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
+
+transformed= imwrite("../data/temp/study_2/gop_2022_transformed.png", img_transformed) # save transformed image
+
+masked= imwrite("../data/temp/study_2/gop_2022_detected.png", result) # save masked image
+```
+
+
+::: {#fig-color-detection-example layout-ncol="2"}
+![Resized original image](../data/temp/study_2/gop_2022_transformed.png){#fig-resized}
+
+![Masked](../data/temp/study_2/gop_2022_detected.png){#fig-masked}
+
+Detecting colors in the GOP logo
+:::
+
+```{python}
+#| output: asis
+# Print calculated percentage of example
+print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
+```
+
+### Predictor variable - What is the partisan composition of the district?
+- MIT Election Lab data
+  - House election results
+  - 1970-2020
+- Measuring partisan composition of district:
+  - Calculate rolling 5-year average of the Democratic party's vote share for each district
+
+### Do campaigns use a different proportion of the colors red and blue based on partisan composition?
+
+---
+
+```{r}
+#| label: fig-study-2-pred
+#| layout-ncol: 1
+#| fig-cap: More blue on the yard signs in Democratic strongholds
+#| fig-subcap:
+#|   - Proportion of red
+#|   - Proportion of blue
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["red"]]
+  , treatment = "Red"
+  , hypothesis = "H5"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["blue"]]
+  , treatment = "Blue"
+  , hypothesis = "H5"
+)
+red
+blue
+```
+
+## References
+
+::: {#refs}
+:::
+
+## Appendix
+
+### Study 1
+
+---
+
+#### Characteristics of sample
+
+---
+
+#### $H_1$
+
+```{r}
+#| label: tbl-h1-trial-1
+#| tbl-cap: Average time between cursor movements (Trial 1)
+df_movement_trial_1 <- list_df[["cleaned"]][
+  , .(
+    trial_1_difference_Time
+    , trial_1_stimulus
+    , trial_1_difference_X
+    , trial_1_difference_Y
+  )
+]
+setnames(
+  df_movement_trial_1
+  , old = c(
+    "trial_1_difference_Time"
+    , "trial_1_difference_X"
+    , "trial_1_difference_Y"
+  )
+  , new = c(
+    "$\\Delta_{t}$ (milliseconds)"
+    , "$\\Delta_{x}$ (pixels)"
+    , "$\\Delta_{y}$ (pixels)"
+  )
+)
+
+datasummary_balance(
+  ~trial_1_stimulus
+  , data = df_movement_trial_1
+  , notes = "Data source: Prolific sample."
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+---
+
+#### $H_5$
+
+```{r}
+#| label: fig-h-4
+#| fig-cap: The effect of party congruency on time spent looking at yard sign
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_4"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
+  , hypothesis = "H4"
+  , x_label = "Party ID"
+  , y_label = "Predicted amount of time elapsed"
+  , legend_title = "Treatment"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_4"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+  , hypothesis = "H4"
+  , x_label = "Party ID"
+  , y_label = "Predicted amount of time elapsed"
+  , legend_title = "Treatment"
+)
+red
+blue
+```
+
+## Copyright Information
+
+<span class="faux-block">{{< fa brands creative-commons >}} 2021-2023 Damon Charles Roberts</span>
+<span class="faux-block"><br>All content licensed under {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-sa >}} [Creative Commons CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)</span>
