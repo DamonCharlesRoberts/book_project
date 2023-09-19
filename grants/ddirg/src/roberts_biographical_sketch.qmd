@@ -1,0 +1,34 @@
+---
+subtitle: Biographical sketch
+format:
+  fancy-doc-pdf:
+    toc: false
+    latex-output-dir: ../out/
+    biblatex: true
+    filters:
+      #- "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+author:
+  - name: Damon C. Roberts
+    affiliations:
+      - name: Univeristy of Colorado Boulder
+    email: damon.roberts-1@colorado.edu
+bibliography: ../../../assets/references.bib
+---
+
+I have a track record of successfully earning and using awarded research grants for my projects. I have earned grants from The Time-Sharing Experiments for the Social Science Short Studies Program (TESS), grants from my department, and a grant from the Elections, Voting, Public Opinion, and Behavior (EVOPB) Section of the American Political Science Association. I have published multiple peer-reviewed papers from these grants and have presented over 14 times at academic conferences.
+
+Since the fall of 2019, I have published five peer-reviewed academic papers; on four of these I have been the first author. My research has appeared in Political Behavior, Political Research Quarterly, Social Science Quarterly, and twice in American Politics Research. I have several other papers at various stages of the publishing process. I am committed to expanding the reach of my work beyond academia, and have also engaged in a significant amount of public scholarship in the past year. I have co-authored a public piece discussing my research in the [*Washington Post's Monkey Cage Blog*](https://www.washingtonpost.com/politics/2022/07/21/biden-trump-president-age-2024-election/) and have agreed to a number of interviews about my research -- this includes a recorded interview with Colorado Public Radio and an interview written up in the New York Times.
+
+In conjunction with my research, I have also been the instructor of record for two under-graduate statistics courses focused on introductory material for quantitative political science, as well as more advanced discussions of research design and causal inference. I have been a teaching assistant tasked with grading and leading discussion sections in introductory American Politics, formal modeling, campaigns and elections, and introductory research methodology.
+
+All of these experiences have contributed to my development as a producer of research, but also as an academic who both values and has experience communicating my work to a wide array of audiences within and beyond academia. [An itemized CV is on my website](https://damoncroberts.com/cv/dcr_cv.pdf)
+<!--
+I have a track record of successfully earning and using awarded research grants for my projects. I have earned grants from The Time-Sharing Experiments for the Social Science Short Studies Program (TESS), research grants from my department five times, and a grant from the Elections, Voting, Public Opinion, and Behavior (EVOPB) Section of the American Political Science Association. I have published multiple peer-reviewed papers from these grants and presented over 14 times at an academic conference.
+
+Since the fall of 2019, I have published five peer-reviewed academic papers, four of which I have been the first author. My research has appeared in Political Behavior, Political Research Quarterly, Social Science Quarterly, and twice in American Politics Research. I have several other papers at various stages of the publishing process. I am committed to expanding the reach of my work beyond academia and have also engaged in a significant amount of public scholarship in the past year. I have co-authored a public piece discussing my research in the [*Washington Post's Monkey Cage Blog*](https://www.washingtonpost.com/politics/2022/07/21/biden-trump-president-age-2024-election/) and have agreed to a number of interviews about my research which includes a recorded interview with Colorado Public Radio and an interview written up in the New York Times.
+
+In conjunction with my research, I have also been the instructor of record for two undergraduate statistics courses focused on introductory material for quantitative political science and more advanced discussions of research design and causal inference. I have been a teaching assistant tasked with grading and leading discussion sections in introductory American Politics, formal modeling, campaigns and elections, and introductory research methodology.
+
+All of these experiences have contributed to my development as a producer of research but also as an academic who has experience completing and publishing research and communicating my work to a wide array of audiences within and beyond academia. [An itemized CV is on my website.](https://damoncroberts.com/cv/dcr_cv.pdf)
+-->
