@@ -42,7 +42,7 @@ Once the participants have responded to these questions, they are then given a s
 
 With this new information, I ask participants, "With this new information, please update your rating of the neighborhood" on the 0-10 scale and are again presented with a 5-item Likert scale to indicate, "How much would [they] like to live in this neighborhood?"
 
-A mockup of the flyers used in these treatments is are included in @fig-mockup.
+A mockup of the first page of the flyers used in these treatments is are included in @fig-mockup.
 
 ::: {#fig-mockup}
 
@@ -55,7 +55,7 @@ Treatment Mockups
 
 ## Data management plan
 
-The data that I will collect in the study are all based on self-reported responses to questions I outline here. To maintain the privacy of the participants, none of them will be compelled to provide any data that they do not wish to share.
+The data that I will collect in the study are all based on self-reported responses to questions I outline here. To maintain the privacy of the participants, none of them will be compelled to provide any data that they do not wish to share. The platform that I intend to recruit participants on will depend on funding sources, but recruitment and the administration of the study is likely to be done through Prolific.
 
 As I am committed to open science, I am fully committed to sharing all materials for this project through my Github account. However, I will de-identify the data (remove any information provided by the vendor such as time taken to complete the study, any response or session ID's) before sharing the data publicly for replication purposes. The sample is a national sample, and since most of the descriptive and ascriptive data that I am collecting should be sufficient to maintain the confidentiality of my participants.
 
