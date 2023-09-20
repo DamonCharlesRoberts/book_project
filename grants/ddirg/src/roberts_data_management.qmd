@@ -1,0 +1,62 @@
+---
+subtitle: Data Management Plan
+format:
+  fancy-doc-pdf:
+    toc: false
+    latex-output-dir: ../out/
+    biblatex: true
+    filters:
+      #- "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+author:
+  - name: Damon C. Roberts
+    affiliations:
+      - name: Univeristy of Colorado Boulder
+    email: damon.roberts-1@colorado.edu
+bibliography: ../../../assets/references.bib
+---
+
+# IRB
+
+I am currently in the process of putting together materials for IRB approval for this component of the project. The specifics of the study are somewhat dependent on funding sources for this chapter and so I have not submitted and received approval by IRB for the study in my third empirical chapter (the study I am seeking funding for).
+
+I anticipate that I should be able to have the study approved as I have successfully had approval for the studies in the other chapters (that collected quite similar and in the case of the first empirical chapter data with more privacy concerns given the cursor tracking component which will not be present in this chapter).
+
+# Data to be collected
+
+I am to collect a sample of at least 1,500 participants. The following is the plan for the data that I will collect and what the participants will be exposed to during the study.
+
+Upon providing their informed consent, $\frac{1}{2}$ of the participants are randomly assigned at the start of the study to answer questions about their background and their political attitudes. The other half will be randomly assigned into treatment conditions that I will explain in more detail below.
+
+## Background and political attitude data
+
+Participants will be asked to report their age, gender identity, sex assigned at birth, racial and ethnic identification, level of education, their family income, and whether they have been diagnosed with any of the following visual impairments: any form of color blindness, blurred vision (not treatable by corrective lenses), macular degeneration, glaucoma, cataract, or diabetic retinopothy. The purpose of asking these questions is to use them as moderators and confounds for my primary analyses.
+
+I will also ask them a number of questions about politics. First, they will be asked about how often they pay attention to what is going on in government and politics. They will then be asked about their partisan identification on a 7-point scale. I will also ask them to respond to an open-ended question about their earliest memory of a political event to detect any duplicate or insincere responses.
+
+## Treatments
+
+Participants will be assigned randomly into one of two conditions with an equal probability. They will see one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite car color". In the first condition, the "favorite color of car" is red. In the second condition, it is blue. Participants are then given a scale from 0-10 to rate the neighborhood and are presented with a 5-item Likert scale to indicate, "How much would [they] like to live in this neighborhood?" 
+
+Once the participants have responded to these questions, they are then given a second page describing the neighborhood with more detail. The information subjects see on this second page is exactly the same. It reports that the neighborhood is, "Easily accessible to nearby shopping and community centers", that the "Average monthly housing costs comprise 25% of a family's average take home pay", and that the "School district is rated as exceptional by the State School board based on test scores."
+
+With this new information, I ask participants, "With this new information, please update your rating of the neighborhood" on the 0-10 scale and are again presented with a 5-item Likert scale to indicate, "How much would [they] like to live in this neighborhood?"
+
+A mockup of the first page of the flyers used in these treatments is are included in @fig-mockup.
+
+::: {#fig-mockup}
+
+![Red treatment flyer](../../../chapter_4/assets/irb/red_treatment_mockup.pdf){#fig-red height=300}
+
+![Blue treatment flyer](../../../chapter_4/assets/irb/blue_treatment_mockup.pdf){#fig-blue height=300}
+
+Treatment Mockups
+:::
+
+## Data management plan
+
+The data that I will collect in the study are all based on self-reported responses to questions I outline here. To maintain the privacy of the participants, none of them will be compelled to provide any data that they do not wish to share. The platform that I intend to recruit participants on will depend on funding sources, but recruitment and the administration of the study is likely to be done through Prolific.
+
+As I am committed to open science, I am fully committed to sharing all materials for this project through my Github account. However, I will de-identify the data (remove any information provided by the vendor such as time taken to complete the study, any response or session ID's) before sharing the data publicly for replication purposes. The sample is a national sample, and since most of the descriptive and ascriptive data that I am collecting should be sufficient to maintain the confidentiality of my participants.
+
+All of the materials for this project and studies have been licensed by me with the provisions outlined [here.](http://creativecommons.org/licenses/by/4.0/)

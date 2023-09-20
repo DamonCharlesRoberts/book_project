@@ -1,0 +1,39 @@
+---
+subtitle: Research and Professional Ethics Requirements
+format:
+  fancy-doc-pdf:
+    toc: false
+    latex-output-dir: ../out/
+    biblatex: true
+    filters:
+      #- "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+author:
+  - name: Damon C. Roberts
+    affiliations:
+      - name: Univeristy of Colorado Boulder
+    email: damon.roberts-1@colorado.edu
+bibliography: ../../../assets/references.bib
+---
+
+# IRB
+
+I am currently in the process of putting together materials for IRB approval for this component of the project. The specifics of the study are somewhat dependent on funding sources for this chapter and so I have not submitted and received approval by IRB for the study in my third empirical chapter (the study I am seeking funding for).
+
+I anticipate that I should be able to have the study approved as I have successfully had approval for the studies in the other chapters (that collected quite similar and in the case of the first empirical chapter data with more privacy concerns given the cursor tracking component which will not be present in this chapter). Once approved by IRB, I am happy to share confirmation.
+
+# Protecting subject privacy and confidentiality
+
+I am deeply committed to respecting the rights of my research participants. I committed to maintaining the privacy and confidentiality of my research participants by not requiring them to answer any question they are uncomfortable answering as well as using a platform that does not collect data that can directly identify participants.
+
+Even though I take these steps to help protect their privacy and confidentiality, I am also deeply aware of the power differentials that are created when participants engage in a study. This puts them in a vulnerable position to perhaps answer questions or to view a treatment that may make them deeply uncomfortable but fearful of the monetary ramifications for not fully participating. As a result, I am careful about my design choices and the questions that I ask participants to ensure that there is minimal risk and potential for harm. I also will assure participants that they do not have to answer every question to receive payment for their time to participate in the study.
+
+I am also sympathetic to needs for adequate compensation of our study participants. As a result, I intend to pay my participants a competitive wage at the rate of $12.00 per hour for the 6 minutes that I anticipate it will take them to complete the study.
+
+# Conflicts of interest
+
+I do not have any conflicts of interest to report.
+
+# Scientific integrity
+
+I am deeply committed to open science and will share all materials publicly so that independent researchers are allowed to and encouraged to replicate my results.
