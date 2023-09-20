@@ -18,6 +18,8 @@ format:
     output-file: color-book.html
 execute:
   echo: false
+  freeze: true
+  cache: true
 ---
 
 ```{r}
@@ -55,16 +57,16 @@ load("../../data/temp/models/study_1_fitted.RData")
 
 ---
 
-[![1860s Ballots](../../assets/slides/imgs/ballots.avif){#fig-ballots}](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)
+[![1860s Ballots](../../assets/slides/imgs/ballots.avif){#fig-ballots width=6.5in}](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)
 
 ---
 
 
 ::: {#fig-1980-convention layout-ncol=2}
 
-[![Democratic National Convention](../../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem height=100}](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)
+[![Democratic National Convention](../../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem width=6.5in}](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)
 
-[![Republican National Convention](../../assets/slides/imgs/1980_rep_convention.jpg){#fig-1980-rep height=100}](https://reuther.wayne.edu/node/9207)
+[![Republican National Convention](../../assets/slides/imgs/1980_rep_convention.jpg){#fig-1980-rep width=6.5in}](https://reuther.wayne.edu/node/9207)
 
 1980 Presidential Party National Conventions
 :::
@@ -72,7 +74,7 @@ load("../../data/temp/models/study_1_fitted.RData")
 
 ---
 
-[![2000 Presidential Election map](../../assets/slides/imgs/2000_election_map.webp){#fig-2000-election-map width=200}](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smithsonianmag.com%2Fhistory%2Fwhen-republicans-were-blue-and-democrats-were-red-104176297%2F&psig=AOvVaw3mlqWWKalyCl0gzVJDCIV5&ust=1694829600914000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJCNg7bCq4EDFQAAAAAdAAAAABAT)
+[![2000 Presidential Election map](../../assets/slides/imgs/2000_election_map.webp){#fig-2000-election-map width=6.5in}](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smithsonianmag.com%2Fhistory%2Fwhen-republicans-were-blue-and-democrats-were-red-104176297%2F&psig=AOvVaw3mlqWWKalyCl0gzVJDCIV5&ust=1694829600914000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJCNg7bCq4EDFQAAAAAdAAAAABAT)
 
 ---
 
@@ -91,13 +93,15 @@ Party logos
 
 ---
 
-[![The public](../../assets/slides/imgs/division.webp){#fig-public}](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)
+[![The public](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)
 
 ## Question guiding the project
 
 Is color a source of political information that shapes the public's behaviors and attitudes?
 
 ## De-mystifying some of the jargon I might use
+
+---
 
 - Object
   - refers to anything out in the world that we are interacting with
@@ -114,10 +118,11 @@ Is color a source of political information that shapes the public's behaviors an
 
 ### Zaller's [-@zaller_1992_cup] Memory model
 
+---
+
 ```{mermaid}
 %%| label: fig-zaller
 %%| fig-cap: Memory model of info processing
-%%| fig-width: 6.5
 graph TD;
 A[Sampled pre-existing info] -->|Stronger impacts when less pre-existing knowledge| C[Updated attitudes]
 B[New info] --> C
@@ -187,6 +192,8 @@ ggplot(data = df) +
 
 ### Lodge and Taber's [-@lodge_taber_2013_cup] Online model
 
+---
+
 ```{mermaid}
 %%| label: fig-online-model
 %%| fig-cap: Online model of info processing
@@ -210,8 +217,6 @@ df <- fabricatr::fabricate(
   updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
 )
 ```
-
----
 
 ```{r}
 #| label: fig-pre-existing
@@ -351,9 +356,11 @@ ggplot(data = df) +
 
 ::: {#fig-trial-1}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_1.png)
-![Blue condition](../study_1/assets/dem_yard_sign_round_1.png)
-![White condition](../study_1/assets/cont_yard_sign_round_1.png)
+![Red condition](../study_1/assets/rep_yard_sign_round_1.png){#fig-red-1 width="6.5in"}
+
+![Blue condition](../study_1/assets/dem_yard_sign_round_1.png){#fig-blue-1 width="6.5in"}
+
+![White condition](../study_1/assets/cont_yard_sign_round_1.png){#fig-white-1 width="6.5in"}
 
 Trial 1
 :::
@@ -362,9 +369,11 @@ Trial 1
 
 ::: {#fig-trial-2}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_2.png)
-![Blue condition](../study_1/assets/dem_yard_sign_round_2.png)
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png)
+![Red condition](../study_1/assets/rep_yard_sign_round_2.png){#fig-red-2 width=6.5in}
+
+![Blue condition](../study_1/assets/dem_yard_sign_round_2.png){#fig-blue-2 width=6.5in}
+
+![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){#fig-white-2 width=6.5in}
 
 Trial 2
 :::
@@ -373,9 +382,11 @@ Trial 2
 
 ::: {#fig-trial-3}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_3.png)
-![Blue condition](../study_1/assets/dem_yard_sign_round_3.png)
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png)
+![Red condition](../study_1/assets/rep_yard_sign_round_3.png){#fig-red-3 width=6.5in}
+
+![Blue condition](../study_1/assets/dem_yard_sign_round_3.png){#fig-blue-3 width=6.5in}
+
+![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){#fig-white-3 width=6.5in}
 
 Trial 3
 :::
@@ -389,7 +400,7 @@ Trial 3
 
 ---
 
-![Example of treatment](../../assets/slides/imgs/treatment.gif){#fig-treatment-example}
+![Example of treatment](../../assets/slides/imgs/treatment.gif){#fig-treatment-example width=6.5in}
 
 ### Do people make these associations?
 
