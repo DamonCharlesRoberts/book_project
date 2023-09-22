@@ -1,0 +1,573 @@
+---
+title: "How does color influence our political conversations?"
+author:
+  - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
+format:
+  revealjs: 
+    embed-resources: true
+    theme: [dark, ../../assets/slides/custom.scss]
+    transition: slide
+    scrollable: true
+    incremental: true
+    slide-number: true
+    toc: true
+    toc-depth: 1
+    slide-level: 3
+    bibliography: ../../../assets/references.bib
+    footer: |
+        <span class="faux-block">{{< fa brands creative-commons >}} 2021-2023 Damon Charles Roberts</span>
+        <span class="faux-block"><br>All content licensed under {{< fa brands creative-commons >}} {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-sa >}} [Creative Commons CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)</span>
+    self-contained: true
+    output-file: color_and_conversation.html
+execute:
+  echo: false
+---
+
+```{r}
+#| label: setup-block
+# Load some nifty functions
+box::use(
+  ../../../chapter_2/src/R/predicted_prob_bar[...]
+  , ../prr/R/plot[...]
+)
+# Load fitted models
+load(
+  file = "../../../chapter_2/data/temp/models/study_1_fitted.RData"
+)
+# Load simulation results
+load(
+  file = "../../data/temp/prr/fitted_model_1.RData"
+)
+load(
+  file = "../../data/temp/prr/fitted_model_2.RData"
+)
+load(
+  file = "../../data/temp/prr/fitted_model_2_alt.RData"
+)
+```
+
+# Background
+
+::: {.notes}
+- This is a chapter from a larger book project.
+- The book addresses the question: 
+  - does color convey political information? 
+  - does it have pre-conscious effects on information that comes later?
+- The goal here is to start off by building up some exepectations in simple cases with a psychological model. Other complications are certainly interesting and will be saved for future projects. For now, want to start simple.
+:::
+
+::: footer
+:::
+
+## Key findings from other chapters
+
+::: {.notes}
+- Ran a study on prolific
+- Counterbalanced questions of attention, age, gender, race, colorblindness, partisan identity, etc.
+- Ran three trials that used mousetracking software
+- See one of three yard signs in each trial
+  - Red, blue, or white yard sign
+:::
+
+::: footer
+:::
+---
+
+```{r}
+#| label: fig-associations
+#| layout-ncol: 2
+#| fig-cap: People associate red yard signs with Republicans and blue yard signs with Democrats
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+)
+red
+blue
+```
+
+::: {.notes}
+- Average predicted probabilities from two ordered logistic regressions
+- Outcome is the respondent's belief that the candidate was either a Republican, Independent, or a Democrat.
+- Read each figure by comparing the same colored bars. 
+- Candidates using red yard signs are more likely to be seen as Republican
+- Candidates using blue yard signs are more likely to be seen as Democrat
+:::
+
+::: footer
+:::
+
+---
+
+```{r}
+#| label: fig-associations-weaker
+#| layout-ncol: 2
+#| fig-cap: Mixing red and blue in a yard sign increases uncertainty about partisanship
+#| fig-subcap:
+#|   - Trial 2 Red treatment
+#|   - Trial 2 Blue treatment
+#|   - Trial 3 Red treatment
+#|   - Trial 3 Blue treatment
+plot_trial_2_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_red"]]
+  , x_axis = "trial_2_red_stimuli"
+)
+plot_trial_2_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_blue"]]
+  , x_axis = "trial_2_blue_stimuli"
+  , treatment = "Blue"
+)
+plot_trial_3_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_red"]]
+  , x_axis = "trial_3_red_stimuli"
+)
+plot_trial_3_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_blue"]]
+  , x_axis = "trial_3_blue_stimuli"
+  , treatment = "Blue"
+)
+plot_trial_2_red
+plot_trial_2_blue
+plot_trial_3_red
+plot_trial_3_blue
+```
+
+::: {.notes}
+- The other two trials used less of the primary color and brought in more red or blue
+- Do this as a test of the strength of these effects
+- See that the results (kind of) weaken.
+  - See that these effects weaken for the blue treatment. Much less change for the red treatment. Likely American flag.
+:::
+
+::: footer
+:::
+
+---
+
+```{r}
+#| label: fig-vote
+#| layout-ncol: 2
+#| fig-cap: Republicans report a higher probability of voting for candidates with red yard signs; Democrats report a higher probability of voting for candidates with blue yard signs
+#| fig-subcap:
+#|   - Red treatment
+#|   - Blue treatment
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+red
+blue
+```
+
+::: {.notes}
+- After viewing the three trials, participants are asked which of the three yard signs they prefer.
+- Make a dichotomous variable of whether or not they like the first trial's yard sign.
+- run logistic regressions to see whether votes are explained by the stimuli moderated by partisan identification
+- See that there is a low predicted probability of strong Democrats voting for a candidate with a red yard sign.
+  - See that the predicted probability of strong Republicans voting for a candidate with a red yard sign is high.
+- See that there is a low predicted probability of strong republicans voting for a candidate with a blue yard sign.
+  - See that the predicted probability of a strong Democrat voting for a candidate with a blue yard sign is high.
+:::
+
+::: footer
+:::
+
+# Question guiding this chapter
+
+- Does color influence whether we talk about politics?
+
+::: {.notes}
+- Color seems to hold information about partisan affilations
+  - Red = Republican
+  - Blue = Democrat
+- Unclear what sorts of effects this will have on attitudes and behaviors, though.
+:::
+
+::: footer
+:::
+
+# Building a theory of snap-judgment based on politically-relevant visual information
+
+::: footer
+:::
+
+## A common language
+
+- Valance: a positive or negative response to an object.
+- Affect (or affective state): feeling positive or negative in response to an object.
+  - Pre-conscious response
+- Emotion: Much more complex labels assigned to affective responses.
+  - Often requires some amount of conscious processing to assign an appropriate label.
+  - Slower
+- Attitudes are an expression of valanced responses to some object [@fazio_2007_sc].
+
+::: footer
+:::
+
+## A cognitive architecture
+
+::: footer
+:::
+
+---
+
+1. Memories are stored prior experiences [@cunningham_et-al_2012_ohsn].
+  - often encode affective responses
+2. Memories are multi-dimensional [@kahana_et-al_2022_ohhum].
+3. Sensory and affective information is often encoded in memories [@kensinger_fields_2022_ohhum].
+
+::: footer
+:::
+
+---
+
+4. Memories are a complex network [@kahana_et-al_2022_ohhum].
+  - Interconnected by different bits of information
+5. Social groups and hierarchies are reflected in this network  [@santavirta_et-al_2023_n].
+
+::: footer
+:::
+
+## A snap-judgment model of politically-relevant visual information
+
+::: footer
+:::
+
+---
+
+{{< include ../../../assets/_theory.qmd >}}
+
+::: {.notes}
+Scenario.
+- At the airport and watching the news
+- Someone sits next to you before boarding
+- They are wearing a red hat
+- You might have one of two reactions
+- A small conversation starts up since they see you watching the news.
+- You see its a MAGA hat but they tell you they are having a hard time squaring some of their other beliefs with the stances of the party on immigration.
+- You may shift your initial impression a bit. Feel more positive or more negative. However, you haven't fully reversed course on that. You have learned something though.
+
+Implications.
+- Color has downstream effects on our attitudes towards an object related to politics.
+- The degree to which color matters in politics is whether or not it is primed.
+:::
+
+::: footer
+:::
+
+# Hypotheses
+
+1. People notice the color of clothing a potential conversation partner is wearing.
+2. When primed to think about politics, people are less likely to want to have a conversation with someone wearing a blue shirt if they are a Republican and a red shirt if they are a Democrat.
+
+::: footer
+:::
+
+---
+
+3. When learning more information about someone that fits with our initial impression, our motivation of engagement or disengagement is stronger than if the information were incongruent with our initial impressions.
+4. When learning more information about someone that does not fit with our initial impression, the new information can shift our motivations to have the conversation or to disengage. However, this difference is smaller than if both forms of information were congruent.
+
+::: footer
+:::
+
+# Proposed research design
+
+::: footer
+:::
+
+## Study 1
+
++---------------------:+:-----------------:+
+| 🚫 Prime, Red shirt  | Prime, Red shirt  |
++----------------------+-------------------+
+| 🚫 Prime, Blue shirt | Prime, Blue shirt |
++----------------------+-------------------+
+
+: $2 \times 2$ factorial design {#tbl-study-1}
+
+::: {.notes}
+- Here I want to test a couple of things.
+  - does color factor into whether people are willing to have a conversation with someone?
+  - does this matter under different circumstances?
+  - and do Republicans want to talk to those wearing red more than Democrats; while Democrats want to talk to those wearing blue more than Republicans?
+:::
+
+::: footer
+:::
+
+---
+
+- Prime condition: political attitudes questionnaire before treatment vs. after
+- Person wearing shirt might be White Female (but would like some feedback on this)
+
+::: footer
+:::
+
+## Study 2
+
++-------------------------:+:---------------------:+
+| Red shirt, 🚫 congruent  | Red shirt, congruent  |
++--------------------------+-----------------------+
+| Blue shirt, 🚫 congruent | Blue shirt, congruent |
++--------------------------+-----------------------+
+
+: $2 \times 2$ factorial design {#tbl-study-2}
+
+::: {.notes}
+- Want to check out a couple other things here:
+  - does the snap-judgment someone makes have downstream effects, even when given more traditionally considered forms of political information?
+  - does new information shift our views? Do we double down? under what circumstances?
+:::
+
+::: footer
+:::
+
+---
+
+- Congruency is whether or not policy attitudes after image matches with presumed partisanship from color of shirt
+  - Policy positions will be on: Support for Gun Control, whether pro-choice or pro-life, support for Universal Basic Income
+
+::: footer
+:::
+
+## Outcomes
+
+- $H_1$: What color shirt was your political discussion partner wearing?
+- $H_2$ \& $H_3$: To what extent are you willing to have a conversation with this person? (5-item response)
+
+::: footer
+:::
+
+# References
+
+::: {#refs}
+:::
+
+::: footer
+:::
+
+
+# Appendix {.appendix}
+
+::: footer
+:::
+
+## Sensitivity of conclusions to sample size, research design, and modeling strategies {.appendix}
+
+::: {.notes}
+- the results of a bayesian model are kind of like an average of your prior beliefs and your data that you have on hand
+  - what this means is that I start off with a belief about how things are, then add data to see if that distribution changes
+- for hypothesis testing, I'll start off by saying that the most likely outcome is that my hypotheses are wrong and that the effect is likely 0.
+  - though, I'll allow for some uncertainty to be expressed by saying that there is some amount of probability that the effect could be positive or negative, but most effects are going to be pretty small substantively speaking.
+- This is reflected with a normally distributed prior and a standard deviation of 1
+- Now my task is to see whether, given a DGP that I know how it looks in the population, my particular research design and modeling strategies can produce a posterior destribution that help me  conclude that the effects are not zero when my DGP says that they aren't zero. That is, can my research design and modeling strategies bring me to the correct conclusions and provide evidence in support of my hypotheses as opposed to the null hypothesis?
+:::
+
+::: footer
+:::
+
+---
+
+$$
+\begin{align}
+\text{Age} = uniform(18, 85) \\
+\text{Gender} = bernoulli(0.5) \\
+\text{Education} = normal(-0.1 * Age + 0.1 * gender + 
+  \\ 14 + normal(0, 1), 0.5) \\
+\end{align}
+$$
+
+$$
+\begin{align}
+\text{Income} = normal(2 * age + 0.7 * gender + \\ 
+40000 + normal(0, 1), 200000) \\
+\text{Conflict Avoidant (latent)} = normal(0.3 * gender + \\ 
+2.4 + normal(0, 1)) \\
+\end{align}
+$$
+
+$$
+\begin{align}
+\text{Party identification (latent)} = normal(0.4 * age - \\ 
+0.6 * gender + 0.5 * income + normal(0, 1)) \\
+\text{attention (latent)} = normal(0.5 * age - \\ 
+0.3 * gender + 0.1 * income + normal(0, 1))
+\end{align}
+$$
+
+$$
+\begin{align}
+\text{treatment}_{prime} = bernoulli(0.5) \\
+\text{treatment}_{blue} = bernoulli(0.5) \\
+\end{align}
+$$
+$$
+\begin{align}
+\text{notice} = bernoulli(1 * prime) \\
+\text{willing (latent)} = normal(0.1 * treatment_{prime} + 
+\\ 0.1 * treatment_{blue} + 0.1 * \text{party identification} + 
+\\ 0.5 * treatment_{prime} * treatment_{blue} * \text{party identification} + 
+\\ normal(0, 1))
+\end{align}
+$$
+
+::: {.notes}
+- I start by defining a population that is one-hundred-thousand strong
+- I randomly sample from this population produced by the data generating process here
+  - I do it at different sample sizes: 200, 400, 600, 800
+  - For each of these sample sizes, I get 100 samples each
+:::
+
+::: footer
+:::
+
+### Fitting the models on the simulated data
+
+::: footer
+:::
+
+#### Model 1
+
+$$
+\begin{align}
+Pr(notice_i = 1) \sim logistic(\phi_i + \alpha) \\
+\phi_i = \beta_1 * treatment_{prime_i} \\
+\beta_1 \sim Normal(0, 1) \\
+\alpha_i \sim student(0,3,2.5)
+\end{align}
+$$
+
+::: {.notes}
+- This model is fitted on each sample for each sample size.
+- So 400 times
+:::
+::: footer
+:::
+
+#### Model 2
+
+$$
+\begin{align}
+Willing_i \sim CDF(logistic(\phi_i + \alpha)) \\
+\phi_i = \beta_1 * treatment_{blue_i} + \beta_2 * treatment_{prime_i} + \\ \beta_3 * treatment_{blue_i} * treatment_{prime_i} + \\
+\beta_4 * gender_i + \beta_5 * education_i + \\ \beta_6 * income_i + \beta_7 * conflict_i + \beta_8 * attention_i \\
+\beta_j \sim Normal(0, 1) \\
+\alpha_j \sim student(0, 3, 2.5)
+\end{align}
+$$
+
+::: {.notes}
+- Here, I do a split sample version of the model. 
+- One of these for Republicans and one of these for Democrats.
+- I fit these models for each sub sample for each sample size.
+- 800 times
+:::
+::: footer
+:::
+
+#### Model 2 (alternate)
+
+$$
+\begin{align}
+Willing_i \sim CDF(logistic(\phi_i + \alpha)) \\
+\phi_i = \beta_1 * treatment_{blue_i} + \\ \beta_2 * treatment_{prime_i} + \beta_3 * \text{Party ID}_i + \\
+\beta_4 * treatment_{blue_i} * treatment_{prime_i} * \text{Party ID}_i + \\
+\beta_4 * gender_i + \beta_5 * education_i + \\ \beta_6 * income_i + \beta_7 * conflict_i + \beta_8 * attention_i \\
+\beta_j \sim Normal(0, 1) \\
+\alpha_j \sim student(0, 3, 2.5)
+\end{align}
+$$
+
+::: {.notes}
+- Here's an alternative specification. Instead of doing a split sample, I just do the triple interaction.
+- I fit one of these on each sample for each sample size.
+- 400 times
+:::
+::: footer
+:::
+
+### Performance
+
+::: {.notes}
+- Know that none of the parameters are zero.
+- Though they are super small, so this is a pretty conservative test.
+- Look at the 95% credible intervals
+  - If the credible overlaps with zero, record a value of 0. If not, record value of 1.
+:::
+::: footer
+:::
+
+#### Model 1
+```{r}
+#| label: fig-true-positive-study-1-model-1
+#| fig-cap: True positive rate from simulations - Model 1
+#| layout-nrow: 1
+plot_study_1_model_1 <- true_positive_plot(data_frame = df_fitted_samples_model_1)
+plot_study_1_model_1[[1]]
+```
+
+::: footer
+:::
+
+#### Model 2
+
+```{r}
+#| label: fig-true-positive-study-1-model-2-alt
+#| fig-cap: True positive rate from simulations - Model 2, Split sample
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - $\hat{\beta}_1$
+#|   - $\hat{\beta}_2$
+#|   - $\hat{\beta}_3$
+
+plot_study_1_model_2_alt <- true_positive_plot(data_frame = df_fitted_samples_model_2_alt)
+plot_study_1_model_2_alt[[1]]
+plot_study_1_model_2_alt[[2]]
+plot_study_1_model_2_alt[[3]]
+```
+::: footer
+:::
+
+---
+
+```{r}
+#| label: fig-true-positive-study-1-model-2
+#| fig-cap: True positive rate from simulations - Model 2
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - $\hat{\beta}_1$
+#|   - $\hat{\beta}_2$
+#|   - $\hat{\beta}_3$
+#|   - $\hat{\beta}_4$
+plot_study_1_model_2 <- true_positive_plot(data_frame = df_fitted_samples_model_2)
+plot_study_1_model_2[[1]]
+plot_study_1_model_2[[2]]
+plot_study_1_model_2[[3]]
+plot_study_1_model_2[[4]]
+```
+
+::: footer
+:::

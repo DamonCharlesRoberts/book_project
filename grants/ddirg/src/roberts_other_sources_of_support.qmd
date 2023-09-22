@@ -1,0 +1,19 @@
+---
+subtitle: Other Sources of Support
+format:
+  fancy-doc-pdf:
+    toc: false
+    latex-output-dir: ../out/
+    biblatex: true
+    filters:
+      #- "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+author:
+  - name: Damon C. Roberts
+    affiliations:
+      - name: Univeristy of Colorado Boulder
+    email: damon.roberts-1@colorado.edu
+bibliography: ../../../assets/references.bib
+---
+
+The first empirical chapter of this project has received a grant amounting to $2,054 to conduct the online experiment used in that component. This funding came from the Department of Political Science at the University of Colorado Boulder -- specifically, the Large Research Grant Fund.

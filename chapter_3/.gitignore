@@ -1,0 +1,7 @@
+# Quarto temp files
+src/prr/visualInfluenceOnDeliberationPRR_files/
+# Data files
+Data/
+# Mac files
+!spec/.DS_Store
+.DS_Store
