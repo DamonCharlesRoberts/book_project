@@ -20,7 +20,6 @@ format:
 execute:
   echo: false
   freeze: true
-  cache: true
 ---
 
 ```{r}
