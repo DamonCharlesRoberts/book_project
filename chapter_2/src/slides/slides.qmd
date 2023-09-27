@@ -20,6 +20,8 @@ execute:
   echo: false
   freeze: true
   cache: true
+nocite: |
+  @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017,
 ---
 
 ```{r}
@@ -121,14 +123,14 @@ Is color a source of political information that shapes the public's behaviors an
 ---
 
 - Memories:
-  -  are multi-dimensional encodings of previous experiences [CITATION]
+  -  are multi-dimensional encodings of previous experiences [@fazio_attitudes_2007]
     - e.g., remember giving your first job talk
       - the layout of the room
       - the colors of the chairs
       - what the room smelled like
       - what ambient sounds were there
       - how you felt
-  - affectively laden [CITATION]
+  - affectively laden [@fazio_attitudes_2007;@winkielman_emotion_2011; @kensinger_affective_2022]
   - easier retrieved when recent and/or shares multiple commonalities with current object
 
 ### Zaller's [-@zaller_1992_cup] Memory model
@@ -364,7 +366,7 @@ ggplot(data = df) +
 - Collect around 1,000 yard signs from House elections
   - 2016-2024
 - Measuring the colors used on a yard sign:
-  - Use a machine learning Python Library, `OpenCV`, that reads images and classifies their components.
+  - Use a machine learning Python Library, `OpenCV` [@bradski_opencv_2000], that reads images and classifies their components.
     - Trained to classify each pixel in the image
     - Classifies it based on BGR value (reverse of RGB)
     - Looks for a range of values around the "Republican red" and "Democratic blue"
@@ -522,7 +524,7 @@ Trial 3
 - Recruited 1,000 participants from Prolific
 - Counterbalance treatment and background information ($\frac{1}{2}$ see treatment first; other $\frac{1}{2}$ see background questions first)
 - Within each trial, participants have $\frac{1}{3}$ chance of seeing any given yard sign.
-- MouseView.js
+- MouseView.js [@anwyl-irvine_mouseviewjs_2022]
 
 ---
 
