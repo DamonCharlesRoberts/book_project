@@ -13,7 +13,7 @@ format:
     toc: true
     toc-depth: 2
     slide-level: 5
-    bibliography: ../../../assets/references.bib   
+    bibliography: ../../../assets/candidate_support_chapter_references.bib   
     self-contained: true
     output-file: color-book.html
 execute:
@@ -133,7 +133,7 @@ Is color a source of political information that shapes the public's behaviors an
   - affectively laden [@fazio_attitudes_2007;@winkielman_emotion_2011; @kensinger_affective_2022]
   - easier retrieved when recent and/or shares multiple commonalities with current object
 
-### Zaller's [-@zaller_1992_cup] Memory model
+### Zaller's [-@zaller_nature_1992] Memory model
 
 ---
 
@@ -207,7 +207,7 @@ ggplot(data = df) +
   theme_minimal()
 ```
 
-### Lodge and Taber's [-@lodge_taber_2013_cup] Online model
+### Lodge and Taber's [-@lodge_rationalizing_2013] Online model
 
 ---
 
