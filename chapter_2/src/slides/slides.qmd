@@ -55,20 +55,24 @@ list_df[["cleaned"]] <- read.csv(
 load("../../data/temp/models/study_1_fitted.RData")
 ```
 
+## Follow-along
+
+![QR Code](../../assets/slides/imgs/qr-code.png){#fig-qr}
+
 ## Visual politics is not new politics, but "hot" politics
 
 ---
 
-[![1860s Ballots](../../assets/slides/imgs/ballots.avif){#fig-ballots width=6.5in}](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)
+![[1860s Ballots](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)](../../assets/slides/imgs/ballots.avif){#fig-1860-ballot}
 
 ---
 
 
 ::: {#fig-1980-convention layout-ncol=2}
 
-[![Democratic National Convention](../../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem width=6.5in}](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)
+![[Democratic National Convention](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)](../../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem width=6.5in}
 
-[![Republican National Convention](../../assets/slides/imgs/1980_rep_convention.jpg){#fig-1980-rep width=6.5in}](https://reuther.wayne.edu/node/9207)
+![[Republican National Convention]((../../assets/slides/imgs/1980_rep_convention.jpg))](../../assets/slides/imgs/1980_rep_convention.jpg){#fig-1980-rep width=6.5in}
 
 1980 Presidential Party National Conventions
 :::
@@ -76,7 +80,7 @@ load("../../data/temp/models/study_1_fitted.RData")
 
 ---
 
-[![2000 Presidential Election map](../../assets/slides/imgs/2000_election_map.webp){#fig-2000-election-map width=6.5in}](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smithsonianmag.com%2Fhistory%2Fwhen-republicans-were-blue-and-democrats-were-red-104176297%2F&psig=AOvVaw3mlqWWKalyCl0gzVJDCIV5&ust=1694829600914000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJCNg7bCq4EDFQAAAAAdAAAAABAT)
+![[2000 Presidential Election Map](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smithsonianmag.com%2Fhistory%2Fwhen-republicans-were-blue-and-democrats-were-red-104176297%2F&psig=AOvVaw3mlqWWKalyCl0gzVJDCIV5&ust=1694829600914000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJCNg7bCq4EDFQAAAAAdAAAAABAT)](../../assets/slides/imgs/2000_election_map.webp){#fig-2000-election-map width=6.5in}
 
 ---
 
@@ -95,7 +99,7 @@ Party logos
 
 ---
 
-[![The public](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)
+![[The public](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}
 
 ## Question guiding the project
 
