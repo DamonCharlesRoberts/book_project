@@ -3,3 +3,5 @@
 *.qmd linguist-language=Python
 *.tex linguist-language=Python
 *.js linguist-vendored
+*.html linguist-detectable=false
+*.html linguist-vendored

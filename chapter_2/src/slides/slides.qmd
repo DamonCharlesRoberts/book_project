@@ -3,7 +3,8 @@ title: "The Shape and Color of Politics"
 author:
   - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
 format:
-  revealjs: 
+  revealjs:
+    multiplex: true
     embed-resources: true
     theme: [dark, ../../assets/slides/custom.scss]
     transition: slide
@@ -13,13 +14,14 @@ format:
     toc: true
     toc-depth: 2
     slide-level: 5
-    bibliography: ../../../assets/references.bib   
+    bibliography: ../../../assets/candidate_support_chapter_references.bib   
     self-contained: true
     output-file: color-book.html
 execute:
   echo: false
   freeze: true
-  cache: true
+nocite: |
+  @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017,
 ---
 
 ```{r}
@@ -53,20 +55,23 @@ list_df[["cleaned"]] <- read.csv(
 load("../../data/temp/models/study_1_fitted.RData")
 ```
 
+## Follow-along
+
+![QR Code](../../assets/slides/imgs/qr-code.png){#fig-qr}
+
 ## Visual politics is not new politics, but "hot" politics
 
 ---
 
-[![1860s Ballots](../../assets/slides/imgs/ballots.avif){#fig-ballots width=6.5in}](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)
+![[1860s Ballots](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)](../../assets/slides/imgs/ballots.avif){#fig-1860-ballot}
 
 ---
 
-
 ::: {#fig-1980-convention layout-ncol=2}
 
-[![Democratic National Convention](../../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem width=6.5in}](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)
+![[Democratic National Convention](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)](../../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem width=6.5in}
 
-[![Republican National Convention](../../assets/slides/imgs/1980_rep_convention.jpg){#fig-1980-rep width=6.5in}](https://reuther.wayne.edu/node/9207)
+![[Republican National Convention]((../../assets/slides/imgs/1980_rep_convention.jpg))](../../assets/slides/imgs/1980_rep_convention.jpg){#fig-1980-rep width=6.5in}
 
 1980 Presidential Party National Conventions
 :::
@@ -74,7 +79,7 @@ load("../../data/temp/models/study_1_fitted.RData")
 
 ---
 
-[![2000 Presidential Election map](../../assets/slides/imgs/2000_election_map.webp){#fig-2000-election-map width=6.5in}](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smithsonianmag.com%2Fhistory%2Fwhen-republicans-were-blue-and-democrats-were-red-104176297%2F&psig=AOvVaw3mlqWWKalyCl0gzVJDCIV5&ust=1694829600914000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJCNg7bCq4EDFQAAAAAdAAAAABAT)
+![[2000 Presidential Election Map](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.smithsonianmag.com%2Fhistory%2Fwhen-republicans-were-blue-and-democrats-were-red-104176297%2F&psig=AOvVaw3mlqWWKalyCl0gzVJDCIV5&ust=1694829600914000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCJCNg7bCq4EDFQAAAAAdAAAAABAT)](../../assets/slides/imgs/2000_election_map.webp){#fig-2000-election-map width=6.5in}
 
 ---
 
@@ -93,7 +98,7 @@ Party logos
 
 ---
 
-[![The public](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)
+![[The public](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}
 
 ## Question guiding the project
 
@@ -116,7 +121,22 @@ Is color a source of political information that shapes the public's behaviors an
 
 ## Dominant models of information processing
 
-### Zaller's [-@zaller_1992_cup] Memory model
+### Borrowing concepts from social neuroscience and psychology
+
+---
+
+- Memories:
+  -  are multi-dimensional encodings of previous experiences [@fazio_attitudes_2007]
+    - e.g., remember giving your first job talk
+      - the layout of the room
+      - the colors of the chairs
+      - what the room smelled like
+      - what ambient sounds were there
+      - how you felt
+  - affectively laden [@fazio_attitudes_2007;@winkielman_emotion_2011; @kensinger_affective_2022]
+  - easier retrieved when recent and/or shares multiple commonalities with current object
+
+### Zaller's [-@zaller_nature_1992] Memory model
 
 ---
 
@@ -190,7 +210,7 @@ ggplot(data = df) +
   theme_minimal()
 ```
 
-### Lodge and Taber's [-@lodge_taber_2013_cup] Online model
+### Lodge and Taber's [-@lodge_rationalizing_2013] Online model
 
 ---
 
@@ -327,6 +347,117 @@ ggplot(data = df) +
 
 ## Study 1
 
+### Motivation of Study
+
+--- 
+
+> There obviously is a strong association with blue and the Democratic Party and red and the Republican Party. We've seen in some of our testing that specifically MAGA red tends to elicit a slightly stronger association with Republicans/conservatives/Trump than other shades. The rest of color spectrum doesn't seem to have as strong an association, though greens and purples tend to read a little more left, the combination of red, white and blue tends to read a little more right, black and white tends to read a little left, black and red tend to read a little more right, etc.
+
+---
+
+> A lot of decisions are still made on purely gut feelings as opposed to taking a more multi-disciplinary evidence-based approach.
+
+---
+
+- Do these associations have systematic influences on campaign strategy? (Study 1)
+- Are these hunches correct that these colors can reliably cue partisanship? (Study 2)
+
+### Outcome variable - How much red and blue do campaigns use?
+
+---
+
+- Collect around 1,000 yard signs from House elections
+  - 2016-2024
+- Measuring the colors used on a yard sign:
+  - Use a machine learning Python Library, `OpenCV` [@bradski_opencv_2000], that reads images and classifies their components.
+    - Trained to classify each pixel in the image
+    - Classifies it based on BGR value (reverse of RGB)
+    - Looks for a range of values around the "Republican red" and "Democratic blue"
+
+---
+
+```{python}
+#| label: example detection
+#| echo: false
+
+from sys import path # for path management
+from cv2 import imread, imwrite # for color detection
+    #* user-defined
+sys.path.append("../")
+from PY.helper import colorDetector
+
+# Define colors to detect
+    #* White
+        #** Not defined. Default for colorDetector()
+    #* Red
+republican_red = [232, 27, 35] # target color
+red_lower = [93, 9, 12] # lower end of spectrum for red
+red_higher = [237, 69, 75] # higher end of spectrum for red
+
+# Load gop image to read
+img = imread("../assets/img/gop_2022.png")
+
+# Detect colors
+percent, img_transformed, result = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
+
+transformed= imwrite("../../data/temp/study_2/gop_2022_transformed.png", img_transformed) # save transformed image
+
+masked= imwrite("../../data/temp/study_2/gop_2022_detected.png", result) # save masked image
+```
+
+
+::: {#fig-color-detection-example layout-ncol="2"}
+![Resized original image](../../data/temp/study_2/gop_2022_transformed.png){#fig-resized}
+
+![Masked](../../data/temp/study_2/gop_2022_detected.png){#fig-masked}
+
+Detecting colors in the GOP logo
+:::
+
+```{python}
+#| output: asis
+# Print calculated percentage of example
+print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
+```
+
+### Predictor variable - What is the partisan composition of the district?
+
+---
+
+- MIT Election Lab data
+  - House election results
+  - 1970-2020
+- Measuring partisan composition of district:
+  - Calculate rolling 5-year average of the Democratic party's vote share for each district
+
+### Do campaigns use a different proportion of the colors red and blue based on partisan composition?
+
+---
+
+```{r}
+#| label: fig-study-2-pred
+#| layout-ncol: 1
+#| fig-cap: More blue on the yard signs in Democratic strongholds
+#| fig-subcap:
+#|   - Proportion of red
+#|   - Proportion of blue
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["red"]]
+  , treatment = "Red"
+  , hypothesis = "H5"
+)
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["blue"]]
+  , treatment = "Blue"
+  , hypothesis = "H5"
+)
+red
+blue
+```
+
+
+## Study 2
+
 ### Motivation of the experiment
 
 - Do we associate the color red with Republicans and the color blue with Democrats?
@@ -396,7 +527,7 @@ Trial 3
 - Recruited 1,000 participants from Prolific
 - Counterbalance treatment and background information ($\frac{1}{2}$ see treatment first; other $\frac{1}{2}$ see background questions first)
 - Within each trial, participants have $\frac{1}{3}$ chance of seeing any given yard sign.
-- MouseView.js
+- MouseView.js [@anwyl-irvine_mouseviewjs_2022]
 
 ---
 
@@ -489,115 +620,6 @@ blue <- predicted_prob_bar(
   , x_label = "Party ID"
   , y_label = "Pr(Vote for candidate)"
   , legend_title = "Treatment"
-)
-red
-blue
-```
-
-## Study 2
-
-### Motivation of Study
-
---- 
-
-> There obviously is a strong association with blue and the Democratic Party and red and the Republican Party. We've seen in some of our testing that specifically MAGA red tends to elicit a slightly stronger association with Republicans/conservatives/Trump than other shades. The rest of color spectrum doesn't seem to have as strong an association, though greens and purples tend to read a little more left, the combination of red, white and blue tends to read a little more right, black and white tends to read a little left, black and red tend to read a little more right, etc.
-
----
-
-> A lot of decisions are still made on purely gut feelings as opposed to taking a more multi-disciplinary evidence-based approach.
-
----
-
-- Do these associations have systematic influences on campaign strategy?
-
-### Outcome variable - How much red and blue do campaigns use?
-
----
-
-- Collect around 1,000 yard signs from House elections
-  - 2016-2024
-- Measuring the colors used on a yard sign:
-  - Use a machine learning Python Library, `OpenCV`, that reads images and classifies their components.
-    - Trained to classify each pixel in the image
-    - Classifies it based on BGR value (reverse of RGB)
-    - Looks for a range of values around the "Republican red" and "Democratic blue"
-
----
-
-```{python}
-#| label: example detection
-#| echo: false
-
-from sys import path # for path management
-from cv2 import imread, imwrite # for color detection
-    #* user-defined
-sys.path.append("../")
-from PY.helper import colorDetector
-
-# Define colors to detect
-    #* White
-        #** Not defined. Default for colorDetector()
-    #* Red
-republican_red = [232, 27, 35] # target color
-red_lower = [93, 9, 12] # lower end of spectrum for red
-red_higher = [237, 69, 75] # higher end of spectrum for red
-
-# Load gop image to read
-img = imread("../assets/img/gop_2022.png")
-
-# Detect colors
-percent, img_transformed, result = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
-
-transformed= imwrite("../../data/temp/study_2/gop_2022_transformed.png", img_transformed) # save transformed image
-
-masked= imwrite("../../data/temp/study_2/gop_2022_detected.png", result) # save masked image
-```
-
-
-::: {#fig-color-detection-example layout-ncol="2"}
-![Resized original image](../../data/temp/study_2/gop_2022_transformed.png){#fig-resized}
-
-![Masked](../../data/temp/study_2/gop_2022_detected.png){#fig-masked}
-
-Detecting colors in the GOP logo
-:::
-
-```{python}
-#| output: asis
-# Print calculated percentage of example
-print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
-```
-
-### Predictor variable - What is the partisan composition of the district?
-
----
-
-- MIT Election Lab data
-  - House election results
-  - 1970-2020
-- Measuring partisan composition of district:
-  - Calculate rolling 5-year average of the Democratic party's vote share for each district
-
-### Do campaigns use a different proportion of the colors red and blue based on partisan composition?
-
----
-
-```{r}
-#| label: fig-study-2-pred
-#| layout-ncol: 1
-#| fig-cap: More blue on the yard signs in Democratic strongholds
-#| fig-subcap:
-#|   - Proportion of red
-#|   - Proportion of blue
-red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_5"]][["red"]]
-  , treatment = "Red"
-  , hypothesis = "H5"
-)
-blue <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_5"]][["blue"]]
-  , treatment = "Blue"
-  , hypothesis = "H5"
 )
 red
 blue
