@@ -67,7 +67,6 @@ load("../../data/temp/models/study_1_fitted.RData")
 
 ---
 
-
 ::: {#fig-1980-convention layout-ncol=2}
 
 ![[Democratic National Convention](https://untappedcities.com/2021/08/12/1980-democratic-national-convention/)](../../assets/slides/imgs/1980_dem_convention.jpg){#fig-1980-dem width=6.5in}
