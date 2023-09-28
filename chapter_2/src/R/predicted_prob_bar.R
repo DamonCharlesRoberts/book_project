@@ -24,7 +24,23 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
   , x_label = "Color of yard sign"
   , y_label = "Pr(Party of candidate)"
   , legend_title = "Party of candidate"
+  , gray = TRUE
 ) {
+  # Create a list of options for what to do when need to switch to grayscale
+  if (gray != TRUE) {
+    color_values <- list(
+      "Democrat" = c("#00AEF3", "dotted")
+      , "Independent" = c("#ffffff", "solid")
+      , "Republican" = c("#ff0803", "dashed")
+    )
+  } else {
+    color_values <- list(
+      "Democrat" = c("#404040", "dotted")
+      , "Independent" = c("#D3D3D3", "solid")
+      , "Republican" = c("#808080", "dashed")
+    )
+  }
+
   # If this is for a ordered logit, I'll have to do some stacked
   if (hypothesis == "H2") {
     #* Calculate the predicted probabilities for the model
@@ -100,28 +116,20 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
       #* Change the fill colors to blue, white, and red while labeling it
       ) +
       ggplot2::scale_fill_manual(
-        labels = c(
-          "Democrat"
-          , "Independent"
-          , "Republican"
-        )
+        labels = names(color_values)
         , values = c(
-          "#00AEF3"
-          , "#ffffff"
-          , "#ff0803"
+          color_values[[1]][[1]]
+          , color_values[[2]][[1]]
+          , color_values[[3]][[1]]
         )
       )  +
       #* change the labels and linetype for the outcomes
       ggplot2::scale_linetype_manual(
-        labels = c(
-          "Democrat"
-          , "Independent"
-          , "Republican"
-        )
+        labels = names(color_values)
         , values = c(
-          "solid"
-          , "solid"
-          , "solid"
+          color_values[[1]][[2]]
+          , color_values[[2]][[2]]
+          , color_values[[3]][[2]]
         )
       ) +
       #* adjust the labels of the plot
@@ -159,6 +167,7 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
       .width = level
       , alpha = 0.6
     ) +
+    ggplot2::scale_color_manual(values = "#000000") +
       #** use the minimal theme
     ggplot2::theme_minimal() +
       #** exclude legend
@@ -170,7 +179,7 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
       plot <- plot +
       #** change the color of the ribbon
       ggplot2::scale_fill_manual(
-        values = "#ff0803"
+        values = color_values[[3]][[1]]
       ) +
       ggplot2::labs(
         x = "Democratic party vote share"
@@ -179,7 +188,7 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
     } else {
       plot <- plot +
       ggplot2::scale_fill_manual(
-        values = "#00AEF3"
+        values = color_values[[1]][[1]]
       ) +
       ggplot2::labs(
         x = "Democratic party vote share"
@@ -189,11 +198,53 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
     }
   # If it is a logistic regression with binary outcome
   } else {
-      #* Calculate the predicted probabilities of voting for the candidate
-    df_pred_prob <- marginaleffects::plot_predictions(
-      model = fitted_model
-      , condition = c("pid_7", x_axis)
-    ) +
+    if (gray == TRUE) {
+      df_pred_prob <- marginaleffects::plot_predictions(
+        model = fitted_model
+        , condition = c("pid_7", x_axis)
+        , conf_level = level
+        , gray = TRUE
+      ) +
+      ggplot2::scale_linetype_manual(
+        labels = c("White", treatment)
+        , values = c(
+          "solid"
+          , "dashed"
+        )
+      )
+    } else {
+      df_pred_prob <- marginaleffects::plot_predictions(
+        model = fitted_model
+        , condition = c("pid_7", x_axis)
+        , conf_level = level
+      )
+      if (treatment == "Red") {
+        df_pred_prob <- df_pred_prob +
+          ggplot2::scale_fill_manual(
+            labels = c(
+              "White"
+              , treatment
+            )
+            , values = c(
+              color_values[[2]][[1]]
+              , color_values[[3]][[1]]
+            )
+          )
+      } else {
+        df_pred_prob <- df_pred_prob +
+          ggplot2::scale_fill_manual(
+            labels = c(
+              "White"
+              , treatment
+            )
+            , values = c(
+              color_values[[2]][[1]]
+              , color_values[[1]][[1]]
+            )
+          )
+      }
+    }
+    plot <- df_pred_prob +
       #** define the line color for the plot
       ggplot2::scale_color_manual(
           labels = c(
@@ -220,38 +271,59 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
         , y = y_label
         , color = legend_title
         , fill = legend_title
+        , linetype = legend_title
       ) +
       #** use the minimal theme
       ggplot2::theme_minimal()
-      #** Add some custom plot stuff depending on treatment
-    if (treatment == "Red") {
-        #*** if red treatment, make the ribbon red
-      plot <- df_pred_prob +
-        ggplot2::scale_fill_manual(
-          labels = c(
-            "White"
-            , "Red"
-          )
-          , values = c(
-            "#808080"
-            , "#ff0803"
-          )
-        )
-    } else {
-        #*** if blue treatment, make the ribbon blue
-      plot <- df_pred_prob +
-        ggplot2::scale_fill_manual(
-          labels = c(
-            "White"
-            , "Blue"
-          )
-          , values = c(
-            "#808080"
-            , "#00AEF3"
-          )
-        )
-    }
   }
+      #** Add some custom plot stuff depending on treatment
+#    if (treatment == "Red") {
+#        #*** if red treatment, make the ribbon red
+#      plot <- df_pred_prob +
+#        ggplot2::scale_fill_manual(
+#          labels = c(
+#            "White"
+#            , treatment
+#          )
+#          , values = c(
+#            color_values[[2]][[1]]
+#            , color_values[[3]][[1]]
+#          )
+#        ) +
+#        ggplot2::scale_linetype_manual(
+#          labels = c(
+#            "White"
+#            , treatment
+#          )
+#          , values = c(
+#            color_values[[2]][[2]]
+#            , color_values[[3]][[2]]
+#          )
+#        )
+#    } else {
+#        #*** if blue treatment, make the ribbon blue
+#      plot <- df_pred_prob +
+#        ggplot2::scale_fill_manual(
+#          labels = c(
+#            "White"
+#            , treatment
+#          )
+#          , values = c(
+#            color_values[[2]][[1]]
+#            , color_values[[1]][[1]]
+#          )
+#        ) +
+#        ggplot2::scale_linetype_manual(
+#          labels = c(
+#            "White"
+#            , treatment
+#          )
+#          , values = c(
+#            color_values[[2]][[2]]
+#            , color_values[[1]][[2]]
+#          )
+#        )
+#    }
   # Return the plot
   return(plot)
 }
