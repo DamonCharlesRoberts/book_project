@@ -3,7 +3,8 @@ title: "The Shape and Color of Politics"
 author:
   - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
 format:
-  revealjs: 
+  revealjs:
+    multiplex: true
     embed-resources: true
     theme: [dark, ../../assets/slides/custom.scss]
     transition: slide
@@ -19,7 +20,6 @@ format:
 execute:
   echo: false
   freeze: true
-  cache: true
 nocite: |
   @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017,
 ---
