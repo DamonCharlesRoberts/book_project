@@ -55,11 +55,46 @@ list_df[["cleaned"]] <- read.csv(
 load("../../data/temp/models/study_1_fitted.RData")
 ```
 
-## Follow-along
-
 ![QR Code](../../assets/slides/imgs/qr-code.png){#fig-qr}
 
-## Visual politics is not new politics, but "hot" politics
+---
+
+```{r}
+#| label: fig-hook-1
+#| fig-cap: Probability of voting for candidate with red yard sign versus white
+#| 
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["red"]]
+  , x_axis = "trial_1_red_stimuli"
+  , treatment = "Red"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+
+red
+```
+
+---
+
+```{r}
+#| label: fig-hook-2
+#| fig-cap: Probability of voting for candidate with blue yard sign versus white
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_3"]][["blue"]]
+  , x_axis = "trial_1_blue_stimuli"
+  , treatment = "Blue"
+  , hypothesis = "H3"
+  , x_label = "Party ID"
+  , y_label = "Pr(Vote for candidate)"
+  , legend_title = "Treatment"
+)
+blue
+```
+
+
+## How are colors used in politics?
 
 ---
 
@@ -223,121 +258,11 @@ A[Pre-existing beliefs] --> C[Updated beliefs]
 B[New information] -->|If it aligns with current beliefs| C
 ```
 
----
-
-```{r}
-#| label: sim-visualization-online
-
-df <- fabricatr::fabricate(
-  N = 10000,
-  pop = rnorm(n = N, mean = 2, sd = 1),
-  sample_strong = rnorm(n = N, mean = 2, sd = 0.5),
-  updated_strong = rnorm(n = N, mean = 2, sd = 1),
-  sample_weak = rnorm(n = N, mean = 2, sd = 2),
-  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
-)
-```
-
-```{r}
-#| label: fig-pre-existing
-#| fig-cap: Pre-existing beliefs
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = sample_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-
-ggplot(data = df) +
-  geom_density(aes(x = sample_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-```
-
----
-
-```{r}
-#| label: fig-updated
-#| fig-cap: Updated beliefs
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = updated_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  2), linetype = 2) +
-  theme_minimal()
-
-ggplot(data = df) +
-  geom_density(aes(x = updated_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  1.5), linetype = 2) +
-  theme_minimal()
-```
-
 ## Amending those models with the Snap-judgment model
 
 ---
 
 {{< include ../../../assets/_theory.qmd >}}
-
----
-
-```{r}
-#| label: sim-snap-judgment
-
-df <- fabricatr::fabricate(
-  N = 10000,
-  pop = rnorm(n = N, mean = 2, sd = 1),
-  sample_strong = rnorm(n = N, mean = 2.5, sd = 0.5),
-  updated_strong = rnorm(n = N, mean = 2.5, sd = 1),
-  sample_weak = rnorm(n = N, mean = 2.5, sd = 2),
-  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
-)
-```
-
-```{r}
-#| label: fig-snap-sample
-#| fig-cap: Pre-existing beliefs based on visual information
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = sample_strong)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = sample_weak)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  theme_minimal()
-```
-
----
-
-```{r}
-#| label: fig-snap-updated
-#| fig-cap: Updated beliefs with visual information
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = updated_strong)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  geom_vline(aes(xintercept = 2.5), linetype = 2) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = updated_weak)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  geom_vline(aes(xintercept = 1.5), linetype = 2) +
-  theme_minimal()
-```
-
----
 
 - Implications
   - Refines existing info. processing models to consider pre-conscious influences.
@@ -435,26 +360,31 @@ print("For the example in @fig-color-detection-example, about {:.2f}".format(per
 ---
 
 ```{r}
-#| label: fig-study-2-pred
-#| layout-ncol: 1
+#| label: fig-study-2-pred-1
 #| fig-cap: More blue on the yard signs in Democratic strongholds
-#| fig-subcap:
-#|   - Proportion of red
-#|   - Proportion of blue
-red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_5"]][["red"]]
-  , treatment = "Red"
-  , hypothesis = "H5"
-)
+
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_5"]][["blue"]]
   , treatment = "Blue"
   , hypothesis = "H5"
 )
-red
+
 blue
 ```
 
+---
+
+```{r}
+#| label: fig-study-2-pred-2
+#| fig-cap: Less red on the yard signs in Democratic strongholds
+
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["red"]]
+  , treatment = "Red"
+  , hypothesis = "H5"
+)
+red
+```
 
 ## Study 2
 
@@ -538,22 +468,24 @@ Trial 3
 ---
 
 ```{r}
-#| label: fig-h-2-predictions
-#| layout-nrow: 1
-#| fig-cap: The partisanship of candidates change depending on the color of the yard sign
-#| fig-subcap:
-#|   - Red treatment
-#|   - Blue treatment
+#| label: fig-h-2-predictions-1
+#| fig-cap: Red yard signs = Republican candidate
 red <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["red_multinomial"]]
   , x_axis = "trial_1_red_stimuli"
 )
+red
+```
+
+---
+
+```{r}
+#| label: fig-h-2-predictions-2
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["blue_multinomial"]]
   , x_axis = "trial_1_blue_stimuli"
   , treatment = "Blue"
 )
-red
 blue
 ```
 
@@ -597,12 +529,8 @@ plot_trial_3_blue
 ### Do these associations inform important political behavior?
 
 ```{r}
-#| label: fig-h-3-predictions
-#| layout-nrow: 1
-#| fig-cap: Probability of voting for candidate with yard sign
-#| fig-subcap:
-#|   - Red treatment
-#|   - Blue treatment
+#| label: fig-h-3-predictions-1
+#| fig-cap: Republicans are more likely to vote for candidate with red yard sign, Democrats less likely
 red <- predicted_prob_bar(
   fitted_model = list_fitted[["h_3"]][["red"]]
   , x_axis = "trial_1_red_stimuli"
@@ -612,6 +540,13 @@ red <- predicted_prob_bar(
   , y_label = "Pr(Vote for candidate)"
   , legend_title = "Treatment"
 )
+
+red
+```
+
+```{r}
+#| label: fig-h-3-predictions-2
+#| fig-cap: Democrats are more likely to vote for candidate with blue yard signs, Republicans less likely
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_3"]][["blue"]]
   , x_axis = "trial_1_blue_stimuli"
@@ -621,7 +556,7 @@ blue <- predicted_prob_bar(
   , y_label = "Pr(Vote for candidate)"
   , legend_title = "Treatment"
 )
-red
+
 blue
 ```
 
