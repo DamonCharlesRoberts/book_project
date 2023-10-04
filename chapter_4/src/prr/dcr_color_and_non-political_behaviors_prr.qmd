@@ -129,7 +129,10 @@ set.seed(12102022)
 
 if (params$replicate == TRUE) {
   box::use(
-    brms[
+    parallel[
+      detectCores
+    ]
+    , brms[
       brmsformula
       , cumulative
       , prior
@@ -141,6 +144,7 @@ if (params$replicate == TRUE) {
       , true_positive_hist
     ]
   )
+  cores <- detectCores()-1
 } else {
   box::use(
    .R/helper[
@@ -155,7 +159,7 @@ options("marginaleffects_posterior_interval" = "hdi")
 
 As I am using interactive models to test my hypotheses as well as using a quasi-pre-post design, I want to be sure that my sample size will be large enough to override any effects of my modeling choices (such as choice in priors and including interaction terms) as well as design choices (quasi-pre-post-design) so that I may draw conclusions aligned with the truth -- whether those confirm or run counter to my hypotheses. To help with this, I will generate simulated samples where I know what the true parameter is and will estimate at what sample size does my modeling and research design choices have a small enough weight that I am able to draw the correct inferences.
 
-Using the `fabricatr` [@fabricatr] package, I simulate a population with an N of 1,000,000. The specified data generating processes for each of the variables are included in @lst-sim-dgp and @lst-sim-dgp-2. I then generate 500 random samples for each sample size of 200, 400, 600, and 800 participants. This sample size is not the size of the total sample I intend to recruit but is the total sample that I have data on after excluding those who fail attention checks and those who provide duplicate responses. Some estimate that insincere responses account for about 40% of a researcher's original sample [@kennedy_et-al_2021_poq]. However, it is important to note that this is a quite conservative estimate of the proportion of insincere responses as this estimate comes from platforms that are notorious for poor convenience samples such as MTURK.
+Using the `fabricatr` [@blair_fabricatr_2022] package, I simulate a population with an N of 1,000,000. The specified data generating processes for each of the variables are included in @lst-sim-dgp and @lst-sim-dgp-2. I then generate 500 random samples for each sample size of 200, 400, 600, and 800 participants. This sample size is not the size of the total sample I intend to recruit but is the total sample that I have data on after excluding those who fail attention checks and those who provide duplicate responses. Some estimate that insincere responses account for about 40% of a researcher's original sample [@kennedy_strategies_2021]. However, it is important to note that this is a quite conservative estimate of the proportion of insincere responses as this estimate comes from platforms that are notorious for poor convenience samples such as MTURK.
 
 ``` {#lst-sim-dgp .r lst-cap="Code to generate simulated population data"}
 
@@ -269,31 +273,32 @@ if (params$replicate == TRUE) {
   )
   compiled <- stan_model(
     "./STAN/move_model.stan"
-    ,model_name="moveModel"
+    ,model_name = "moveModel"
   )
-  family <- cumulative(link="logit")
+  family <- cumulative(link = "logit")
   priors <- prior(
     stats::Normal(0,1)
-    ,class=b
+    ,class = b
   )
     # Run model
   modelDiscrepancies <- sim_all(
-    n=c(200,400,600,800)
-    ,num_samples=500
-    ,formula=formula
-    ,compiled=compiled
-    ,family=family
-    ,priors=priors
-    ,model="moveModel"
+    n=c(200, 400, 600, 800)
+    , num_samples = 500
+    , formula = formula
+    , compiled = compiled
+    , family = family
+    , priors = priors
+    , cores = cores
+    , model = "moveModel"
   )
     # store model
   save(
       modelDiscrepancies
-      , file ="../../data/models/prr/sim/sim.RDS"
+      , file = "../../data/models/prr/sim/sim.RDS"
   )
 } else {
   load(
-    file="../../data/models/prr/sim/sim.RDS"
+    file = "../../data/models/prr/sim/sim.RDS"
   )
 }
 ```
@@ -314,11 +319,12 @@ if (params$replicate == TRUE) {
 cleanNames <- c(
   "Sample size"
   , "Red treatment"
+  , "Partisanship"
   , "Red treatment x Partisanship"
   , "Age"
   , "Gender"
   , "White"
-  ,"Attention"
+  , "Attention"
 )
 truePositiveDF <- discrepancy_df(
   list = modelDiscrepancies

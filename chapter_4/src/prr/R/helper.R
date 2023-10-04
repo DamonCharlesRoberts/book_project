@@ -133,6 +133,7 @@ discrepancy <- function (
     , family
     , priors
     , model
+    , cores
 ) {
     # Define parameters
     parameters <- base::c(
@@ -172,6 +173,7 @@ discrepancy <- function (
                 , chains = 1
                 , iter = 100
                 , refresh = 0
+                , cores = cores
                 , show_messages = FALSE
             )
             # convert it to a data.table object
@@ -235,6 +237,7 @@ sim_all <- function(
     , family
     , priors
     , model
+    , cores
 ) {
     # generate samples
     samplesList <- base::lapply(
@@ -258,6 +261,7 @@ sim_all <- function(
                 , family = family
                 , priors = priors
                 , model = model
+                , cores = cores
             )
             return(model)
         }
