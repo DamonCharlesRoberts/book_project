@@ -9,10 +9,10 @@
 
 # Setup
     #* set working directory
-setwd("../src/prr/R")
+setwd("./chapter_4/src/prr/R")
     #* load functions
 box::use(
-    ./true_positive[true_positive]
+    ./helper[true_positive]
     , testthat[...]
 )
     #* define vector

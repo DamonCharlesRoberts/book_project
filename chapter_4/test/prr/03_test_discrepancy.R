@@ -12,8 +12,10 @@
 setwd("../src/prr/R")
     #* load functions
 box::use(
-    ./discrepancy[discrepancy]
-    , ./generate_samples[generate_samples]
+    ./helper[
+      generate_samples
+      , discrepancy
+    ]
     , brms[
         brmsformula
         , cumulative
@@ -26,26 +28,26 @@ box::use(
 base::suppressWarnings({
     #* execute function
         #** define compiled stan model
-partyCompiled <- stan_model(
-    "../STAN/vote_guess_simulated_model.stan"
+moveCompiled <- stan_model(
+    "../STAN/move_model.stan"
 )
         #** define brms formula
-partyFormula <- brmsformula(
-    PartyGuess ~ RedTreatment + BlueTreatment + age + RedTreatment:age + BlueTreatment:age + Attention + Knowledge
+formula <- brmsformula(
+    move ~ RedTreatment + PartyID + RedTreatment * PartyID + age + gender + white + attention
 )
         #** create sample data
 exampleSamples <- generate_samples(n = 100, num_samples = 2)
         #** calculate discrepancy
 result <- discrepancy(
-    compiled = partyCompiled
+    compiled = moveCompiled
     , data = exampleSamples
-    , formula = partyFormula
+    , formula = formula
     , family = cumulative(link = "logit")
     , priors = prior(
         Normal(0, 1)
         , class = b
     )
-    , model = "partyGuess"
+    , model = "moveModel"
 )
 })
 # Tests

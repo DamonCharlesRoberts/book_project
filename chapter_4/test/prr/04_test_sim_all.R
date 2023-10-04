@@ -12,7 +12,7 @@
 setwd("../src/prr/R")
     #* load functions
 box::use(
-    ./sim_all[sim_all]
+    ./helper[sim_all]
     ,brms[
         brmsformula
         , cumulative
@@ -23,14 +23,12 @@ box::use(
 )
     #* define some arguments
 formula <- brmsformula(
-    PartyGuess ~ RedTreatment + BlueTreatment + age +
-    RedTreatment:age + BlueTreatment:age +
-    Attention + Knowledge
+    move ~ RedTreatment + PartyID + RedTreatment * PartyID + age + gender + white + attention
 )
 base::suppressWarnings({
     compiled <- stan_model(
-            "../STAN/vote_guess_simulated_model.stan"
-            , model_name = "partyGuess"
+            "../STAN/move_model.stan"
+            , model_name = "moveModel"
     )
 })
 family <- cumulative(link="logit")

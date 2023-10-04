@@ -28,13 +28,14 @@ discrepancy <- function (
         , "b[5]"
         , "b[6]"
         , "b[7]"
+        , "b[8]"
     )
     # Define a empty data.table
     rejectDF <- stats::setNames(
         data.table::data.table(
             base::matrix(
-                nrow=0
-                ,ncol=7
+                nrow = 0
+                , ncol = 8
             )
         ),
         parameters

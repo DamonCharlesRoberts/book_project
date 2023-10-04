@@ -9,11 +9,10 @@
 
 # Setup
     #* set working directory
-setwd("chapter_4/test")
-setwd("../src/prr/R")
+setwd("./chapter_4/src/prr/R")
     #* load functions
 box::use(
-    ./discrepancy_df[discrepancy_df]
+    ./helper[discrepancy_df]
     ,testthat[...]
 )
     #* load example list

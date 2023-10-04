@@ -51,7 +51,7 @@ functions {
 data {
   int<lower=1> N;  // total number of observations
   int Y[N];  // response variable
-  int<lower=4> nthres;  // number of thresholds
+  int<lower=2> nthres;  // number of thresholds
   int<lower=1> K;  // number of population-level effects
   matrix[N, K] X;  // population-level design matrix
   int prior_only;  // should the likelihood be ignored?

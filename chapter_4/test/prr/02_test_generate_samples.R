@@ -11,7 +11,7 @@
 setwd("../src/prr/R/")
     #* load functions
 box::use(
-    ./generate_samples[generate_samples]
+    ./helper[generate_samples]
     , testthat[...]
 )
     #* execute function
@@ -128,3 +128,4 @@ test_that(
         )
     }
 )
+

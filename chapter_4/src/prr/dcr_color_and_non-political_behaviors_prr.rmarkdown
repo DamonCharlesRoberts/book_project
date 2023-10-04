@@ -51,7 +51,10 @@ execute:
 params:
   replicate: true
 ---
+
 {{< pagebreak >}}
+
+
 
 # Introduction
 
@@ -94,7 +97,37 @@ To most of us, we likely do not trust the color of a car as a basis to infer par
 There are many characteristics of a neighborhood besides car color that can better convey information about the partisanship of a neighborhood such as whether it is mixed use, in an urban or rural setting, whether there are Black Lives Matter flags, and whether the cars tend to be pickup trucks or sedans. However, the role of color is to act as a form of pre-conscious impression formation. While all of these alternative, and better, cues towards partisanship may be present, they are more complicated forms of visual information that will require more laborious processing before attitude formation. The point of the snap-judgment model is to illustrate how extremely simple visual information, such as color, shapes our thinking due to the cognitive processes that underlie impression formation and the effects of impressions after particular neurological paths are made "hot". 
 
 
-{{< include ../../../assets/_theory.qmd >}}
+---
+format: html
+---
+```{mermaid}
+%%| label: fig-theory
+%%| fig-cap: Snap-judgment model of politically-relevant visual information
+%%| fig-width: 5
+%%{init: {'theme':'base', 'themeVariables':{'primaryColor':'#ffffff', 'primaryBorderColor': '#000000'}}}%%
+graph TD
+    A[Detection of politically-relevant visual information] --> B(Activation of retrieval mechanism)
+    B --> C[Memory and contiguous paths hot]
+    C --> D[Appraisal of hot autonomous nervous system]
+    D --> E1[Negative Valence]
+    D --> E2[Positive Valence]
+    E1 --> F1[Disengagement motivation]
+    E2 --> F2[Attention activated]
+    F1 --> |Neg. new information| G1[Encoded as negative]
+    F1 --> |Pos. new information| G2[Encoded as positive]
+    F2 --> |Neg. new information| G3[Encoded as negative]
+    F2 --> |Pos. new information| G4[Encoded as positive]
+    G1 --> H1[Strengthens negative path]
+    G2 --> H2[Weakens negative path]
+    G3 --> H3[Weakens positive path]
+    G4 --> H4[Strengthens positive path]
+    G2 --> |forgotten| H1
+    H2 --> |reinforced| G2
+    H3 --> |reinforced| G3
+    G3 --> |forgotten| H4
+```
+
+
 
 # Experimental test
 
@@ -120,6 +153,7 @@ The first outcome of interest is the reported feeling thermometer that ranges fr
 The outcome of interest is a 5-item Likert scale. So the following models will be ordered logistic regressions. Much like I did with the previous models, I fit a model that includes an interaction term so that I can test whether the effect of self-reported partisan identity on a preference to live in a particular neighborhood is moderated by the reported favorite car color in that neighborhood and whether these effects are strengthened (in either direction) once we follow-up with more information. As the modeling strategy is the same, I include the same confounding variables.
 
 ## Simulations
+
 
 ```{r}
 #| label: setup-block
@@ -152,6 +186,7 @@ if (params$replicate == TRUE) {
 # Default tails
 options("marginaleffects_posterior_interval" = "hdi")
 ```
+
 
 As I am using interactive models to test my hypotheses as well as using a quasi-pre-post design, I want to be sure that my sample size will be large enough to override any effects of my modeling choices (such as choice in priors and including interaction terms) as well as design choices (quasi-pre-post-design) so that I may draw conclusions aligned with the truth -- whether those confirm or run counter to my hypotheses. To help with this, I will generate simulated samples where I know what the true parameter is and will estimate at what sample size does my modeling and research design choices have a small enough weight that I am able to draw the correct inferences.
 
@@ -259,6 +294,7 @@ These priors suggest that I believe 68% of my beta coefficients on a logged-odds
 
 After fitting each model, I construct 95% high density interval credible intervals from the model's posterior draws. I then record a value of 1 if the credible interval does not contain zero (true positive) and a value of 0 if the credible interval does (false negative) for each parameter. Once I have run each of my models for the specified sample size, I calculate the average of true positive and false negatives. This gives me a percentage of the time that I would come to the correct conclusion that there is a non-zero effect on that parameter. @fig-true-positive-rate documents these calculations for each sample size.
 
+
 ```{r}
 #| label: load-simulation-results
 
@@ -338,3 +374,4 @@ plotList[[7]]
 ```
 
 {{< pagebreak >}}
+

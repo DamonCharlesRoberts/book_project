@@ -12,11 +12,11 @@
 setwd("../src/prr/R")
     #* load functions
 box::use(
-    ./one_sample[one_sample]
+    ./helper[one_sample]
     , testthat[...]
 )
     #* execute example function
-result <- one_sample(n = 100)
+result <- one_sample(N = 100)
 
 # tests
     #* check to make sure data.frame object
@@ -43,7 +43,7 @@ test_that(
     "check columns"
     , {
         expect_true(
-            ncol(result) == 14
+            ncol(result) == 12
         )
     }
 )
