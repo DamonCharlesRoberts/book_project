@@ -57,49 +57,294 @@ params:
 
 The previous chapters demonstrated that the colors red and blue conveyed information about the partisanship of politicians and about potential discussion partners. The previous chapters also demonstrated that these effects on attitudes also influenced behaviors such as a willingness to vote for the candidate as well as willingness to have a conversation with another about politics. The previous chapter also demonstrated two other pieces to the story: (1) that the group-based information conveyed by the colors red and blue are dependent on the context, and (2) that the snap-judgments people form based on this simple visual information can shape attitudes and behaviors even when provided with more clear and explicit information about the partisan affiliation of another person.
 
-In this chapter, I try to accomplish a few goals. First, I want to expand on the previous chapters by examining whether snap-judgments are used to evaluate groups of people. Second, I want to expand on the previous chapters by examining whether the previous findings extend to non-political objects. That is, this chapter seeks to further push my testing of the boundary conditions of the snap-judgment model. The third goal is that this chapter might address an important, but still yet to be solved, puzzle with the literature of partisan sorting that I discuss with more detail in the next section. 
+In this chapter, I try to accomplish a few goals. First, I want to expand upon the previous chapters by examining whether snap-judgments are used to evaluate groups of people. Second, I want to expand upon the previous chapters by examining whether the previous findings extend to non-political objects. That is, this chapter seeks to further push my testing of the boundary conditions of the snap-judgment model. The third goal is that this chapter might address an important, but still yet to be solved, puzzle with the literature of partisan sorting that I discuss with more detail in the next section. 
 
 To achieve these three goals, the chapter builds upon a growing set of work suggesting that the politicultural differences between Democrats and Republicans are shaping seemingly non-political attitudes and behaviors such as one's choice in which neighborhood to live in. I argue in this chapter that the prevalence of red and blue cars in the driveways of houses in a neighborhood shift people's perceptions of the partisan composition of the neighborhood, and as a result, will make people less willing to move to that neighborhood when they perceive they'd be in the political minority of that neighborhood. While these snap-judgments influence attitude expression toward reported willingness to move to a neighborhood, subsequent information such as job opportunities, performance of schools, average wages to cost of living ratio, and other information limits the efficacy of these initial judgments. This seems to provide one mechanism explaining why partisan sorting is not observationally as extreme as we might expect given extensions of the literature on affective polarization and experimental and self-reported survey evidence.
 
-The implications of such findings corroborate existing work that suggests that there are an increasing number of cultural signals that people use to guess the partisanship of not just other individuals but groups of people, and that as a result partisanship and polarization are bleeding into our non-political decision-making. The implications of the argument advanced in the chapter build upon these existing findings by providing one causal mechanism as to the connection between cultural cues conveyed visually and the cognitive processing of such information. The chapter not only generalizes findings from the previous chapters to groups of people and to non-political attitudes and behaviors, but it contributes to a literature suggesting that political polarization is pervasive and is approaching universal.
+The implications of such findings corroborate existing work that suggests that there are an increasing number of cultural signals that people use to infer the partisanship of not just other individuals but groups of people, and consequently partisanship and polarization are bleeding into our non-political decision-making. The implications of the argument advanced in the chapter build upon these existing findings by providing one causal mechanism as to the connection between cultural cues conveyed visually and the cognitive processing of such information. The chapter not only generalizes findings from the previous chapters to groups of people and to non-political attitudes and behaviors, but it contributes to a literature suggesting that political polarization is pervasive as a basis of forming attitudes and is approaching universal.
 
 # Politicultural differences and their effects
 
-While political polarization certainly reflects a growing gap and consolidation of two camps of policy preferences and attitudes [@dellaposta_pluralistic_2020;@luders_attitude_2023], it manifests as something more consequential for our every-day experiences. Political polarization has come to reflect social groups that distinguish "us" versus "them" with increasingly fewer and fewer non-political social groups that are not wrapped up in our partisan group [@mason_uncivil_2018]. That is, we are not only holding fewer and fewer cross-cutting attitudes that moderate our political viewpoints [@luders_attitude_2023], but we also have fewer and fewer cross-cutting social groups that encourage interaction and experiences with perspectives of out-partisans [@mason_uncivil_2018]. The consequence of such phenomena is that we are becoming increasingly willing to harbor strong negative feelings towards those of the other political party and strong positive affectations to members of our political party [@iyengar_affect_2012;@iyengar_fear_2015].
+While political polarization certainly reflects a growing gap and consolidation of two groups of policy preferences and attitudes [@dellaposta_pluralistic_2020;@luders_attitude_2023], it manifests as something more consequential for our every-day experiences. Political polarization has come to reflect social groups that distinguish "us" versus "them" with increasingly fewer non-political social groups that are not wrapped up in our partisan group [@mason_uncivil_2018]. That is, we are not only holding fewer cross-cutting attitudes that moderate our political viewpoints [@luders_attitude_2023], but we also have fewer cross-cutting social groups that we identify with to encourage interaction and experiences with perspectives of out-partisans [@mason_uncivil_2018]. The consequence of such phenomena is that we are becoming increasingly willing to harbor strong negative feelings towards those of the other political party and strong positive affectations for members of our political party [@iyengar_affect_2012;@iyengar_fear_2015].
 
-The consequences of this affective polarization encourages discomfort being around those who identify with the other political party and finding comfort around those that share the same partisanship. In fact, some evidence suggests that it is even more sinister than comfort but rather predicts lower empathy for outpartisans [@allamong_screw_2021], as well as an increased willingness to describe outpartisans as subhuman [@martherus_party_2021]. Racists commonly use dehumanizing language to describe racial minorities [@utych_how_2018].
+The consequences of this affective polarization encourages discomfort being around those who identify with the other political party and finding comfort around those that share the same partisanship. In fact, some evidence suggests that it is even more sinister than comfort but rather predicts lower empathy for out-partisans [@allamong_screw_2021], as well as an increased willingness to describe out-partisans as subhuman [@martherus_party_2021].
 
-Evidence of this discomfort and its manifestations with out-partisans is piling up. For example, @carlson_what_2022 demonstrates that individuals perceive that they may incur social costs with friends and neighbors by engaging in a conversation with those they disagree with and expressing that disagreement, and avoid such situations as a result. Other work corroborate this finding by suggesting that individuals will be less likely to share the social media posts of political viewpoints they agree with if they perceive that they are in the political minority of those that would see that sharing of the post [@van_der_does_strategic_2022]. As a result of this tendency to speak out as a political minority in front of a group of people, individuals have fewer outpartisans in their group of folks they regularly discuss politics with [@butters_polarized_2022].
+Evidence of this discomfort and its manifestations with out-partisans is piling up. For example, @carlson_what_2022 demonstrates that individuals perceive that they may incur social costs with friends and neighbors by engaging in a conversation with those they disagree with and expressing that disagreement, and avoid such situations as a result. Other work corroborates this finding by suggesting that individuals will be less likely to share the social media posts of political viewpoints they agree with if they perceive that they are in the political minority of those that would see that sharing of the post [@van_der_does_strategic_2022]. As a result of this tendency to speak out as a political minority in front of a group of people, individuals have fewer out-partisans in their group of folks they regularly discuss politics with [@butters_polarized_2022].
 
-Building on this set of evidence, a growing area of the literature suggests that we are able to make inferences about the partisanship about other individuals, but we are able to do this for groups of people through the increasing politicultural distinctions between Republicans and Democrats. @hetherington_prius_2018 demonstrates that Republicans and Democrats are not just different in their policy preferences but rather that they live in different places and have different lifestyles. Others have replicated and built upon this work by suggesting that while there are many different types of lifestyles that Republicans and Democrats can take on, there is increasingly clear distinction between Republicans and Democrat archetypes [@rogers_politicultural_2022]. These politicultural distinctions are clear enough that we train a computer to make accurate guesses (upwards of 80%) of the partisanship by using only images of the cars in a particular neighborhood [@gebru_using_2017].
+Building on this set of evidence, a growing area of the literature suggests that we are not just able to make inferences about the partisanship about other individuals, but we are also able to do this for groups of people through the increasing politicultural distinctions between Republicans and Democrats. @hetherington_prius_2018 demonstrates that Republicans and Democrats are not just different in their policy preferences but rather that they live in different places and have different lifestyles. Others have replicated and built upon this work by suggesting that while there are many different types of lifestyles that Republicans and Democrats can take on, there is increasingly clear distinction between Republicans and Democrat archetypes [@rogers_politicultural_2022]. These politicultural distinctions are clear enough that some scholars trained a computer to make accurate inferences (upwards of 80%) of the partisan composition of a neighborhood by using only Google images of the cars parked there [@gebru_using_2017].
 
-Though not inherently or necessarily political, our communities often collectively act in political ways. For example, some evidence suggests despite variation between counties' partisan composition and lockdowns discouraging people from leaving their homes during the COVID-19 pandemic, those living in Republican counties spent more time away from home than those living in Democratic counties [@roberts_polarized_2021]. Further, we see a place-based identity for rural individuals that predict partisanship [@cramer_politics_2016; see also @lyons_youre_2021] and characteristics like expression of anti-intellectual attitudes [@lunz_trujillo_rural_2022]. While place-based identities could be separate or informative of partisan identities, some literature argues that partisanship may actually inform which community we choose to make ours.
+Though not inherently or necessarily political, our communities often collectively act in political ways. For example, some evidence suggests despite variation between counties' partisan composition and lockdowns discouraging people from leaving their homes during the COVID-19 pandemic, those living in Republican counties spent more time away from home than those living in Democratic counties [@roberts_polarized_2021]. Further, we see a place-based identity for rural individuals that predict partisanship [@cramer_politics_2016; see also @lyons_youre_2021] and characteristics like expression of anti-intellectual attitudes [@lunz_trujillo_rural_2022] as well as racism among rural Whites and white grievance among urban and suburban Whites on behalf of ruralites [@dawkins_place_2023]. While place-based identities could be separate or informative of partisan identities, some literature argues that partisanship may actually inform which community we choose to make ours.
 
-The consequences of the fewer cross-cutting social groups and increasingly homogenous cultural preferences of Republicans and Democrats manifest as dramatic differences in preferences about the communities that we are part of. @gimpel_seeking_2015 demonstrates that describing a neighborhood with explicit and implicit information (e.g., racial composition) about the partisan composition influences whether one expresses a desire or not to move and live there. Further work corroborates this finding by providing evidence from a number of studies which demonstrate that not only do people associate particular characteristics of a neighborhood such as the prevalence of churches with Republicans and hybrid cars with Democrats, but also that these features attract copartisans and repulse outpartisans [@motyl_how_2020].
+The consequences of the fewer cross-cutting social groups and increasingly homogenous cultural preferences of Republicans and Democrats manifest as dramatic differences in preferences about the communities that we are part of. @gimpel_seeking_2015 demonstrates that describing a neighborhood with explicit and implicit information (e.g., racial composition) about the partisan composition influences whether one expresses a desire or not to move and live there. Further work corroborates this finding by providing evidence from a number of studies which demonstrate that not only do people associate particular characteristics of a neighborhood such as the prevalence of churches with Republicans and hybrid cars with Democrats, but also that these features attract co-partisans and repulse out-partisans [@motyl_how_2020].
 
-Some work suggests, however, that these expressed preferences to live near copartisans do not carryover to migration patterns [see @iyengar_affect_2012]. In fact, there is some evidence suggesting that controlling for everything else but current rates of political sorting, we would have less political homogeneity than we had in 2008 [@martin_does_2020]. Further, evidence by @martin_does_2020 suggests that people switch their party registration after moving as opposed to moving to be more aligned with their party registration.
+Some work suggests, however, that these expressed preferences to live near co-partisans do not appear in migration patterns [see @iyengar_affect_2012]. In fact, there is some evidence suggesting that controlling for everything else but current rates of political sorting, we would have less political homogeneity than we had in 2008 [@martin_does_2020]. Further, evidence by @martin_does_2020 suggests that people switch their party registration after moving as opposed to moving to be more aligned with their party registration.
 
-The literature on partisan sorting seems to conclude that people express a desire to sort into neighborhoods with partisans, but these attitudes do not turn into observable behaviors. The remainder of the chapter provides one explanation for this puzzle by demonstrating how the snap-judgment model may be at play. Much like the literature on the attitude expression of partisan sorting, the snap-judgment model heavily relies on the ways in which seemingly non-political information comes to be associated with one partisan group or another. The model also demonstrates how these snap-judgments are capable of having initial impacts on attitude expression, but its effects weaken in light of explicit and countervailing information.
+The literature on partisan sorting seems to conclude that people express a desire to sort into neighborhoods with partisans, but these attitudes do not turn into observable behaviors. The remainder of the chapter applies the snap-judgment model to examine this puzzle. Much like the literature on the attitude expression of partisan sorting, the snap-judgment model heavily relies on the ways in which seemingly non-political information comes to be associated with one partisan group or another. The model also demonstrates how these snap-judgments are capable of having initial impacts on attitude expression, but its effects weaken in light of explicit and countervailing information.
 
 # Snap-judgments explaining the puzzle of political sorting
 
-As discussed thus far in the chapter, non-political objects are often associated with particular partisan leanings. For example, the modal car in a neighborhood conveys the partisan composition of the whole neighborhood [@hetherington_prius_2018;@gebru_using_2017]. In the same spirit as the rest of this book, we do not need to necessarily distinguish between whether someone drives a hybrid sedan and a Ford pickup truck. Information giving insight into one's partisanship may even be as subtle as their color choice in car. For a reader who thinks "hypothesizing about car color choice and partisanship is a reach", I agree. As stated at the outset of the chapter, the goal of the chapter is to extend past applications of the snap-judgment model to explicitly partisan objects such as yard signs as we did in Chapter 2 and to really challenge the model by looking at non-political objects that many never associate with partisanship.
+As discussed thus far in the chapter, non-political objects are often associated with particular partisan leanings. For example, the modal car in a neighborhood conveys the partisan composition of the whole neighborhood [@hetherington_prius_2018;@gebru_using_2017]. In the same spirit as the rest of this book, we do not need to necessarily distinguish between complex forms of information such as whether someone drives a hybrid sedan and a Ford pickup truck. Information giving insight into one's partisanship may even be as subtle as their color choice in car. For a reader who thinks "hypothesizing about car color choice and partisanship is a reach," I agree. As stated at the outset of the chapter, the goal of the chapter is to extend past applications of the snap-judgment model to explicitly partisan objects such as yard signs as we did in [Chapter 2](../../../chapter_2/src/manuscript.qmd) and to really challenge the model by looking at non-political objects that we may not readily associate with partisanship.
 
-Recall the snap-judgment model as depicted in @fig-theory. The model suggests that so long as politics is salient, the colors red and blue should act as a symbolic association with Republicans and Democrats, respectively. This association will trigger a pre-conscious and potent process that involves an activation of an affective state depending on one's prior experiences with Republicans and Democrats. If, when viewing those colors, activates memories of Republicans and Democrats that are negative, then your affective state will have a negative valance. If those activated memories are positive, then your affective state will have a positive valance. You will associate your affective state with the object that started the process due to the object's association with memories and their associations to Republicans and Democrats. This snap-judgment that you form will not only influence your expressed attitudes toward that object, but will influence motivations to engage more with the object or to avoid it. With new information, we can refine which memories we use to evaluate the object and can therefore form a response that is better informed. However, the snap-judgment persists and will have influences on which memories connected to that new information we are accessing. Therefore, the snap-judgment still has effects on our attitude expression and behaviors even with new information. 
+{{< include ../../../assets/_theory.qmd >}}
 
-Extending the literature on partisanship as a superordinate social identity and affective polarization, we should expect that the partisan composition of a neighborhood would matter to people. In examining yard signs, @makse_politics_2019 demonstrate that people dislike having neighbors that do not share the same partisan affiliation as them. The motivation this comes from a desire to be in the majority of those around you with the same political views [see @van_der_does_strategic_2022]. While this appears to be something important to people, information about the partisan composition of a neighborhood might be inaccessible to most. Therefore, we are motivated to rely on heuristics to help with this [@motyl_how_2020]. One useful and efficient heuristic to convey partisanship is the use of color as other chapters have demonstrated. If we are concerned about the partisanship of our neighbors, we may rely on information such as the color of our potential neighbors' cars to infer their partisanship.
+Recall the snap-judgment model as depicted in @fig-theory. The model suggests that so long as politics is salient, the colors red and blue should act as a symbolic association with Republicans and Democrats, respectively. This association will trigger a pre-conscious and potent process that involves an activation of an affective state depending on one's prior experiences with Republicans and Democrats. If, when viewing those colors, activated memories of Republicans and Democrats that are negative, then your affective state will have a negative valance. If those activated memories are positive, then your affective state will have a positive valance. You will associate your affective state with the object that started the process due to the object's association with memories and their associations to Republicans and Democrats. This snap-judgment that you form will not only influence your expressed attitudes toward that object, but will influence motivations to engage more with the object or to avoid it. With new information, we can refine which memories we use to evaluate the object and can therefore form a response that is better informed. However, the snap-judgment persists and will have influences on which memories connected to that new information we are accessing. Therefore, the snap-judgment still has effects on our attitude expression and behaviors even with new information. 
 
-To most of us, we likely do not trust the color of a car as a basis to infer partisanship as other forms of information such as whether a potential neighbor is displaying a political yard sign. However, political yard signs usually only show up every couple of years during the election season and are displayed by those who tend to be highly politically active -- so, they are not universally displayed [@makse_politics_2019]. Additionally, other decisions such as the color of the house are determined by Homeowners Associations (HOAs). The choices of car colors are less constrained by other external factors. So, we may reasonably assume that if we see a neighborhood with a significant number of red cars, we may assume that the local sports team color must be red. However, if we are searching for cues toward the partisan composition of the neighborhood, we may then assume that the neighborhood has a large number of Republicans, whether that is accurate or not. Once we have used that association between the colors red and blue with partisan affiliation, we will form a snap-judgment of our neighbors based on the color of their cars when absent other information. That impression will then elicit a positive or negative attitude toward the neighbors and neighborhood as well as encourage a congruent behavioral reaction such as wanting to avoid the neighborhood or an affinity toward it. This impression and behavioral reaction forms pre-consciously and is quickly adjusted with new information from other sources of information. However, the impression constrains what memories are accessible and therefore constrains the attitude expression and behavioral motivations toward objects even when we collect more information that either fits with or goes against our initial impression.
+Extending the literature on partisanship as a superordinate social identity and affective polarization, we should expect that the partisan composition of a neighborhood would matter to people. In examining yard signs, @makse_politics_2019 demonstrate that people dislike having neighbors that do not share the same partisan affiliation as them. The motivation this comes from a desire to be in the majority of those around you with the same political views [see @van_der_does_strategic_2022]. While this appears to be something important to people, information about the partisan composition of a neighborhood might be inaccessible to most. Therefore, we are motivated to rely on heuristics to help with this [@motyl_how_2020]. As the other chapters demonstrate, one useful and efficient heuristic to convey partisanship is the use of color. If we are concerned about the partisanship of our neighbors, we may rely on information such as the color of our potential neighbors' cars (or other pieces of their property for that matter) to infer their partisanship.
 
-There are many characteristics of a neighborhood besides car color that can better convey information about the partisanship of a neighborhood such as whether it is mixed use, in an urban or rural setting, whether there are Black Lives Matter flags, and whether the cars tend to be pickup trucks or sedans. However, the role of color is to act as a form of pre-conscious impression formation. While all of these alternative, and better, cues towards partisanship may be present, they are more complicated forms of visual information that will require more laborious processing before attitude formation. The point of the snap-judgment model is to illustrate how extremely simple visual information, such as color, shapes our thinking due to the cognitive processes that underlie impression formation and the effects of impressions after particular neurological paths are made "hot". 
+To most of us, we likely do not trust the color of a car as a basis to infer partisanship as other forms of information such as whether a potential neighbor is displaying a political yard sign. However, political yard signs usually only show up every couple of years during the election season and are displayed by those who tend to be highly politically active -- so, they are not universally displayed [@makse_politics_2019]. Additionally, other decisions such as the color of the house are determined by Homeowners Associations (HOAs). The choices of car colors are less constrained by other external factors. So, we may reasonably assume that if we see a neighborhood with a significant number of red cars, we may assume that the local sports team color must be red. However, in line with predictions from Affective Intelligence Theory, states of uncertainty and anxiety predict information seeking behavior [see @marcus_anxiety_1993]. That is, if we are searching for cues toward the partisan composition of the neighborhood, we may then assume that the neighborhood has a large number of Republicans, whether that is accurate or not. Once we have used that association between the colors red and blue with partisan affiliation, we will form a snap-judgment of our neighbors based on the color of their cars when absent other information. That impression will then elicit a positive or negative attitude toward the neighbors and neighborhood as well as encourage a congruent behavioral reaction such as wanting to avoid the neighborhood or an affinity toward it. This impression and behavioral reaction forms pre-consciously and is quickly adjusted with new information from other sources of information. However, the impression constrains what memories are accessible and therefore constrains the attitude expression and behavioral motivations toward objects even when we collect more information that either fits with or goes against our initial impression.
 
+There are many characteristics of a neighborhood besides car color that can better convey information about the partisanship of a neighborhood such as whether it is mixed use, in an urban or rural setting, whether there are Black Lives Matter flags, and whether the cars tend to be pickup trucks or sedans. However, the role of color is to act as a form of pre-conscious impression formation. While all of these alternative, and perhaps more accurate, cues towards partisanship may be present, they are more complicated forms of visual information that will require more laborious processing before attitude formation. The point of the snap-judgment model is to illustrate how extremely simple visual information, such as color, shapes our thinking due to the cognitive processes that underlie impression formation and the effects of impressions after particular neurological paths are made "hot". 
 
 {{< include ../../../assets/_theory.qmd >}}
 
 # Experimental test
 
-Applying the snap-judgment model to an individual's choice to move to a neighborhood yields the following hypotheses: with all else equal, Republicans that see that the modal color of car is Red are more likely to report wanting to move to the neighborhood than if the modal car color were blue ($H_1$); with all else equal, Democrats that see the modal color of Blue are more likely to report wanting to move to the neighborhood than if the modal car color were red ($H_2$); once we include more information about a neighborhood's partisan composition, then the strength of their desire to live in a neighborhood will increase if congruent with their partisan affiliation ($H_3$) and will weaken if incongruent with their partisan affiliation ($H_4$).
+Applying the snap-judgment model to an individual's choice to move to a neighborhood yields the following hypotheses: when primed to think about politics, participants will perceive the neighborhood to be more Republican when the favorite car color is red and to be more Democratic when the favorite car color is blue, relative to those that are not primed to think about politics ($H_1$); with all else equal, Republicans that see that the modal color of car is red are more likely to report wanting to move to the neighborhood than if the modal car color were blue ($H_2$); with all else equal, Democrats that see the modal color of blue are more likely to report wanting to move to the neighborhood than if the modal car color were red ($H_3$); once we include more information about a neighborhood's partisan composition, then the strength of their desire to live in a neighborhood will increase if congruent with their partisan affiliation ($H_4$) and will weaken if incongruent with their partisan affiliation ($H_5$).
 
-To test these hypotheses, I conduct an experiment involving a fictional real estate posting. The treatment involves randomly assigning participants to view one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite car" in the neighborhood. In the first condition the "favorite car" is a red SUV. In the second condition, the "favorite car" is the same make and model of SUV as in the first condition, but blue. Participants are then given a scale from 0-10 to rate the neighborhood and are presented with a Likert scale to indicate, "How much would [they] like to live in this neighborhood?" Once the participants have responded to these questions, they are then given a "second page" describing the neighborhood. The information subjects sees depends on which of two conditions they are randomly assigned into. In one condition, the information indicates that the neighborhood is "40 minutes from the nearest metro area" and "60% voted for the Republican candidate in the latest congressional election." The second condition presents the same information but instead describes the neighborhood as "10 minutes from the nearest metro area" and "60% voted for the Democratic candidate in the latest congressional election." With this new information, I ask participants "With this new information, please update your rating of the neighborhood" on the 0-10 scale and are again presented with a Likert scale to indicate, "How much would [they] like to live in this neighborhood?"
+To test these hypotheses, I conduct an experiment involving a fictional real estate posting. The treatment involves randomly assigning participants to view one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite color of car" in the neighborhood. In the first condition the "favorite color of car" is reported by displaying a red swatch. In the second condition, the "favorite color of car" reported by displaying a blue swatch. Participants are presented with a feeling thermometer ranging from 0-100 where participants are asked to "Rate their feelings toward the neighborhood as warm (100) or cold (0)". They are also presented with a 5-item Likert scale to indicate, "How much would [they] like to live in this neighborhood?"
+
+::: {#fig-treatments layout-ncol=2}
+
+![Blue treatment](./assets/treatments/blue_mockup.png){#fig-blue-treatment}
+
+![Red treatment](./assets/treatments/red_mockup.png){#fig-red-treatment}
+
+Treatments
+:::
+
+Once the participants have responded to these questions, they are then given a "second page" describing the neighborhood. The information subjects sees depends on which of two conditions they are randomly assigned into. In one condition, the information indicates that the neighborhood is "40 minutes from the nearest metro area" and "60% voted for the Republican candidate in the latest congressional election." The second condition presents the same information but instead describes the neighborhood as "10 minutes from the nearest metro area" and "60% voted for the Democratic candidate in the latest congressional election." With this new information, I ask participants "Rate their feelings toward the neighborhood as warm (100) or cold (0)" and are given a feeling thermometer scale to record their response. I also ask them "How much would [they] like to live in this neighborhood?" and are given a 5-item Likert scale to record their response. 
+
+## Modeling strategy
+
+The first outcome of interest is the reported feeling thermometer that ranges from 0-100. I divide the response to this outcome variable by 10 and fit an ordered beta regression [see @kubinec_ordered_2022]. As I am interested in examining how these treatments impact perceptions and resulting preferences based on partisanship, I interact the treatment with the self-reported partisan identity of the participant to examine how a participants' preference for that neighborhood is moderated by the treatment. As I am unable to randomly assign my participants' self-reported partisan identity, I want to ensure that I isolate the main and conditional effects of self-reported partisan identification from confounders such as age, and education. I also want to hold constant potential confounders of the treatment's effect on a participant outside of their partisanship such as sex and colorblindness, as well as attention paid to politics. Using these models will allow me to test the first hypothesis which predicts that people will report liking the neighborhood more when the favorite car color aligns with their partisan group -- red with Republicans and blue with Democrats, as they project the association between the colors red and blue with their partisan group onto the neighborhood. I then examine the second hypothesis which predicts that updating this information with consistent cultural stereotypes of partisan preferences for neighborhood features strengthens one's affect towards the neighborhood as a result of this new information strengthening my participants' certainty about the partisan composition of the neighborhood. These tests do not examine whether it influences one's willingness to move to the neighborhood, only one's preferences toward it. In this way, these tests are much like the outcomes examined in the common experimental tests of the observed positive affect toward neighborhoods with a partisan composition aligned with your own identity. The next outcome of interest examines the degree to which someone is willing to move to the neighborhood on this same information.
+
+The outcome of interest is a 5-item Likert scale. So the following models will be ordered logistic regressions. Much like I did with the previous models, I fit a model that includes an interaction term so that I can test whether the effect of self-reported partisan identity on a preference to live in a particular neighborhood is moderated by the reported favorite car color in that neighborhood and whether these effects are strengthened (in either direction) once we follow-up with more information. As the modeling strategy is the same, I include the same confounding variables.
+
+## Simulations
+
+```{r}
+#| label: setup-block
+
+# Set seed
+set.seed(12102022)
+
+if (params$replicate == TRUE) {
+  box::use(
+    parallel[
+      detectCores
+    ]
+    , brms[
+      brmsformula
+      , cumulative
+      , prior
+    ]
+    , rstan[stan_model]
+    , ./R/helper[
+      sim_all
+      , discrepancy_df
+      , true_positive_hist
+    ]
+  )
+  cores <- detectCores()-1
+} else {
+  box::use(
+   ./R/helper[
+    true_positive_hist
+    , discrepancy_df
+   ] 
+  )
+}
+
+# Default tails
+options("marginaleffects_posterior_interval" = "hdi")
+```
+
+As I am using interactive models to test my hypotheses as well as using a quasi-pre-post design, I want to be sure that my sample size will be large enough to override any effects of my modeling choices (such as choice in priors and including interaction terms) as well as design choices (quasi-pre-post-design) so that I may draw conclusions aligned with the truth -- whether those confirm or run counter to my hypotheses. To help with this, I will generate simulated samples where I know what the true parameter is and will estimate at what sample size does my modeling and research design choices have a small enough weight that I am able to draw the correct inferences.
+
+Using the `fabricatr` [@blair_fabricatr_2022] package, I simulate a population with an N of 1,000,000. The specified data generating processes for each of the variables are included in @lst-sim-dgp and @lst-sim-dgp-2. I then generate 500 random samples for each sample size of 200, 400, 600, and 800 participants. This sample size is not the size of the total sample I intend to recruit but is the total sample that I have data on after excluding those who fail attention checks and those who provide duplicate responses. Some estimate that insincere responses account for about 40% of a researcher's original sample [@kennedy_strategies_2021]. However, it is important to note that this is a quite conservative estimate of the proportion of insincere responses as this estimate comes from platforms that are notorious for poor convenience samples such as MTURK.
+
+``` {#lst-sim-dgp .r lst-cap="Code to generate simulated population data"}
+
+dgp <- fabricate(
+    N = 1000000, # N in the population
+    E = rnorm(N), # epsilon term
+    age = round( # define age variable
+        runif(N, 18, 85)
+    ),
+    gender = draw_binary( # define binary gender identity variable
+        N,
+        prob = 0.5
+    ),
+    white = draw_binary( # define white indicator variable
+        N,
+        prob = 0.6
+    ),
+    PartyId = draw_ordered( # define party identity variable as 3-item ordinal
+        x = rnorm(
+            N,
+            mean = 0.4 * age - 0.6 * gender + 0.7 * white + E
+        ),
+        breaks = c(
+            -Inf, 20.14, 23.01, Inf
+        )
+    ),
+    Attention = draw_ordered( # define Attention variable as 5-item ordinal
+        x = rnorm(
+            N,
+            mean = 0.5 * age - 0.3 * gender + 0.1 * white + E
+        ),
+        breaks = c(
+            -Inf, 16.5, 28.26, 36.54, 43.82, Inf
+        )
+    ),
+    ...
+```
+
+``` {#lst-sim-dgp-2 .r lst-cap="Code to generate simulated population data (continued)"}
+  ...
+    RedTreatment = draw_binary( # Simulate treatment assignment with prob 1/3
+        N,
+        prob = 1/2
+    ),
+    preference = draw_binary( # Define Preference outcome variable as 3-item ordinal
+        x = rnorm(
+            N,
+            prob = (
+              E + 1.5 * RedTreatment + 1.5 * PartyId + 2 * RedTreatment * PartyId + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+            )
+        )
+    ),
+    move = draw_ordered( # Define move outcome variable as Likert variable
+        x = rnorm(
+            N,
+            mean = (
+              E + 1 * RedTreatment + 1 * PartyId + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+            )
+        ),
+        breaks = c(
+            -Inf, -3, -1, 1, 3, Inf
+        )
+    ),
+    preference_post = draw_binary( # Define Preference (post new information) outcome variable as 3-item ordinal
+      x = rnorm(
+        N,
+        prob = (
+          E + 1 * RedTreatment + 2 * PartyID + 2.5 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+        )
+      )
+    ),
+    move_post = draw_ordered(# Define move outcome variable as Likert variable
+      x = rnorm(
+        N,
+        mean = (
+          E + 0.5 * RedTreatment + 1.5 * PartyId + 2.5 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+        )
+      ),
+      breaks = c(
+        -Inf, -3, -1, 1, 3, Inf
+      )
+    )
+)
+```
+
+To examine whether my design and modeling choices allow for the convergence on the population's data generating process, I specify an ordinal logistic regression where I set relatively constrained priors upon the $\beta$ coefficients, as depicted in @eq-party-guess-priors.
+
+$$
+\begin{split}
+  \alpha \sim Student-T(3,0,2.5) \\
+  \beta_i \sim Normal(0, 1) \\
+  \hat{Move_i} = Cumulative(logit^{-1}(\alpha_1 + \alpha_2 + \alpha_3 + \alpha_4 \\ 
+   + \beta_1 \times Red Treatment + \beta_2 \times Partisanship \\
+   + \beta_3 \times Red treatment \times Partisanship \\ 
+   + \beta_4 \times Age + \beta_5 \times Gender \\
+   + \beta_6 \times White + \beta_7 \times Attention))
+\end{split}
+$$ {#eq-party-guess-priors}
+
+These priors suggest that I believe 68% of my beta coefficients on a logged-odds scale, given the data, should be between -1 and 1; with the median of the estimates at 0. This is quite a conservative estimate given that the primary $\beta$ coefficients of interest are both at 0.1 on the logged-odds scale.
+
+After fitting each model, I construct 95% high density interval credible intervals from the model's posterior draws. I then record a value of 1 if the credible interval does not contain zero (true positive) and a value of 0 if the credible interval does (false negative) for each parameter. Once I have run each of my models for the specified sample size, I calculate the average of true positive and false negatives. This gives me a percentage of the time that I would come to the correct conclusion that there is a non-zero effect on that parameter. @fig-true-positive-rate documents these calculations for each sample size.
+
+```{r}
+#| label: load-simulation-results
+
+if (params$replicate == TRUE) {
+  # Define model arguments
+  formula <- brmsformula(
+    move ~ RedTreatment + PartyID + RedTreatment * PartyID + age + gender + white + attention
+  )
+  compiled <- stan_model(
+    "./STAN/move_model.stan"
+    ,model_name = "moveModel"
+  )
+  family <- cumulative(link = "logit")
+  priors <- prior(
+    stats::Normal(0,1)
+    ,class = b
+  )
+    # Run model
+  modelDiscrepancies <- sim_all(
+    n=c(200, 400, 600, 800)
+    , num_samples = 500
+    , formula = formula
+    , compiled = compiled
+    , family = family
+    , priors = priors
+    , cores = cores
+    , model = "moveModel"
+  )
+    # store model
+  save(
+      modelDiscrepancies
+      , file = "../../data/models/prr/sim/sim.RDS"
+  )
+} else {
+  load(
+    file = "../../data/models/prr/sim/sim.RDS"
+  )
+}
+```
+
+```{r}
+#| label: fig-true-positive-rate
+#| layout-nrow: 4
+#| fig-width: 6
+#| fig-cap: True positive rate
+#| fig-subcap: 
+#|  - "Red treatment"
+#|  - "Party Identification"
+#|  - "Red treatment x Party Identification"
+#|  - "Age"
+#|  - "Gender"
+#|  - "White"
+#|  - "Attention"
+cleanNames <- c(
+  "Sample size"
+  , "Red treatment"
+  , "Partisanship"
+  , "Red treatment x Partisanship"
+  , "Age"
+  , "Gender"
+  , "White"
+  , "Attention"
+)
+truePositiveDF <- discrepancy_df(
+  list = modelDiscrepancies
+  , new_names = cleanNames
+)
+plotList <- lapply(
+  cleanNames
+  , true_positive_hist
+  , df = truePositiveDF
+)
+plotList[[2]]
+plotList[[3]]
+plotList[[4]]
+plotList[[5]]
+plotList[[6]]
+plotList[[7]]
+```
+
+From these simulations, we can see that the true positive rate for the estimate of interest (the interaction term) holds up across different sample sizes. To be safe, however, I am going to strive to recruit more than 600 participants total which should give me a sufficient sample to work with even once I have to apply exclusion criteria.
 
 {{< pagebreak >}}

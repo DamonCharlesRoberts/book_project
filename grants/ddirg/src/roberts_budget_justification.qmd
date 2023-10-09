@@ -1,0 +1,45 @@
+---
+subtitle: Budget Justification
+format:
+  fancy-doc-pdf:
+    toc: false
+    latex-output-dir: ../out/
+    biblatex: true
+    filters:
+      #- "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+author:
+  - name: Damon C. Roberts
+    affiliations:
+      - name: Univeristy of Colorado Boulder
+    email: damon.roberts-1@colorado.edu
+bibliography: ../../../assets/references.bib
+---
+
+# Justification of Cost for Participants
+
+For the study, I am anticipating that I will pay each participant about $1.20 for their time. As I am anticipating that it will take participants approximately 6 minutes to complete the study on average. I would like to pay participants at the rate of $12.00 per hour for their time. This is above the national minimum wage and seems to be a reasonable hourly rate. It is also a recommended rate to attract participants according to the Prolific Platform.
+
+Given power calculations for the study design, my goal is to recruit about 1300 participants for my study as I anticipate that once I account for insincere responses and those who may fail attention checks ^[Given some estimates by @kennedy_et-al_2021_poq that suggest upwards of 40% of a sample should be discarded from many online samples, I want to over-estimate the recruited sample to have a sufficiently large analyzed sample.], I should have a sufficient sample to detect effects if they indeed exist.
+
+Total cost for participant payment will be $1,500.
+
+I have more details about the research design that may help assessors evaluate my timing estimates as well as the number of treatment conditions that I am using in my response for the Data Management Plan. I am including the mockups of my treatment that I discuss in the Data Management Plan here in @fig-mockup. I apologize putting these in slightly different places, but I was unable to add images to my response for the Data Management Plan.
+
+::: {#fig-mockup}
+
+![Red treatment flyer](../../../chapter_4/assets/irb/red_treatment_mockup.pdf){#fig-red height=300}
+
+![Blue treatment flyer](../../../chapter_4/assets/irb/blue_treatment_mockup.pdf){#fig-blue height=300}
+
+Treatment Mockups
+:::
+
+# Justification of Prolific Fees
+
+Prolific assigns a fee to cover their cost for managing the panel as well as for the use of their platform for recruiting participants. Given my sample size, their fee is $500.00.
+
+To ensure that my results are generalizable to the American public and do not suffer from inferential problems with conveniences samples, I am electing to ask Prolific to recruit a nationally representative sample for me based on their own algorithm but indicates that it is based on census track data. Their fee for recruiting such a sample is $1,032.67.
+
+
+
