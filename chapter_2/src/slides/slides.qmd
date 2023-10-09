@@ -36,11 +36,21 @@ box::use(
     , geom_density
     , theme_minimal
     , geom_vline
+    , labs
+    , scale_y_discrete
+    , scale_x_discrete
+  ]
+  , ggdist[
+    stat_halfeye
   ]
   , modelsummary[
     datasummary_skim
     , datasummary_balance
     , modelsummary
+  ]
+  , marginaleffects[
+    avg_slopes
+    , posterior_draws
   ]
   , ../R/predicted_prob_bar[...]
   , data.table[...]
@@ -52,6 +62,11 @@ list_df[["cleaned"]] <- read.csv(
   file = "../../data/clean/cleaned_pavlovia.csv"
 )
 # Load fitted models
+  #* Pre-test
+load(
+    file="../../data/models/prr/pre-test/pre-test_party_model.RDS"
+  )
+  #* Main studies
 load("../../data/temp/models/study_1_fitted.RData")
 ```
 
@@ -61,36 +76,42 @@ load("../../data/temp/models/study_1_fitted.RData")
 
 ```{r}
 #| label: fig-hook-1
-#| fig-cap: Probability of voting for candidate with red yard sign versus white
-#| 
-red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_3"]][["red"]]
-  , x_axis = "trial_1_red_stimuli"
-  , treatment = "Red"
-  , hypothesis = "H3"
-  , x_label = "Party ID"
-  , y_label = "Pr(Vote for candidate)"
-  , legend_title = "Treatment"
+#| fig-cap: Perceptions of candidate's party affiliation based on color of yard sign
+
+partyAMES <- avg_slopes(
+  PartyModel,
+  type = "link"
+) |>
+posterior_draws()
+
+ggplot(
+  data = partyAMES,
+  aes(
+    x = draw,
+    y = term
+  )
+) +
+stat_halfeye(
+  slab_alpha = 0.45
+) +
+theme_minimal() +
+labs(
+  x = "Average Marginal Effect",
+  y = "",
+  caption = "Data source: Pre-test.\n Distribution of AME's for model posterior draws using HDI's.\n Interpreted as the logged odds of labelling the candidate as a partisan\n given whether they viewed a red yard sign or blue yard sign\n while holding all other variables at their mean value.\n Dot reflects median posterior draw where bars reflect 90% and 95% credible intervals."
+) +
+scale_y_discrete(
+  labels = c(
+    "Blue Treatment",
+    "Red Treatment"
+  )
+) +
+ggplot2::scale_x_continuous(
+  breaks = c(-3, 0, 3)
+  , labels = c(
+    "Strong Democrat", "Independent", "Strong Republican"
+  )
 )
-
-red
-```
-
----
-
-```{r}
-#| label: fig-hook-2
-#| fig-cap: Probability of voting for candidate with blue yard sign versus white
-blue <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_3"]][["blue"]]
-  , x_axis = "trial_1_blue_stimuli"
-  , treatment = "Blue"
-  , hypothesis = "H3"
-  , x_label = "Party ID"
-  , y_label = "Pr(Vote for candidate)"
-  , legend_title = "Treatment"
-)
-blue
 ```
 
 
@@ -135,134 +156,70 @@ Party logos
 
 ![[The public](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}
 
-## Question guiding the project
+# Question guiding the project
 
 Is color a source of political information that shapes the public's behaviors and attitudes?
 
-## De-mystifying some of the jargon I might use
+# What do we know so far?
+
+## The study of visuals in politics
 
 ---
 
-- Object
-  - refers to anything out in the world that we are interacting with
-  - here, these objects are political
-- Affect $\neq$ emotion
-  - refers to the larger state of being
-  - emotion refers to consciously labeled reactions
-  - valance refers to pre-consciously 
-- "Hot Cognition"
-  - refers to the idea that some memories and experiences are more accessible or come to the top of the mind quicker.
-  - this coincides with memories and experiences that are affect-laden
-
-## Dominant models of information processing
-
-### Borrowing concepts from social neuroscience and psychology
+![[@bucy_editors_2021]](../../assets/slides/imgs/bucy_joo.png)
 
 ---
 
-- Memories:
-  -  are multi-dimensional encodings of previous experiences [@fazio_attitudes_2007]
-    - e.g., remember giving your first job talk
-      - the layout of the room
-      - the colors of the chairs
-      - what the room smelled like
-      - what ambient sounds were there
-      - how you felt
-  - affectively laden [@fazio_attitudes_2007;@winkielman_emotion_2011; @kensinger_affective_2022]
-  - easier retrieved when recent and/or shares multiple commonalities with current object
-
-### Zaller's [-@zaller_nature_1992] Memory model
+![](../../assets/slides/imgs/dan_arendt.png){.absolute bottom=0 left=0}
+![](../../assets/slides/imgs/lindholm_et-al.png){.absolute top=200 left=0}
+![](../../assets/slides/imgs/nina_et-al.png){.absolute top=0 left=0}
 
 ---
 
-```{mermaid}
-%%| label: fig-zaller
-%%| fig-cap: Memory model of info processing
-graph TD;
-A[Sampled pre-existing info] -->|Stronger impacts when less pre-existing knowledge| C[Updated attitudes]
-B[New info] --> C
-```
+![[@schloss_politics_2014]](../../assets/slides/imgs/schloss_palmer.png){.absolute top=0 height=400}
+![[@williams_whats_2022]](../../assets/slides/imgs/williams_et-al.png){.absolute bottom=200 right=0 height=400}
+![[@casiraghi_colors_2022]](../../assets/slides/imgs/casiraghi_et-al.png){.absolute bottom=0 right=0 height=400}
+
+## Canonical models of **political** information processing
 
 ---
 
-```{r}
-#| label: sim-visualization
 
-df <- fabricatr::fabricate(
-  N = 10000,
-  pop = rnorm(n = N, mean = 2, sd = 1),
-  sample_strong = rnorm(n = N, mean = 2, sd = 0.5),
-  updated_strong = rnorm(n = N, mean = 1.9, sd = 1),
-  sample_weak = rnorm(n = N, mean = 2, sd = 2),
-  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
-)
-```
 
-```{r}
-#| label: fig-pre-existing-info
-#| fig-cap: Set of pre-existing attitudes
-ggplot(data = df) +
-  geom_density(aes(x = pop)) +
-  geom_vline(aes(xintercept = 2), linetype = 1) +
-  theme_minimal()
-```
+## Integrating key perspectives from the cognitive sciences
 
 ---
 
-```{r}
-#| label: fig-sample-pre-existing-info
-#| fig-cap: Pre-existing attitudes used
-#| fig-subcap:
-#|   - Unknowledgeable person
-#|   - Knowledgeable person
-ggplot(data = df) +
-  geom_density(aes(x = sample_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = sample_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-```
+![[@collins_spreading-activation_1975]](../../assets/slides/imgs/collins_loftus.png){.absolute top=100}
+![[@fazio_attitudes_2007]](../../assets/slides/imgs/fazio.png){.absolute bottom=100}
 
 ---
 
-```{r}
-#| label: fig-new-attitude
-#| fig-cap: Updated set of attitudes
-#| fig-subcap:
-#|   - Unknowledgeable person
-#|   - Knowledgeable person
-ggplot(data = df) +
-  geom_density(aes(x = updated_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  1.5), linetype = 2) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = updated_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  1.9), linetype = 2) +
-  theme_minimal()
-```
-
-### Lodge and Taber's [-@lodge_rationalizing_2013] Online model
+![[@sander_cambridge_2013]](../../assets/slides/imgs/affective_neuro.jpg){.absolute top=100 height=600}
+![[@adolphs_emotion_2011]](../../assets/slides/imgs/affective_neuroscience.webp){.absolute bottom=100 right=0}
 
 ---
 
-```{mermaid}
-%%| label: fig-online-model
-%%| fig-cap: Online model of info processing
-%%| fig-width: 6.5
-graph TD;
-A[Pre-existing beliefs] --> C[Updated beliefs]
-B[New information] -->|If it aligns with current beliefs| C
-```
+![[@zajonc_feeling_1980]](../../assets/slides/imgs/zajonc.png){.absolute top=50 right=50 height=300}
+![](../../assets/slides/imgs/erisen_et-al.png){.absolute bottom=50 left=50}
 
-## Amending those models with the Snap-judgment model
+## Canonical models of **political** information processing
+
+---
+
+![[@zaller_nature_1992]](../../assets/slides/imgs/zaller.jpg){.absolute left=0}
+![](../../assets/slides/imgs/zaller_feldman.png){.absolute right=0}
+![[@taber_motivated_2006]](../../assets/slides/imgs/taber_lodge.png){.absolute top=200 right=0}
+![[@lodge_rationalizing_2013]](../../assets/slides/imgs/lodge_taber.jpg){.absolute top=100}
+![[@taber_illusion_2016]](../../assets/slides/imgs/taber_lodge_2016.png){.absolute top=400}
+
+## A snap-judgment model of **visual** political information processing
 
 ---
 
 {{< include ../../../assets/_theory.qmd >}}
+
+---
 
 - Implications
   - Refines existing info. processing models to consider pre-conscious influences.
