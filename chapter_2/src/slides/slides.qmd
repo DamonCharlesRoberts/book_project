@@ -114,6 +114,18 @@ ggplot2::scale_x_continuous(
 )
 ```
 
+---
+
+![[Kirkland Signature]()](../../assets/slides/imgs/kirkland.svg){#fig-kirkland width=6.5in}
+
+---
+
+![[BP]()](../../assets/slides/imgs/bp.png){#fig-bp width=6.5in}
+
+---
+
+![[Example of brand UI]()](../../assets/slides/imgs/green_bubble.jpeg){.absolute left=100 width=4.5in #fig-brand-ui}
+![[The great divide]()](../../assets/slides/imgs/green_bubble_funny.png){.absolute right=100 width=4.5in #fig-brand-divide}
 
 ## How are colors used in politics?
 
@@ -175,33 +187,6 @@ Party logos
 ![[@schloss_politics_2014]](../../assets/slides/imgs/schloss_palmer.png){.absolute top=0 height=400}
 ![[@williams_whats_2022]](../../assets/slides/imgs/williams_et-al.png){.absolute bottom=200 right=0 height=400}
 ![[@casiraghi_colors_2022]](../../assets/slides/imgs/casiraghi_et-al.png){.absolute bottom=0 right=0 height=400}
-
-## Integrating key perspectives from the cognitive sciences
-
----
-
-![[@collins_spreading-activation_1975]](../../assets/slides/imgs/collins_loftus.png){.absolute top=100}
-![[@fazio_attitudes_2007]](../../assets/slides/imgs/fazio.png){.absolute bottom=100}
-
----
-
-![[@sander_cambridge_2013]](../../assets/slides/imgs/affective_neuro.jpg){.absolute top=100 height=600}
-![[@adolphs_emotion_2011]](../../assets/slides/imgs/affective_neuroscience.webp){.absolute bottom=100 right=0}
-
----
-
-![[@zajonc_feeling_1980]](../../assets/slides/imgs/zajonc.png){.absolute top=50 right=50 height=300}
-![](../../assets/slides/imgs/erisen_et-al.png){.absolute bottom=50 left=50}
-
-## Canonical models of **political** information processing
-
----
-
-![[@zaller_nature_1992]](../../assets/slides/imgs/zaller.jpg){.absolute left=0}
-![](../../assets/slides/imgs/zaller_feldman.png){.absolute right=0}
-![[@taber_motivated_2006]](../../assets/slides/imgs/taber_lodge.png){.absolute top=200 right=0}
-![[@lodge_rationalizing_2013]](../../assets/slides/imgs/lodge_taber.jpg){.absolute top=100}
-![[@taber_illusion_2016]](../../assets/slides/imgs/taber_lodge_2016.png){.absolute top=400}
 
 ## A snap-judgment model of **visual** political information processing
 
