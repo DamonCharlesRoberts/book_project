@@ -9,10 +9,10 @@ format:
     theme: [dark, ../../assets/slides/custom.scss]
     transition: slide
     scrollable: true
-    incremental: true
+    incremental: false
     slide-number: true
-    toc: true
-    toc-depth: 2
+    toc: false
+    #toc-depth: 2
     slide-level: 5
     bibliography: ../../../assets/candidate_support_chapter_references.bib   
     self-contained: true
@@ -156,10 +156,6 @@ Party logos
 
 ![[The public](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}
 
-# Question guiding the project
-
-Is color a source of political information that shapes the public's behaviors and attitudes?
-
 # What do we know so far?
 
 ## The study of visuals in politics
@@ -179,12 +175,6 @@ Is color a source of political information that shapes the public's behaviors an
 ![[@schloss_politics_2014]](../../assets/slides/imgs/schloss_palmer.png){.absolute top=0 height=400}
 ![[@williams_whats_2022]](../../assets/slides/imgs/williams_et-al.png){.absolute bottom=200 right=0 height=400}
 ![[@casiraghi_colors_2022]](../../assets/slides/imgs/casiraghi_et-al.png){.absolute bottom=0 right=0 height=400}
-
-## Canonical models of **political** information processing
-
----
-
-
 
 ## Integrating key perspectives from the cognitive sciences
 
@@ -249,7 +239,7 @@ Is color a source of political information that shapes the public's behaviors an
 ---
 
 - Collect around 1,000 yard signs from House elections
-  - 2016-2024
+  - 2016-2022
 - Measuring the colors used on a yard sign:
   - Use a machine learning Python Library, `OpenCV` [@bradski_opencv_2000], that reads images and classifies their components.
     - Trained to classify each pixel in the image
@@ -372,39 +362,39 @@ red
 
 ---
 
-::: {#fig-trial-1}
+::: {.r-stack #fig-trial-1}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_1.png){#fig-red-1 width="6.5in"}
+![Red condition](../study_1/assets/rep_yard_sign_round_1.png){.fragment #fig-red-1 width="6.5in"}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_1.png){#fig-blue-1 width="6.5in"}
+![Blue condition](../study_1/assets/dem_yard_sign_round_1.png){.fragment #fig-blue-1 width="6.5in"}
 
-![White condition](../study_1/assets/cont_yard_sign_round_1.png){#fig-white-1 width="6.5in"}
+![White condition](../study_1/assets/cont_yard_sign_round_1.png){.fragment #fig-white-1 width="6.5in"}
 
 Trial 1
 :::
 
 ---
 
-::: {#fig-trial-2}
+::: {.r-stack #fig-trial-2}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_2.png){#fig-red-2 width=6.5in}
+![Red condition](../study_1/assets/rep_yard_sign_round_2.png){.fragment #fig-red-2 width=6.5in}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_2.png){#fig-blue-2 width=6.5in}
+![Blue condition](../study_1/assets/dem_yard_sign_round_2.png){.fragment #fig-blue-2 width=6.5in}
 
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){#fig-white-2 width=6.5in}
+![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment #fig-white-2 width=6.5in}
 
 Trial 2
 :::
 
 ---
 
-::: {#fig-trial-3}
+::: {.stack #fig-trial-3}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_3.png){#fig-red-3 width=6.5in}
+![Red condition](../study_1/assets/rep_yard_sign_round_3.png){.fragment #fig-red-3 width=6.5in}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_3.png){#fig-blue-3 width=6.5in}
+![Blue condition](../study_1/assets/dem_yard_sign_round_3.png){.fragment #fig-blue-3 width=6.5in}
 
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){#fig-white-3 width=6.5in}
+![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment #fig-white-3 width=6.5in}
 
 Trial 3
 :::
@@ -438,6 +428,7 @@ red
 
 ```{r}
 #| label: fig-h-2-predictions-2
+#| fig-cap: Blue yard signs = Democratic candidate
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["blue_multinomial"]]
   , x_axis = "trial_1_blue_stimuli"
@@ -485,6 +476,8 @@ plot_trial_3_blue
 
 ### Do these associations inform important political behavior?
 
+---
+
 ```{r}
 #| label: fig-h-3-predictions-1
 #| fig-cap: Republicans are more likely to vote for candidate with red yard sign, Democrats less likely
@@ -500,6 +493,8 @@ red <- predicted_prob_bar(
 
 red
 ```
+
+---
 
 ```{r}
 #| label: fig-h-3-predictions-2
