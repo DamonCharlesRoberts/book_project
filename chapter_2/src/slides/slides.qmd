@@ -9,10 +9,10 @@ format:
     theme: [dark, ../../assets/slides/custom.scss]
     transition: slide
     scrollable: true
-    incremental: true
+    incremental: false
     slide-number: true
-    toc: true
-    toc-depth: 2
+    toc: false
+    #toc-depth: 2
     slide-level: 5
     bibliography: ../../../assets/candidate_support_chapter_references.bib   
     self-contained: true
@@ -36,11 +36,21 @@ box::use(
     , geom_density
     , theme_minimal
     , geom_vline
+    , labs
+    , scale_y_discrete
+    , scale_x_discrete
+  ]
+  , ggdist[
+    stat_halfeye
   ]
   , modelsummary[
     datasummary_skim
     , datasummary_balance
     , modelsummary
+  ]
+  , marginaleffects[
+    avg_slopes
+    , posterior_draws
   ]
   , ../R/predicted_prob_bar[...]
   , data.table[...]
@@ -52,14 +62,72 @@ list_df[["cleaned"]] <- read.csv(
   file = "../../data/clean/cleaned_pavlovia.csv"
 )
 # Load fitted models
+  #* Pre-test
+load(
+    file="../../data/models/prr/pre-test/pre-test_party_model.RDS"
+  )
+  #* Main studies
 load("../../data/temp/models/study_1_fitted.RData")
 ```
 
-## Follow-along
-
 ![QR Code](../../assets/slides/imgs/qr-code.png){#fig-qr}
 
-## Visual politics is not new politics, but "hot" politics
+---
+
+```{r}
+#| label: fig-hook-1
+#| fig-cap: Perceptions of candidate's party affiliation based on color of yard sign
+
+partyAMES <- avg_slopes(
+  PartyModel,
+  type = "link"
+) |>
+posterior_draws()
+
+ggplot(
+  data = partyAMES,
+  aes(
+    x = draw,
+    y = term
+  )
+) +
+stat_halfeye(
+  slab_alpha = 0.45
+) +
+theme_minimal() +
+labs(
+  x = "Average Marginal Effect",
+  y = "",
+  caption = "Data source: Pre-test.\n Distribution of AME's for model posterior draws using HDI's.\n Interpreted as the logged odds of labelling the candidate as a partisan\n given whether they viewed a red yard sign or blue yard sign\n while holding all other variables at their mean value.\n Dot reflects median posterior draw where bars reflect 90% and 95% credible intervals."
+) +
+scale_y_discrete(
+  labels = c(
+    "Blue Treatment",
+    "Red Treatment"
+  )
+) +
+ggplot2::scale_x_continuous(
+  breaks = c(-3, 0, 3)
+  , labels = c(
+    "Strong Democrat", "Independent", "Strong Republican"
+  )
+)
+```
+
+---
+
+![[Kirkland Signature]()](../../assets/slides/imgs/kirkland.svg){#fig-kirkland width=6.5in}
+
+---
+
+![[BP]()](../../assets/slides/imgs/bp.png){#fig-bp width=6.5in}
+
+---
+
+![[Example of brand UI]()](../../assets/slides/imgs/green_bubble.jpeg){.absolute left=100 width=4.5in #fig-brand-ui}
+![[The great divide]()](../../assets/slides/imgs/green_bubble_funny.png){.absolute right=100 width=4.5in #fig-brand-divide}
+
+## How are colors used in politics?
 
 ---
 
@@ -100,242 +168,31 @@ Party logos
 
 ![[The public](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}
 
-## Question guiding the project
+# What do we know so far?
 
-Is color a source of political information that shapes the public's behaviors and attitudes?
-
-## De-mystifying some of the jargon I might use
+## The study of visuals in politics
 
 ---
 
-- Object
-  - refers to anything out in the world that we are interacting with
-  - here, these objects are political
-- Affect $\neq$ emotion
-  - refers to the larger state of being
-  - emotion refers to consciously labeled reactions
-  - valance refers to pre-consciously 
-- "Hot Cognition"
-  - refers to the idea that some memories and experiences are more accessible or come to the top of the mind quicker.
-  - this coincides with memories and experiences that are affect-laden
-
-## Dominant models of information processing
-
-### Borrowing concepts from social neuroscience and psychology
+![[@bucy_editors_2021]](../../assets/slides/imgs/bucy_joo.png)
 
 ---
 
-- Memories:
-  -  are multi-dimensional encodings of previous experiences [@fazio_attitudes_2007]
-    - e.g., remember giving your first job talk
-      - the layout of the room
-      - the colors of the chairs
-      - what the room smelled like
-      - what ambient sounds were there
-      - how you felt
-  - affectively laden [@fazio_attitudes_2007;@winkielman_emotion_2011; @kensinger_affective_2022]
-  - easier retrieved when recent and/or shares multiple commonalities with current object
-
-### Zaller's [-@zaller_nature_1992] Memory model
+![](../../assets/slides/imgs/dan_arendt.png){.absolute bottom=0 left=0}
+![](../../assets/slides/imgs/lindholm_et-al.png){.absolute top=200 left=0}
+![](../../assets/slides/imgs/nina_et-al.png){.absolute top=0 left=0}
 
 ---
 
-```{mermaid}
-%%| label: fig-zaller
-%%| fig-cap: Memory model of info processing
-graph TD;
-A[Sampled pre-existing info] -->|Stronger impacts when less pre-existing knowledge| C[Updated attitudes]
-B[New info] --> C
-```
+![[@schloss_politics_2014]](../../assets/slides/imgs/schloss_palmer.png){.absolute top=0 height=400}
+![[@williams_whats_2022]](../../assets/slides/imgs/williams_et-al.png){.absolute bottom=200 right=0 height=400}
+![[@casiraghi_colors_2022]](../../assets/slides/imgs/casiraghi_et-al.png){.absolute bottom=0 right=0 height=400}
 
----
-
-```{r}
-#| label: sim-visualization
-
-df <- fabricatr::fabricate(
-  N = 10000,
-  pop = rnorm(n = N, mean = 2, sd = 1),
-  sample_strong = rnorm(n = N, mean = 2, sd = 0.5),
-  updated_strong = rnorm(n = N, mean = 1.9, sd = 1),
-  sample_weak = rnorm(n = N, mean = 2, sd = 2),
-  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
-)
-```
-
-```{r}
-#| label: fig-pre-existing-info
-#| fig-cap: Set of pre-existing attitudes
-ggplot(data = df) +
-  geom_density(aes(x = pop)) +
-  geom_vline(aes(xintercept = 2), linetype = 1) +
-  theme_minimal()
-```
-
----
-
-```{r}
-#| label: fig-sample-pre-existing-info
-#| fig-cap: Pre-existing attitudes used
-#| fig-subcap:
-#|   - Unknowledgeable person
-#|   - Knowledgeable person
-ggplot(data = df) +
-  geom_density(aes(x = sample_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = sample_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-```
-
----
-
-```{r}
-#| label: fig-new-attitude
-#| fig-cap: Updated set of attitudes
-#| fig-subcap:
-#|   - Unknowledgeable person
-#|   - Knowledgeable person
-ggplot(data = df) +
-  geom_density(aes(x = updated_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  1.5), linetype = 2) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = updated_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  1.9), linetype = 2) +
-  theme_minimal()
-```
-
-### Lodge and Taber's [-@lodge_rationalizing_2013] Online model
-
----
-
-```{mermaid}
-%%| label: fig-online-model
-%%| fig-cap: Online model of info processing
-%%| fig-width: 6.5
-graph TD;
-A[Pre-existing beliefs] --> C[Updated beliefs]
-B[New information] -->|If it aligns with current beliefs| C
-```
-
----
-
-```{r}
-#| label: sim-visualization-online
-
-df <- fabricatr::fabricate(
-  N = 10000,
-  pop = rnorm(n = N, mean = 2, sd = 1),
-  sample_strong = rnorm(n = N, mean = 2, sd = 0.5),
-  updated_strong = rnorm(n = N, mean = 2, sd = 1),
-  sample_weak = rnorm(n = N, mean = 2, sd = 2),
-  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
-)
-```
-
-```{r}
-#| label: fig-pre-existing
-#| fig-cap: Pre-existing beliefs
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = sample_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-
-ggplot(data = df) +
-  geom_density(aes(x = sample_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  theme_minimal()
-```
-
----
-
-```{r}
-#| label: fig-updated
-#| fig-cap: Updated beliefs
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = updated_strong)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  2), linetype = 2) +
-  theme_minimal()
-
-ggplot(data = df) +
-  geom_density(aes(x = updated_weak)) +
-  geom_vline(aes(xintercept =  2), linetype = 1) +
-  geom_vline(aes(xintercept =  1.5), linetype = 2) +
-  theme_minimal()
-```
-
-## Amending those models with the Snap-judgment model
+## A snap-judgment model of **visual** political information processing
 
 ---
 
 {{< include ../../../assets/_theory.qmd >}}
-
----
-
-```{r}
-#| label: sim-snap-judgment
-
-df <- fabricatr::fabricate(
-  N = 10000,
-  pop = rnorm(n = N, mean = 2, sd = 1),
-  sample_strong = rnorm(n = N, mean = 2.5, sd = 0.5),
-  updated_strong = rnorm(n = N, mean = 2.5, sd = 1),
-  sample_weak = rnorm(n = N, mean = 2.5, sd = 2),
-  updated_weak = rnorm(n = N, mean = 1.5, sd = 1)
-)
-```
-
-```{r}
-#| label: fig-snap-sample
-#| fig-cap: Pre-existing beliefs based on visual information
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = sample_strong)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = sample_weak)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  theme_minimal()
-```
-
----
-
-```{r}
-#| label: fig-snap-updated
-#| fig-cap: Updated beliefs with visual information
-#| fig-subcap:
-#|   - Weak accuracy, strong pre-existing
-#|   - Strong accuracy, weak pre-existing
-
-ggplot(data = df) +
-  geom_density(aes(x = updated_strong)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  geom_vline(aes(xintercept = 2.5), linetype = 2) +
-  theme_minimal()
-ggplot(data = df) +
-  geom_density(aes(x = updated_weak)) +
-  geom_vline(aes(xintercept = 2.5), linetype = 1) +
-  geom_vline(aes(xintercept = 1.5), linetype = 2) +
-  theme_minimal()
-```
 
 ---
 
@@ -367,7 +224,7 @@ ggplot(data = df) +
 ---
 
 - Collect around 1,000 yard signs from House elections
-  - 2016-2024
+  - 2016-2022
 - Measuring the colors used on a yard sign:
   - Use a machine learning Python Library, `OpenCV` [@bradski_opencv_2000], that reads images and classifies their components.
     - Trained to classify each pixel in the image
@@ -435,26 +292,31 @@ print("For the example in @fig-color-detection-example, about {:.2f}".format(per
 ---
 
 ```{r}
-#| label: fig-study-2-pred
-#| layout-ncol: 1
+#| label: fig-study-2-pred-1
 #| fig-cap: More blue on the yard signs in Democratic strongholds
-#| fig-subcap:
-#|   - Proportion of red
-#|   - Proportion of blue
-red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_5"]][["red"]]
-  , treatment = "Red"
-  , hypothesis = "H5"
-)
+
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_5"]][["blue"]]
   , treatment = "Blue"
   , hypothesis = "H5"
 )
-red
+
 blue
 ```
 
+---
+
+```{r}
+#| label: fig-study-2-pred-2
+#| fig-cap: Less red on the yard signs in Democratic strongholds
+
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["red"]]
+  , treatment = "Red"
+  , hypothesis = "H5"
+)
+red
+```
 
 ## Study 2
 
@@ -485,39 +347,39 @@ blue
 
 ---
 
-::: {#fig-trial-1}
+::: {.r-stack #fig-trial-1}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_1.png){#fig-red-1 width="6.5in"}
+![Red condition](../study_1/assets/rep_yard_sign_round_1.png){.fragment #fig-red-1 width="6.5in"}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_1.png){#fig-blue-1 width="6.5in"}
+![Blue condition](../study_1/assets/dem_yard_sign_round_1.png){.fragment #fig-blue-1 width="6.5in"}
 
-![White condition](../study_1/assets/cont_yard_sign_round_1.png){#fig-white-1 width="6.5in"}
+![White condition](../study_1/assets/cont_yard_sign_round_1.png){.fragment #fig-white-1 width="6.5in"}
 
 Trial 1
 :::
 
 ---
 
-::: {#fig-trial-2}
+::: {.r-stack #fig-trial-2}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_2.png){#fig-red-2 width=6.5in}
+![Red condition](../study_1/assets/rep_yard_sign_round_2.png){.fragment #fig-red-2 width=6.5in}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_2.png){#fig-blue-2 width=6.5in}
+![Blue condition](../study_1/assets/dem_yard_sign_round_2.png){.fragment #fig-blue-2 width=6.5in}
 
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){#fig-white-2 width=6.5in}
+![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment #fig-white-2 width=6.5in}
 
 Trial 2
 :::
 
 ---
 
-::: {#fig-trial-3}
+::: {.stack #fig-trial-3}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_3.png){#fig-red-3 width=6.5in}
+![Red condition](../study_1/assets/rep_yard_sign_round_3.png){.fragment #fig-red-3 width=6.5in}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_3.png){#fig-blue-3 width=6.5in}
+![Blue condition](../study_1/assets/dem_yard_sign_round_3.png){.fragment #fig-blue-3 width=6.5in}
 
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){#fig-white-3 width=6.5in}
+![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment #fig-white-3 width=6.5in}
 
 Trial 3
 :::
@@ -538,22 +400,25 @@ Trial 3
 ---
 
 ```{r}
-#| label: fig-h-2-predictions
-#| layout-nrow: 1
-#| fig-cap: The partisanship of candidates change depending on the color of the yard sign
-#| fig-subcap:
-#|   - Red treatment
-#|   - Blue treatment
+#| label: fig-h-2-predictions-1
+#| fig-cap: Red yard signs = Republican candidate
 red <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["red_multinomial"]]
   , x_axis = "trial_1_red_stimuli"
 )
+red
+```
+
+---
+
+```{r}
+#| label: fig-h-2-predictions-2
+#| fig-cap: Blue yard signs = Democratic candidate
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["blue_multinomial"]]
   , x_axis = "trial_1_blue_stimuli"
   , treatment = "Blue"
 )
-red
 blue
 ```
 
@@ -596,13 +461,11 @@ plot_trial_3_blue
 
 ### Do these associations inform important political behavior?
 
+---
+
 ```{r}
-#| label: fig-h-3-predictions
-#| layout-nrow: 1
-#| fig-cap: Probability of voting for candidate with yard sign
-#| fig-subcap:
-#|   - Red treatment
-#|   - Blue treatment
+#| label: fig-h-3-predictions-1
+#| fig-cap: Republicans are more likely to vote for candidate with red yard sign, Democrats less likely
 red <- predicted_prob_bar(
   fitted_model = list_fitted[["h_3"]][["red"]]
   , x_axis = "trial_1_red_stimuli"
@@ -612,6 +475,15 @@ red <- predicted_prob_bar(
   , y_label = "Pr(Vote for candidate)"
   , legend_title = "Treatment"
 )
+
+red
+```
+
+---
+
+```{r}
+#| label: fig-h-3-predictions-2
+#| fig-cap: Democrats are more likely to vote for candidate with blue yard signs, Republicans less likely
 blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_3"]][["blue"]]
   , x_axis = "trial_1_blue_stimuli"
@@ -621,7 +493,7 @@ blue <- predicted_prob_bar(
   , y_label = "Pr(Vote for candidate)"
   , legend_title = "Treatment"
 )
-red
+
 blue
 ```
 
