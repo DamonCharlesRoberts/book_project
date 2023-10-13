@@ -17,9 +17,13 @@ format:
     bibliography: ../../../assets/candidate_support_chapter_references.bib   
     self-contained: true
     output-file: color-book.html
+    fig-responsive: false
+    margin: 0
 execute:
   echo: false
   freeze: true
+  eval: true
+  cache: true
 nocite: |
   @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017,
 ---
@@ -116,6 +120,46 @@ ggplot2::scale_x_continuous(
 
 ---
 
+![[Shell]()](../../assets/slides/imgs/shell.png){#fig-shell width=6.5in}
+
+---
+
+---
+
+```{mermaid}
+%%| label: fig-shell-color
+%%| fig-cap: Associative memory
+%%| eval: true
+flowchart LR;
+
+A["Yellow"]
+A --> B["Banana"]
+A --> C["Rubber duck"]
+A --> D["Shell"]
+A --> E["Leaves"]
+```
+
+---
+
+```{mermaid}
+%%| label: fig-shell-affect
+%%| fig-cap: Object evaluation
+%%| eval: true
+flowchart LR;
+
+A["Yellow"]
+A -.-> B["Banana"]
+A -.-> C["Rubber duck"]
+A --> D["Shell"]
+A -.-> E["Leaves"]
+D --> F["Avoid"]
+```
+
+---
+
+<!--
+---
+
 ![[Kirkland Signature]()](../../assets/slides/imgs/kirkland.svg){#fig-kirkland width=6.5in}
 
 ---
@@ -124,6 +168,7 @@ ggplot2::scale_x_continuous(
 
 ---
 
+-->
 ![[Example of brand UI]()](../../assets/slides/imgs/green_bubble.jpeg){.absolute left=100 width=4.5in #fig-brand-ui}
 ![[The great divide]()](../../assets/slides/imgs/green_bubble_funny.png){.absolute right=100 width=4.5in #fig-brand-divide}
 
@@ -143,7 +188,6 @@ ggplot2::scale_x_continuous(
 
 1980 Presidential Party National Conventions
 :::
-
 
 ---
 
@@ -219,7 +263,7 @@ Party logos
 - Do these associations have systematic influences on campaign strategy? (Study 1)
 - Are these hunches correct that these colors can reliably cue partisanship? (Study 2)
 
-### Outcome variable - How much red and blue do campaigns use?
+### Measurement: How much red and blue do campaigns use?
 
 ---
 
@@ -277,7 +321,7 @@ Detecting colors in the GOP logo
 print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
 ```
 
-### Predictor variable - What is the partisan composition of the district?
+### Measurement: What is the partisan composition of the district?
 
 ---
 
@@ -287,7 +331,7 @@ print("For the example in @fig-color-detection-example, about {:.2f}".format(per
 - Measuring partisan composition of district:
   - Calculate rolling 5-year average of the Democratic party's vote share for each district
 
-### Do campaigns use a different proportion of the colors red and blue based on partisan composition?
+### Do campaigns use a different proportion of the colors red and blue in different constituency compositions?
 
 ---
 
@@ -347,41 +391,38 @@ red
 
 ---
 
-::: {.r-stack #fig-trial-1}
+::: {.r-stack}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_1.png){.fragment #fig-red-1 width="6.5in"}
+![](../study_1/assets/rep_yard_sign_round_1.png){.fragment width="6.5in"}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_1.png){.fragment #fig-blue-1 width="6.5in"}
+![](../study_1/assets/dem_yard_sign_round_1.png){.fragment width="6.5in"}
 
-![White condition](../study_1/assets/cont_yard_sign_round_1.png){.fragment #fig-white-1 width="6.5in"}
+![](../study_1/assets/cont_yard_sign_round_1.png){.fragment width="6.5in"}
 
-Trial 1
 :::
 
 ---
 
-::: {.r-stack #fig-trial-2}
+::: {.r-stack}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_2.png){.fragment #fig-red-2 width=6.5in}
+![](../study_1/assets/rep_yard_sign_round_2.png){.fragment width=6.5in}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_2.png){.fragment #fig-blue-2 width=6.5in}
+![](../study_1/assets/dem_yard_sign_round_2.png){.fragment width=6.5in}
 
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment #fig-white-2 width=6.5in}
+![](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment width=6.5in}
 
-Trial 2
 :::
 
 ---
 
-::: {.stack #fig-trial-3}
+::: {.r-stack}
 
-![Red condition](../study_1/assets/rep_yard_sign_round_3.png){.fragment #fig-red-3 width=6.5in}
+![](../study_1/assets/rep_yard_sign_round_3.png){.fragment width=6.5in}
 
-![Blue condition](../study_1/assets/dem_yard_sign_round_3.png){.fragment #fig-blue-3 width=6.5in}
+![](../study_1/assets/dem_yard_sign_round_3.png){.fragment width=6.5in}
 
-![White condition](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment #fig-white-3 width=6.5in}
+![](../study_1/assets/cont_yard_sign_round_2_3.png){.fragment width=6.5in}
 
-Trial 3
 :::
 
 #### Design
