@@ -210,7 +210,7 @@ Though it appears that at least one consulting firm of campaign marketing profes
 
 To gather evidence generalizing the belief that campaigns strategically use the colors red and blue to tap into possible associations of these colors with partisanship, I began by collecting data from the MIT Election Lab that reports the electoral results of the House of Representative elections from the years 1970-2020. The data report the number of votes for each candidate in any given race. With these data, I calculate the rolling 5-year average of the Democratic party's vote share for each district to account for particularly unique electoral events.
 
-Next, I use a combination of HTML and XML tags to identify then download around 1,000 yard signs from House elections from the years 2016 to 2024 from the website provided by the Center for American Politics and Design. I used the `OpenCV` library in `Python` to examine the proportion of the colors near the "Republican red"^[lower RGB values: 93, 9, 12; upper RGB values: 236, 69, 75] and "Democratic blue"^[lower RGB values: 0, 18, 26; upper RGB values [102, 212, 255]] in each of these yard signs.
+Next, I use a combination of HTML and XML tags to identify then download around 1,000 yard signs from House elections from the years 2016 to 2022 from the website provided by the Center for American Politics and Design. I used the `OpenCV` library in `Python` to examine the proportion of the colors near the "Republican red"^[lower RGB values: 93, 9, 12; upper RGB values: 236, 69, 75] and "Democratic blue"^[lower RGB values: 0, 18, 26; upper RGB values [102, 212, 255]] in each of these yard signs.
 
 This approach to measure of the proportion of the Republican red and Democrat blue colors takes a lot of the guess work out of manually coding this. For example, I downloaded the GOP logo used on the GOP's official Twitter account during the 2022 midterm election cycle. `OpenCV` loads the image and converts it to a three-dimensional `numpy` array that contains the BGR (reverse of RGB) values for the pixels in the image. I standardize the image to be 224 $\times$ 224 pixels. The computer is trained to detect the "Republican red" and "Democrat blue" colors. Once trained, the computer detects the pixels that do not contain values within the pre-specified range and converts those pixels to be black. To validate this classification and transformation of the pixels, I include the original image next to the transformed image in @fig-color-detection-example.
 
@@ -251,7 +251,7 @@ masked= imwrite("../data/temp/study_2/gop_2022_detected.png", result) # save mas
 Detecting colors in the GOP logo
 :::
 
-I then extract the non-black pixels from my array and calculate the percentage of pixels in the image that are not black.^[$\text{Color} \% = \frac{\text{Non-black}}{\text{Transformed}} \times \frac{\text{Original}_{\text{Height}} + \text{Original}_{\text{Width}}}{2\text{Transformed}_{\text{Height}} + 2\text{Transformed}_{\text{Width}}}$]
+I then extract the non-black pixels from my array and calculate the percentage of pixels in the image that are not black.^[$\text{Color} \% = \frac{\text{Non-black}}{\text{Transformed}} \times \frac{\text{Original}_{\text{Height}} + \text{Original}_{\text{Width}}}{2\text{Transformed}_{\text{Height}} + 2\text{Transformed}_{\text{Width}}}$] Summary statistics of these calculated proportions for red and blue are included in the [Appendix](#tbl-yard-sign-summary).
 
 ```{python}
 #| output: asis

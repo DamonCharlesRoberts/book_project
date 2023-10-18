@@ -10,7 +10,9 @@ format:
     transition: slide
     scrollable: true
     incremental: false
-    slide-number: true
+    slide-number: false
+    progress: false
+    menu: false
     toc: false
     #toc-depth: 2
     slide-level: 5
@@ -18,7 +20,7 @@ format:
     self-contained: true
     output-file: color-book.html
     fig-responsive: false
-    margin: 0
+    margin: 0.1
 execute:
   echo: false
   freeze: true
@@ -72,6 +74,21 @@ load(
   )
   #* Main studies
 load("../../data/temp/models/study_1_fitted.RData")
+# Load data for study 2
+df_study_2 <- read.csv("../../data/clean/study_2.csv") |>
+  as.data.table()
+  #* convert state_district and year variables  to factors
+df_study_2 <- df_study_2[
+  , year := tstrsplit(year, "-", keep = 1)
+][
+  , year := as.numeric(year)
+][
+  , state_district := factor(state_district)
+][
+  , blue_prop := blue_percent / 100
+][
+  , red_prop := red_percent / 100
+]
 ```
 
 ![QR Code](../../assets/slides/imgs/qr-code.png){#fig-qr}
@@ -319,6 +336,24 @@ Detecting colors in the GOP logo
 #| output: asis
 # Print calculated percentage of example
 print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
+```
+
+---
+
+```{r}
+#| label: tbl-yard-sign-summary
+#| tbl-cap: Summary statistics
+names(df_study_2)[names(df_study_2) == 'red_percent'] <- '% Red'
+names(df_study_2)[names(df_study_2) == 'blue_percent'] <- '% Blue'
+names(df_study_2)[names(df_study_2) == 'white_percent'] <- '% White'
+
+df_study_2_subset <- df_study_2[, c('% Red', '% Blue', '% White')]
+datasummary_skim(
+  df_study_2_subset
+  , notes = "Data source: CAPD Yard Signs."
+  , histogram = FALSE
+)
+
 ```
 
 ### Measurement: What is the partisan composition of the district?
