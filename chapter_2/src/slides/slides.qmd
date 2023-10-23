@@ -1,33 +1,21 @@
 ---
 title: "The Shape and Color of Politics"
 author:
-  - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
+    - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
 format:
-  revealjs:
-    multiplex: true
-    embed-resources: true
-    theme: [dark, ../../assets/slides/custom.scss]
-    transition: slide
-    scrollable: true
-    incremental: false
-    slide-number: false
-    progress: false
-    menu: false
-    toc: false
-    #toc-depth: 2
-    slide-level: 5
-    bibliography: ../../../assets/candidate_support_chapter_references.bib   
-    self-contained: true
-    output-file: color-book.html
-    fig-responsive: false
-    margin: 0.1
+    simpledarkjs-revealjs:
+        multiplex: true
+        output-file: color-book.html
+        slide-level: 5
+        transition: none
+bibliography: ../../../assets/candidate_support_chapter_references.bib
 execute:
-  echo: false
-  freeze: true
-  eval: true
-  cache: true
+    echo: false
+    freeze: true
+    eval: true
+    cache: true
 nocite: |
-  @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017,
+    @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017
 ---
 
 ```{r}
@@ -95,6 +83,11 @@ df_study_2 <- df_study_2[
 
 ---
 
+![Aaron Bashir (R), PA-3](../../assets/slides/imgs/bashir.webp){#fig-bashir .absolute left=0 top=100}
+![Dwight Evans (D), PA-2](../../assets/slides/imgs/evans.webp){#fig-evans .absolute right=0 bottom=100}
+
+---
+
 ```{r}
 #| label: fig-hook-1
 #| fig-cap: Perceptions of candidate's party affiliation based on color of yard sign
@@ -137,57 +130,12 @@ ggplot2::scale_x_continuous(
 
 ---
 
-![[Shell]()](../../assets/slides/imgs/shell.png){#fig-shell width=6.5in}
+![Nebraska](../../assets/slides/imgs/nebraska.jpg){#fig-nebraska width=6.5in}
 
 ---
 
----
-
-```{mermaid}
-%%| label: fig-shell-color
-%%| fig-cap: Associative memory
-%%| eval: true
-flowchart LR;
-
-A["Yellow"]
-A --> B["Banana"]
-A --> C["Rubber duck"]
-A --> D["Shell"]
-A --> E["Leaves"]
-```
-
----
-
-```{mermaid}
-%%| label: fig-shell-affect
-%%| fig-cap: Object evaluation
-%%| eval: true
-flowchart LR;
-
-A["Yellow"]
-A -.-> B["Banana"]
-A -.-> C["Rubber duck"]
-A --> D["Shell"]
-A -.-> E["Leaves"]
-D --> F["Avoid"]
-```
-
----
-
-<!--
----
-
-![[Kirkland Signature]()](../../assets/slides/imgs/kirkland.svg){#fig-kirkland width=6.5in}
-
----
-
-![[BP]()](../../assets/slides/imgs/bp.png){#fig-bp width=6.5in}
-
----
-
--->
-![[Example of brand UI]()](../../assets/slides/imgs/green_bubble.jpeg){.absolute left=100 width=4.5in #fig-brand-ui}
-![[The great divide]()](../../assets/slides/imgs/green_bubble_funny.png){.absolute right=100 width=4.5in #fig-brand-divide}
+![[Example of brand UI]](../../assets/slides/imgs/green_bubble.jpeg){.absolute left=100 width=4.5in #fig-brand-ui}
+![[The great divide]](../../assets/slides/imgs/green_bubble_funny.png){.absolute right=100 width=4.5in #fig-brand-divide}
 
 ## How are colors used in politics?
 
@@ -205,6 +153,14 @@ D --> F["Avoid"]
 
 1980 Presidential Party National Conventions
 :::
+
+---
+
+![[1924 Election Map](https://collections.leventhalmap.org/search/commonwealth:q524n296b)](../../assets/slides/imgs/election_map.jpg){#fig-1924-map}
+
+---
+
+![[1976 Election Map](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.washingtonpost.com%2Fnews%2Fthe-fix%2Fwp%2F2016%2F11%2F08%2Fred-vs-blue-a-brief-history-of-how-we-use-political-colors%2F&psig=AOvVaw1tL5UeACMye7NTm5hvZG-A&ust=1698159827386000&source=images&cd=vfe&opi=89978449&ved=0CBIQjhxqFwoTCKil57-4jIIDFQAAAAAdAAAAABAI)](../../assets/slides/imgs/1976_map.webp){#fig-1976-map}
 
 ---
 
@@ -231,6 +187,8 @@ Party logos
 
 # What do we know so far?
 
+---
+
 ## The study of visuals in politics
 
 ---
@@ -253,7 +211,21 @@ Party logos
 
 ---
 
-{{< include ../../../assets/_theory.qmd >}}
+```{mermaid}
+%%| label: fig-snap-judgment-model
+%%| fig-cap: Overview of model
+
+flowchart TD;
+A[Detection of color] --> B[Activation of associated memories]
+B --> C[Negative Valence]
+B --> D[Positive Valence]
+C -.-> E[Policy stance]
+D -.-> F[Policy stance]
+E -.-> G[Negative Valence]
+E -.-> H[Positive Valence]
+F -.-> I[Negative Valence]
+F -.-> J[Positive Valence]
+```
 
 ---
 
@@ -310,7 +282,7 @@ from PY.helper import colorDetector
     #* Red
 republican_red = [232, 27, 35] # target color
 red_lower = [93, 9, 12] # lower end of spectrum for red
-red_higher = [237, 69, 75] # higher end of spectrum for red
+red_higher = [255, 170, 170] # higher end of spectrum for red
 
 # Load gop image to read
 img = imread("../assets/img/gop_2022.png")
