@@ -14,7 +14,9 @@
 import polars as pl # for DataFrame management
 import numpy as np # for array management
     #* User-defined
-from chapter_2.src.PY.helper import names
+from sys import path
+path.append("./chapter_2/src/")
+from PY.helper import names
 
 # Check out the election lab data
 election_lab = pl.read_csv(

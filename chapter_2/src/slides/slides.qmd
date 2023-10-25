@@ -320,24 +320,6 @@ Detecting colors in the GOP logo
 print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
 ```
 
----
-
-```{r}
-#| label: tbl-yard-sign-summary
-#| tbl-cap: Summary statistics
-names(df_study_2)[names(df_study_2) == 'red_percent'] <- '% Red'
-names(df_study_2)[names(df_study_2) == 'blue_percent'] <- '% Blue'
-names(df_study_2)[names(df_study_2) == 'white_percent'] <- '% White'
-
-df_study_2_subset <- df_study_2[, c('% Red', '% Blue', '% White')]
-datasummary_skim(
-  df_study_2_subset
-  , notes = "Data source: CAPD Yard Signs."
-  , histogram = FALSE
-)
-
-```
-
 ### Measurement: What is the partisan composition of the district?
 
 ---
@@ -605,11 +587,11 @@ Methodological
 
 ---
 
-### Study 1
+### Study 2
 
 ---
 
-#### Characteristics of sample
+#### Characteristics of experimental sample
 
 ---
 
@@ -689,7 +671,7 @@ datasummary_skim(
 
 ---
 
-#### List of model specifications for Study 2
+### List of model specifications for Study 2
 
 ---
 
@@ -700,7 +682,7 @@ datasummary_skim(
 
 ---
 
-#### $H_1$
+### $H_1$
 
 ```{r}
 #| label: tbl-h1-trial-1
@@ -737,11 +719,11 @@ datasummary_balance(
 
 ---
 
-#### $H_2$
+### $H_2$
 
 ---
 
-##### Multinomial Logit
+#### Multinomial Logit
 
 ```{r}
 #| label: tbl-hypothesis-2-main
@@ -797,7 +779,7 @@ list_ppc[["h_2"]][["red_multinomial"]]
 list_ppc[["h_2"]][["blue_multinomial"]]
 ```
 
-##### Ordered Logit
+#### Ordered Logit
 
 ```{r}
 #| label: tbl-hypothesis-2-ordered
@@ -851,7 +833,7 @@ list_ppc[["h_2"]][["red_ordinal"]]
 list_ppc[["h_2"]][["blue_ordinal"]]
 ```
 
-##### Single model
+#### Single model
 
 ```{r}
 #| label: tbl-robustness-alt-specification-h-2
@@ -897,7 +879,7 @@ list_ppc[["h_2"]][["single_model"]]
 
 ---
 
-##### Moderated by age
+#### Moderated by age
 
 ```{r}
 #| label: tbl-interacted-models-h-2
@@ -950,7 +932,7 @@ list_ppc[["h_2"]][["blue_interact"]]
 
 ---
 
-##### Moderated by colorblindness
+#### Moderated by colorblindness
 
 ```{r}
 #| label: tbl-colorblindness
@@ -1002,11 +984,11 @@ list_ppc[["h_2"]][["blue_colorblind"]]
 
 ---
 
-#### $H_{2a}$
+### $H_{2a}$
 
 ---
 
-##### Multinomial
+#### Multinomial
 
 ```{r}
 #| label: tbl-hypothesis-2a
@@ -1135,7 +1117,7 @@ list_ppc[["h_2a"]][["trial_3_single_model"]]
 
 ---
 
-##### Ordinal model
+#### Ordinal model
 
 ```{r}
 #| label: tbl-hypothesis-2a-ordered
@@ -1243,9 +1225,11 @@ list_ppc[["h_2a"]][["trial_3_blue_ordinal"]]
 
 ---
 
-#### $H_3$
+### $H_3$
 
-##### Main results
+---
+
+#### Main results
 
 ```{r}
 #| label: tbl-h-3-main
@@ -1306,11 +1290,11 @@ list_ppc[["h_3"]][["blue"]]
 
 ---
 
-#### $H_4$
+### $H_4$
 
 ---
 
-##### ✅ for over-dispersion
+#### ✅ for over-dispersion
 
 ```{r}
 #| label: tbl-h-4-dispersion
@@ -1324,7 +1308,7 @@ datasummary_skim(
 )
 ```
 
-##### Main results
+#### Main results
 
 ```{r}
 #| label: tbl-h-4
@@ -1382,9 +1366,31 @@ list_ppc[["h_4"]][["red"]]
 list_ppc[["h_4"]][["blue"]]
 ```
 
-#### $H_5$
+### $H_5$
 
-##### Main results
+---
+
+#### Color proportion descriptive statistics
+
+---
+
+```{r}
+#| label: tbl-yard-sign-summary
+#| tbl-cap: Summary statistics
+names(df_study_2)[names(df_study_2) == 'red_percent'] <- '% Red'
+names(df_study_2)[names(df_study_2) == 'blue_percent'] <- '% Blue'
+names(df_study_2)[names(df_study_2) == 'white_percent'] <- '% White'
+
+df_study_2_subset <- df_study_2[, c('% Red', '% Blue', '% White')]
+datasummary_skim(
+  df_study_2_subset
+  , notes = "Data source: CAPD Yard Signs."
+  , histogram = FALSE
+)
+
+```
+
+#### Main results
 
 ```{r}
 #| label: tbl-hypothesis-5

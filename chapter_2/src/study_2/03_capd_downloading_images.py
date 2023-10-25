@@ -16,7 +16,9 @@ import urllib.request # to access site
 import sys # to deal with paths
 
     #* User-defined
-from chapter_2.src.PY.helper import names
+from sys import path
+path.append("./chapter_2/src/")
+from PY.helper import names
 
 # Loading database
 
