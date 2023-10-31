@@ -83,10 +83,18 @@ df_study_2 <- df_study_2[
 
 ---
 
-![Aaron Bashir (R), PA-3](../../assets/slides/imgs/bashir.webp){#fig-bashir .absolute left=0 top=100}
-![Dwight Evans (D), PA-2](../../assets/slides/imgs/evans.webp){#fig-evans .absolute right=0 bottom=100}
+- Motivation of the project
+- A snap-judgment model of politically-relevant information processing
+- An experiment
+- Is the world consistent with the snap-judgement model?
+- The broader book project
+- Q&A
 
----
+### Yard signs are simple, yet effective forms of information
+
+![Highway Yard Sign](../assets/img/highway_yardsign.jpg)
+
+### Pre-test: Perceptions of candidate's party affiliation depends on the color of the yard sign
 
 ```{r}
 #| label: fig-hook-1
@@ -128,7 +136,8 @@ ggplot2::scale_x_continuous(
 )
 ```
 
----
+
+### Colors can convey identity
 
 ![Nebraska](../../assets/slides/imgs/nebraska.jpg){#fig-nebraska width=6.5in}
 
@@ -141,7 +150,7 @@ ggplot2::scale_x_continuous(
 
 ---
 
-![[1860s Ballots](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)](../../assets/slides/imgs/ballots.avif){#fig-1860-ballot}
+![[1860's Republican Ballots](https://slate.com/news-and-politics/2020/02/ballot-history-photo-essay.html)](../../assets/slides/imgs/ballots.avif){#fig-1860-ballot}
 
 ---
 
@@ -185,9 +194,9 @@ Party logos
 
 ![[The public](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}
 
-# What do we know so far?
+# What do we know so far about how we process political information?
 
----
+### Evaluation of political information happens automatically, and in a motivated manner
 
 ![[@zaller_simple_1992]](../../assets/slides/imgs/zaller_feldman.png){.absolute right=100 top=0}
 ![[@zaller_nature_1992]](../../assets/slides/imgs/zaller.jpg){.absolute right=100 bottom=0}
@@ -198,26 +207,6 @@ Party logos
 
 But what about visual information?
 
-<!--
-## The study of visuals in politics
-
----
-
-![[@bucy_editors_2021]](../../assets/slides/imgs/bucy_joo.png)
-
----
-
-![](../../assets/slides/imgs/dan_arendt.png){.absolute bottom=0 left=0}
-![](../../assets/slides/imgs/lindholm_et-al.png){.absolute top=200 left=0}
-![](../../assets/slides/imgs/nina_et-al.png){.absolute top=0 left=0}
-
----
-
-![[@schloss_politics_2014]](../../assets/slides/imgs/schloss_palmer.png){.absolute top=0 height=400}
-![[@williams_whats_2022]](../../assets/slides/imgs/williams_et-al.png){.absolute bottom=200 right=0 height=400}
-![[@casiraghi_colors_2022]](../../assets/slides/imgs/casiraghi_et-al.png){.absolute bottom=0 right=0 height=400}
-
--->
 ## A snap-judgment model of **visual** political information processing
 
 ---
@@ -246,122 +235,16 @@ F -.-> J[Positive Valence]
     - have made associations between the colors red and blue with the two parties.
     - form attitudes and behaviors based on less substantive information (e.g., policy stances).
 
-## Study 1
-
-### Motivation of Study
-
---- 
-
-> There obviously is a strong association with blue and the Democratic Party and red and the Republican Party. We've seen in some of our testing that specifically MAGA red tends to elicit a slightly stronger association with Republicans/conservatives/Trump than other shades.
 ---
 
-> A lot of decisions are still made on purely gut feelings as opposed to taking a more multi-disciplinary evidence-based approach.
+- <span style="color: #616A6B">Motivation of the project</span>
+- <span style="color: #616A6B">A snap-judgment model of politically-relevant information processing</span>
+- An experiment
+- Is the world consistent with the snap-judgement model?
+- The broader book project
+- Q&A
 
----
-
-- Do these associations have systematic influences on campaign strategy? (Study 1)
-- Are these hunches correct that these colors can reliably cue partisanship? (Study 2)
-
-### Measurement: How much red and blue do campaigns use?
-
----
-
-- Collect around 1,000 yard signs from House elections
-  - 2016-2022
-- Measuring the colors used on a yard sign:
-  - Use a machine learning Python Library, `OpenCV` [@bradski_opencv_2000], that reads images and classifies their components.
-    - Trained to classify each pixel in the image
-    - Classifies it based on BGR value (reverse of RGB)
-    - Looks for a range of values around the "Republican red" and "Democratic blue"
-
----
-
-```{python}
-#| label: example detection
-#| echo: false
-
-from sys import path # for path management
-from cv2 import imread, imwrite # for color detection
-    #* user-defined
-sys.path.append("../")
-from PY.helper import colorDetector
-
-# Define colors to detect
-    #* White
-        #** Not defined. Default for colorDetector()
-    #* Red
-republican_red = [232, 27, 35] # target color
-red_lower = [93, 9, 12] # lower end of spectrum for red
-red_higher = [255, 170, 170] # higher end of spectrum for red
-
-# Load gop image to read
-img = imread("../assets/img/gop_2022.png")
-
-# Detect colors
-percent, img_transformed, result = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
-
-transformed= imwrite("../../data/temp/study_2/gop_2022_transformed.png", img_transformed) # save transformed image
-
-masked= imwrite("../../data/temp/study_2/gop_2022_detected.png", result) # save masked image
-```
-
-
-::: {#fig-color-detection-example layout-ncol="2"}
-![Resized original image](../../data/temp/study_2/gop_2022_transformed.png){#fig-resized}
-
-![Masked](../../data/temp/study_2/gop_2022_detected.png){#fig-masked}
-
-Detecting colors in the GOP logo
-:::
-
-```{python}
-#| output: asis
-# Print calculated percentage of example
-print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
-```
-
-### Measurement: What is the partisan composition of the district?
-
----
-
-- MIT Election Lab data
-  - House election results
-  - 1970-2020
-- Measuring partisan composition of district:
-  - Calculate rolling 5-year average of the Democratic party's vote share for each district
-
-### Do campaigns use a different proportion of the colors red and blue in different constituency compositions?
-
----
-
-```{r}
-#| label: fig-study-2-pred-1
-#| fig-cap: More blue on the yard signs in Democratic strongholds
-
-blue <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_5"]][["blue"]]
-  , treatment = "Blue"
-  , hypothesis = "H5"
-)
-
-blue
-```
-
----
-
-```{r}
-#| label: fig-study-2-pred-2
-#| fig-cap: Less red on the yard signs in Democratic strongholds
-
-red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_5"]][["red"]]
-  , treatment = "Red"
-  , hypothesis = "H5"
-)
-red
-```
-
-## Study 2
+## Experiment
 
 ### Motivation of the experiment
 
@@ -535,6 +418,112 @@ blue <- predicted_prob_bar(
 )
 
 blue
+```
+
+## Study 2
+
+### Do practitioners think of color when designing yard signs?
+
+> There obviously is a strong association with blue and the Democratic Party and red and the Republican Party. We've seen in some of our testing that specifically MAGA red tends to elicit a slightly stronger association with Republicans/conservatives/Trump than other shades.
+---
+
+> A lot of decisions are still made on purely gut feelings as opposed to taking a more multi-disciplinary evidence-based approach.
+
+### Campaigns use the colors more or less red and blue depending on partisan composition of electoral district
+
+#### DV: the amount of red and blue in political yard signs
+
+- Collect around 1,000 yard signs from House elections
+  - 2016-2022
+- Measuring the colors used on a yard sign:
+  - Use a machine learning Python Library, `OpenCV` [@bradski_opencv_2000], that reads images and classifies their components.
+    - Trained to classify each pixel in the image
+    - Classifies it based on BGR value (reverse of RGB)
+    - Looks for a range of values around the "Republican red" and "Democratic blue"
+
+---
+
+```{python}
+#| label: example detection
+#| echo: false
+
+from sys import path # for path management
+from cv2 import imread, imwrite # for color detection
+    #* user-defined
+sys.path.append("../")
+from PY.helper import colorDetector
+
+# Define colors to detect
+    #* White
+        #** Not defined. Default for colorDetector()
+    #* Red
+republican_red = [232, 27, 35] # target color
+red_lower = [93, 9, 12] # lower end of spectrum for red
+red_higher = [255, 170, 170] # higher end of spectrum for red
+
+# Load gop image to read
+img = imread("../assets/img/gop_2022.png")
+
+# Detect colors
+percent, img_transformed, result = colorDetector(img = img, color_upper = red_higher, color_lower = red_lower)
+
+transformed= imwrite("../../data/temp/study_2/gop_2022_transformed.png", img_transformed) # save transformed image
+
+masked= imwrite("../../data/temp/study_2/gop_2022_detected.png", result) # save masked image
+```
+
+
+::: {#fig-color-detection-example layout-ncol="2"}
+![Resized original image](../../data/temp/study_2/gop_2022_transformed.png){#fig-resized}
+
+![Masked](../../data/temp/study_2/gop_2022_detected.png){#fig-masked}
+
+Detecting colors in the GOP logo
+:::
+
+```{python}
+#| output: asis
+# Print calculated percentage of example
+print("For the example in @fig-color-detection-example, about {:.2f}".format(percent) + " of the image is red.")
+```
+
+#### IV: partisan composition of the district
+
+---
+
+- MIT Election Lab data
+  - House election results
+  - 1970-2020
+- Measuring partisan composition of district:
+  - Calculate rolling 5-year average of the Democratic party's vote share for each district
+
+### More blue on the yard signs in Democratic strongholds
+
+```{r}
+#| label: fig-study-2-pred-1
+#| fig-cap: More blue on the yard signs in Democratic strongholds
+
+blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["blue"]]
+  , treatment = "Blue"
+  , hypothesis = "H5"
+)
+
+blue
+```
+
+### More red on the yard signs in Republican strongholds
+
+```{r}
+#| label: fig-study-2-pred-2
+#| fig-cap: Less red on the yard signs in Democratic strongholds
+
+red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_5"]][["red"]]
+  , treatment = "Red"
+  , hypothesis = "H5"
+)
+red
 ```
 
 ## How this fits in with the rest of the book?
