@@ -30,6 +30,8 @@ df_study_2 <- df_study_2[
   , blue_prop := blue_percent / 100
 ][
   , red_prop := red_percent / 100
+][
+  , party := factor(party)
 ]
   #* load helpful functions
 box::use(
@@ -301,6 +303,7 @@ list_ppc[["h_4"]][["blue"]] <- pp_check(
 )
 # Hypothesis 5
   #* Fit models
+    #** AME's
 list_fitted[["h_5"]][["red"]] <- ordbetareg(
   formula = red_prop ~ dem_vote_share + (1 | state_district)
   , data = df_study_2
@@ -321,12 +324,42 @@ list_fitted[["h_5"]][["blue"]] <- ordbetareg(
   )
   , coef_prior_SD = 2
 )
+    #** CME's
+list_fitted[["h_5"]][["red_party"]] <- ordbetareg(
+    formula = red_prop ~ dem_vote_share + party + dem_vote_share * party + (1 | state_district)
+    , data = df_study_2
+    , threads = 4
+    , backend = "cmdstanr"
+    , control = list(
+      adapt_delta = 0.95
+    )
+    , coef_prior_SD = 2
+)
+
+list_fitted[["h_5"]][["blue_party"]] <- ordbetareg(
+    formula = red_prop ~ dem_vote_share + party + dem_vote_share * party + (1 | state_district)
+    , data = df_study_2
+    , threads = 4
+    , backend = "cmdstanr"
+    , control = list(
+      adapt_delta = 0.95
+    )
+    , coef_prior_SD = 2
+)
   #* Posterior predictive checks
+    #** AME's
 list_ppc[["h_5"]][["red"]] <- pp_check_ordbeta(
   list_fitted[["h_5"]][["red"]]
 )
 list_ppc[["h_5"]][["blue"]] <- pp_check_ordbeta(
   list_fitted[["h_5"]][["blue"]]
+)
+    #** CME's
+list_ppc[["h_5"]][["red_party"]] <- pp_check_ordbeta(
+  list_fitted[["h_5"]][["red_party"]]
+)
+list_ppc[["h_5"]][["blue_party"]] <- pp_check_ordbeta(
+  list_fitted[["h_5"]][["blue_party"]]
 )
 # Store model results
 save(

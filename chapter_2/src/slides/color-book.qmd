@@ -1,5 +1,5 @@
 ---
-title: "The Shape and Color of Politics"
+title: "The Shape and <span style='color: #b70000'>Co</span><span style='color: #00AEF3'>lor</span> of Politics"
 author:
     - name: Damon C. Roberts [{{< fa brands orcid size=xs >}}](https://orcid.org/0000-0002-4360-3675)
 format:
@@ -8,6 +8,7 @@ format:
         output-file: color-book.html
         slide-level: 5
         transition: none
+        slide-number: c
 bibliography: ../../../assets/candidate_support_chapter_references.bib
 execute:
     echo: false
@@ -15,7 +16,7 @@ execute:
     eval: true
     cache: true
 nocite: |
-    @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017
+    @allaire_quarto_2022, @arel-bundock_marginaleffects_2022, @wickham_ggplot2_2016, @leeuw_jspsych_2015, @burkner_brms_2017, @zaller_simple_1992, @zaller_nature_1992, @lodge_rationalizing_2013, @taber_illusion_2016
 ---
 
 ```{r}
@@ -77,24 +78,30 @@ df_study_2 <- df_study_2[
 ][
   , red_prop := red_percent / 100
 ]
+
+# Set default for plot color scheme
+
+plot_color_scheme <- FALSE
 ```
+
+## Available to you to follow along and view more
 
 ![QR Code](../../assets/slides/imgs/qr-code.png){#fig-qr}
 
 ---
 
-- Motivation of the project
+- <span style="color: #b70000"> Motivation of the project</span>
 - A snap-judgment model of politically-relevant information processing
 - An experiment
 - Is the world consistent with the snap-judgement model?
 - The broader book project
 - Q&A
 
-### Yard signs are simple, yet effective forms of information
+## Yard signs are simple, yet effective forms of information
 
 ![Highway Yard Sign](../assets/img/highway_yardsign.jpg)
 
-### Pre-test: Perceptions of candidate's party affiliation depends on the color of the yard sign
+### Pre-test: Perceptions of candidate's party affiliation depends on the <span style='color: #b70000'>co</span><span style='color: #00AEF3'>lor</span> of the yard sign
 
 ```{r}
 #| label: fig-hook-1
@@ -137,7 +144,7 @@ ggplot2::scale_x_continuous(
 ```
 
 
-### Colors can convey identity
+### <span style='color: #b70000'>Col</span><span style='color: #00AEF3'>ors</span> can convey identity
 
 ![Nebraska](../../assets/slides/imgs/nebraska.jpg){#fig-nebraska width=6.5in}
 
@@ -146,7 +153,7 @@ ggplot2::scale_x_continuous(
 ![[Example of brand UI]](../../assets/slides/imgs/green_bubble.jpeg){.absolute left=100 width=4.5in #fig-brand-ui}
 ![[The great divide]](../../assets/slides/imgs/green_bubble_funny.png){.absolute right=100 width=4.5in #fig-brand-divide}
 
-## How are colors used in politics?
+## How are <span style='color: #b70000'>col</span><span style='color: #00AEF3'>ors</span> used in politics?
 
 ---
 
@@ -194,52 +201,77 @@ Party logos
 
 ![[The public](https://www.brookings.edu/articles/what-is-a-brokered-convention-what-is-a-contested-convention/)](../../assets/slides/imgs/division.webp){#fig-public width=6.5in}
 
-# What do we know so far about how we process political information?
+## What do we know so far about how we process political information?
 
-### Evaluation of political information happens automatically, and in a motivated manner
+### Political information is <span style='color: #b70000'>identity-based</span> and <span style='color: #00AEF3'>evokes affect</span>
 
-![[@zaller_simple_1992]](../../assets/slides/imgs/zaller_feldman.png){.absolute right=100 top=0}
-![[@zaller_nature_1992]](../../assets/slides/imgs/zaller.jpg){.absolute right=100 bottom=0}
-![[@lodge_rationalizing_2013]](../../assets/slides/imgs/lodge_taber.jpg){.absolute left=100 top=0}
-![[@taber_illusion_2016]](../../assets/slides/imgs/taber_lodge_2016.png){.absolute left=100 bottom=0}
+::::: {.columns}
+
+:::: {.column width="60%"}
+::: {#fig-pip layout-ncol=2}
+![](../../assets/slides/imgs/zaller.jpg){width=1.46in}
+![](../../assets/slides/imgs/lodge_taber.jpg){width=1.46in}
+
+Dominant models of political information processing
+:::
+::::
+
+::::{.column width="40%"}
+
+A key takeaway is that we are being pushed to react to information to before we even realize it.
+::::
+
+:::::
 
 ---
 
 But what about visual information?
 
-## A snap-judgment model of **visual** political information processing
+## [<span style='color: #b70000'>A snap-judgment model of</span> <span style='color: #00aef3'>visual political information processing</span>](#full-snap-judgment-model)
 
----
+### Visual information is primitive
 
-```{mermaid}
-%%| label: fig-snap-judgment-model
-%%| fig-cap: Overview of model
+- We can process it faster, and automatically
+- It is ubiquitous
+- It can carry a significant amount of information
+    - E.g., the color <span style='color: #FFCD00'>yellow</span> has associations with bananas, with our favorite sweater, with the Iowa Hawkeys, etc.
+    - We have positive and negative affect with all of these.
 
-flowchart TD;
-A[Detection of color] --> B[Activation of associated memories]
-B --> C[Negative Valence]
-B --> D[Positive Valence]
-C -.-> E[Policy stance]
-D -.-> F[Policy stance]
-E -.-> G[Negative Valence]
-E -.-> H[Positive Valence]
-F -.-> I[Negative Valence]
-F -.-> J[Positive Valence]
-```
+### So, how can it be for politics?
+    
+- These associations have been strengthened over time as the consistent usage associating Republicans and Democrats.
+- Our feelings toward the object that is associated with those colors can be activated because of those colors and the association.
+- Because of the centrality of vision for many living organisms, our brain is designed around this. It happens first.
+    - <span style='color: #b70000'>We process and re</span><span style='color: #00aef3'>act to color first.</span>
+- Given this, we are already in a state of mind. We have made a snap-judgment that can be updated with new information, but nonetheless are influenced by it.
 
----
+### Implications
 
-- Implications
-  - Refines existing info. processing models to consider pre-conscious influences.
-  - Outlines the cognitive processes undergirding how we:
-    - have made associations between the colors red and blue with the two parties.
-    - form attitudes and behaviors based on less substantive information (e.g., policy stances).
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Substantive Innovations**
+
+- Presents a cognitive model that builds upon existing info. processing models to consider pre-conscious influences.
+    - All of these steps happen <span style='color: #b70000'>bef</span><span style='color: #00aef3'>ore</span> the pre-existing info. processing models
+:::
+
+::: {.column width="50%"}
+
+**Methodological Innovations**
+
+- Using mousetracking with a survey experiment to examine pre-conscious motivations.
+- Use image-based classification
+:::
+
+::::
 
 ---
 
 - <span style="color: #616A6B">Motivation of the project</span>
 - <span style="color: #616A6B">A snap-judgment model of politically-relevant information processing</span>
-- An experiment
+- <span style="color: #b70000">A survey experiment</span>
 - Is the world consistent with the snap-judgement model?
 - The broader book project
 - Q&A
@@ -248,14 +280,13 @@ F -.-> J[Positive Valence]
 
 ### Motivation of the experiment
 
-- Do we associate the color red with Republicans and the color blue with Democrats?
+- Do we associate the color <span style='color: #b70000'>red</span> with Republicans and the color <span style='color: #00aef3'>blue</span> with Democrats?
 - Do these associations provide information that the public act on in politics?
+- How do we interact with visual information?
 
 ### Setup of the experiment
 
----
-
-#### Background information
+#### [Background information](#tbl-study-1-measures)
 
 - Age
 - Education
@@ -264,8 +295,6 @@ F -.-> J[Positive Valence]
 - Visual impairments
   - Including colorblindness
 - Party Identification
-
----
 
 #### Treatment
 
@@ -309,18 +338,24 @@ F -.-> J[Positive Valence]
 
 #### Design
 
-- Recruited 1,000 participants from Prolific
+- Recruited [1,000 participants](#tbl-study-1-descriptives) from an online survey experiment platform; Prolific.
 - Counterbalance treatment and background information ($\frac{1}{2}$ see treatment first; other $\frac{1}{2}$ see background questions first)
 - Within each trial, participants have $\frac{1}{3}$ chance of seeing any given yard sign.
 - MouseView.js [@anwyl-irvine_mouseviewjs_2022]
+    - Use this instead of eye-tracking.
+    - Do not need to use a convenience sample of students.
 
 ---
 
 ![Example of treatment](../../assets/slides/imgs/treatment.gif){#fig-treatment-example width=6.5in}
 
-### Do people make these associations?
+### A pre-registered expectation
 
----
+- People associate the colors <span style='color: #b70000'>red</span> and <span style='color: #00aef3'>blue</span> with Republicans and Democrats, respectively.
+  - Replicating the pre-test
+
+
+#### [Red yard signs = Republican candidate](#h_2)
 
 ```{r}
 #| label: fig-h-2-predictions-1
@@ -328,11 +363,12 @@ F -.-> J[Positive Valence]
 red <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["red_multinomial"]]
   , x_axis = "trial_1_red_stimuli"
+  , gray = plot_color_scheme
 )
 red
 ```
 
----
+#### [<span style='color: #00aef3'>Blue yard signs = Democratic candidate</span>](#h_2)
 
 ```{r}
 #| label: fig-h-2-predictions-2
@@ -341,50 +377,19 @@ blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_2"]][["blue_multinomial"]]
   , x_axis = "trial_1_blue_stimuli"
   , treatment = "Blue"
+  , gray = plot_color_scheme
 )
 blue
 ```
 
-### What does conflicting colors do to these associations?
+### A pre-registered expectation
 
----
+Subjects will use color as a basis for making a decision on whom they should vote for.
 
-```{r}
-#| label: fig-h-2a-predictions
-#| layout-nrow: 2
-#| fig-cap: Mixing red and blue in a yard sign increases uncertainty about partisanship
-#| fig-subcap:
-#|   - Trial 2 Red treatment
-#|   - Trial 2 Blue treatment
-#|   - Trial 3 Red treatment
-#|   - Trial 3 Blue treatment
-plot_trial_2_red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_2a"]][["trial_2_red_multinomial"]]
-  , x_axis = "trial_2_red_stimuli"
-)
-plot_trial_2_blue <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_2a"]][["trial_2_blue_multinomial"]]
-  , x_axis = "trial_2_blue_stimuli"
-  , treatment = "Blue"
-)
-plot_trial_3_red <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_2a"]][["trial_3_red_multinomial"]]
-  , x_axis = "trial_3_red_stimuli"
-)
-plot_trial_3_blue <- predicted_prob_bar(
-  fitted_model = list_fitted[["h_2a"]][["trial_3_blue_multinomial"]]
-  , x_axis = "trial_3_blue_stimuli"
-  , treatment = "Blue"
-)
-plot_trial_2_red
-plot_trial_2_blue
-plot_trial_3_red
-plot_trial_3_blue
-```
+- Republican subjects will express preference for a candidate with a pre-dominantly <span style='color: #b70000'>red</span> yard sign.
+- Democratic subjects will express preference for a candidate with a pre-dominantly <span style='color: #00aef3'>blue</span> yard sign.
 
-### Do these associations inform important political behavior?
-
----
+#### [Republicans are more likely to vote for a candidate with a red yard sign, Democrats are less likely](#h_3)
 
 ```{r}
 #| label: fig-h-3-predictions-1
@@ -397,12 +402,14 @@ red <- predicted_prob_bar(
   , x_label = "Party ID"
   , y_label = "Pr(Vote for candidate)"
   , legend_title = "Treatment"
+  , gray = plot_color_scheme
 )
 
 red
 ```
 
----
+
+#### [<span style='color: #00aef3'>Democrats are more likely to vote for a candidate with a blue yard sign, Republicans less likely</span>](#h_3)
 
 ```{r}
 #| label: fig-h-3-predictions-2
@@ -415,23 +422,205 @@ blue <- predicted_prob_bar(
   , x_label = "Party ID"
   , y_label = "Pr(Vote for candidate)"
   , legend_title = "Treatment"
+  , gray = plot_color_scheme
 )
 
 blue
 ```
 
-## Study 2
+### A pre-registered expectation
 
-### Do practitioners think of color when designing yard signs?
+When you include conflicting information (<span style='color: #00aef3'>blue</span> on a <span style='color: #b70000'>red</span> yard sign; <span style='color: #b70000'>red</span> on a <span style='color: #00aef3'>blue</span> yard sign), subjects will be less certain about the partisanship of the candidate
+
+#### [Mixing red and blue in a yard sign <span style='color: #00aef3'>increases uncertainty about partisanship</span>](#h_2a)
+
+```{r}
+#| label: fig-h-2a-predictions-trial-2
+#| layout-ncol: 2
+#| fig-cap: Mixing red and blue in a yard sign increases uncertainty about partisanship
+#| fig-subcap:
+#|   - Trial 2 Red treatment
+#|   - Trial 2 Blue treatment
+plot_trial_2_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_red_multinomial"]]
+  , x_axis = "trial_2_red_stimuli"
+  , gray = plot_color_scheme
+)
+plot_trial_2_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_2_blue_multinomial"]]
+  , x_axis = "trial_2_blue_stimuli"
+  , treatment = "Blue"
+  , gray = plot_color_scheme
+)
+plot_trial_3_red <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_red_multinomial"]]
+  , x_axis = "trial_3_red_stimuli"
+  , gray = plot_color_scheme
+)
+plot_trial_3_blue <- predicted_prob_bar(
+  fitted_model = list_fitted[["h_2a"]][["trial_3_blue_multinomial"]]
+  , x_axis = "trial_3_blue_stimuli"
+  , treatment = "Blue"
+  , gray = plot_color_scheme
+)
+plot_trial_2_red
+plot_trial_2_blue
+```
+
+---
+
+```{r}
+#| label: fig-h-2a-predictions-trial-3
+#| layout-ncol: 2
+#| fig-cap: Mixing red and blue in a yard sign increases uncertainty about partisanship (cont.)
+#| fig-subcap:
+#|   - Trial 3 Red treatment
+#|   - Trial 3 Blue treatment
+
+plot_trial_3_red
+plot_trial_3_blue
+```
+
+### A pre-registered expectation
+
+Subjects will spend more time and will move their cursor more when looking at <span style='color: #00aef3'>blue</span> and <span style='color: #b70000'>red</span> yard signs
+
+#### When viewing a white yard sign, subjects explored the image more.
+
+```{r}
+#| label: tbl-h1-trial-1
+#| tbl-cap: Average time between cursor movements (Trial 1)
+df_movement_trial_1 <- list_df[["cleaned"]][
+  , c(
+    "trial_1_difference_Time"
+    , "trial_1_stimulus"
+    , "trial_1_difference_X"
+    , "trial_1_difference_Y"
+  )
+]
+setnames(
+  df_movement_trial_1
+  , old = c(
+    "trial_1_difference_Time"
+    , "trial_1_difference_X"
+    , "trial_1_difference_Y"
+  )
+  , new = c(
+    "&#x394<sub>t</sub> (milliseconds)"
+    , "&#x394<sub>x</sub> (pixels)"
+    , "&#x394<sub>y</sub> (pixels)"
+  )
+)
+
+datasummary_balance(
+  ~trial_1_stimulus
+  , data = df_movement_trial_1
+  , notes = "Data source: Prolific sample."
+  , escape = FALSE
+)
+```
+
+#### A pre-registered expectation
+
+Subjects will take longer than they did in trial 1 to explore the yard signs when there are conflicting colors on the yard sign
+
+#### The average subject in trial 2 explored the image more than the average participant in trial 1 for <span style='color: #b70000'>red</span> and <span style='color: #00aef3'>blue</span> yard signs
+
+```{r}
+#| label: tbl-h1-trial-2
+#| tbl-cap: Average time between cursor movements (Trial 2)
+df_movement_trial_2 <- list_df[["cleaned"]][
+  , c(
+    "trial_2_difference_Time"
+    , "trial_2_stimulus"
+    , "trial_2_difference_X"
+    , "trial_2_difference_Y"
+  )
+]
+setnames(
+  df_movement_trial_2
+  , old = c(
+    "trial_2_difference_Time"
+    , "trial_2_difference_X"
+    , "trial_2_difference_Y"
+  )
+  , new = c(
+    "&#x394<sub>t</sub> (milliseconds)"
+    , "&#x394<sub>x</sub> (pixels)"
+    , "&#x394<sub>y</sub> (pixels)"
+  )
+)
+modelsummary::datasummary_balance(
+  ~trial_2_stimulus
+  , data = df_movement_trial_2
+  , notes = "Data source: Prolific sample."
+  , escape = FALSE
+)
+```
+
+#### The average subject in trial 3 spent more time exploring the <span style='color: #b70000'>red</span> and <span style='color: #00aef3'>blue</span> yard signs than the average participant in trial 1
+
+```{r}
+#| label: tbl-h1-trial-3
+#| tbl-cap: Average time between cursor movements (Trial 3)
+df_movement_trial_3 <- list_df[["cleaned"]][
+  , c(
+    "trial_3_difference_Time"
+    , "trial_3_stimulus"
+    , "trial_3_difference_X"
+    , "trial_3_difference_Y"
+  )
+]
+setnames(
+  df_movement_trial_3
+  , old = c(
+    "trial_3_difference_Time"
+    , "trial_3_difference_X"
+    , "trial_3_difference_Y"
+  )
+  , new = c(
+    "&#x394<sub>t</sub> (milliseconds)"
+    , "&#x394<sub>x</sub> (pixels)"
+    , "&#x394<sub>y</sub> (pixels)"
+  )
+)
+
+modelsummary::datasummary_balance(
+  ~trial_3_stimulus
+  , data = df_movement_trial_3
+  , notes = "Data source: Prolific sample."
+  , escape = FALSE
+)
+```
+
+---
+
+- <span style="color: #616A6B">Motivation of the project</span>
+- <span style="color: #616A6B">A snap-judgment model of politically-relevant information processing</span>
+- <span style="color: #616A6B">A survey experiment</span>
+- <span style="color: #b70000">Is the world consistent with the snap-judgement model?</span>
+- The broader book project
+- Q&A
+
+## Study 2 - Is the world consistent with my theory?
+
+### A pre-registered expectation
+
+Campaigns use the colors more or less <span style='color: #b70000'>red</span> and <span style='color: #00aef3'>blue</span> depending on partisan composition of electoral district
+
+####  Talking to practitioners
 
 > There obviously is a strong association with blue and the Democratic Party and red and the Republican Party. We've seen in some of our testing that specifically MAGA red tends to elicit a slightly stronger association with Republicans/conservatives/Trump than other shades.
+
 ---
 
 > A lot of decisions are still made on purely gut feelings as opposed to taking a more multi-disciplinary evidence-based approach.
 
-### Campaigns use the colors more or less red and blue depending on partisan composition of electoral district
+---
 
-#### DV: the amount of red and blue in political yard signs
+It remains unclear whether this is just ***one*** group of practitioners, however.
+
+#### [<span style='color: #b70000'>D</span><span style='color: #00aef3'>V</span>: the amount of red <span style='color: #00aef3'>and blue in political yard signs</span>](#tbl-yard-sign-summary)
 
 - Collect around 1,000 yard signs from House elections
   - 2016-2022
@@ -489,15 +678,13 @@ print("For the example in @fig-color-detection-example, about {:.2f}".format(per
 
 #### IV: partisan composition of the district
 
----
-
 - MIT Election Lab data
   - House election results
   - 1970-2020
 - Measuring partisan composition of district:
   - Calculate rolling 5-year average of the Democratic party's vote share for each district
 
-### More blue on the yard signs in Democratic strongholds
+### [<span style='color: #00aef3'>More blue on the yard signs in Democratic strongholds</span>](#h_5)
 
 ```{r}
 #| label: fig-study-2-pred-1
@@ -507,12 +694,13 @@ blue <- predicted_prob_bar(
   fitted_model = list_fitted[["h_5"]][["blue"]]
   , treatment = "Blue"
   , hypothesis = "H5"
+  , gray = plot_color_scheme
 )
 
 blue
 ```
 
-### More red on the yard signs in Republican strongholds
+### [More red on the yard signs in Republican strongholds](#h_5)
 
 ```{r}
 #| label: fig-study-2-pred-2
@@ -522,13 +710,21 @@ red <- predicted_prob_bar(
   fitted_model = list_fitted[["h_5"]][["red"]]
   , treatment = "Red"
   , hypothesis = "H5"
+  , gray = plot_color_scheme
 )
 red
 ```
 
-## How this fits in with the rest of the book?
-
 ---
+
+- <span style="color: #616A6B">Motivation of the project</span>
+- <span style="color: #616A6B">A snap-judgment model of politically-relevant information processing</span>
+- <span style="color: #616A6B">A survey experiment</span>
+- <span style="color: #616A6b">Is the world consistent with the snap-judgement model?</span>
+- <span style="color: #b70000">The broader book project</span>
+- Q&A
+
+## How this fits in with the rest of the book?
 
 - <span style="color: #616A6B">How do colors convey political information and effect individual attitudes? </span>
 - How do colors influence political deliberation?
@@ -536,28 +732,7 @@ red
 
 ## How my book fits in with the rest of my work?
 
----
-
-:::: {.columns}
-
-::: {.column width="50%"}
-How identity is communicated; its effects
-
-- Party Identification (this book)
-- Gender and politics
-- Racial and ethnic politics
-:::
-
-::: {.column width="50%"}
-Methodological
-
-- Text as data
-- Images as data
-- Data munging
-- Multiple imputation
-:::
-
-::::
+![](../../assets/slides/imgs/roberts_gs.png)
 
 ## Questions and Comments
 
@@ -570,19 +745,11 @@ Methodological
 
 ### Full snap-judgment model
 
----
-
 {{< include ../../../assets/_theory.qmd >}}
 
----
-
-### Study 2
-
----
+### Experiment
 
 #### Characteristics of experimental sample
-
----
 
 ```{r}
 #| label: tbl-study-1-descriptives
@@ -612,11 +779,7 @@ datasummary_skim(
 )
 ```
 
----
-
 #### Measures
-
----
 
 +-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Measure                     | Question                                                                                                                                                                                                                                                                                                  | Coded as                                                                                                                                                           |
@@ -658,59 +821,15 @@ datasummary_skim(
 
 : Study 1 Measures {#tbl-study-1-measures}
 
----
-
-### List of model specifications for Study 2
-
----
+### List of model specifications for Experiment
 
 - [Moderated by age](#moderated-by-age)
 - [Moderated by colorblindness](#moderated-by-colorblindness)
 - [Dependent on the amount of the color red and blue](#h_2a)
 - [Include treatment indicator variables in the same model](#single-model)
-
----
-
-### $H_1$
-
-```{r}
-#| label: tbl-h1-trial-1
-#| tbl-cap: Average time between cursor movements (Trial 1)
-df_movement_trial_1 <- list_df[["cleaned"]][
-  , c(
-    "trial_1_difference_Time"
-    , "trial_1_stimulus"
-    , "trial_1_difference_X"
-    , "trial_1_difference_Y"
-  )
-]
-setnames(
-  df_movement_trial_1
-  , old = c(
-    "trial_1_difference_Time"
-    , "trial_1_difference_X"
-    , "trial_1_difference_Y"
-  )
-  , new = c(
-    "Δ<sub>t</sub> (milliseconds)"
-    , "Δ<sub>x</sub> (pixels)"
-    , "Δ<sub>y</sub> (pixels)"
-  )
-)
-
-datasummary_balance(
-  ~trial_1_stimulus
-  , data = df_movement_trial_1
-  , notes = "Data source: Prolific sample."
-  , escape = FALSE
-)
-```
-
----
+- [Multinomial (main) versus Ordered logistic regressions](#h_2)
 
 ### $H_2$
-
----
 
 #### Multinomial Logit
 
@@ -755,7 +874,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2-ppc-multinomial
@@ -809,7 +928,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2-ppc-ordered
@@ -856,7 +975,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2-ppc-single
@@ -865,8 +984,6 @@ modelsummary(
 list_ppc[["h_2"]][["single_model"]]
 
 ```
-
----
 
 #### Moderated by age
 
@@ -906,7 +1023,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2-ppc-age
@@ -918,8 +1035,6 @@ modelsummary(
 list_ppc[["h_2"]][["red_interact"]]
 list_ppc[["h_2"]][["blue_interact"]]
 ```
-
----
 
 #### Moderated by colorblindness
 
@@ -958,7 +1073,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2-ppc-colorblind
@@ -971,11 +1086,7 @@ list_ppc[["h_2"]][["red_colorblind"]]
 list_ppc[["h_2"]][["blue_colorblind"]]
 ```
 
----
-
 ### $H_{2a}$
-
----
 
 #### Multinomial
 
@@ -1025,7 +1136,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2a-multinomial-trial-2-ppc
@@ -1041,7 +1152,7 @@ list_ppc[["h_2a"]][["trial_2_blue_multinomial"]]
 list_ppc[["h_2a"]][["trial_2_single_model"]]
 ```
 
----
+#### Multinomial Cont.
 
 ```{r}
 #| label: tbl-hypothesis-2a-cont
@@ -1089,7 +1200,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2a-multinomial-trial-3-ppc
@@ -1103,8 +1214,6 @@ list_ppc[["h_2a"]][["trial_3_red_multinomial"]]
 list_ppc[["h_2a"]][["trial_3_blue_multinomial"]]
 list_ppc[["h_2a"]][["trial_3_single_model"]]
 ```
-
----
 
 #### Ordinal model
 
@@ -1147,7 +1256,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-2a-ordinal-trial-2-ppc
@@ -1159,7 +1268,8 @@ modelsummary(
 list_ppc[["h_2a"]][["trial_2_red_ordinal"]]
 list_ppc[["h_2a"]][["trial_2_blue_ordinal"]]
 ```
----
+
+#### Ordered Cont.
 
 ```{r}
 #| label: tbl-hypothesis-2a-cont-ordered
@@ -1200,7 +1310,8 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
+
 ```{r}
 #| label: fig-h-2a-ordinal-trial-3-ppc
 #| fig-cap: Posterior Predictive Checks for Ordinal models testing $H_{2a}$, Trial 3
@@ -1212,11 +1323,7 @@ list_ppc[["h_2a"]][["trial_3_red_ordinal"]]
 list_ppc[["h_2a"]][["trial_3_blue_ordinal"]]
 ```
 
----
-
 ### $H_3$
-
----
 
 #### Main results
 
@@ -1265,7 +1372,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-3-ppc
@@ -1277,11 +1384,7 @@ list_ppc[["h_3"]][["red"]]
 list_ppc[["h_3"]][["blue"]]
 ```
 
----
-
 ### $H_4$
-
----
 
 #### ✅ for over-dispersion
 
@@ -1343,7 +1446,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-h-4-ppc
@@ -1357,11 +1460,7 @@ list_ppc[["h_4"]][["blue"]]
 
 ### $H_5$
 
----
-
 #### Color proportion descriptive statistics
-
----
 
 ```{r}
 #| label: tbl-yard-sign-summary
@@ -1407,7 +1506,7 @@ modelsummary(
 )
 ```
 
----
+##### Posterior Predictive Check
 
 ```{r}
 #| label: fig-hypothesis-5-ppc
