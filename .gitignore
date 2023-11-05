@@ -25,3 +25,5 @@ archived/
 assets/references.bib
 **/prospectus/
 /.luarc.json
+chapter_2/src/slides/color-book_cache/
+chapter_2/src/slides/color-book_files/

@@ -218,7 +218,7 @@ Dominant models of political information processing
 
 ::::{.column width="40%"}
 
-A key takeaway is that we are being pushed to react to information to before we even realize it.
+A key takeaway is that we are being pushed to react to information before we even realize it.
 ::::
 
 :::::
@@ -254,7 +254,7 @@ But what about visual information?
 **Substantive Innovations**
 
 - Presents a cognitive model that builds upon existing info. processing models to consider pre-conscious influences.
-    - All of these steps happen <span style='color: #b70000'>bef</span><span style='color: #00aef3'>ore</span> the pre-existing info. processing models
+    - All of these steps happen <span style='color: #b70000'>be</span><span style='color: #00aef3'>fore</span> the pre-existing info. processing models
 :::
 
 ::: {.column width="50%"}
@@ -606,7 +606,7 @@ modelsummary::datasummary_balance(
 
 ### A pre-registered expectation
 
-Campaigns use the colors more or less <span style='color: #b70000'>red</span> and <span style='color: #00aef3'>blue</span> depending on partisan composition of electoral district
+Campaigns use the colors <span style='color: #b70000'>red</span> and <span style='color: #00aef3'>blue</span> more or less depending on partisan composition of electoral district
 
 ####  Talking to practitioners
 
@@ -726,7 +726,7 @@ red
 
 ## How this fits in with the rest of the book?
 
-- <span style="color: #616A6B">How do colors convey political information and effect individual attitudes? </span>
+- <span style="color: #616A6B">How do colors convey political information and affect individual attitudes? </span>
 - How do colors influence political deliberation?
 - How do colors influence neighborhood evaluations?
 
@@ -1484,6 +1484,10 @@ datasummary_skim(
 #| label: tbl-hypothesis-5
 #| tbl-cap: The effect of democratic vote share on color choices for yard sign
 
+list_fitted[["h_5"]] <- list(
+    list_fitted[["h_5"]][["red"]]
+    , list_fitted[["h_5"]][["blue"]]
+)
 names(list_fitted[["h_5"]]) <- c("Prop. yard sign Red", "Prop. yard sign Blue")
 modelsummary(
   list_fitted[["h_5"]]
