@@ -483,7 +483,7 @@ plot_trial_3_blue
 
 ### A pre-registered expectation
 
-Subjects will spend more time and will move their cursor more when looking at <span style='color: #00aef3'>blue</span> and <span style='color: #b70000'>red</span> yard signs
+Subjects will spend less time and will move their cursor less when looking at <span style='color: #00aef3'>blue</span> and <span style='color: #b70000'>red</span> yard signs
 
 #### When viewing a white yard sign, subjects explored the image more.
 
