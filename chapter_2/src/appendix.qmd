@@ -21,6 +21,20 @@ list_df <- list()
 list_df[["cleaned"]] <- read.csv(
   file = "../data/clean/cleaned_pavlovia.csv"
 )
+df_study_2 <- read.csv("../data/clean/study_2.csv") |>
+  as.data.table()
+  #* convert state_district and year variables  to factors
+df_study_2 <- df_study_2[
+  , year := tstrsplit(year, "-", keep = 1)
+][
+  , year := as.numeric(year)
+][
+  , state_district := factor(state_district)
+][
+  , blue_prop := blue_percent / 100
+][
+  , red_prop := red_percent / 100
+]
 ```
 
 ### A note about discrepancies between the main text and the pre-registered report
@@ -753,6 +767,24 @@ list_ppc[["h_4"]][["blue"]]
 ### $H_5$
 
 For $H_5$, I am interested in examining whether or not districts that lean towards one party more than the other have candidates use more of the color in line with the party that has a historical advantage and less of the color for the party that tends to suffer electorally speaking.
+
+#### Summary Statistics of yard sign color measure
+
+```{r}
+#| label: tbl-yard-sign-summary
+#| tbl-cap: Summary statistics of proportion of colors present on yard signs
+names(df_study_2)[names(df_study_2) == 'red_percent'] <- '% Red'
+names(df_study_2)[names(df_study_2) == 'blue_percent'] <- '% Blue'
+names(df_study_2)[names(df_study_2) == 'white_percent'] <- '% White'
+
+df_study_2_subset <- df_study_2[, c('% Red', '% Blue', '% White')]
+datasummary_skim(
+  df_study_2_subset
+  , notes = "Data source: CAPD Yard Signs."
+  , histogram = FALSE
+)
+
+```
 
 #### Models
 

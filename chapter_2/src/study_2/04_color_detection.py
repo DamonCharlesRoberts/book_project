@@ -14,7 +14,9 @@ import re # to wrangle strings
 import cv2 # to do color detection
 import os # to wrangle local files
     #* User defined
-from chapter_2.src.PY.helper import names, colorDetector
+from sys import path
+path.append('./chapter_2/src')
+from PY.helper import names, colorDetector
 
 # Define colors to detect
     #* White

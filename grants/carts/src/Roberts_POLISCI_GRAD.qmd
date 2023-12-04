@@ -1,0 +1,82 @@
+---
+subtitle: Project description & research plan
+format:
+  fancy-doc-pdf:
+    toc: false
+    latex-output-dir: ../out/
+    biblatex: true
+    #filters:
+      #- "_extensions/andrewheiss/wordcount/citeproc.lua"
+      #- "_extensions/andrewheiss/wordcount/wordcount.lua"
+author:
+  - name: Damon C. Roberts
+    affiliations:
+      - name: Univeristy of Colorado Boulder
+    email: damon.roberts-1@colorado.edu
+bibliography: 
+  - "../../../assets/references.bib"
+---
+
+## Background of the bigger project
+
+Since the 2000 Presidential election, the use of the color red has become synonymous with the Republican party, while the use of the color blue has become synonymous with the Democratic party [@elving_2014_npr]. Though the two parties have leaned into the colors used in media depictions of electoral maps (see @fig-party-brand as an example), it remains unclear whether these associations are strong for the public, and whether these associations influence a political outcomes, including attitude expression and behaviors.[^roberts_polisci_grad-1] This project addresses these questions.
+
+[^roberts_polisci_grad-1]: Additional work should be done here to examine why the two political parties have gone with these two colors. This is especially true given that in other countries the color red is often picked up by left-leaning parties while the color blue is picked up by right-leaning parties [see @maestre_medero_2022_pr]. I imagine that there is a feedback loop between the parties and the public that continues to strengthen the association between these particular colors and the parties. The goal of this project is to first establish what the cognitive mechanisms are for the public to establish these associations. This work can then be helpful for those that want to build upon these ideas to explore the motivations for the parties to continue to use these colors.
+
+::: {#fig-party-brand layout-ncol="2"}
+![Republicans pre-2000](../../../chapter_2/src/assets/img/rnc_logo_pre-2000.png){#fig-republican}
+
+![Democrats pre-2000](../../../chapter_2/src/assets/img/dnc_logo_1960.png){#fig-democrat}
+
+![Republicans 2023](../../../chapter_2/src/assets/img/rnc_logo_2023.png){#fig-republican-post}
+
+![Democrats 2023](../../../chapter_2/src/assets/img/dnc_logo_2023.png){#fig-democrat-post}
+
+Party logos
+:::
+
+Though some may consider color a small concern in the grand scheme of politics, this project argues the opposite. This dissertation lays out a cognitive model that explains how colors may have potent consequences for perceptions of the political affiliations of candidates, individuals, and groups. In the project I also consider how color influences a variety of significant (political) outcomes -- these include vote choice in low information environments, the willingness to have a conversation with another person about politics, the conditions under which persuasion can occur, and where people choose to live.
+
+While the outcomes of this project vary, the underlying goal is to examine the ways in which visual information -- and even one of the most simple forms of visual information, color -- influences long-studied outcomes in political behavior and political psychology. I do this by developing a cognitive model of visual information processing.
+
+In the first empirical chapter of this project, I find that not only is there correlational evidence consistent with my argument -- that Republican campaigns use more red and less blue in Republican strongholds and that Democratic campaigns use more blue and less red in Democratic strongholds, but I also find experimental evidence of a randomly selected sample of Americans suggesting that subjects make the associations between the colors red and blue with Republicans and Democrats, respectively. In addition, evidence from my sample suggests that these associations are strong enough to influence expressed preference towards political candidates. Specifically, that Republican subjects prefer candidates with a red yard sign over candidates with a blue yard sign and that Democratic subjects prefer candidates with a blue yard sign over candidates with a red yard sign.
+
+## The study for which I seek funding
+
+There are other ways people may engage in democratic politics. The political outcome of interest in this chapter is how it may influence the degree to which we have conversations with others about politics. In an age of hyper-polarization in politics [@iyengar_affect_2012], there is growing evidence suggesting that people do not want to talk politics with those they perceive as being from the other political party due to the significant discomfort that often accompanies those conversations [@mutz_hearing_2006]. But, it is not always the case that we have *a priori* information on the partisanship of someone we might have a political conversation with. There is some evidence suggesting that we look for visual cues such as whether someone is wearing a Patagonia jacket versus a Carhartt jacket [@carlson_what_2022]. This work examines much more complicated cues. In the spirit of the whole of the project, I build on this work of political deliberation and causal predictors of the propensity to engage in political deliberation to argue that we automatically and pre-cognitively infer partisanship with something as simple as color, and not just brand preferences for clothing.
+
+In this chapter, I am currently collecting data for a first study which establishes whether the color of a t-shirt for a potential political discussion partner may evoke these associations and encourage a preference to avoid the conversation if the hypothetical discussion partner is an out-partisan. The second study for this chapter is what I am seeking funding for.
+
+The chapter for which I am seeking funding is to examine whether the effects I pre-registered for the first study are moderated by whether participants are primed to think of politics or not. The plan for the second study is to replicate study 1, however, I intend to have half of the participants primed with politics by asking them a political attitudes questionnaire before the treatment and another half to be asked these questions afterwards.
+
+To provide more detail, I am currently collecting data on Study 1 where participants are randomly presented with one of the two images in @fig-protocol.
+
+::: {#fig-protocol layout-ncol="2"}
+![Red Condition](../../../chapter_3/assets/protocol/republican_avatar.png){#fig-red-condition}
+
+![Blue Condition](../../../chapter_3/assets/protocol/democrat_avatar.png){#fig-blue-condition}
+
+Treatment
+:::
+
+Along with the image, participants are informed that they have been paired with a discussion partner who has made an avatar to protect their privacy (I inform participants that they will have an opportunity to create their own avatar). They are then asked a series of questions that all attempt to capture the participant's willingness to participate in a conversation with that discussion partner.
+
+In the second study, I will replicate study 1, with a slight change to examine whether or not politics being primed matters for participants. I pre-register that it will. In cases where participants are not already thinking about politics (where they haven't been primed with questionnaires about politics), I suspect the effects of the color of the shirt in the avatar should not follow the same patterns as they would for the participants who were randomly assigned to be asked questions about politics first.
+
+This addition to the design is pivotal not only to this chapter but to the larger project: it helps me test the boundary conditions of my argument that colors matter in shaping a variety of democratic political behaviors.
+
+I have pre-registered my expectations for both studies and have preformed target sample size calculations for this second study which are reflected in my grant application. I intend to collect the sample from Prolific.
+
+## Impact
+
+The impact of this project falls in a few dimensions. First, studying the role of deliberation in shaping political participation and knowledge significant. There is a large area of work in political science that demonstrates that conversations about politics can encourage participation from individuals who are not previously engaged, that it can increase feelings of political efficacy, and that we can use them as a source of information about current events, issues, and policy. Tackling the question of what predicts the propensity by which we participate in these conversations is helpful. The second dimension is that my theory is highlighting a automatic and pre-cognitive process that can shape how we feel about the potential of engaging in a political conversation. If we are avoiding conversations that can encourage participation and building knowledge of politics based on impressions, this can have potentially significant ramifications for democracy.
+
+## Budget Justification
+
+| Item                 | Units | Price per unit                                  | Total   |
+|----------------------|-------|-------------------------------------------------|:--------|
+| Participant payment  | 700   | 1.20 (based on median of 6 minutes to complete and rate of 12.00/hour) | 840    |
+| Prolific Service Fee | 280   | 1                                               | 280     |
+| Total Funding Needed |       |                                                 | 1120.00 |
+
+: Budget Justification

@@ -6,7 +6,7 @@ authors = ["DamonCharlesRoberts <damon.charles.roberts@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.13"
 selenium = "^4.10.0"
 polars = "^0.18.3"
 webdriver-manager = "^3.8.6"

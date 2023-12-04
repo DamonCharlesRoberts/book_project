@@ -226,7 +226,7 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
               , treatment
             )
             , values = c(
-              color_values[[2]][[1]]
+              '#808080'
               , color_values[[3]][[1]]
             )
           )
@@ -238,7 +238,7 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
               , treatment
             )
             , values = c(
-              color_values[[2]][[1]]
+              '#808080'
               , color_values[[1]][[1]]
             )
           )
