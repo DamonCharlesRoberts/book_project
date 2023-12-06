@@ -797,7 +797,7 @@ To try to fix this issue, I adjust the prior for $\beta_1$ to $N(0, 2)$. While I
 ```{r}
 #| label: tbl-hypothesis-5
 #| tbl-cap: The effect of democratic vote share on color choices for yard sign
-
+list_fitted[["h_5"]] <- list_fitted[["h_5"]][c(1,2)]
 names(list_fitted[["h_5"]]) <- c("Prop. yard sign Red", "Prop. yard sign Blue")
 modelsummary(
   list_fitted[["h_5"]]
@@ -816,7 +816,7 @@ modelsummary(
     , "of the draws from the posterior distribution."
   )
   , escape = FALSE
-  #, output = "latex"
+  , output = "latex"
 )
 ```
 

@@ -24,7 +24,7 @@ predicted_prob_bar <- function( # nolint: object_usage_linter.
   , x_label = "Color of yard sign"
   , y_label = "Pr(Party of candidate)"
   , legend_title = "Party of candidate"
-  , gray = TRUE
+  , gray = FALSE
 ) {
   # Create a list of options for what to do when need to switch to grayscale
   if (gray != TRUE) {

@@ -17,13 +17,13 @@ book:
   chapters:
     - index.qmd
     - chapter_1/src/manuscript.qmd
-    #- chapter_2/src/manuscript.qmd
+    - chapter_2/src/manuscript.qmd
     #- chapter_3/src/chapter_3.qmd
     #- chapter_4/src/chapter_4.qmd
     #- chapter_5/src/conclusion.qmd
     - references.qmd
-  #appendices:
-    #- chapter_2/src/appendix.qmd
+  appendices:
+    - chapter_2/src/appendix.qmd
   output-file: "dcr_book_project"
 
 bibliography: ["assets/theory-chapter.bib","assets/candidate_support_chapter_references.bib"]
@@ -65,6 +65,6 @@ format:
 jupyter: python3
 execute:
   echo: false
-  cache: false
+  cache: true
   warning: false
   message: false
