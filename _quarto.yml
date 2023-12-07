@@ -65,6 +65,6 @@ format:
 jupyter: python3
 execute:
   echo: false
-  cache: true
+  cache: false
   warning: false
   message: false
