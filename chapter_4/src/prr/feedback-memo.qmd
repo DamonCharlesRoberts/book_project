@@ -1,0 +1,20 @@
+---
+subtitle: Response memo
+format:
+  fancy-doc-pdf:
+    toc: false
+    latex-output-dir: ../out/
+    biblatex: true
+    #filters:
+      #- "_extensions/andrewheiss/wordcount/citeproc.lua"
+      #- "_extensions/andrewheiss/wordcount/wordcount.lua"
+author:
+  - name: Damon C. Roberts
+    affiliations:
+      - name: Univeristy of Colorado Boulder
+    email: damon.roberts-1@colorado.edu
+bibliography: 
+  - "../../../assets/references.bib"
+---
+
+Thank you everyone for your comments. To ensure that I am covering all of your feedback before I submit IRB materials and sort out funding for this final chapter, I want to place the changes in a memo so that you don't have to re-read the pre-registered version of the chapter.
