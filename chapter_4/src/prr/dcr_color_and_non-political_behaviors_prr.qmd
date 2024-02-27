@@ -117,7 +117,7 @@ With this new information, I ask participants, on the same screen, to "Rate thei
 
 The first outcome of interest is the reported feeling thermometer that ranges from 0-100. I divide the response to this outcome variable by 100 and fit an ordered beta regression [see @kubinec_ordered_2022]. As I am interested in examining how these treatments impact perceptions and resulting preferences based on partisanship, I interact the treatment with the self-reported partisan identity of the participant to examine how a participants' preference for that neighborhood is moderated by the treatment. As I am unable to randomly assign my participants' self-reported partisan identity, I want to ensure that I isolate the main and conditional effects of self-reported partisan identification from confounders such as age, and education. I also want to hold constant potential confounders of the treatment's effect on a participant outside of their partisanship such as sex and colorblindness, as well as attention paid to politics. Using these models will allow me to test the first hypothesis which predicts that people will report liking the neighborhood more when the favorite vehicle color aligns with their partisan group -- red with Republicans and blue with Democrats, as they project the association between the colors red and blue with their partisan group onto the neighborhood. I then examine the second hypothesis which predicts that updating this information with consistent cultural stereotypes of partisan preferences for neighborhood features strengthens one's affect towards the neighborhood as a result of this new information strengthening my participants' certainty about the partisan composition of the neighborhood. These tests do not examine whether it influences one's willingness to move to the neighborhood, only one's preferences toward it. In this way, these tests are much like the outcomes examined in the common experimental tests of the observed positive affect toward neighborhoods with a partisan composition aligned with your own identity. The next outcome of interest examines the degree to which someone is willing to move to the neighborhood on this same information.
 
-The outcome of interest is a 10-item Likert scale. So the following models will be ordered logistic regressions. Much like I did with the previous models, I fit a model that includes an interaction term so that I can test whether the effect of self-reported partisan identity on a preference to live in a particular neighborhood is moderated by the reported favorite vehicle color in that neighborhood and whether these effects are strengthened (in either direction) once we follow-up with more information. As the modeling strategy is the same, I include the same confounding variables.
+The outcome of interest is a 10-item Likert scale. So the following models will be ordered logistic regressions. Much like I did with the previous models, I fit a model that includes an interaction term so that I can test whether the effect of self-reported partisan identity on a preference to live in a particular neighborhood is moderated by the reported favorite vehicle color in that neighborhood and whether these effects are strengthened (in either direction) once we follow-up with more information. Here, I am conducting a triple interaction. As the partisanship of the participants is still not randomized, I include the same confounding variables.
 
 ## Simulations
 
@@ -279,26 +279,15 @@ After fitting each model, I construct 95% high density interval credible interva
 
 if (params$replicate == TRUE) {
   # Define model arguments
-  formula <- brmsformula(
-    move ~ RedTreatment + BlueTreatment + PartyID + RedTreatment * PartyID + BlueTreatment * PartyID + age + gender + white + attention
-  )
   compiled <- stan_model(
     "./STAN/move_model.stan"
     ,model_name = "moveModel"
-  )
-  family <- cumulative(link = "logit")
-  priors <- prior(
-    stats::Normal(0,1)
-    ,class = b
   )
     # Run model
   modelDiscrepancies <- sim_all(
     n=c(200, 400, 600, 800)
     , num_samples = 2
-    , formula = formula
     , compiled = compiled
-    , family = family
-    , priors = priors
     , cores = cores
     , model = "moveModel"
   )
