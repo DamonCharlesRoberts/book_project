@@ -279,15 +279,26 @@ After fitting each model, I construct 95% high density interval credible interva
 
 if (params$replicate == TRUE) {
   # Define model arguments
+  formula <- brmsformula(
+    move ~ RedTreatment + PartyID + RedTreatment * PartyID + age + gender + white + attention
+  )
   compiled <- stan_model(
     "./STAN/move_model.stan"
     ,model_name = "moveModel"
+  )
+  family <- cumulative(link = "logit")
+  priors <- prior(
+    stats::Normal(0,1)
+    ,class = b
   )
     # Run model
   modelDiscrepancies <- sim_all(
     n=c(200, 400, 600, 800)
     , num_samples = 2
+    , formula = formula
     , compiled = compiled
+    , family = family
+    , priors = priors
     , cores = cores
     , model = "moveModel"
   )
@@ -310,10 +321,8 @@ if (params$replicate == TRUE) {
 #| fig-cap: True positive rate
 #| fig-subcap: 
 #|  - "Red treatment"
-#|  - "Blue treatment"
 #|  - "Party Identification"
 #|  - "Red treatment x Party Identification"
-#|  - "Blue treatment x Party Identification"
 #|  - "Age"
 #|  - "Gender"
 #|  - "White"
@@ -321,10 +330,8 @@ if (params$replicate == TRUE) {
 cleanNames <- c(
   "Sample size"
   , "Red treatment"
-  , "Blue treatment"
   , "Partisanship"
   , "Red treatment x Partisanship"
-  , "Blue treatment x Partisanship"
   , "Age"
   , "Gender"
   , "White"

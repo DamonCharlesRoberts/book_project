@@ -42,14 +42,15 @@ one_sample <- function(n = 100, seed = 121022) {
             N
             , prob=1/2
         )
-        , RepTreatment = base_sample(
+        , RepTreatment = base::sample(
             -1:1
             , N
+            , replace=TRUE
         )
         , preference = fabricatr::draw_likert( # Define Preference outcome variable as 5-item ordinal
             x = stats::rnorm(
                 N
-                , mean = E + 1.5 * RedTreatment + -1.5 * BlueTreatment + 1.5 * PartyID + 2 * RedTreatment * PartyID + - 2 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+                , mean = E + 1.5 * RedTreatment + 1.5 * PartyID + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
             )
             , min = 0
             , max = 100
@@ -59,7 +60,7 @@ one_sample <- function(n = 100, seed = 121022) {
             x = stats::rnorm(
                 N
                 , mean = (
-                    E + 1.5 * RedTreatment - 1.5 * BlueTreatment + 1.5 * PartyID + 2 * RedTreatment * PartyID - 2 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+                    E + 1.5 * RedTreatment + 1.5 * PartyID + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
                 )
             )
             , min = 0
@@ -69,7 +70,7 @@ one_sample <- function(n = 100, seed = 121022) {
         , preference_post = fabricatr::draw_likert( # Define Preference (post new information) outcome variable as 3-item ordinal
             x = stats::rnorm(
                 N
-                , mean = E + 1 * RedTreatment - 1 * BlueTreatment + 2 * PartyID + 2.5 * RedTreatment * PartyID - 2.5 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+                , mean = E + 1 * RedTreatment + 1 * RepTreatment + 2 * PartyID + 2.5 * RedTreatment * RepTreatment * PartyID * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
             )
             , min = 0
             , max = 100
@@ -79,7 +80,7 @@ one_sample <- function(n = 100, seed = 121022) {
             x = stats::rnorm(
                 N
             , mean = (
-                E + 0.5 * RedTreatment - 0.5 * BlueTreatment + 1.5 * PartyID + 2.5 * RedTreatment * PartyID - 2.5 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+                E + 0.5 * RedTreatment + 0.5 * RepTreatment + 1.5 * PartyID + 2.5 * RedTreatment * RepTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
             )
           )
           , min = 0
@@ -147,15 +148,13 @@ discrepancy <- function (
         , "b[5]"
         , "b[6]"
         , "b[7]"
-        , "b[8]"
-        , "b[9]"
     )
     # Define a empty data.table
     rejectDF <- stats::setNames(
         data.table::data.table(
             base::matrix(
                 nrow = 0
-                , ncol = 9
+                , ncol = 7
             )
         ),
         parameters
