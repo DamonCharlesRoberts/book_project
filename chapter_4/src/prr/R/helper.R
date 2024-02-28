@@ -90,6 +90,7 @@ one_sample <- function(n = 100, seed = 121022) {
     )
     #* take sample of population with size n
     sampled <- dgp[base::sample(1:base::nrow(dgp), n), ]
+    sampled["move_diff"] <- sampled["move_post"] - sampled["move"]
     # return it 
     return(sampled)
 }
@@ -148,13 +149,14 @@ discrepancy <- function (
         , "b[5]"
         , "b[6]"
         , "b[7]"
+        , "b[8]"
     )
     # Define a empty data.table
     rejectDF <- stats::setNames(
         data.table::data.table(
             base::matrix(
                 nrow = 0
-                , ncol = 7
+                , ncol = 8
             )
         ),
         parameters

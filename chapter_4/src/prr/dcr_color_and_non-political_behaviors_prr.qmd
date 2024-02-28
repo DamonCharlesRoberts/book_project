@@ -137,7 +137,7 @@ if (params$replicate == TRUE) {
       , cumulative
       , prior
     ]
-    , rstan[stan_model]
+    , rstan[stan_model, rstan_options]
     , ./R/helper[
       sim_all
       , discrepancy_df
@@ -145,6 +145,7 @@ if (params$replicate == TRUE) {
     ]
   )
   cores <- detectCores()-1
+  rstan_options(auto_write=TRUE)
 } else {
   box::use(
    ./R/helper[
@@ -280,13 +281,13 @@ After fitting each model, I construct 95% high density interval credible interva
 if (params$replicate == TRUE) {
   # Define model arguments
   formula <- brmsformula(
-    move ~ RedTreatment + PartyID + RedTreatment * PartyID + age + gender + white + attention
+    move_diff ~ RedTreatment + RepTreatment + PartyID + RedTreatment * RepTreatment * PartyID + age + gender + white + attention
   )
   compiled <- stan_model(
-    "./STAN/move_model.stan"
+    "./STAN/move_post.stan"
     ,model_name = "moveModel"
   )
-  family <- cumulative(link = "logit")
+  family <- gaussian()
   priors <- prior(
     stats::Normal(0,1)
     ,class = b
@@ -294,7 +295,7 @@ if (params$replicate == TRUE) {
     # Run model
   modelDiscrepancies <- sim_all(
     n=c(200, 400, 600, 800)
-    , num_samples = 2
+    , num_samples = 500
     , formula = formula
     , compiled = compiled
     , family = family
@@ -330,8 +331,9 @@ if (params$replicate == TRUE) {
 cleanNames <- c(
   "Sample size"
   , "Red treatment"
+  , "Republican treatment"
   , "Partisanship"
-  , "Red treatment x Partisanship"
+  , "Red treatment x Republican treatment x Partisanship"
   , "Age"
   , "Gender"
   , "White"
