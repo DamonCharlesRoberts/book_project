@@ -49,7 +49,7 @@ execute:
   message: false
   cache: false
 params:
-  replicate: true
+  replicate: false
 ---
 {{< pagebreak >}}
 
@@ -103,7 +103,7 @@ There are many characteristics of a neighborhood besides vehicle color that can 
 
 Applying the snap-judgment model to an individual's choice to move to a neighborhood yields the following hypotheses: when primed to think about politics, participants will perceive the neighborhood to be more Republican when the favorite vehicle color is red and to be more Democratic when the favorite vehicle color is blue, relative to those that are not primed to think about politics ($H_1$); with all else equal, Republicans that see that the modal color of vehicle is red are more likely to report wanting to move to the neighborhood than if the modal vehicle color were blue ($H_2$); with all else equal, Democrats that see the modal color of blue are more likely to report wanting to move to the neighborhood than if the modal vehicle color were red ($H_3$); once we include more information about a neighborhood's partisan composition, then the strength of their desire to live in a neighborhood will increase if congruent with their partisan affiliation ($H_4$) and will weaken if incongruent with their partisan affiliation ($H_5$).
 
-To test these hypotheses, I conduct an experiment involving a fictional real estate posting. I randomly assign half of the participants view the treatment before responding to demographic and political attitude questionnaires containing control variables while the other half view it after. The experiment is a 2x3 factorial design. The treatment involves randomly assigning participants to view one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite color of vehicle" in the neighborhood. In the first type of posting the "favorite color of vehicle" is reported by displaying a red swatch. In the second type of posting, the "favorite color of vehicle" reported by displaying a blue swatch. To encourage quick decision making underneath the flyer participants are presented with a feeling thermometer ranging from 0-100 where participants are asked to "Rate their feelings toward the neighborhood as warm (100) or cold (0)". They are also presented with a 10-item scale to indicate, "How much would [they] like to live in this neighborhood?"
+To test these hypotheses, I conduct an experiment involving a fictional real estate posting. I randomly assign half of the participants view the treatment before responding to demographic and political attitude questionnaires containing control variables while the other half view it after. The experiment is a 2x3 factorial design. The treatment involves randomly assigning participants to view one of two versions of a fictional real estate posting. The characteristics of the neighborhood are exactly the same between the two conditions except for the "favorite color of vehicle" in the neighborhood. In the first type of posting the "favorite color of vehicle" is reported by displaying a red swatch. In the second type of posting, the "favorite color of vehicle" reported by displaying a blue swatch. To encourage quick decision making underneath the flyer participants are presented with a feeling thermometer ranging from 0-100 where participants are asked to "Rate their feelings toward the neighborhood as warm (100) or cold (0)". They are also presented with a 10-item scale to indicate, "How much would [they] like to live in this neighborhood?", and finally, "What do [they] think the political leanings are of the neighborhood is?" with the options being Republican, Democratic, or Neither. 
 
 ![Blue treatment](./assets/treatments/blue-treatment.png){#fig-blue-treatment}
 
@@ -115,9 +115,7 @@ With this new information, I ask participants, on the same screen, to "Rate thei
 
 ## Modeling strategy
 
-The first outcome of interest is the reported feeling thermometer that ranges from 0-100. I divide the response to this outcome variable by 100 and fit an ordered beta regression [see @kubinec_ordered_2022]. As I am interested in examining how these treatments impact perceptions and resulting preferences based on partisanship, I interact the treatment with the self-reported partisan identity of the participant to examine how a participants' preference for that neighborhood is moderated by the treatment. As I am unable to randomly assign my participants' self-reported partisan identity, I want to ensure that I isolate the main and conditional effects of self-reported partisan identification from confounders such as age, and education. I also want to hold constant potential confounders of the treatment's effect on a participant outside of their partisanship such as sex and colorblindness, as well as attention paid to politics. Using these models will allow me to test the first hypothesis which predicts that people will report liking the neighborhood more when the favorite vehicle color aligns with their partisan group -- red with Republicans and blue with Democrats, as they project the association between the colors red and blue with their partisan group onto the neighborhood. I then examine the second hypothesis which predicts that updating this information with consistent cultural stereotypes of partisan preferences for neighborhood features strengthens one's affect towards the neighborhood as a result of this new information strengthening my participants' certainty about the partisan composition of the neighborhood. These tests do not examine whether it influences one's willingness to move to the neighborhood, only one's preferences toward it. In this way, these tests are much like the outcomes examined in the common experimental tests of the observed positive affect toward neighborhoods with a partisan composition aligned with your own identity. The next outcome of interest examines the degree to which someone is willing to move to the neighborhood on this same information.
-
-The outcome of interest is a 10-item Likert scale. So the following models will be ordered logistic regressions. Much like I did with the previous models, I fit a model that includes an interaction term so that I can test whether the effect of self-reported partisan identity on a preference to live in a particular neighborhood is moderated by the reported favorite vehicle color in that neighborhood and whether these effects are strengthened (in either direction) once we follow-up with more information. Here, I am conducting a triple interaction. As the partisanship of the participants is still not randomized, I include the same confounding variables.
+To examine $H_1$, I will simply use descriptive statistics to examine the marginals of how people perceived the partisanship of the neighborhood after viewing  the flyer. To examine $H_2$ and $H_3$, I fit an ordinal logistic regression where the outcome variable is the 10-item Likert of individuals reporting "How much [they'd] like to live here" immediately after viewing the yard sign. I will interact the treatment with self-reported partisan identification. I will also include the ascriptive and descriptive individual characteristics as control variables as partisan identification cannot be randomly assigned. To examine $H_4$ and $H_5$, I take the difference between subjects' initial responses to the question about their desire to live in the neighborhood after they saw the second page and the same question when they initially responded to it after the flyer. I then fit a regression with a Gaussian link function (OLS) where I have a triple interaction between the flyer treatment, the second page treatment, and partisan identification. Like I did before, I include the common ascriptive and descriptive characteristic questions as control variables.
 
 ## Simulations
 
@@ -202,20 +200,20 @@ dgp <- fabricate(
 
 ``` {#lst-sim-dgp-2 .r lst-cap="Code to generate simulated population data (continued)"}
   ...
-    RedTreatment = sample( # Simulate treatment assignment with prob 1/3
-        1:3,
+    RedTreatment = draw_binary( # Simulate treatment assignment with probability of 1/2
         N,
-        replace=TRUE
+        prob=1/2
     ),
-    BlueTreatment = draw_binary( # Simulate treatment assignment with prob 1/3
-      N, 
-      mean = 1/3
+    RepTreatment = sample(
+      -1:1, # Randomly assign the sample into one of three treatment conditions
+      N,
+      replace=TRUE
     ),
     preference = draw_binary( # Define Preference outcome variable as 3-item ordinal
         x = rnorm(
             N,
             prob = (
-              E + 1.5 * RedTreatment - 1.5 * BlueTreatment + 1.5 * PartyId + 2 * RedTreatment * PartyId - 2 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+              E + 1.5 * RedTreatment + 1.5 * PartyId + 2 * RedTreatment * PartyId + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
             )
         )
     ),
@@ -223,7 +221,7 @@ dgp <- fabricate(
         x = rnorm(
             N,
             mean = (
-              E + 1 * RedTreatment - 1 * BlueTreatment + 1 * PartyId + 2 * RedTreatment * PartyID - 2 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+              E + 1 * RedTreatment + 1 * PartyId + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
             )
         ),
         breaks = c(
@@ -234,7 +232,7 @@ dgp <- fabricate(
       x = rnorm(
         N,
         prob = (
-          E + 1 * RedTreatment  - 1 * BlueTreatment + 2 * PartyID + 2.5 * RedTreatment * PartyID - 2.5 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+          E + 1 * RedTreatment  + 1 * RepTreatment + 2 * PartyID + 2.5 * RedTreatment * RepTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
         )
       )
     ),
@@ -242,7 +240,7 @@ dgp <- fabricate(
       x = rnorm(
         N,
         mean = (
-          E + 0.5 * RedTreatment - 0.5 * BlueTreatment + 1.5 * PartyId + 2.5 * RedTreatment * PartyID - 2.5 * BlueTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+          E + 0.5 * RedTreatment + 0.5 * RepTreatment + 1.5 * PartyId + 2.5 * RedTreatment * RepTreatment * PartyID  + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
         )
       ),
       breaks = c(
@@ -250,10 +248,6 @@ dgp <- fabricate(
       )
     )
 )
-dgp$BlueTreatment <- NA
-dgp$BlueTreatment[dgp$RedTreatment == 0] <- 0
-dgp$BlueTreatment[dgp$RedTreatment == -1] <- 1
-dgp$RedTreatment[dgp$RedTreatment == -1] <- NA
 ```
 
 To examine whether my design and modeling choices allow for the convergence on the population's data generating process, I specify an ordinal logistic regression where I set relatively constrained priors upon the $\beta$ coefficients, as depicted in @eq-party-guess-priors.
@@ -262,16 +256,15 @@ $$
 \begin{split}
   \alpha \sim Student-T(3,0,2.5) \\
   \beta_i \sim Normal(0, 1) \\
-  \hat{Move_i} = Cumulative(logit^{-1}(\alpha_1 + \alpha_2 + \alpha_3 + \alpha_4 \\ 
-   + \beta_1 \times Red Treatment + \beta_2 \times Blue Treatment + \beta_3 \times Partisanship \\
-   + \beta_4 \times Red treatment \times Partisanship \\ 
-   + \beta_5 \times Blue treatment \times Partisanship \\
-   + \beta_6 \times Age + \beta_7 \times Gender \\
-   + \beta_8 \times White + \beta_9 \times Attention))
+  \hat{Move_i} = Normal(\alpha_1 + \alpha_2 + \alpha_3 + \alpha_4 \\ 
+   + \beta_1 \times Red Treatment + \beta_2 \times Republican Treatment + \beta_3 \times Partisanship \\
+   + \beta_4 \times Red treatment \times Republican Treatment \times Partisanship \\ 
+   + \beta_5 \times Age + \beta_6 \times Gender \\
+   + \beta_7 \times White + \beta_8 \times Attention)
 \end{split}
 $$ {#eq-party-guess-priors}
 
-These priors suggest that I believe 68% of my beta coefficients on a logged-odds scale, given the data, should be between -1 and 1; with the median of the estimates at 0. This is quite a conservative estimate given that the primary $\beta$ coefficients of interest are both at 0.1 on the logged-odds scale.
+These priors suggest that I believe 68% of my beta coefficients, given the data, should be between -1 and 1; with the median of the estimates at 0.
 
 After fitting each model, I construct 95% high density interval credible intervals from the model's posterior draws. I then record a value of 1 if the credible interval does not contain zero (true positive) and a value of 0 if the credible interval does (false negative) for each parameter. Once I have run each of my models for the specified sample size, I calculate the average of true positive and false negatives. This gives me a percentage of the time that I would come to the correct conclusion that there is a non-zero effect on that parameter. @fig-true-positive-rate documents these calculations for each sample size.
 
@@ -322,8 +315,9 @@ if (params$replicate == TRUE) {
 #| fig-cap: True positive rate
 #| fig-subcap: 
 #|  - "Red treatment"
+#|  - "Republican treatment"
 #|  - "Party Identification"
-#|  - "Red treatment x Party Identification"
+#|  - "Red treatment x Republican treatment x Party Identification"
 #|  - "Age"
 #|  - "Gender"
 #|  - "White"
@@ -355,7 +349,6 @@ plotList[[5]]
 plotList[[6]]
 plotList[[7]]
 plotList[[8]]
-plotList[[9]]
 ```
 
 From these simulations, we can see that the true positive rate for the estimate of interest (the interaction term) holds up across different sample sizes. To be safe, however, I am going to strive to recruit more than 600 participants total which should give me a sufficient sample to work with even once I have to apply exclusion criteria.
