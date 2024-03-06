@@ -3,91 +3,96 @@
 #' @param seed seed
 #' @return data.table
 #' @export
-one_sample <- function(N = 100, seed = 121022) {
-  base::set.seed(seed)
-  #* define population
-  dgp <- fabricatr::fabricate(
-    N = 1000000 # N in the population
-    , E = stats::rnorm(N) # epsilon term
-    , age = base::round( # define age variable
-      stats::runif(N, 18, 85)
-    )
-    , gender = fabricatr::draw_binary( # define binary gender identity variable
-      N
-      , prob = 0.5
-    )
-    , white = fabricatr::draw_binary( # define white indicator variable
-      N
-      , prob = 0.6
-    )
-    , PartyID = fabricatr::draw_ordered( # define party identity variable as 3-item ordinal
-      x = stats::rnorm(
-        N
-        , mean = 0.4 * age - 0.6 * gender + 0.7 * white + E
-      )
-      , breaks = base::c(
-        -Inf, 20.14, 23.01, Inf
-      )
-    )
-    , attention = fabricatr::draw_likert( # define Attention variable as 5-item ordinal
-      x = stats::rnorm(
-        N
-        , mean = 0.5 * age - 0.3 * gender + 0.1 * white + E
-      )
-      , min = 0
-      , max = 100
-      , bins = 5
-    )
-    , RedTreatment = fabricatr::draw_binary( # Simulate treatment assignment with prob 1/3
-      N
-      , prob = 0.5
-    )
-    , preference = fabricatr::draw_likert( # Define Preference outcome variable as 5-item ordinal
-        x = stats::rnorm(
+one_sample <- function(n = 100, seed = 121022) {
+    base::set.seed(seed)
+    #* define population
+    dgp <- fabricatr::fabricate(
+        N = 1000000 # N in the population
+        , E = stats::rnorm(N) # epsilon term
+        , age = base::round( # define age variable
+          stats::runif(N, 18, 85)
+        )
+        , gender = fabricatr::draw_binary( # define binary gender identity variable
           N
-          , mean = E + 1.5 * RedTreatment + 1.5 * PartyID + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+          , prob = 0.5
         )
-        , min = 0
-        , max = 100
-        , bins = 2
-      )
-    , move = fabricatr::draw_likert( # Define move outcome variable as Likert variable
-      x = stats::rnorm(
-        N
-        , mean = (
-          E + 1 * RedTreatment + 1 * PartyID + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+        , white = fabricatr::draw_binary( # define white indicator variable
+          N
+          , prob = 0.6
         )
-      )
-      , min = 0
-      , max = 100
-      , bins = 5
-    )
-    , preference_post = fabricatr::draw_likert( # Define Preference (post new information) outcome variable as 3-item ordinal
-      x = stats::rnorm(
-        N
-        , mean = E + 1 * RedTreatment + 2 * PartyID + 2.5 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
-      )
-      , min = 0
-      , max = 100
-      , bins = 2
-    )
-    , move_post = fabricatr::draw_likert(# Define move outcome variable as Likert variable
-      x = stats::rnorm(
-        N
-        , mean = (
-          E + 0.5 * RedTreatment + 1.5 * PartyID + 2.5 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+        , PartyID = fabricatr::draw_ordered( # define party identity variable as 3-item ordinal
+          x = stats::rnorm(
+            N
+            , mean = 0.4 * age - 0.6 * gender + 0.7 * white + E
+          )
+          , breaks = base::c(
+            -Inf, 20.14, 23.01, Inf
+          )
         )
-      )
-      , min = 0
-      , max = 100
-      , bins = 5
+        , attention = fabricatr::draw_likert( # define Attention variable as 5-item ordinal
+          x = stats::rnorm(
+            N
+            , mean = 0.5 * age - 0.3 * gender + 0.1 * white + E
+          )
+          , min = 0
+          , max = 100
+          , bins = 5
+        )
+        , RedTreatment = fabricatr::draw_binary( # Simulate treatment assignment with prob 1/3
+            N
+            , prob=1/2
+        )
+        , RepTreatment = base::sample(
+            -1:1
+            , N
+            , replace=TRUE
+        )
+        , preference = fabricatr::draw_likert( # Define Preference outcome variable as 5-item ordinal
+            x = stats::rnorm(
+                N
+                , mean = E + 1.5 * RedTreatment + 1.5 * PartyID + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+            )
+            , min = 0
+            , max = 100
+            , bins = 2
+        )
+        , move = fabricatr::draw_likert( # Define move outcome variable as Likert variable
+            x = stats::rnorm(
+                N
+                , mean = (
+                    E + 1.5 * RedTreatment + 1.5 * PartyID + 2 * RedTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+                )
+            )
+            , min = 0
+            , max = 60
+            , breaks = 5
+        )
+        , preference_post = fabricatr::draw_likert( # Define Preference (post new information) outcome variable as 3-item ordinal
+            x = stats::rnorm(
+                N
+                , mean = E + 1 * RedTreatment + 1 * RepTreatment + 2 * PartyID + 2.5 * RedTreatment * RepTreatment * PartyID * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+            )
+            , min = 0
+            , max = 100
+            , bins = 2
+        )
+        , move_post = fabricatr::draw_likert(# Define move outcome variable as Likert variable
+            x = stats::rnorm(
+                N
+            , mean = (
+                E + 0.5 * RedTreatment + 0.5 * RepTreatment + 1.5 * PartyID + 2.5 * RedTreatment * RepTreatment * PartyID + 0.5 * age + 0.3 * gender + 0.1 * white + 0.1 * attention
+            )
+          )
+          , min = 0
+          , max = 100
+          , bins = 5
+        )
     )
-  )
-  #* take sample of population with size n
-  sampled <- dgp[base::sample(1:base::nrow(dgp), N), ]
-  
-  # return it 
-  return(sampled)
+    #* take sample of population with size n
+    sampled <- dgp[base::sample(1:base::nrow(dgp), n), ]
+    sampled["move_diff"] <- sampled["move_post"] - sampled["move"]
+    # return it 
+    return(sampled)
 }
 
 #' @title generate_samples
@@ -144,13 +149,14 @@ discrepancy <- function (
         , "b[5]"
         , "b[6]"
         , "b[7]"
+        , "b[8]"
     )
     # Define a empty data.table
     rejectDF <- stats::setNames(
         data.table::data.table(
             base::matrix(
                 nrow = 0
-                , ncol = 7
+                , ncol = 8
             )
         ),
         parameters
