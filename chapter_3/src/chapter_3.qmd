@@ -33,6 +33,7 @@ df_descriptives <- dbGetQuery(
     Clean;
   "
 )
+df_h1 <- dbGetQuery(con, "SELECT CorrectColor FROM Clean")
 df_primed <- dbGetQuery(con, "SELECT * FROM Clean WHERE CorrectColor=1 AND PoliticalPrime == 1;")
 ```
 
@@ -131,7 +132,16 @@ The second hypothesis would suggest that those given the political prime would b
 
 ### Results
 
-To address $H_1$, the outcome variable of interest is whether or not people notice the color of the shirt (0 or 1,) as explained by whether they received the political prime or not (0 or 1). To measure whether participants notice the color of the shirt, I ask them to report what the color of the shirt was. I then compare that to the color of the shirt that they actually saw. Those who reported the correct color received a value of 1 and those who were incorrect received a value of 1. I fit a logistic regression to examine whether there are differences in the outcome depending on this prime.
+To address $H_1$, the outcome variable of interest is whether or not people notice the color of the shirt (0 or 1,) as explained by whether they received the political prime or not (0 or 1). To measure whether participants notice the color of the shirt, I ask them to report what the color of the shirt was. I then compare that to the color of the shirt that they actually saw. Those who reported the correct color received a value of 1 and those who were incorrect received a value of 1. @tbl-h1-descriptive presents the descriptive statistics for the sample.
+
+```{r}
+#| label: tbl-h1-descriptive
+#| tbl-cap: Sample performance of noticing color
+#| echo: false
+datasummary_skim(data=df_h1)
+```
+
+I fit a logistic regression to examine whether there are differences in the outcome depending on this prime.
 
 - Do people notice color when they are in the political prime v not
 - Do people who are conflict avoidant notice the color of shirt or not?
