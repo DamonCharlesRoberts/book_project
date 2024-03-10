@@ -27,4 +27,4 @@ dbWriteTable(con, "OriginalModule", df)
 dbWriteTable(con, "OriginalCommon", df_common)
 
 # Disconnect from the database
-dbDisconnect(con)
+dbDisconnect(con, shutdown=TRUE)

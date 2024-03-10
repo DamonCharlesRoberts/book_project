@@ -5,21 +5,25 @@
 # **        Python script for the cleaning of the study 1 data.
 
 # Load modules
-import duckdb as db
-import polars as pl
+box::use(
+    DBI[dbConnect, dbExecute],
+    duckdb[duckdb]
+)
 
 # Connect to db
-con = db.connect("./chapter_3/data/clean/study_1.db")
+con <- dbConnect(duckdb(), dbdir="./chapter_3/data/clean/study_1.db")
 
 # Cleaning
-con.execute(
-    '''
+dbExecute(
+    con,
+    "
     CREATE OR REPLACE VIEW
         CleanTemp
     AS
     SELECT
         /* CaseID */
         caseid,
+        teamweight,
         /* 
             PoliticalPrime
                 CUB3D01 - Version 1, 2, 3, 4
@@ -254,11 +258,12 @@ con.execute(
         ) AS Attention,
     FROM
         OriginalModule;
-    '''
+    "
 )
 
-con.execute(
-    '''
+dbExecute(
+    con,
+    "
     CREATE OR REPLACE TABLE
         Clean
     AS
@@ -282,8 +287,8 @@ con.execute(
             ) AS CorrectColor,
         FROM
             CleanTemp AS t;
-    '''
+    "
 )
 
 # Close the connection
-con.close()
+dbDisconnect(con, shutdown=TRUE)
