@@ -5,9 +5,35 @@
 
 # Load the functions
 box::use(
-    datasummary[...]
+  DBI[dbConnect, dbGetQuery],
+  modelsummary[datasummary_skim]
 )
 
+# Connect to the db
+con <- dbConnect(
+  duckdb::duckdb(),
+  dbdir = "./chapter_3/data/clean/study_1.db",
+  read_only=TRUE
+)
+
+# Load the data
+df_descriptives <- dbGetQuery(
+  con,
+  "
+  SELECT
+    Age,
+    Gender AS 'Gender (Male, Female, Non-Binary, Other)',
+    Education,
+    White,
+    Attention,
+    Dem3 AS 'PID (Republican, Independent, Democrat)',
+    DislikeArgue AS 'Dislike Arguing',
+    EnjoyChallenge AS 'Enjoy Challenging'
+  FROM 
+    Clean;
+  "
+)
+df_primed <- dbGetQuery(con, "SELECT * FROM Clean WHERE CorrectColor=1 AND PoliticalPrime == 1;")
 ```
 
 ## Introduction
@@ -86,7 +112,14 @@ So where does this leave us? Coming to some conclusion about someone based on th
 
 ### Study design
 
-[Study 1](#study-1) seeks to address $H_1$ and $H_2$. In [Study 1](#study-1), I recruit participants from ***[YouGov/Qualtrics/Whatever online panels are in vogue that week]***. First, I ask participants several questions about their demographic background (i.e., age, gender identity, education, and income). I additionally present them with a battery to measure conflict avoidance as potential confounds. 
+[Study 1](#study-1) seeks to address $H_1$ and $H_2$. In [Study 1](#study-1), I recruit participants from YouGov in a module of the Congressional Election Study. First, I ask participants several questions about their demographic background (i.e., age, gender identity, education, and income). I additionally present them with a battery to measure conflict avoidance as potential confounds. @tbl-descriptive-demo presents the basic demographics of my participants.
+
+```{r}
+#| label: tbl-descriptive-demo
+#| tbl-cap: Descriptive statistics of sample
+#| echo: false
+datasummary_skim(data=df_descriptives)
+```
 
 After getting some background information on my participants, I randomly split the sample into two conditions. The first condition is a "political prime" condition, and the second is a "no political prime" condition. For the participants in the political prime condition, I ask them several questions about their political attitudes. This includes questions about their partisan identification and their attention to politics. While I do not make a significant effort to prime politics, I design these questions to make politics salient for them. Those assigned to the second condition, no political prime, participants are asked these questions after the primary treatment, but not before. I designed this to test the scope conditions of the relevance of clothing color in conversation when politics is not salient. The additional benefit is that it counterbalances the party identification variable, so I am not systematically introducing priming and post-treatment bias.
 
@@ -96,9 +129,12 @@ Below those instructions, I show participants an image of a person with either a
 
 The second hypothesis would suggest that those given the political prime would be more willing to have a conversation with someone who is wearing the color affiliated with their partisanship (e.g., Democrats are more willing to have conversations with a discussion partner with a blue shirt than a red shirt) and less so with those who is not. Those in the non-political priming conditions, we should expect that there would be no real substantive difference between conditions as politics is not salient, and the color of the shirt should have no significant meaning to them.
 
-### Modeling strategy
+### Results
 
-To address $H_1$, the outcome variable of interest is whether or not people notice the color of the shirt (0 or 1,) as explained by whether they received the political prime or not (0 or 1). I will fit a logistic regression to examine whether there are differences in the outcome depending on this prime.
+To address $H_1$, the outcome variable of interest is whether or not people notice the color of the shirt (0 or 1,) as explained by whether they received the political prime or not (0 or 1). To measure whether participants notice the color of the shirt, I ask them to report what the color of the shirt was. I then compare that to the color of the shirt that they actually saw. Those who reported the correct color received a value of 1 and those who were incorrect received a value of 1. I fit a logistic regression to examine whether there are differences in the outcome depending on this prime.
+
+- Do people notice color when they are in the political prime v not
+- Do people who are conflict avoidant notice the color of shirt or not?
 
 To address $H_2$, the outcome variable of interest is a five-item Likert response to the statement, "I am willing to have a conversation with this person." Therefore, I elect to use an ordered logistic regression as my estimator. In terms of the particular model, there are some considerations I need to make.
 
