@@ -1,20 +1,16 @@
 [tool.poetry]
-name = "book"
+name = "dissertation"
 version = "0.1.0"
-description = "Book project on colors as visual information in politics"
+description = ""
 authors = ["DamonCharlesRoberts <damon.charles.roberts@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.13"
-selenium = "^4.10.0"
-polars = "^0.18.3"
-webdriver-manager = "^3.8.6"
-pyarrow = "^12.0.1"
-pandas = "^2.0.2"
+python = "^3.12"
+duckdb = "^0.10.0"
+polars = "^0.20.14"
+pyarrow = "^15.0.1"
 
-[tool.poetry.group.dev.dependencies]
-opencv-python = "^4.7.0.72"
 
 [build-system]
 requires = ["poetry-core"]
