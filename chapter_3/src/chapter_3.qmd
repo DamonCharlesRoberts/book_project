@@ -6,7 +6,10 @@
 # Load the functions
 box::use(
   DBI[dbConnect, dbGetQuery],
-  modelsummary[datasummary_skim]
+  modelsummary[datasummary_skim],
+  marginaleffects[...],
+  tidybayes[stat_halfeye],
+  ggplot2[...]
 )
 
 # Connect to the db
@@ -33,8 +36,12 @@ df_descriptives <- dbGetQuery(
     Clean;
   "
 )
-df_h1 <- dbGetQuery(con, "SELECT CorrectColor FROM Clean")
+df_h1_descriptive <- dbGetQuery(con, "SELECT CorrectColor FROM Clean")
 df_primed <- dbGetQuery(con, "SELECT * FROM Clean WHERE CorrectColor=1 AND PoliticalPrime == 1;")
+df_dvs <- dbGetQuery(con, "SELECT ConversationAgree, ViewsAgree, InitiateAgree FROM Clean;")
+
+# Load the models
+load("./chapter_3/data/models/study-1-models.RData")
 ```
 
 ## Introduction
@@ -122,7 +129,7 @@ So where does this leave us? Coming to some conclusion about someone based on th
 datasummary_skim(data=df_descriptives)
 ```
 
-After getting some background information on my participants, I randomly split the sample into two conditions. The first condition is a "political prime" condition, and the second is a "no political prime" condition. For the participants in the political prime condition, I ask them several questions about their political attitudes. This includes questions about their partisan identification and their attention to politics. While I do not make a significant effort to prime politics, I design these questions to make politics salient for them. Those assigned to the second condition, no political prime, participants are asked these questions after the primary treatment, but not before. I designed this to test the scope conditions of the relevance of clothing color in conversation when politics is not salient. The additional benefit is that it counterbalances the party identification variable, so I am not systematically introducing priming and post-treatment bias.
+After collecting some background information on my participants, I randomly split the sample into two conditions. The first condition is a "political prime" condition, and the second is a "no political prime" condition. For the participants in the political prime condition, I ask them several questions about their political attitudes. This includes questions about their partisan identification and their attention to politics. While I do not make a significant effort to prime politics, I design these questions to make politics salient for them. Those assigned to the second condition, no political prime, participants are asked these questions after the primary treatment, but not before. I designed this to test the scope conditions of the relevance of clothing color in conversation when politics is not salient. The additional benefit is that it counterbalances the party identification variable, so I am not systematically introducing priming and post-treatment bias.
 
 In the primary treatment of the study, I randomly assign participants to one of two conditions. In both conditions, participants are instructed, "You will have a conversation with this person." In these instructions, I do not state this is will be a "political conversation" or a "conversation about politics." I see these instructions as substantively different from the latter phrasings prime politics. The goal is that the priming (or no priming) done before this treatment will be what is making politics salient or not.
 
@@ -132,7 +139,17 @@ The second hypothesis would suggest that those given the political prime would b
 
 ### Results
 
-To address $H_1$, the outcome variable of interest is whether or not people notice the color of the shirt (0 or 1,) as explained by whether they received the political prime or not (0 or 1). To measure whether participants notice the color of the shirt, I ask them to report what the color of the shirt was. I then compare that to the color of the shirt that they actually saw. Those who reported the correct color received a value of 1 and those who were incorrect received a value of 1. @tbl-h1-descriptive presents the descriptive statistics for the sample.
+```{r}
+#| label: tbl-dvs
+#| tbl-cap: Sample responses to outcome variables
+#| echo: false
+
+datasummary_skim(data=df_dvs)
+```
+
+@tbl-dvs presents the descriptive statistics of how participants responded to measures of the propensity for them to engage in a conversation with their hypothetical discussion partner once viewing their avatar. Overall, we see that the average participant is a bit ambivalent on all the measures. The average participant is somewhat willing to agree to have a conversation with their hypothetical discussion partner after viewing the avatar, neither agree nor disagree with the statement that they will agree with the view points of their hypothetical discussion partner, and neither agree nor disagree with the statement that they would initiate a conversation with their hypothetical discussion partner. 
+
+To address $H_1$, the outcome variable of interest is whether or not people notice the color of the shirt (0 or 1,) as explained by whether they received the political prime or not (0 or 1). To measure whether participants notice the color of the shirt, I ask them to report what the color of the shirt was. I then compare that to the color of the shirt that they actually saw. Those who reported the correct color received a value of 1 and those who were incorrect received a value of 1. @tbl-h1-descriptive presents the descriptive statistics for the sample on how they performed with this question.
 
 ```{r}
 #| label: tbl-h1-descriptive
@@ -141,18 +158,183 @@ To address $H_1$, the outcome variable of interest is whether or not people noti
 datasummary_skim(data=df_h1)
 ```
 
-I fit a logistic regression to examine whether there are differences in the outcome depending on this prime.
+I fit a logistic regression to examine whether there are differences in the outcome depending on this prime. I fit this model with with a Gaussian prior centered around 0 with a standard deviation of 1. In other words, my prior suggests that the beta coefficient with the highest relative probability of occurring and that, if it is not 0, it should most likely be between -1 and 1. The results of this model are presented in @fig-h1-main.
 
-- Do people notice color when they are in the political prime v not
-- Do people who are conflict avoidant notice the color of shirt or not?
+```{r}
+#| label: fig-h1-main
+#| fig-cap: Predicted probability of identifying the correct color
+#| fig-subcap:
+#|   - Political prime
+#|   - I dislike arguing about politics
+#|   - I enjoy challenging the opinions of others
+#| echo: false
+
+plot_predictions(
+  mod_h1_main,
+  condition="PoliticalPrime"
+) +
+theme_minimal()+
+scale_x_discrete(
+  breaks=c("0", "1"),
+  labels=c("Not Primed", "Primed")
+) +
+labs(
+  y = "Pr(Correct) = 1"
+)
+
+plot_predictions(
+   mod_h1_conflict,
+  condition="DislikeArgue"
+) +
+theme_minimal()+
+scale_x_continuous(
+  breaks=c(-2, 0, 2),
+  labels=c("Strongly Disagree", "Neither agree nor disagree", "Strongly agree")
+) +
+labs(
+  y = "Pr(Correct) = 1"
+)
+
+plot_predictions(
+   mod_h1_conflict_b,
+  condition="EnjoyChallenge"
+) +
+theme_minimal()+
+scale_x_continuous(
+  breaks=c(-2, 0, 2),
+  labels=c("Strongly Disagree", "Neither agree nor disagree", "Strongly agree")
+) +
+labs(
+  y = "Pr(Correct) = 1"
+)
+```
+
+This model suggests that those who received the political prime were slightly less likely to correctly identify the color of shirt on the avatar. The difference, however, is quite small substantively. Given that 90% of the sample correctly identified the color of shirt on the avatar, there may just be too little variation.
+
+A key insight from the literature on deliberation is that individuals who are conflict avoidant are likely to avoid engaging in a conversation with those they may disagree with and will use visual characteristics as heuristics to make inferences about how likely disagreement will occur [@carlson_what_2022]. In the political questionnaire, I asked participants whether they "Dislike arguing about politics" ^[A value of -2 corresponds to a response of Strongly disagree, and a value of 2 corresponds to a response of Strongly agree.] and whether they "enjoy challenging the opinion of others" ^[A value of -2 corresponds to a response of Strongly disagree, and a value of 2 corresponds to a response of Strongly agree.]. Though not a pre-registered hypothesis, the snap-judgment model agrees with the literature in that people are likely to feel more anxious when faced with the possibility of disagreement and will engage in information-seeking behavior to make a decision about what to do next. Like the literature on deliberation, we'd expect that those who are more conflict avoidant will be more likely to correctly identify the color as they are more likely to seek such information to help infer the partisanship of a potential discussion partner.
+
+To test this, I fit two logistic regression models regressing the participants' ability to correctly identify the color of shirt on these two measures that proxy conflict avoidance. I use the same priors as before. The results of these models are included in @fig-h1-main.
+
+The first model suggests that those who dislike arguing about politics are relatively more likely to correctly identify the color of shirt than those who do enjoy arguing about politics. The effects are quite small, however. Turning to the next model, we see that those who enjoy challenging others' views are relatively less likely to correctly identify the avatar's shirt color than those who find much less enjoyment out of it. These effects are also quite small.
 
 To address $H_2$, the outcome variable of interest is a five-item Likert response to the statement, "I am willing to have a conversation with this person." Therefore, I elect to use an ordered logistic regression as my estimator. In terms of the particular model, there are some considerations I need to make.
 
-In the context of my experiment, I hypothesize that the participants' responses are primarily explained by whether that person is wearing a red or blue shirt. This effect, however, is likely moderated by a couple of things. First, if $H_1$ holds, the polarity in outcome responses will be partly explained by whether politics is at the top of the mind. Second, I expect that the strength of the relationship of the shirt color and the priming will depend on the party identification of the study participant. More specifically, if they are Republican, I would expect that those with the political prime who see a red shirt will be much more favorable of conversing with the fictional discussion partner than those without the political prime and those who saw a fictional discussion partner with a blue shirt. I expect the opposite for self-identifying Democrats -- Democrats who receive the political prime will report being more willing to have a conversation with the discussion partner when the partner is wearing a blue shirt relative to Democrats who did not receive a prime *and* Democrats who saw a discussion partner with a red shirt.
+In the context of my experiment, I hypothesize that the participants' responses are primarily explained by whether that person is wearing a red or blue shirt. This effect, however, is likely moderated by a couple of things. If they are Republican, I would expect that those with the political prime who see a red shirt will be much more favorable of conversing with the fictional discussion partner than those without the political prime and those who saw a fictional discussion partner with a blue shirt. I expect the opposite for self-identifying Democrats -- Democrats who receive the political prime will report being more willing to have a conversation with the discussion partner when the partner is wearing a blue shirt relative to Democrats who did not receive a prime *and* Democrats who saw a discussion partner with a red shirt.
 
 The setup for the study is a 2x2x2 factorial design. Often the standard practice is to use a triple interaction. I believe that is reasonable enough. The triple interaction would allow me to test whether the partisan identification of the participant moderates the relationship between the shirt color and the prime. However, the interaction term would test whether Democrats and Republicans differ in how they respond to these conditions instead of testing what those differences are. What seems more appropriate to me is a test of whether Republicans primed with politics are more willing to talk to people wearing red shirts relative to those who do not receive the political prime and those wearing blue shirts; as a second question to look at whether Democrats who receive the political prime are more willing to talk to people wearing Blue shirts more than those who do not receive the political prime and those wearing red shirts. I am not claiming whether strength of these relationships operates differently among Republicans and Democrats but rather that it is two separate questions. Therefore, I also consider a split sample approach whereby I split my sample into Democrats and Republicans and run a regression on each sub-sample. For each of these regressions, I include an interaction term to study the moderating effect of the prime on the effect that shirt color has on willingness to talk to them. Since party identification is not randomly assigned, I include potential confounders impact people's propensity to discuss politics and their party identification (i.e., age, gender, education, income, and conflict avoidance). 
 
-In the [Simulation section](#simulation) below, I provide further details discussing some practical considerations I must weigh in my decisions. In particular, both model choices to examine $H_2$ are rather complicated models. As my models will rely on the Bayesian implementation of regression, the inferences I can draw are dependent on the data from the sample, much more so as it does not rely on assumptions about long-run tendencies. Therefore, I want to examine my models' ability to converge on the correct answer given various sample sizes. In that section, I provide more details about the model, sample sizes, and prior distribution specifications.
+```{r}
+#| label: fig-h2
+#| fig-cap: The marginal effect of agreeing to have a conversation with a discussion partner
+#| fig-subcap:
+#|   - Democrats
+#|   - Republicans
+mfx_dem <- slopes(mod_h2_dem,
+    variables = "BlueShirt",
+    newdata = datagrid(PoliticalPrime = 0:1)) |>
+    posterior_draws()
+mfx_rep <- slopes(mod_h2_rep,
+    variables = "BlueShirt",
+    newdata = datagrid(PoliticalPrime = 0:1)) |>
+    posterior_draws()
+
+ggplot(mfx_dem, aes(x = draw, fill = factor(PoliticalPrime))) +
+    stat_halfeye(slab_alpha = .5) +
+    labs(x = "Marginal Effect of a blue shirt on having a conversation",
+         y = "Posterior density",
+         fill = "PoliticalPrime") +
+    scale_fill_manual(
+      "Political Prime", values=c("#404040", "#00AEF3"), labels=c("Not primed", "Primed")
+    ) +
+    theme_minimal()
+    
+ggplot(mfx_rep, aes(x = draw, fill = factor(PoliticalPrime))) +
+    stat_halfeye(slab_alpha = .5) +
+    labs(x = "Marginal Effect of a blue shirt on having a conversation",
+         y = "Posterior density") +
+    scale_fill_manual(
+      "Political Prime", values=c("#404040", "#ff0803"), labels=c("Not primed", "Primed")
+    ) +
+    theme_minimal()
+```
+
+The results suggest that the political prime did not have a substantive effect on shifting Democratic or Republican identifying participants. In the model with the Democratic participants, we see that those who received the political prime were slightly more likely to be willing to have a conversation with their hypothetical discussion partner than those without the political prime. When examining the results of the model with Republican participants, we see that those who received the political prime were more willing to have a conversation with a discussion partner wearing a Red shirt relative to those who did not receive the political prime. Conversely, Republican participants were less likely to have a conversation with a hypothetical discussion partner who was wearing a blue shirt when primed relative to those who were not primed.
+
+Next, I examine whether these small effects appear for other measures of participants' perceptions of a conversation partner. In addition to asking participants whether they would be willing to have a conversation with their hypothetical discussion partner, I also asked them whether they "think that [they] would agree about most things with this person" and whether they "can see [themselves] initiating the conversation with this person." I fit the same models but instead regress these outcomes on my predictors. @fig-h2-agree presents the posterior draws of the marginal effect that the treatment has on perceptions of agreement conditional on whether the participant received a political prime. @fig-h2-initiate also presents the posterior draws of the marginal effect but on whether participants would initiate a conversation with their discussion partner based upon the treatment when conditioned on whether they received the political prime or not.
+
+```{r}
+#| label: fig-h2-agree
+#| fig-cap: The marginal effect of belief of agreeing with a discussion partner
+#| fig-subcap:
+#|   - Democrats
+#|   - Republicans
+mfx_dem <- slopes(mod_h2_agree_dem,
+    variables = "BlueShirt",
+    newdata = datagrid(PoliticalPrime = 0:1)) |>
+    posterior_draws()
+mfx_rep <- slopes(mod_h2_agree_rep,
+    variables = "BlueShirt",
+    newdata = datagrid(PoliticalPrime = 0:1)) |>
+    posterior_draws()
+
+ggplot(mfx_dem, aes(x = draw, fill = factor(PoliticalPrime))) +
+    stat_halfeye(slab_alpha = .5) +
+    labs(x = "Marginal Effect of a blue shirt on perception of agreement",
+         y = "Posterior density",
+         fill = "PoliticalPrime") +
+    scale_fill_manual(
+      "Political Prime", values=c("#404040", "#00AEF3"), labels=c("Not primed", "Primed")
+    ) +
+    theme_minimal()
+    
+ggplot(mfx_rep, aes(x = draw, fill = factor(PoliticalPrime))) +
+    stat_halfeye(slab_alpha = .5) +
+    labs(x = "Marginal Effect of a blue shirt on perception of agreement",
+         y = "Posterior density") +
+    scale_fill_manual(
+      "Political Prime", values=c("#404040", "#ff0803"), labels=c("Not primed", "Primed")
+    ) +
+    theme_minimal()
+```
+
+In terms of whether participants are perceive that they will agree with the discussion partner, we also do not find much of a difference between those who were primed versus not. Looking at Democratic participants, we see that those who were primed and those who were not primed are functionally equivalent in their perceptions of whether they would agree with their hypothetical discussion partner. Like Democratic participants, we cannot even see a difference between the median value of the posteriors on the marginal effect of the political prime on perceptions of agreement. This means that Republicans who were primed relative to those who were not perceive similar levels of agreement with their discussion partner.
+
+```{r}
+#| label: fig-h2-initiate
+#| fig-cap: The marginal effect of belief of initiating a conversation
+#| fig-subcap:
+#|   - Democrats
+#|   - Republicans
+mfx_dem <- slopes(mod_h2_initiate_dem,
+    variables = "BlueShirt",
+    newdata = datagrid(PoliticalPrime = 0:1)) |>
+    posterior_draws()
+mfx_rep <- slopes(mod_h2_initiate_rep,
+    variables = "BlueShirt",
+    newdata = datagrid(PoliticalPrime = 0:1)) |>
+    posterior_draws()
+
+ggplot(mfx_dem, aes(x = draw, fill = factor(PoliticalPrime))) +
+    stat_halfeye(slab_alpha = .5) +
+    labs(x = "Marginal Effect of a blue shirt on initiating a conversation",
+         y = "Posterior density",
+         fill = "PoliticalPrime") +
+    scale_fill_manual(
+      "Political Prime", values=c("#404040", "#00AEF3"), labels=c("Not primed", "Primed")
+    ) +
+    theme_minimal()
+    
+ggplot(mfx_rep, aes(x = draw, fill = factor(PoliticalPrime))) +
+    stat_halfeye(slab_alpha = .5) +
+    labs(x = "Marginal Effect of a blue shirt on initiating a conversation",
+         y = "Posterior density") +
+    scale_fill_manual(
+      "Political Prime", values=c("#404040", "#ff0803"), labels=c("Not primed", "Primed")
+    ) +
+    theme_minimal()
+```
+
+First turning to Democratic participants, we see that Democrats who saw a potential discussion partner with a blue shirt were slightly more likely to report initiating a conversation when primed relative to those who were not primed. These differences are quite small, however. We see an even smaller difference between the prime's conditional effect of the treatment upon willingness to initiate a conversation among Republican participants. That is, among Republican participants, the those who were primed reported the same willingness to initiate a conversation with a discussion partner regardless of whether they wre primed or not primed with politics.
 
 ## Study 2
 
