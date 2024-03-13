@@ -81,7 +81,11 @@ mod_h2_initiate_rep <- brm(
 )
 # Save model results
 save(
-    df_h1, df, mod_h1_main, mod_h1_conflict, mod_h2_dem, mod_h2_rep,
+    df_h1, df,
+    mod_h1_main, mod_h1_conflict, mod_h1_conflict_b,
+    mod_h2_dem, mod_h2_rep,
+    mod_h2_agree_dem, mod_h2_agree_rep,
+    mod_h2_initiate_dem, mod_h2_initiate_rep,
     file="./chapter_3/data/models/study-1-models.RData"
 )
 # Disconnect from the database

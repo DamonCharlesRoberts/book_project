@@ -172,7 +172,7 @@ modelsummary(
     , "of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -213,7 +213,7 @@ modelsummary(
     , "of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -251,7 +251,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -285,7 +285,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -322,7 +322,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -426,7 +426,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -472,7 +472,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -512,7 +512,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -551,7 +551,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -654,7 +654,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -692,6 +692,7 @@ datasummary_skim(
   df_over_dispersed
   , notes = "Data source: Prolific sample."
   , histogram = FALSE
+  , output = "markdown"
 )
 ```
 
@@ -743,7 +744,7 @@ modelsummary(
     , " of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -782,6 +783,7 @@ datasummary_skim(
   df_study_2_subset
   , notes = "Data source: CAPD Yard Signs."
   , histogram = FALSE
+  , output = "markdown"
 )
 
 ```
@@ -816,7 +818,7 @@ modelsummary(
     , "of the draws from the posterior distribution."
   )
   , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
