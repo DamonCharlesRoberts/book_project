@@ -5,21 +5,25 @@
 # **        Python script for the cleaning of the study 1 data.
 
 # Load modules
-import duckdb as db
-import polars as pl
+box::use(
+    DBI[dbConnect, dbExecute],
+    duckdb[duckdb]
+)
 
 # Connect to db
-con = db.connect("./chapter_3/data/clean/study_1.db")
+con <- dbConnect(duckdb(), dbdir="./chapter_3/data/clean/study_1.db")
 
 # Cleaning
-con.execute(
-    '''
+dbExecute(
+    con,
+    "
     CREATE OR REPLACE VIEW
         CleanTemp
     AS
     SELECT
         /* CaseID */
         caseid,
+        teamweight,
         /* 
             PoliticalPrime
                 CUB3D01 - Version 1, 2, 3, 4
@@ -50,57 +54,57 @@ con.execute(
         /*
             ConversationAgree
             CUB3D02 - I am willing to have a conversation with this person
-            -2 - Strongly disagree: 5
-            -1 - Somewhat disagree: 4
-            0 - Neither agree nor disagree: 3
-            1 - Somewhat agree: 2
-            2 - Strongly agree: 1
+            1 - Strongly disagree: 5
+            2 - Somewhat disagree: 4
+            3 - Neither agree nor disagree: 3
+            4 - Somewhat agree: 2
+            5 - Strongly agree: 1
         */
         (
             CASE
-                WHEN CUB3D02 == 5 THEN -2
-                WHEN CUB3D02 == 4 THEN -1
-                WHEN CUB3D02 == 3 THEN 0
-                WHEN CUB3D02 == 2 THEN 1
-                WHEN CUB3D02 == 1 THEN 2
+                WHEN CUB3D02 == 5 THEN 1
+                WHEN CUB3D02 == 4 THEN 2
+                WHEN CUB3D02 == 3 THEN 3
+                WHEN CUB3D02 == 2 THEN 4
+                WHEN CUB3D02 == 1 THEN 5
                 ELSE NULL
             END
         ) AS ConversationAgree,
         /*
             ViewsAgree
             CUB3D03 - I think I would agree about most things with this person
-            -2 - Strongly disagree: 5
-            -1 - Somewhat disagree: 4
-            0 - Neither agree nor disagree: 3
-            1 - Somewhat agree: 2
-            2 - Strongly agree: 1
+            1 - Strongly disagree: 5
+            2 - Somewhat disagree: 4
+            3 - Neither agree nor disagree: 3
+            4 - Somewhat agree: 2
+            5 - Strongly agree: 1
         */
         (
             CASE
-                WHEN CUB3D03 == 5 THEN -2
-                WHEN CUB3D03 == 4 THEN -1
-                WHEN CUB3D03 == 3 THEN 0
-                WHEN CUB3D03 == 2 THEN 1
-                WHEN CUB3D03 == 1 THEN 2
+                WHEN CUB3D03 == 5 THEN 1
+                WHEN CUB3D03 == 4 THEN 2
+                WHEN CUB3D03 == 3 THEN 3
+                WHEN CUB3D03 == 2 THEN 4
+                WHEN CUB3D03 == 1 THEN 5
                 ELSE NULL
             END
         ) AS ViewsAgree,
         /*
             InitiateAgree
             CUB3D04 - I can see myself initiating the conversation with this person
-            -2 - Strongly disagree: 5
-            -1 - Somewhat disagree: 4
-            0 - Neither agree nor disagree: 3
-            1 - Somewhat agree: 2
-            2 - Strongly agree: 1
+            1 - Strongly disagree: 5
+            2 - Somewhat disagree: 4
+            3 - Neither agree nor disagree: 3
+            4 - Somewhat agree: 2
+            5 - Strongly agree: 1
         */
         (
             CASE
-                WHEN CUB3D04 == 5 THEN -2
-                WHEN CUB3D04 == 4 THEN -1
-                WHEN CUB3D04 == 3 THEN 0
-                WHEN CUB3D04 == 2 THEN 1
-                WHEN CUB3D04 == 1 THEN 2
+                WHEN CUB3D04 == 5 THEN 1
+                WHEN CUB3D04 == 4 THEN 2
+                WHEN CUB3D04 == 3 THEN 3
+                WHEN CUB3D04 == 2 THEN 4
+                WHEN CUB3D04 == 1 THEN 5
                 ELSE NULL
             END
         ) AS InitiateAgree,
@@ -254,11 +258,12 @@ con.execute(
         ) AS Attention,
     FROM
         OriginalModule;
-    '''
+    "
 )
 
-con.execute(
-    '''
+dbExecute(
+    con,
+    "
     CREATE OR REPLACE TABLE
         Clean
     AS
@@ -282,8 +287,8 @@ con.execute(
             ) AS CorrectColor,
         FROM
             CleanTemp AS t;
-    '''
+    "
 )
 
 # Close the connection
-con.close()
+dbDisconnect(con, shutdown=TRUE)

@@ -1,0 +1,222 @@
+## Chapter 3 Appendix {#sec-3-a}
+
+```{r}
+#| label: appendix-3-setup
+
+# Load functions
+box::use(
+  DBI[dbConnect, dbGetQuery],
+  modelsummary[modelsummary]
+)
+options(modelsummary_format_numeric_latex = "plain")
+# Load the models
+load("../data/models/study-1-models.RData")
+```
+
+### Measures
+
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Measure                     | Question                                                                                                                                                                                                                                                                                                  | Coded as                                                                                                                                                           |
++=============================+:=========================================================================================================================================================================================================================================================================================================:+:==================================================================================================================================================================:+
+| Age                         | Confirm your age                                                                                                                                                                                                                                                                                          | Text entry                                                                                                                                                         |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Gender                      | What is your gender identity?                                                                                                                                                                                                                                                                             | Non-binary, Female, Male, Prefer not to choose, Other                                                                                                              |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Race                        | Which ethnic or racial category best describes you?                                                                                                                                                                                                                                                       | White, non-Hispanic; Black, non-Hispanic; Hispanic; Asian or Native Hawaiian/other Pacific Islander; Native American/Alaska Native or other race; Multiple races   |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Attention                   | How often do you pay attention to what is going on in government and politics?                                                                                                                                                                                                                            | Always; Most of the time; About half the time; Some of the time; Never                                                                                             |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Dislike Argue               | Do you agree or disagree with the following statement: I dislike arguing about politics.                                                                                                                                                                                                                  | 1 = Strongly disagree, 2 = Somewhat disagree, 3 = Neither agree nor disagree, 4 = Somewhat agree, 5 = Strongly agree                                               |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Enjoy Challenge             | Do you agree or disagree with the following statement: I enjoy challenging the opinions of others.                                                                                                                                                                                                        | 1 = Strongly disagree, 2 = Somewhat disagree, 3 = Neither agree nor disagree, 4 = Somewhat agree, 5 = Strongly agree                                               |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Party ID                    | Generally speaking, do you usually think of yourself as a Democrat, a Republican, an Independent, or what?; Would you say that you are a strong [Republican/Democrat] or not a very strong [Republican/Democrat]?; Do you think of yourself as closer to the Republican party or to the Democratic party? | Republican, Democrat, Independent, Other; Strong, Not very strong; Closer to the Republican party, Neither, Closer to Democratic                                   |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Attn. Check                 | What was the color of the shirt the avatar was wearing?                                                                                                                                                                                                                                                   | I am very certain it was red, I am fairly certain it was red, I am not sure, I am fairly certain it was blue, I am very certain it was blue                        |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Political Prime             | Viewed political attitudes questionnaire before treatment.                                                                                                                                                                                                                                                | 0 = Did not respond to political attitude questionnaire first, 1 = Did respond to questionnaire first                                                              |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Blue Shirt Treatment        | Viewed Blue Shirt or Red shirt                                                                                                                                                                                                                                                                            | 0 = Assigned to red shirt treatment, 1 = Assigned to blue shirt treatment                                                                                          |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Conversation Agree          | Do you agree or disagree with the following statement: I am willing to have a conversation with this person.                                                                                                                                                                                              | 1 = Strongly disagree, 2 = Somewhat disagree, 3 = Neither agree nor disagree, 4 = Somewhat agree, 5 = Strongly agree                                               |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Views Agree                 | Do you agree or disagree with the following statement: I think I would agree about most things with this person.                                                                                                                                                                                          | 1 = Strongly disagree, 2 = Somewhat disagree, 3 = Neither agree nor disagree, 4 = Somewhat agree, 5 = Strongly agree                                               |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Initiate Agree              | Do you agree or disagree with the following statement: I can see myself initiating the conversation with this person.                                                                                                                                                                                     | 1 = Strongly disagree, 2 = Somewhat disagree, 3 = Neither agree nor disagree, 4 = Somewhat agree, 5 = Strongly agree                                               |
++-----------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: Study 1 Measures {#tbl-study-1-measures}
+
+{{< pagebreak >}}
+
+### $H_1$
+
+```{r}
+#| label: tbl-ch3-hypothesis-1-main
+#| tbl-cap: Full results for reported models in $H_1$
+# Redefine names
+list_fitted_split_1 <- list(
+  "Political Prime" = mod_h1_main
+  , "Dislike Arguing" = mod_h1_conflict
+  , "Enjoy challenging" = mod_h1_conflict_b
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1
+  , coef_map = c(
+    "b_PoliticalPrime" = "Political Prime"
+    , "b_DislikeArgue" = "Dislike Argue"
+    , "b_EnjoyChallenge" = "Enjoy Challenge"
+    , "b_Intercept" = "Intercept"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: CES"
+    , "Coefficients reflect the effect in terms of logged-odds."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+### $H_3$
+
+```{r}
+#| label: tbl-ch3-hypothesis-2-main
+#| tbl-cap: Full results for reported models in $H_1$
+# Redefine names
+list_fitted_split_1 <- list(
+  "Republicans" = mod_h2_dem,
+  "Democrats" = mod_h2_rep
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1
+  , coef_map = c(
+    "b_PoliticalPrime" = "Political Prime"
+    , "b_BlueShirt" = "Blue Shirt"
+    , "b_PoliticalPrime:BlueShirt" = "Political Prime $\\times$ Blue Shirt"
+    , "b_White" = "White"
+    , "b_Education" = "Education"
+    , "b_Attention" = "Attention"
+    , "b_DislikeArgue" = "Dislike Argue"
+    , "b_EnjoyChallenge" = "Enjoy Challenge"
+    , "b_Intercept" = "Intercept"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: CES"
+    , "Coefficients reflect the effect in terms of logged-odds."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+```{r}
+#| label: tbl-ch3-hypothesis-2-agree
+#| tbl-cap: Full results for rep#| orted models in $H_2$ where the outcome is perception of sharing same views
+# Redefine names
+list_fitted_split_1 <- list(
+  "Republicans" = mod_h2_agree_dem,
+  "Democrats" = mod_h2_agree_rep
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1
+  , coef_map = c(
+    "b_PoliticalPrime" = "Political Prime"
+    , "b_BlueShirt" = "Blue Shirt"
+    , "b_PoliticalPrime:BlueShirt" = "Political Prime $\\times$ Blue Shirt"
+    , "b_White" = "White"
+    , "b_Education" = "Education"
+    , "b_Attention" = "Attention"
+    , "b_DislikeArgue" = "Dislike Argue"
+    , "b_EnjoyChallenge" = "Enjoy Challenge"
+    , "b_Intercept" = "Intercept"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: CES"
+    , "Coefficients reflect the effect in terms of logged-odds."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```
+
+```{r}
+#| label: tbl-ch3-hypothesis-2-initiate
+#| tbl-cap: Full results for reported models in $H_2$ where the outcome is initiating a conversation
+# Redefine names
+list_fitted_split_1 <- list(
+  "Republicans" = mod_h2_initiate_dem,
+  "Democrats" = mod_h2_initiate_rep
+)
+
+# Change goodness of fit stuff
+gm <- list(
+  list("raw" = "nobs", "clean" = "Num.Obs.", "fmt" = 1)
+  , list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 2)
+  , list("raw" = "waic", "clean" = "WAIC", "fmt" = 2)
+)
+# Make table
+modelsummary(
+  list_fitted_split_1
+  , coef_map = c(
+    "b_PoliticalPrime" = "Political Prime"
+    , "b_BlueShirt" = "Blue Shirt"
+    , "b_PoliticalPrime:BlueShirt" = "Political Prime $\\times$ Blue Shirt"
+    , "b_White" = "White"
+    , "b_Education" = "Education"
+    , "b_Attention" = "Attention"
+    , "b_DislikeArgue" = "Dislike Argue"
+    , "b_EnjoyChallenge" = "Enjoy Challenge"
+    , "b_Intercept" = "Intercept"
+    )
+  , statistic = "conf.int"
+  , conf_level = 0.9
+  , gof_map = gm 
+  , notes = c(
+    "Data source: CES"
+    , "Coefficients reflect the effect in terms of logged-odds."
+    , "Numbers inside brackets reflect the 5th and 95th percentile"
+    , "of the draws from the posterior distribution."
+  )
+  , escape = FALSE
+  , output = "latex"
+)
+```

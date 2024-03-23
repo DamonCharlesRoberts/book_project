@@ -181,7 +181,7 @@ datasummary_skim(
       "Data source: Prolific."
       , "Sample characteristics."
     )
-    , output = "latex"
+    , output = "markdown"
 )
 ```
 
@@ -218,8 +218,7 @@ datasummary_balance(
   ~trial_1_stimulus
   , data = df_movement_trial_1
   , notes = "Data source: Prolific sample."
-  , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -251,8 +250,7 @@ modelsummary::datasummary_balance(
   ~trial_2_stimulus
   , data = df_movement_trial_2
   , notes = "Data source: Prolific sample."
-  , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 
@@ -285,8 +283,7 @@ modelsummary::datasummary_balance(
   ~trial_3_stimulus
   , data = df_movement_trial_3
   , notes = "Data source: Prolific sample."
-  , escape = FALSE
-  , output = "latex"
+  , output = "markdown"
 )
 ```
 

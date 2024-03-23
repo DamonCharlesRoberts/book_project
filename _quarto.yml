@@ -18,15 +18,16 @@ book:
     - index.qmd
     - chapter_1/src/manuscript.qmd
     - chapter_2/src/manuscript.qmd
-    #- chapter_3/src/chapter_3.qmd
+    - chapter_3/src/chapter_3.qmd
     #- chapter_4/src/chapter_4.qmd
     #- chapter_5/src/conclusion.qmd
     - references.qmd
   appendices:
     - chapter_2/src/appendix.qmd
+    - chapter_3/src/appendix.qmd
   output-file: "dcr_book_project"
 
-bibliography: ["assets/theory-chapter.bib","assets/candidate_support_chapter_references.bib"]
+bibliography: ["assets/theory-chapter.bib","assets/candidate_support_chapter_references.bib","assets/deliberation-chapter-references.bib"]
 
 format:
   titlepage-pdf:
